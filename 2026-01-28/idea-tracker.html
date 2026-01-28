@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💡 Tracker de Ideias - Side Projects</title>
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --bg-card: #1c2128;
+            --accent: #7c3aed;
+            --accent-light: #8b5cf6;
+            --accent-glow: rgba(124, 58, 237, 0.3);
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+            --border: #30363d;
+            --success: #2ea043;
+            --warning: #d29922;
+            --danger: #f85149;
+            --star-active: #fbbf24;
+            --star-inactive: #4b5563;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--accent-light), #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .stat {
+            background: var(--bg-tertiary);
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-light);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: white;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            opacity: 0.9;
+        }
+
+        select {
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            cursor: pointer;
+            min-width: 150px;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .controls-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .controls-group label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .spacer {
+            flex: 1;
+        }
+
+        /* Ideas Grid */
+        .ideas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        /* Idea Card */
+        .idea-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .idea-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent);
+        }
+
+        .idea-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-light));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .idea-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .card-category {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--accent-glow);
+            color: var(--accent-light);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .card-score {
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: white;
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .card-ratings {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .rating-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .rating-label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .stars {
+            display: flex;
+            gap: 2px;
+        }
+
+        .star {
+            font-size: 1rem;
+            color: var(--star-inactive);
+        }
+
+        .star.active {
+            color: var(--star-active);
+        }
+
+        .card-status {
+            margin-bottom: 16px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-idea { background: #3b82f61a; color: #60a5fa; }
+        .status-researching { background: #8b5cf61a; color: #a78bfa; }
+        .status-validating { background: #f59e0b1a; color: #fbbf24; }
+        .status-building { background: #10b9811a; color: #34d399; }
+        .status-launched { background: #2ea0431a; color: #2ea043; }
+        .status-archived { background: #6b72801a; color: #9ca3af; }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .card-date {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+        }
+
+        .action-btn:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .action-btn.edit:hover { color: var(--accent-light); }
+        .action-btn.delete:hover { color: var(--danger); }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal h2 {
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .star-rating {
+            display: flex;
+            gap: 8px;
+        }
+
+        .star-rating-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--star-inactive);
+            transition: all 0.2s ease;
+            padding: 4px;
+        }
+
+        .star-rating-btn:hover,
+        .star-rating-btn.active {
+            color: var(--star-active);
+            transform: scale(1.1);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .controls-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .spacer {
+                display: none;
+            }
+
+            .ideas-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .stat {
+                width: 100%;
+                max-width: 200px;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .idea-card {
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>💡 Tracker de Ideias</h1>
+        <p>Captura e organiza as tuas ideias de side projects</p>
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-value" id="totalIdeas">0</div>
+                <div class="stat-label">Total de Ideias</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="activeIdeas">0</div>
+                <div class="stat-label">Em Progresso</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="topScore">-</div>
+                <div class="stat-label">Melhor Score</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="controls">
+            <button class="btn btn-primary" onclick="openModal()">
+                <span>➕</span> Nova Ideia
+            </button>
+            
+            <div class="spacer"></div>
+            
+            <div class="controls-group">
+                <label for="filterStatus">Filtrar:</label>
+                <select id="filterStatus" onchange="renderIdeas()">
+                    <option value="all">Todos os estados</option>
+                    <option value="idea">💭 Ideia</option>
+                    <option value="researching">🔍 A Pesquisar</option>
+                    <option value="validating">✅ A Validar</option>
+                    <option value="building">🔨 A Construir</option>
+                    <option value="launched">🚀 Lançado</option>
+                    <option value="archived">📦 Arquivado</option>
+                </select>
+            </div>
+            
+            <div class="controls-group">
+                <label for="sortBy">Ordenar:</label>
+                <select id="sortBy" onchange="renderIdeas()">
+                    <option value="score">⭐ Score</option>
+                    <option value="date-desc">📅 Mais recentes</option>
+                    <option value="date-asc">📅 Mais antigos</option>
+                    <option value="potential">💰 Potencial</option>
+                    <option value="effort">💪 Esforço</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="ideas-grid" id="ideasGrid"></div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
+        <div class="modal">
+            <h2 id="modalTitle">➕ Nova Ideia</h2>
+            <form id="ideaForm" onsubmit="saveIdea(event)">
+                <input type="hidden" id="ideaId">
+                
+                <div class="form-group">
+                    <label for="title">Título *</label>
+                    <input type="text" id="title" required placeholder="Nome da tua ideia...">
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Descrição</label>
+                    <textarea id="description" placeholder="Descreve a ideia em detalhe..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="category">Categoria</label>
+                    <select id="category">
+                        <option value="app">📱 App</option>
+                        <option value="saas">☁️ SaaS</option>
+                        <option value="service">🤝 Serviço</option>
+                        <option value="content">📝 Conteúdo</option>
+                        <option value="other">💡 Outro</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="status">Estado</label>
+                    <select id="status">
+                        <option value="idea">💭 Ideia</option>
+                        <option value="researching">🔍 A Pesquisar</option>
+                        <option value="validating">✅ A Validar</option>
+                        <option value="building">🔨 A Construir</option>
+                        <option value="launched">🚀 Lançado</option>
+                        <option value="archived">📦 Arquivado</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>💪 Esforço Necessário</label>
+                    <div class="star-rating" id="effortRating" data-value="3">
+                        <button type="button" class="star-rating-btn" data-value="1">⭐</button>
+                        <button type="button" class="star-rating-btn" data-value="2">⭐</button>
+                        <button type="button" class="star-rating-btn active" data-value="3">⭐</button>
+                        <button type="button" class="star-rating-btn" data-value="4">⭐</button>
+                        <button type="button" class="star-rating-btn" data-value="5">⭐</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>💰 Potencial de Receita</label>
+                    <div class="star-rating" id="potentialRating" data-value="3">
+                        <button type="button" class="star-rating-btn" data-value="1">⭐</button>
+                        <button type="button" class="star-rating-btn" data-value="2">⭐</button>
+                        <button type="button" class="star-rating-btn active" data-value="3">⭐</button>
+                        <button type="button" class="star-rating-btn" data-value="4">⭐</button>
+                        <button type="button" class="star-rating-btn" data-value="5">⭐</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>🎯 Match com Skills (PPC, Marketing, AI)</label>
+                    <div class="star-rating" id="skillsRating" data-value="3">
+                        <button type="button" class="star-rating-btn" data-value="1">⭐</button>
+                        <button type="button" class="star-rating-btn" data-value="2">⭐</button>
+                        <button type="button" class="star-rating-btn active" data-value="3">⭐</button>
+                        <button type="button" class="star-rating-btn" data-value="4">⭐</button>
+                        <button type="button" class="star-rating-btn" data-value="5">⭐</button>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">💾 Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Data Management
+        const STORAGE_KEY = 'side-project-ideas';
+        
+        function getIdeas() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            return data ? JSON.parse(data) : [];
+        }
+        
+        function saveIdeas(ideas) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(ideas));
+        }
+        
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+        
+        function calculateScore(idea) {
+            // Score = (potential × 2) + (skills_match × 1.5) - effort
+            return (idea.potential * 2) + (idea.skills * 1.5) - idea.effort;
+        }
+        
+        // Category Labels
+        const categoryLabels = {
+            'app': '📱 App',
+            'saas': '☁️ SaaS',
+            'service': '🤝 Serviço',
+            'content': '📝 Conteúdo',
+            'other': '💡 Outro'
+        };
+        
+        const statusLabels = {
+            'idea': '💭 Ideia',
+            'researching': '🔍 A Pesquisar',
+            'validating': '✅ A Validar',
+            'building': '🔨 A Construir',
+            'launched': '🚀 Lançado',
+            'archived': '📦 Arquivado'
+        };
+        
+        // Render Ideas
+        function renderIdeas() {
+            const grid = document.getElementById('ideasGrid');
+            let ideas = getIdeas();
+            
+            // Filter
+            const filterStatus = document.getElementById('filterStatus').value;
+            if (filterStatus !== 'all') {
+                ideas = ideas.filter(idea => idea.status === filterStatus);
+            }
+            
+            // Sort
+            const sortBy = document.getElementById('sortBy').value;
+            ideas.sort((a, b) => {
+                switch (sortBy) {
+                    case 'score':
+                        return calculateScore(b) - calculateScore(a);
+                    case 'date-desc':
+                        return new Date(b.createdAt) - new Date(a.createdAt);
+                    case 'date-asc':
+                        return new Date(a.createdAt) - new Date(b.createdAt);
+                    case 'potential':
+                        return b.potential - a.potential;
+                    case 'effort':
+                        return a.effort - b.effort;
+                    default:
+                        return 0;
+                }
+            });
+            
+            if (ideas.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <div class="empty-state-icon">💡</div>
+                        <h3>Nenhuma ideia encontrada</h3>
+                        <p>Clica em "Nova Ideia" para começar a capturar as tuas ideias de side projects!</p>
+                    </div>
+                `;
+            } else {
+                grid.innerHTML = ideas.map(idea => createIdeaCard(idea)).join('');
+            }
+            
+            updateStats();
+        }
+        
+        function createIdeaCard(idea) {
+            const score = calculateScore(idea).toFixed(1);
+            const createdDate = new Date(idea.createdAt).toLocaleDateString('pt-PT', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
+            });
+            
+            return `
+                <div class="idea-card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">${escapeHtml(idea.title)}</div>
+                            <span class="card-category">${categoryLabels[idea.category] || idea.category}</span>
+                        </div>
+                        <div class="card-score">${score}</div>
+                    </div>
+                    
+                    ${idea.description ? `<p class="card-description">${escapeHtml(idea.description)}</p>` : ''}
+                    
+                    <div class="card-ratings">
+                        <div class="rating-row">
+                            <span class="rating-label">💪 Esforço</span>
+                            <div class="stars">${renderStars(idea.effort)}</div>
+                        </div>
+                        <div class="rating-row">
+                            <span class="rating-label">💰 Potencial</span>
+                            <div class="stars">${renderStars(idea.potential)}</div>
+                        </div>
+                        <div class="rating-row">
+                            <span class="rating-label">🎯 Skills Match</span>
+                            <div class="stars">${renderStars(idea.skills)}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-status">
+                        <span class="status-badge status-${idea.status}">${statusLabels[idea.status] || idea.status}</span>
+                    </div>
+                    
+                    <div class="card-footer">
+                        <span class="card-date">📅 ${createdDate}</span>
+                        <div class="card-actions">
+                            <button class="action-btn edit" onclick="editIdea('${idea.id}')" title="Editar">✏️</button>
+                            <button class="action-btn delete" onclick="deleteIdea('${idea.id}')" title="Eliminar">🗑️</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function renderStars(count) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                stars += `<span class="star ${i <= count ? 'active' : ''}">★</span>`;
+            }
+            return stars;
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Stats
+        function updateStats() {
+            const ideas = getIdeas();
+            const activeStatuses = ['researching', 'validating', 'building'];
+            const activeIdeas = ideas.filter(i => activeStatuses.includes(i.status));
+            
+            document.getElementById('totalIdeas').textContent = ideas.length;
+            document.getElementById('activeIdeas').textContent = activeIdeas.length;
+            
+            if (ideas.length > 0) {
+                const topScore = Math.max(...ideas.map(i => calculateScore(i)));
+                document.getElementById('topScore').textContent = topScore.toFixed(1);
+            } else {
+                document.getElementById('topScore').textContent = '-';
+            }
+        }
+        
+        // Modal Management
+        function openModal(ideaId = null) {
+            const overlay = document.getElementById('modalOverlay');
+            const form = document.getElementById('ideaForm');
+            const title = document.getElementById('modalTitle');
+            
+            form.reset();
+            resetStarRatings();
+            
+            if (ideaId) {
+                const ideas = getIdeas();
+                const idea = ideas.find(i => i.id === ideaId);
+                if (idea) {
+                    title.textContent = '✏️ Editar Ideia';
+                    document.getElementById('ideaId').value = idea.id;
+                    document.getElementById('title').value = idea.title;
+                    document.getElementById('description').value = idea.description || '';
+                    document.getElementById('category').value = idea.category;
+                    document.getElementById('status').value = idea.status;
+                    setStarRating('effortRating', idea.effort);
+                    setStarRating('potentialRating', idea.potential);
+                    setStarRating('skillsRating', idea.skills);
+                }
+            } else {
+                title.textContent = '➕ Nova Ideia';
+                document.getElementById('ideaId').value = '';
+            }
+            
+            overlay.classList.add('active');
+        }
+        
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
+        
+        function closeModalOnOverlay(event) {
+            if (event.target.id === 'modalOverlay') {
+                closeModal();
+            }
+        }
+        
+        // Star Rating
+        function initStarRatings() {
+            document.querySelectorAll('.star-rating').forEach(container => {
+                container.querySelectorAll('.star-rating-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const value = parseInt(btn.dataset.value);
+                        setStarRating(container.id, value);
+                    });
+                });
+            });
+        }
+        
+        function setStarRating(containerId, value) {
+            const container = document.getElementById(containerId);
+            container.dataset.value = value;
+            container.querySelectorAll('.star-rating-btn').forEach(btn => {
+                const btnValue = parseInt(btn.dataset.value);
+                btn.classList.toggle('active', btnValue <= value);
+            });
+        }
+        
+        function resetStarRatings() {
+            setStarRating('effortRating', 3);
+            setStarRating('potentialRating', 3);
+            setStarRating('skillsRating', 3);
+        }
+        
+        // CRUD Operations
+        function saveIdea(event) {
+            event.preventDefault();
+            
+            const ideaId = document.getElementById('ideaId').value;
+            const idea = {
+                id: ideaId || generateId(),
+                title: document.getElementById('title').value.trim(),
+                description: document.getElementById('description').value.trim(),
+                category: document.getElementById('category').value,
+                status: document.getElementById('status').value,
+                effort: parseInt(document.getElementById('effortRating').dataset.value),
+                potential: parseInt(document.getElementById('potentialRating').dataset.value),
+                skills: parseInt(document.getElementById('skillsRating').dataset.value),
+                createdAt: ideaId ? undefined : new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+            
+            let ideas = getIdeas();
+            
+            if (ideaId) {
+                const index = ideas.findIndex(i => i.id === ideaId);
+                if (index !== -1) {
+                    idea.createdAt = ideas[index].createdAt;
+                    ideas[index] = idea;
+                }
+            } else {
+                ideas.push(idea);
+            }
+            
+            saveIdeas(ideas);
+            closeModal();
+            renderIdeas();
+        }
+        
+        function editIdea(ideaId) {
+            openModal(ideaId);
+        }
+        
+        function deleteIdea(ideaId) {
+            if (confirm('Tens a certeza que queres eliminar esta ideia?')) {
+                let ideas = getIdeas();
+                ideas = ideas.filter(i => i.id !== ideaId);
+                saveIdeas(ideas);
+                renderIdeas();
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initStarRatings();
+            renderIdeas();
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+            if (e.key === 'n' && e.ctrlKey) {
+                e.preventDefault();
+                openModal();
+            }
+        });
+    </script>
+</body>
+</html>
