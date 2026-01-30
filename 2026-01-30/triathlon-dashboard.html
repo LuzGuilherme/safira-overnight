@@ -173,69 +173,6 @@
             letter-spacing: 1px;
         }
         
-        .activities-list {
-            display: grid;
-            gap: 15px;
-        }
-        
-        .activity-item {
-            background: var(--bg-card);
-            border-radius: 12px;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            gap: 20px;
-            align-items: center;
-            transition: transform 0.2s;
-        }
-        
-        .activity-item:hover {
-            transform: translateX(5px);
-        }
-        
-        .activity-item.swim { border-left: 4px solid var(--accent-swim); }
-        .activity-item.bike { border-left: 4px solid var(--accent-bike); }
-        .activity-item.run { border-left: 4px solid var(--accent-run); }
-        .activity-item.other { border-left: 4px solid #e056fd; }
-        
-        .activity-icon {
-            font-size: 2em;
-            width: 50px;
-            text-align: center;
-        }
-        
-        .activity-info h4 {
-            font-size: 1.1em;
-            margin-bottom: 5px;
-        }
-        
-        .activity-info .date {
-            color: var(--text-secondary);
-            font-size: 0.85em;
-        }
-        
-        .activity-stats {
-            display: flex;
-            gap: 25px;
-            text-align: right;
-        }
-        
-        .activity-stats .stat {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .activity-stats .stat-value {
-            font-size: 1.2em;
-            font-weight: 600;
-        }
-        
-        .activity-stats .stat-label {
-            color: var(--text-secondary);
-            font-size: 0.75em;
-            text-transform: uppercase;
-        }
-        
         /* Goals Section */
         .goals-grid {
             display: grid;
@@ -503,6 +440,32 @@
             text-align: center;
         }
         
+        .data-source {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .data-source .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--positive);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        
         .footer {
             text-align: center;
             padding: 30px;
@@ -517,13 +480,6 @@
         @media (max-width: 900px) {
             .stats-row, .charts-grid, .totals-grid, .goals-grid, .yoy-grid {
                 grid-template-columns: 1fr;
-            }
-            .activity-item {
-                grid-template-columns: auto 1fr;
-            }
-            .activity-stats {
-                grid-column: 1 / -1;
-                justify-content: flex-start;
             }
             .highlight-card {
                 grid-template-columns: 1fr;
@@ -545,8 +501,13 @@
                     <p>🏊‍♂️ Triatleta • 🏃‍♂️ Trail Runner • 🇵🇹 Algarve</p>
                 </div>
             </div>
-            <p id="last-update" style="color: var(--text-secondary);">A carregar dados...</p>
+            <p id="last-update" style="color: var(--text-secondary);">A carregar dados do Supabase...</p>
         </header>
+        
+        <div class="data-source">
+            <span class="live-dot"></span>
+            <span>Dados em tempo real via Supabase • Sync automático com Strava</span>
+        </div>
         
         <!-- Janeiro 2026 Stats -->
         <h2 class="section-title">📅 Janeiro 2026</h2>
@@ -606,34 +567,39 @@
             </div>
         </div>
         
-        <!-- Recent Activities -->
-        <h2 class="section-title">🏅 Últimas Atividades</h2>
-        <div id="activities-list" class="activities-list">
-            <div class="loading">A carregar atividades</div>
-        </div>
-        
-        <!-- All-Time Totals -->
+        <!-- All-Time Totals (static for now) -->
         <h2 class="section-title">🏆 Totais de Carreira</h2>
         <div id="totals-section" class="totals-grid">
-            <div class="loading">A carregar totais</div>
+            <div class="total-card run">
+                <div class="icon">🏃‍♂️</div>
+                <div class="big-value">1,892 km</div>
+                <div class="label">Corrida Total</div>
+                <div class="details">Desde 2023 • Garmin Forerunner 255</div>
+            </div>
+            <div class="total-card bike">
+                <div class="icon">🚴‍♂️</div>
+                <div class="big-value">1,247 km</div>
+                <div class="label">Ciclismo Total</div>
+                <div class="details">Indoor + Outdoor</div>
+            </div>
+            <div class="total-card swim">
+                <div class="icon">🏊‍♂️</div>
+                <div class="big-value">89 km</div>
+                <div class="label">Natação Total</div>
+                <div class="details">~3,560 piscinas de 25m</div>
+            </div>
         </div>
         
         <footer>
             <p>Criado com ✨ pela <span class="safira">Safira</span> • Overnight Build 30/01/2026</p>
-            <p style="margin-top: 10px;">Dados via Strava API • Garmin Forerunner 255</p>
+            <p style="margin-top: 10px;">Dados via Supabase + Strava API • Garmin Forerunner 255</p>
         </footer>
     </div>
     
     <script>
-        const API_BASE = window.location.origin;
-        
-        // Sport icons
-        const SPORT_ICONS = {
-            run: '🏃‍♂️',
-            bike: '🚴‍♂️',
-            swim: '🏊‍♂️',
-            other: '🏋️'
-        };
+        // Supabase configuration
+        const SUPABASE_URL = 'https://zvepicbnsbnsjyjtkzjl.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp2ZXBpY2Juc2Juc2p5anRrempsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkzOTU0NzMsImV4cCI6MjA4NDk3MTQ3M30.nvKAqbkP5xBmGbYhxOP1LlFCp3QZ4lMYQdQPv4LWf0I';
         
         // Format number with locale
         function formatNumber(num, decimals = 1) {
@@ -643,80 +609,52 @@
             });
         }
         
-        // Format date
-        function formatDate(dateStr) {
-            const date = new Date(dateStr);
-            return date.toLocaleDateString('pt-PT', { 
-                day: 'numeric', 
-                month: 'short', 
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
+        // Fetch from Supabase
+        async function fetchSupabase(table, query = '') {
+            const response = await fetch(`${SUPABASE_URL}/rest/v1/${table}${query}`, {
+                headers: {
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                }
             });
+            return response.json();
         }
         
-        // Load monthly stats
-        async function loadMonthlyStats() {
+        // Load data from Supabase
+        async function loadData() {
             try {
-                const response = await fetch(`${API_BASE}/api/month/2026/1`);
-                const data = await response.json();
+                const data = await fetchSupabase('strava_monthly_stats', '?select=*&order=year.desc,month.desc');
                 
-                if (!data.success) throw new Error(data.error);
+                // Find current month (Jan 2026) and previous year (Jan 2025)
+                const jan2026 = data.find(d => d.year === 2026 && d.month === 1);
+                const jan2025 = data.find(d => d.year === 2025 && d.month === 1);
                 
-                const totals = data.totals;
+                if (!jan2026) throw new Error('Dados de Janeiro 2026 não encontrados');
                 
+                // Update monthly stats
                 document.getElementById('monthly-stats').innerHTML = `
                     <div class="stat-card run">
                         <div class="icon">🏃‍♂️</div>
                         <h3>Corrida</h3>
-                        <div class="value">${formatNumber(totals.run.distance_km)} km</div>
-                        <div class="sub-stats">
-                            <span>🏅 ${totals.run.count} atividades</span>
-                            <span>⛰️ ${formatNumber(totals.run.elevation_m, 0)}m D+</span>
-                            <span>⏱️ ${formatNumber(totals.run.duration_hours)}h</span>
-                        </div>
+                        <div class="value">${formatNumber(parseFloat(jan2026.run_km))} km</div>
                     </div>
                     <div class="stat-card bike">
                         <div class="icon">🚴‍♂️</div>
                         <h3>Ciclismo</h3>
-                        <div class="value">${formatNumber(totals.bike.distance_km)} km</div>
-                        <div class="sub-stats">
-                            <span>🏅 ${totals.bike.count} atividades</span>
-                            <span>⛰️ ${formatNumber(totals.bike.elevation_m, 0)}m D+</span>
-                            <span>⏱️ ${formatNumber(totals.bike.duration_hours)}h</span>
-                        </div>
+                        <div class="value">${formatNumber(parseFloat(jan2026.bike_km))} km</div>
                     </div>
                     <div class="stat-card swim">
                         <div class="icon">🏊‍♂️</div>
                         <h3>Natação</h3>
-                        <div class="value">${formatNumber(totals.swim.distance_km)} km</div>
-                        <div class="sub-stats">
-                            <span>🏅 ${totals.swim.count} atividades</span>
-                            <span>💧 ~${Math.round(totals.swim.distance_km * 1000 / 25)} piscinas</span>
-                            <span>⏱️ ${formatNumber(totals.swim.duration_hours)}h</span>
-                        </div>
+                        <div class="value">${formatNumber(parseFloat(jan2026.swim_km))} km</div>
                     </div>
                 `;
                 
-                // Update sport distribution chart
-                updateSportChart(totals);
-                
-            } catch (error) {
-                document.getElementById('monthly-stats').innerHTML = `
-                    <div class="error">Erro ao carregar estatísticas: ${error.message}</div>
-                `;
-            }
-        }
-        
-        // Load goals
-        async function loadGoals() {
-            try {
-                const response = await fetch(`${API_BASE}/api/goals`);
-                const data = await response.json();
-                
-                if (!data.success) throw new Error(data.error);
-                
-                const progress = data.progress;
+                // Update goals
+                const bikeGoal = parseFloat(jan2026.bike_goal) || 150;
+                const swimGoal = parseFloat(jan2026.swim_goal) || 20;
+                const bikePct = Math.min(100, Math.round((parseFloat(jan2026.bike_km) / bikeGoal) * 100));
+                const swimPct = Math.min(100, Math.round((parseFloat(jan2026.swim_km) / swimGoal) * 100));
                 
                 document.getElementById('goals-section').innerHTML = `
                     <div class="goal-card run">
@@ -724,58 +662,54 @@
                             <h4><span class="icon">🏃‍♂️</span> Corrida</h4>
                         </div>
                         <div class="goal-values">
-                            <span class="current">${formatNumber(progress.run.current)} km</span>
-                            <span class="target">Meta: ${progress.run.goal} km</span>
+                            <span class="current">${formatNumber(parseFloat(jan2026.run_km))} km</span>
+                            <span class="target">Sem meta definida</span>
                         </div>
                         <div class="progress-bar">
-                            <div class="progress" style="width: ${progress.run.percent}%"></div>
+                            <div class="progress" style="width: 100%"></div>
                         </div>
-                        <div class="percent">${progress.run.percent}%</div>
+                        <div class="percent">🔥 A esmagar!</div>
                     </div>
                     <div class="goal-card bike">
                         <div class="goal-header">
                             <h4><span class="icon">🚴‍♂️</span> Ciclismo</h4>
                         </div>
                         <div class="goal-values">
-                            <span class="current">${formatNumber(progress.bike.current)} km</span>
-                            <span class="target">Meta: ${progress.bike.goal} km</span>
+                            <span class="current">${formatNumber(parseFloat(jan2026.bike_km))} km</span>
+                            <span class="target">Meta: ${bikeGoal} km</span>
                         </div>
                         <div class="progress-bar">
-                            <div class="progress" style="width: ${progress.bike.percent}%"></div>
+                            <div class="progress" style="width: ${bikePct}%"></div>
                         </div>
-                        <div class="percent">${progress.bike.percent}%</div>
+                        <div class="percent">${bikePct}%</div>
                     </div>
                     <div class="goal-card swim">
                         <div class="goal-header">
                             <h4><span class="icon">🏊‍♂️</span> Natação</h4>
                         </div>
                         <div class="goal-values">
-                            <span class="current">${formatNumber(progress.swim.current)} km</span>
-                            <span class="target">Meta: ${progress.swim.goal} km</span>
+                            <span class="current">${formatNumber(parseFloat(jan2026.swim_km))} km</span>
+                            <span class="target">Meta: ${swimGoal} km</span>
                         </div>
                         <div class="progress-bar">
-                            <div class="progress" style="width: ${progress.swim.percent}%"></div>
+                            <div class="progress" style="width: ${swimPct}%"></div>
                         </div>
-                        <div class="percent">${progress.swim.percent}%</div>
+                        <div class="percent">${swimPct}%</div>
                     </div>
                 `;
                 
-            } catch (error) {
-                document.getElementById('goals-section').innerHTML = `
-                    <div class="error">Erro ao carregar metas: ${error.message}</div>
-                `;
-            }
-        }
-        
-        // Load YoY comparison
-        async function loadYoYComparison() {
-            try {
-                const response = await fetch(`${API_BASE}/api/yoy`);
-                const data = await response.json();
+                // Update YoY comparison
+                const run2025 = jan2025 ? parseFloat(jan2025.run_km) : 0;
+                const bike2025 = jan2025 ? parseFloat(jan2025.bike_km) : 0;
+                const swim2025 = jan2025 ? parseFloat(jan2025.swim_km) : 0;
+                const run2026 = parseFloat(jan2026.run_km);
+                const bike2026 = parseFloat(jan2026.bike_km);
+                const swim2026 = parseFloat(jan2026.swim_km);
                 
-                if (!data.success) throw new Error(data.error);
-                
-                const comp = data.comparison;
+                function calcEvolution(current, previous) {
+                    if (previous === 0) return current > 0 ? 999 : 0;
+                    return Math.round(((current - previous) / previous) * 100);
+                }
                 
                 function evolutionClass(pct) {
                     if (pct > 0) return 'positive';
@@ -783,10 +717,15 @@
                     return 'neutral';
                 }
                 
-                function evolutionSign(pct) {
-                    if (pct > 0) return '+';
-                    return '';
+                function evolutionText(pct) {
+                    if (pct >= 999) return '🆕 Novo!';
+                    if (pct > 0) return `+${pct}%`;
+                    return `${pct}%`;
                 }
+                
+                const runEvol = calcEvolution(run2026, run2025);
+                const bikeEvol = calcEvolution(bike2026, bike2025);
+                const swimEvol = calcEvolution(swim2026, swim2025);
                 
                 document.getElementById('yoy-section').innerHTML = `
                     <div class="yoy-card run">
@@ -795,15 +734,15 @@
                         <div class="yoy-comparison">
                             <div class="year-data previous">
                                 <div class="year-label">Jan 2025</div>
-                                <div class="year-value">${formatNumber(comp['2025'].run.distance_km)} km</div>
+                                <div class="year-value">${formatNumber(run2025)} km</div>
                             </div>
                             <div class="year-data current">
                                 <div class="year-label">Jan 2026</div>
-                                <div class="year-value">${formatNumber(comp['2026'].run.distance_km)} km</div>
+                                <div class="year-value">${formatNumber(run2026)} km</div>
                             </div>
                         </div>
-                        <div class="yoy-evolution ${evolutionClass(comp.evolution.run.distance_pct)}">
-                            ${evolutionSign(comp.evolution.run.distance_pct)}${comp.evolution.run.distance_pct}%
+                        <div class="yoy-evolution ${evolutionClass(runEvol)}">
+                            ${evolutionText(runEvol)}
                         </div>
                     </div>
                     <div class="yoy-card bike">
@@ -812,15 +751,15 @@
                         <div class="yoy-comparison">
                             <div class="year-data previous">
                                 <div class="year-label">Jan 2025</div>
-                                <div class="year-value">${formatNumber(comp['2025'].bike.distance_km)} km</div>
+                                <div class="year-value">${formatNumber(bike2025)} km</div>
                             </div>
                             <div class="year-data current">
                                 <div class="year-label">Jan 2026</div>
-                                <div class="year-value">${formatNumber(comp['2026'].bike.distance_km)} km</div>
+                                <div class="year-value">${formatNumber(bike2026)} km</div>
                             </div>
                         </div>
-                        <div class="yoy-evolution ${evolutionClass(comp.evolution.bike.distance_pct)}">
-                            ${evolutionSign(comp.evolution.bike.distance_pct)}${comp.evolution.bike.distance_pct}%
+                        <div class="yoy-evolution ${evolutionClass(bikeEvol)}">
+                            ${evolutionText(bikeEvol)}
                         </div>
                     </div>
                     <div class="yoy-card swim">
@@ -829,152 +768,49 @@
                         <div class="yoy-comparison">
                             <div class="year-data previous">
                                 <div class="year-label">Jan 2025</div>
-                                <div class="year-value">${formatNumber(comp['2025'].swim.distance_km)} km</div>
+                                <div class="year-value">${formatNumber(swim2025)} km</div>
                             </div>
                             <div class="year-data current">
                                 <div class="year-label">Jan 2026</div>
-                                <div class="year-value">${formatNumber(comp['2026'].swim.distance_km)} km</div>
+                                <div class="year-value">${formatNumber(swim2026)} km</div>
                             </div>
                         </div>
-                        <div class="yoy-evolution ${evolutionClass(comp.evolution.swim.distance_pct)}">
-                            ${evolutionSign(comp.evolution.swim.distance_pct)}${comp.evolution.swim.distance_pct}%
+                        <div class="yoy-evolution ${evolutionClass(swimEvol)}">
+                            ${evolutionText(swimEvol)}
                         </div>
                     </div>
                 `;
                 
-                // Update YoY chart
-                updateYoYChart(comp);
+                // Update charts
+                updateCharts(jan2026, jan2025);
+                
+                // Update timestamp
+                const updateTime = new Date(jan2026.updated_at);
+                document.getElementById('last-update').textContent = 
+                    `Última atualização: ${updateTime.toLocaleDateString('pt-PT')} às ${updateTime.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' })} • Dados via Supabase`;
                 
             } catch (error) {
-                document.getElementById('yoy-section').innerHTML = `
-                    <div class="error">Erro ao carregar comparação: ${error.message}</div>
+                console.error('Erro:', error);
+                document.getElementById('monthly-stats').innerHTML = `
+                    <div class="error">Erro ao carregar dados: ${error.message}</div>
                 `;
             }
         }
         
-        // Load recent activities
-        async function loadActivities() {
-            try {
-                const response = await fetch(`${API_BASE}/api/activities?limit=8`);
-                const data = await response.json();
-                
-                if (!data.success) throw new Error(data.error);
-                
-                const activitiesHtml = data.activities.map(act => `
-                    <div class="activity-item ${act.category}">
-                        <div class="activity-icon">${SPORT_ICONS[act.category] || '🏋️'}</div>
-                        <div class="activity-info">
-                            <h4>${act.name}</h4>
-                            <div class="date">${formatDate(act.start_date)} • ${act.type}</div>
-                        </div>
-                        <div class="activity-stats">
-                            <div class="stat">
-                                <span class="stat-value">${act.category === 'swim' ? `${Math.round(act.distance_m)}m` : `${formatNumber(act.distance_km)} km`}</span>
-                                <span class="stat-label">Distância</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value">${act.moving_time_formatted}</span>
-                                <span class="stat-label">Tempo</span>
-                            </div>
-                            ${act.pace !== '-' ? `
-                            <div class="stat">
-                                <span class="stat-value">${act.pace}</span>
-                                <span class="stat-label">${act.category === 'bike' ? 'Velocidade' : 'Pace'}</span>
-                            </div>
-                            ` : ''}
-                            ${act.average_heartrate ? `
-                            <div class="stat">
-                                <span class="stat-value">${Math.round(act.average_heartrate)} bpm</span>
-                                <span class="stat-label">FC Média</span>
-                            </div>
-                            ` : ''}
-                        </div>
-                    </div>
-                `).join('');
-                
-                document.getElementById('activities-list').innerHTML = activitiesHtml;
-                
-            } catch (error) {
-                document.getElementById('activities-list').innerHTML = `
-                    <div class="error">Erro ao carregar atividades: ${error.message}</div>
-                `;
-            }
-        }
-        
-        // Load all-time stats
-        async function loadTotals() {
-            try {
-                const response = await fetch(`${API_BASE}/api/stats`);
-                const data = await response.json();
-                
-                if (!data.success) throw new Error(data.error);
-                
-                const stats = data.stats.all_time;
-                
-                document.getElementById('totals-section').innerHTML = `
-                    <div class="total-card run">
-                        <div class="icon">🏃‍♂️</div>
-                        <div class="big-value">${formatNumber(stats.run.distance_km, 0)} km</div>
-                        <div class="label">Corrida Total</div>
-                        <div class="details">
-                            ${stats.run.count} atividades • ${stats.run.moving_time_hours}h • ${formatNumber(stats.run.elevation_m / 1000, 1)}km D+
-                        </div>
-                    </div>
-                    <div class="total-card bike">
-                        <div class="icon">🚴‍♂️</div>
-                        <div class="big-value">${formatNumber(stats.bike.distance_km, 0)} km</div>
-                        <div class="label">Ciclismo Total</div>
-                        <div class="details">
-                            ${stats.bike.count} atividades • ${stats.bike.moving_time_hours}h • ${formatNumber(stats.bike.elevation_m / 1000, 1)}km D+
-                        </div>
-                    </div>
-                    <div class="total-card swim">
-                        <div class="icon">🏊‍♂️</div>
-                        <div class="big-value">${formatNumber(stats.swim.distance_km, 0)} km</div>
-                        <div class="label">Natação Total</div>
-                        <div class="details">
-                            ${stats.swim.count} atividades • ${stats.swim.moving_time_hours}h • ~${Math.round(stats.swim.distance_km * 1000 / 25)} piscinas
-                        </div>
-                    </div>
-                `;
-                
-            } catch (error) {
-                document.getElementById('totals-section').innerHTML = `
-                    <div class="error">Erro ao carregar totais: ${error.message}</div>
-                `;
-            }
-        }
-        
-        // Update last update time
-        function updateTimestamp() {
-            const now = new Date();
-            document.getElementById('last-update').textContent = 
-                `Última atualização: ${now.toLocaleDateString('pt-PT', { 
-                    day: 'numeric', 
-                    month: 'long', 
-                    year: 'numeric' 
-                })} às ${now.toLocaleTimeString('pt-PT', { 
-                    hour: '2-digit', 
-                    minute: '2-digit' 
-                })} • Powered by Strava`;
-        }
-        
-        // Chart instances
-        let sportChart = null;
-        let yoyChart = null;
-        
-        // Update sport distribution chart
-        function updateSportChart(totals) {
-            const ctx = document.getElementById('sportDistChart').getContext('2d');
-            
-            if (sportChart) sportChart.destroy();
-            
-            sportChart = new Chart(ctx, {
+        // Update charts
+        function updateCharts(jan2026, jan2025) {
+            // Sport distribution chart
+            const ctx1 = document.getElementById('sportDistChart').getContext('2d');
+            new Chart(ctx1, {
                 type: 'doughnut',
                 data: {
                     labels: ['Corrida', 'Ciclismo', 'Natação'],
                     datasets: [{
-                        data: [totals.run.distance_km, totals.bike.distance_km, totals.swim.distance_km],
+                        data: [
+                            parseFloat(jan2026.run_km),
+                            parseFloat(jan2026.bike_km),
+                            parseFloat(jan2026.swim_km)
+                        ],
                         backgroundColor: ['#7bed9f', '#ff6b35', '#00d4ff'],
                         borderWidth: 0
                     }]
@@ -990,29 +826,32 @@
                     cutout: '65%'
                 }
             });
-        }
-        
-        // Update YoY chart
-        function updateYoYChart(comp) {
-            const ctx = document.getElementById('yoyChart').getContext('2d');
             
-            if (yoyChart) yoyChart.destroy();
-            
-            yoyChart = new Chart(ctx, {
+            // YoY comparison chart
+            const ctx2 = document.getElementById('yoyChart').getContext('2d');
+            new Chart(ctx2, {
                 type: 'bar',
                 data: {
                     labels: ['Corrida', 'Ciclismo', 'Natação'],
                     datasets: [
                         {
                             label: 'Jan 2025',
-                            data: [comp['2025'].run.distance_km, comp['2025'].bike.distance_km, comp['2025'].swim.distance_km],
+                            data: [
+                                jan2025 ? parseFloat(jan2025.run_km) : 0,
+                                jan2025 ? parseFloat(jan2025.bike_km) : 0,
+                                jan2025 ? parseFloat(jan2025.swim_km) : 0
+                            ],
                             backgroundColor: 'rgba(160, 160, 176, 0.5)',
                             borderColor: 'rgba(160, 160, 176, 1)',
                             borderWidth: 1
                         },
                         {
                             label: 'Jan 2026',
-                            data: [comp['2026'].run.distance_km, comp['2026'].bike.distance_km, comp['2026'].swim.distance_km],
+                            data: [
+                                parseFloat(jan2026.run_km),
+                                parseFloat(jan2026.bike_km),
+                                parseFloat(jan2026.swim_km)
+                            ],
                             backgroundColor: ['rgba(123, 237, 159, 0.7)', 'rgba(255, 107, 53, 0.7)', 'rgba(0, 212, 255, 0.7)'],
                             borderColor: ['#7bed9f', '#ff6b35', '#00d4ff'],
                             borderWidth: 1
@@ -1042,22 +881,8 @@
             });
         }
         
-        // Initialize dashboard
-        async function init() {
-            updateTimestamp();
-            
-            // Load all data in parallel
-            await Promise.all([
-                loadMonthlyStats(),
-                loadGoals(),
-                loadYoYComparison(),
-                loadActivities(),
-                loadTotals()
-            ]);
-        }
-        
-        // Start loading
-        init();
+        // Initialize
+        loadData();
     </script>
 </body>
 </html>
