@@ -332,46 +332,44 @@
             border-radius: 16px;
             padding: 20px;
             margin-bottom: 25px;
-            max-width: 200px;
         }
         
         .heatmap-container h3 {
             color: var(--text-secondary);
-            font-size: 0.85em;
+            font-size: 0.9em;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
         
         .heatmap-header {
             display: grid;
-            grid-template-columns: repeat(7, 15px);
-            gap: 3px;
-            margin-bottom: 6px;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-bottom: 8px;
             text-align: center;
-            font-size: 0.65em;
+            font-size: 0.75em;
             color: var(--text-muted);
         }
         
         .heatmap-grid {
             display: grid;
-            grid-template-columns: repeat(7, 15px);
-            gap: 3px;
-            justify-content: flex-start;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
         }
         
         .heatmap-cell {
-            width: 15px;
-            height: 15px;
-            border-radius: 3px;
+            aspect-ratio: 1;
+            border-radius: 4px;
             background: var(--heatmap-0);
             position: relative;
             cursor: pointer;
             transition: transform 0.2s;
+            min-width: 20px;
         }
         
         .heatmap-cell:hover {
-            transform: scale(1.3);
+            transform: scale(1.2);
             z-index: 10;
         }
         
@@ -566,47 +564,27 @@
         }
         
         .pr-badges {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         
         .pr-badge {
-            background: var(--bg-card-hover);
-            border-left: 3px solid #ffd700;
-            color: var(--text-primary);
-            padding: 10px 12px;
-            border-radius: 6px;
+            background: linear-gradient(135deg, #ffd700, #ffaa00);
+            color: #000;
+            padding: 8px 14px;
+            border-radius: 20px;
             font-size: 0.85em;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 8px;
-        }
-        
-        .pr-badge .icon {
-            color: #ffd700;
-        }
-        
-        .pr-badge .name {
-            flex: 1;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            gap: 6px;
         }
         
         .pr-badge .date {
-            color: var(--text-muted);
-            font-size: 0.8em;
-            white-space: nowrap;
-        }
-        
-        .pr-badge .count {
-            background: rgba(255, 215, 0, 0.2);
-            color: #ffd700;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.75em;
-            font-weight: 600;
+            font-weight: 400;
+            opacity: 0.7;
+            font-size: 0.85em;
         }
         
         .no-prs {
@@ -1590,30 +1568,26 @@
             
             if (monthPRs.length === 0) {
                 document.getElementById('prs-section').innerHTML = `
-                    <h3>🏆 PRs do Mês</h3>
+                    <h3>Personal Records</h3>
                     <p class="no-prs">Nenhum PR batido este mês... ainda! 💪</p>
                 `;
                 return;
             }
             
-            const prBadges = monthPRs.slice(0, 6).map(a => {
+            const prBadges = monthPRs.map(a => {
                 const date = new Date(a.start_date_local);
                 const dateStr = date.toLocaleDateString('pt-PT', { day: 'numeric', month: 'short' });
                 const prCount = a.pr_count || a.achievement_count;
-                const shortName = a.name.length > 30 ? a.name.substring(0, 30) + '...' : a.name;
                 return `
                     <div class="pr-badge">
-                        <span class="icon">🏆</span>
-                        <span class="name">${shortName}</span>
-                        <span class="date">${dateStr}</span>
-                        ${prCount > 1 ? `<span class="count">×${prCount}</span>` : ''}
+                        🏆 ${a.name} <span class="date">(${dateStr})</span>
+                        ${prCount > 1 ? `<span>×${prCount}</span>` : ''}
                     </div>
                 `;
             }).join('');
             
-            const moreCount = monthPRs.length > 6 ? ` <span style="color: var(--text-muted); font-size: 0.8em;">(+${monthPRs.length - 6} mais)</span>` : '';
             document.getElementById('prs-section').innerHTML = `
-                <h3>🏆 PRs do Mês${moreCount}</h3>
+                <h3>Personal Records</h3>
                 <div class="pr-badges">${prBadges}</div>
             `;
         }
