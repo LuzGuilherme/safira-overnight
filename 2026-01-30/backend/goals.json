@@ -1,0 +1,17 @@
+{
+  "monthly": {
+    "run_km": 200,
+    "bike_km": 150,
+    "swim_km": 20
+  },
+  "yearly": {
+    "run_km": 2400,
+    "bike_km": 3000,
+    "swim_km": 300
+  },
+  "description": {
+    "run_km": "Corrida mensal",
+    "bike_km": "Ciclismo mensal",
+    "swim_km": "Natação mensal"
+  }
+}
