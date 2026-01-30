@@ -1,5 +1,5 @@
 {
-  "exported_at": "2026-01-30T21:35:27.511022",
+  "exported_at": "2026-01-30T21:37:38.848366",
   "stats": {
     "total_transactions": 545,
     "first_date": "2025-01-02",
@@ -122,20 +122,20 @@
     "fitness": {
       "display_name": "🏋️ Fitness",
       "income": 0,
-      "expenses": 1874.64,
-      "count": 49
+      "expenses": 1525.21,
+      "count": 34
+    },
+    "transportes": {
+      "display_name": "🚗 Transportes",
+      "income": 12.4,
+      "expenses": 1501.07,
+      "count": 26
     },
     "casa": {
       "display_name": "🏠 Casa",
       "income": 0,
       "expenses": 1295.34,
       "count": 22
-    },
-    "transportes": {
-      "display_name": "🚗 Transportes",
-      "income": 12.4,
-      "expenses": 1151.6399999999999,
-      "count": 11
     },
     "trabalho": {
       "display_name": "💼 Trabalho",
@@ -195,8 +195,8 @@
         "fitness": {
           "display_name": "🏋️ Fitness",
           "income": 0,
-          "expenses": -454.19,
-          "count": 7
+          "expenses": -429.19,
+          "count": 6
         },
         "outros": {
           "display_name": "🎁 Outros",
@@ -237,8 +237,8 @@
         "transportes": {
           "display_name": "🚗 Transportes",
           "income": 0,
-          "expenses": -27.0,
-          "count": 1
+          "expenses": -52.0,
+          "count": 2
         }
       }
     },
@@ -329,8 +329,8 @@
         "fitness": {
           "display_name": "🏋️ Fitness",
           "income": 0,
-          "expenses": -145.0,
-          "count": 5
+          "expenses": -100.0,
+          "count": 3
         },
         "lazer": {
           "display_name": "🎮 Lazer",
@@ -367,6 +367,12 @@
           "income": 300.0,
           "expenses": -898.89,
           "count": 7
+        },
+        "transportes": {
+          "display_name": "🚗 Transportes",
+          "income": 0,
+          "expenses": -45.0,
+          "count": 2
         }
       }
     },
@@ -390,8 +396,8 @@
         "fitness": {
           "display_name": "🏋️ Fitness",
           "income": 0,
-          "expenses": -117.4,
-          "count": 4
+          "expenses": -92.4,
+          "count": 3
         },
         "outros": {
           "display_name": "🎁 Outros",
@@ -426,8 +432,8 @@
         "transportes": {
           "display_name": "🚗 Transportes",
           "income": 0.4,
-          "expenses": -770.42,
-          "count": 2
+          "expenses": -795.42,
+          "count": 3
         }
       }
     },
@@ -451,8 +457,8 @@
         "fitness": {
           "display_name": "🏋️ Fitness",
           "income": 0,
-          "expenses": -129.7,
-          "count": 6
+          "expenses": -34.7,
+          "count": 2
         },
         "outros": {
           "display_name": "🎁 Outros",
@@ -493,8 +499,8 @@
         "transportes": {
           "display_name": "🚗 Transportes",
           "income": 0,
-          "expenses": -46.47,
-          "count": 1
+          "expenses": -141.47,
+          "count": 5
         }
       }
     },
@@ -518,8 +524,8 @@
         "fitness": {
           "display_name": "🏋️ Fitness",
           "income": 0,
-          "expenses": -100.8,
-          "count": 3
+          "expenses": -85.8,
+          "count": 2
         },
         "outros": {
           "display_name": "🎁 Outros",
@@ -560,8 +566,8 @@
         "transportes": {
           "display_name": "🚗 Transportes",
           "income": 0,
-          "expenses": -44.2,
-          "count": 1
+          "expenses": -59.2,
+          "count": 2
         }
       }
     },
@@ -585,8 +591,8 @@
         "fitness": {
           "display_name": "🏋️ Fitness",
           "income": 0,
-          "expenses": -80.0,
-          "count": 4
+          "expenses": -30.0,
+          "count": 2
         },
         "lazer": {
           "display_name": "🎮 Lazer",
@@ -633,8 +639,8 @@
         "transportes": {
           "display_name": "🚗 Transportes",
           "income": 0,
-          "expenses": -42.6,
-          "count": 1
+          "expenses": -92.6,
+          "count": 3
         }
       }
     },
@@ -725,8 +731,8 @@
         "fitness": {
           "display_name": "🏋️ Fitness",
           "income": 0,
-          "expenses": -50.0,
-          "count": 2
+          "expenses": -25.0,
+          "count": 1
         },
         "outros": {
           "display_name": "🎁 Outros",
@@ -763,13 +769,19 @@
           "income": 418.97,
           "expenses": -874.44,
           "count": 6
+        },
+        "transportes": {
+          "display_name": "🚗 Transportes",
+          "income": 0,
+          "expenses": -25.0,
+          "count": 1
         }
       }
     },
     "2025-04": {
       "month": "2025-04",
       "total_income": 1385.0,
-      "total_expenses": -1460.3,
+      "total_expenses": -1460.3000000000002,
       "categories": {
         "alimentacao": {
           "display_name": "🍎 Alimentação",
@@ -782,12 +794,6 @@
           "income": 0,
           "expenses": -61.18,
           "count": 1
-        },
-        "fitness": {
-          "display_name": "🏋️ Fitness",
-          "income": 0,
-          "expenses": -39.43,
-          "count": 2
         },
         "outros": {
           "display_name": "🎁 Outros",
@@ -825,6 +831,12 @@
           "expenses": -663.0,
           "count": 5
         },
+        "transportes": {
+          "display_name": "🚗 Transportes",
+          "income": 0,
+          "expenses": -39.43,
+          "count": 2
+        },
         "vestuario": {
           "display_name": "👕 Vestuário",
           "income": 0,
@@ -853,8 +865,8 @@
         "fitness": {
           "display_name": "🏋️ Fitness",
           "income": 0,
-          "expenses": -55.0,
-          "count": 2
+          "expenses": -25.0,
+          "count": 1
         },
         "lazer": {
           "display_name": "🎮 Lazer",
@@ -895,8 +907,8 @@
         "transportes": {
           "display_name": "🚗 Transportes",
           "income": 12.0,
-          "expenses": -20.69,
-          "count": 2
+          "expenses": -50.69,
+          "count": 3
         }
       }
     },
@@ -1282,8 +1294,8 @@
       "date": "2026-01-18T00:00:00",
       "description": "COMPRA POSICAO 11907",
       "amount": -25.0,
-      "category": "fitness",
-      "category_display": "🏋️ Fitness",
+      "category": "transportes",
+      "category_display": "🚗 Transportes",
       "subcategory": null,
       "account": "CGD",
       "balance_after": 8650.86,
