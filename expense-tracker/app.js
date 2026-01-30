@@ -10,6 +10,7 @@ let categoriesChart = null;
 let currentPage = 1;
 const itemsPerPage = 20;
 let filteredTransactions = [];
+let selectedMonth = ''; // Empty = all months
 
 // Chart.js global config
 Chart.defaults.color = '#a0a0b0';
@@ -72,6 +73,7 @@ function refreshData() {
 }
 
 function renderDashboard() {
+    populateMonthFilter();
     renderStats();
     renderTrendsChart();
     renderCategoriesChart();
@@ -81,18 +83,116 @@ function renderDashboard() {
     updateLastUpdate();
 }
 
+function populateMonthFilter() {
+    const select = document.getElementById('month-filter');
+    const { trends } = dashboardData;
+    
+    // Clear existing options except first
+    select.innerHTML = '<option value="">📊 Visão Geral (Tudo)</option>';
+    
+    // Add months from trends (already sorted)
+    trends.slice().reverse().forEach(t => {
+        const option = document.createElement('option');
+        option.value = t.month;
+        option.textContent = formatMonthFull(t.month);
+        select.appendChild(option);
+    });
+}
+
+function filterByMonth() {
+    selectedMonth = document.getElementById('month-filter').value;
+    
+    // Update badge
+    const badge = document.getElementById('period-badge');
+    if (selectedMonth) {
+        badge.textContent = formatMonthFull(selectedMonth);
+        badge.style.background = 'var(--accent-blue-dim)';
+        badge.style.borderColor = 'var(--accent-blue)';
+        badge.style.color = 'var(--accent-blue)';
+    } else {
+        const { stats } = dashboardData;
+        const first = formatDateShort(stats.first_date);
+        const last = formatDateShort(stats.last_date);
+        badge.textContent = `${first} — ${last}`;
+        badge.style.background = '';
+        badge.style.borderColor = '';
+        badge.style.color = '';
+    }
+    
+    renderStats();
+    renderCategoriesChart();
+    renderCategoriesGrid();
+    filterTransactions();
+}
+
+function getFilteredData() {
+    if (!selectedMonth) {
+        return {
+            transactions: dashboardData.recent_transactions,
+            stats: dashboardData.stats,
+            categories: dashboardData.categories
+        };
+    }
+    
+    // Filter transactions by month
+    const transactions = dashboardData.recent_transactions.filter(tx => 
+        tx.date.startsWith(selectedMonth)
+    );
+    
+    // Calculate stats for this month
+    let totalIncome = 0;
+    let totalExpenses = 0;
+    const categoryStats = {};
+    
+    transactions.forEach(tx => {
+        if (tx.amount > 0) {
+            totalIncome += tx.amount;
+        } else {
+            totalExpenses += Math.abs(tx.amount);
+        }
+        
+        // Category aggregation
+        if (!categoryStats[tx.category]) {
+            categoryStats[tx.category] = {
+                display_name: tx.category_display,
+                income: 0,
+                expenses: 0,
+                count: 0
+            };
+        }
+        
+        if (tx.amount > 0) {
+            categoryStats[tx.category].income += tx.amount;
+        } else {
+            categoryStats[tx.category].expenses += Math.abs(tx.amount);
+        }
+        categoryStats[tx.category].count++;
+    });
+    
+    return {
+        transactions,
+        stats: {
+            total_income: totalIncome,
+            total_expenses: totalExpenses,
+            net_balance: totalIncome - totalExpenses,
+            total_transactions: transactions.length
+        },
+        categories: categoryStats
+    };
+}
+
 function renderStats() {
-    const { stats } = dashboardData;
+    const { stats } = getFilteredData();
     
     document.getElementById('total-income').textContent = formatCurrency(stats.total_income);
     document.getElementById('total-expenses').textContent = formatCurrency(stats.total_expenses);
     document.getElementById('net-balance').textContent = formatCurrency(stats.net_balance);
     document.getElementById('total-transactions').textContent = stats.total_transactions.toLocaleString('pt-PT');
     
-    // Update period badge
-    if (stats.first_date && stats.last_date) {
-        const first = formatDateShort(stats.first_date);
-        const last = formatDateShort(stats.last_date);
+    // Update period badge only if showing all data
+    if (!selectedMonth && dashboardData.stats.first_date && dashboardData.stats.last_date) {
+        const first = formatDateShort(dashboardData.stats.first_date);
+        const last = formatDateShort(dashboardData.stats.last_date);
         document.getElementById('period-badge').textContent = `${first} — ${last}`;
     }
     
@@ -191,7 +291,7 @@ function renderTrendsChart() {
 
 function renderCategoriesChart() {
     const ctx = document.getElementById('categories-chart').getContext('2d');
-    const { categories } = dashboardData;
+    const { categories } = getFilteredData();
     
     if (categoriesChart) {
         categoriesChart.destroy();
@@ -252,7 +352,7 @@ function renderCategoriesChart() {
 }
 
 function renderCategoriesGrid() {
-    const { categories } = dashboardData;
+    const { categories } = getFilteredData();
     const grid = document.getElementById('categories-grid');
     
     // Calculate max expense for bar scaling
@@ -299,8 +399,9 @@ function populateCategoryFilter() {
 function filterTransactions() {
     const categoryFilter = document.getElementById('category-filter').value;
     const typeFilter = document.getElementById('type-filter').value;
+    const { transactions } = getFilteredData();
     
-    filteredTransactions = dashboardData.recent_transactions.filter(tx => {
+    filteredTransactions = transactions.filter(tx => {
         if (categoryFilter && tx.category !== categoryFilter) return false;
         if (typeFilter === 'debit' && tx.amount >= 0) return false;
         if (typeFilter === 'credit' && tx.amount < 0) return false;
@@ -435,6 +536,15 @@ function formatMonth(monthStr) {
     return date.toLocaleDateString('pt-PT', {
         month: 'short',
         year: '2-digit'
+    });
+}
+
+function formatMonthFull(monthStr) {
+    const [year, month] = monthStr.split('-');
+    const date = new Date(year, parseInt(month) - 1);
+    return date.toLocaleDateString('pt-PT', {
+        month: 'long',
+        year: 'numeric'
     });
 }
 
