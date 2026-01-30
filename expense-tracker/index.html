@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💰 Expense Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <h1>💰 Expense Tracker</h1>
+                <span class="badge" id="period-badge">Carregando...</span>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-ghost" onclick="refreshData()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+                    </svg>
+                    Actualizar
+                </button>
+            </div>
+        </header>
+
+        <!-- Stats Cards -->
+        <section class="stats-grid">
+            <div class="stat-card income">
+                <div class="stat-icon">💵</div>
+                <div class="stat-content">
+                    <span class="stat-label">Receitas</span>
+                    <span class="stat-value" id="total-income">€0</span>
+                </div>
+            </div>
+            <div class="stat-card expenses">
+                <div class="stat-icon">💸</div>
+                <div class="stat-content">
+                    <span class="stat-label">Despesas</span>
+                    <span class="stat-value" id="total-expenses">€0</span>
+                </div>
+            </div>
+            <div class="stat-card balance">
+                <div class="stat-icon">📊</div>
+                <div class="stat-content">
+                    <span class="stat-label">Balanço</span>
+                    <span class="stat-value" id="net-balance">€0</span>
+                </div>
+            </div>
+            <div class="stat-card transactions">
+                <div class="stat-icon">📝</div>
+                <div class="stat-content">
+                    <span class="stat-label">Transações</span>
+                    <span class="stat-value" id="total-transactions">0</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts-section">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h2>📈 Tendências Mensais</h2>
+                </div>
+                <div class="chart-container">
+                    <canvas id="trends-chart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h2>🎯 Despesas por Categoria</h2>
+                </div>
+                <div class="chart-container chart-doughnut">
+                    <canvas id="categories-chart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Breakdown -->
+        <section class="categories-section">
+            <div class="section-header">
+                <h2>📋 Detalhes por Categoria</h2>
+            </div>
+            <div class="categories-grid" id="categories-grid">
+                <!-- Preenchido via JS -->
+            </div>
+        </section>
+
+        <!-- Recent Transactions -->
+        <section class="transactions-section">
+            <div class="section-header">
+                <h2>🕐 Transações Recentes</h2>
+                <div class="filters">
+                    <select id="category-filter" onchange="filterTransactions()">
+                        <option value="">Todas as categorias</option>
+                    </select>
+                    <select id="type-filter" onchange="filterTransactions()">
+                        <option value="">Todos os tipos</option>
+                        <option value="debit">Despesas</option>
+                        <option value="credit">Receitas</option>
+                    </select>
+                </div>
+            </div>
+            <div class="transactions-table-wrapper">
+                <table class="transactions-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Descrição</th>
+                            <th>Categoria</th>
+                            <th class="text-right">Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactions-body">
+                        <!-- Preenchido via JS -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination" id="pagination">
+                <!-- Preenchido via JS -->
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Expense Tracker v1.0 • Dados actualizados: <span id="last-update">-</span></p>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading">
+        <div class="spinner"></div>
+        <p>A carregar dados...</p>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" id="empty-state" style="display: none;">
+        <div class="empty-icon">📭</div>
+        <h2>Sem dados</h2>
+        <p>Importa um extrato bancário para começar.</p>
+        <code>python -m src.import_statement &lt;ficheiro.csv&gt;</code>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
