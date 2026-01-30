@@ -1,5 +1,5 @@
 {
-  "exported_at": "2026-01-30T21:37:38.848366",
+  "exported_at": "2026-01-30T21:43:14.987975",
   "stats": {
     "total_transactions": 545,
     "first_date": "2025-01-02",
@@ -107,17 +107,17 @@
       "expenses": 5099.72,
       "count": 139
     },
-    "outros": {
-      "display_name": "🎁 Outros",
-      "income": 118.0,
-      "expenses": 1962.02,
-      "count": 53
-    },
     "tecnologia": {
       "display_name": "📱 Tecnologia",
       "income": 0,
       "expenses": 1878.6499999999999,
       "count": 47
+    },
+    "outros": {
+      "display_name": "🎁 Outros",
+      "income": 118.0,
+      "expenses": 1850.65,
+      "count": 48
     },
     "fitness": {
       "display_name": "🏋️ Fitness",
@@ -154,6 +154,12 @@
       "income": 0,
       "expenses": 223.79,
       "count": 7
+    },
+    "animais": {
+      "display_name": "🐾 Animais",
+      "income": 0,
+      "expenses": 111.36999999999999,
+      "count": 5
     },
     "educacao": {
       "display_name": "📚 Educação",
@@ -448,6 +454,12 @@
           "expenses": -440.69,
           "count": 12
         },
+        "animais": {
+          "display_name": "🐾 Animais",
+          "income": 0,
+          "expenses": -42.38,
+          "count": 4
+        },
         "casa": {
           "display_name": "🏠 Casa",
           "income": 0,
@@ -463,8 +475,8 @@
         "outros": {
           "display_name": "🎁 Outros",
           "income": 0,
-          "expenses": -423.29,
-          "count": 10
+          "expenses": -380.91,
+          "count": 6
         },
         "salario": {
           "display_name": "💵 Salário",
@@ -515,6 +527,12 @@
           "expenses": -442.62,
           "count": 12
         },
+        "animais": {
+          "display_name": "🐾 Animais",
+          "income": 0,
+          "expenses": -68.99,
+          "count": 1
+        },
         "casa": {
           "display_name": "🏠 Casa",
           "income": 0,
@@ -530,8 +548,8 @@
         "outros": {
           "display_name": "🎁 Outros",
           "income": 0,
-          "expenses": -100.49,
-          "count": 3
+          "expenses": -31.5,
+          "count": 2
         },
         "salario": {
           "display_name": "💵 Salário",
