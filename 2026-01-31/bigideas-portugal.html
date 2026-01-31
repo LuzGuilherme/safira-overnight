@@ -433,6 +433,129 @@
             text-decoration: none;
         }
 
+        /* Validation Score */
+        .validation-score {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .score-circle {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            position: relative;
+            background: var(--bg-card);
+        }
+
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            padding: 3px;
+            background: conic-gradient(
+                var(--score-color) calc(var(--score-percent) * 3.6deg),
+                var(--border) calc(var(--score-percent) * 3.6deg)
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        .score-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .score-breakdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: var(--bg-card);
+            border-radius: 8px;
+        }
+
+        .score-item {
+            text-align: center;
+        }
+
+        .score-item-value {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .score-item-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+
+        .score-excellent { --score-color: #10b981; color: #10b981; }
+        .score-good { --score-color: #3b82f6; color: #3b82f6; }
+        .score-medium { --score-color: #f59e0b; color: #f59e0b; }
+        .score-low { --score-color: #ef4444; color: #ef4444; }
+
+        /* Top Ranking */
+        .top-ranking {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .ranking-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ranking-list {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            background: var(--bg-card);
+            border-radius: 8px;
+            font-size: 0.85rem;
+        }
+
+        .ranking-position {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+
+        .ranking-position.gold { background: linear-gradient(135deg, #ffd700, #ffb700); color: #000; }
+        .ranking-position.silver { background: linear-gradient(135deg, #c0c0c0, #a0a0a0); color: #000; }
+        .ranking-position.bronze { background: linear-gradient(135deg, #cd7f32, #b87333); color: #fff; }
+
         /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -666,14 +789,46 @@
                     <div class="card-icon" style="background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);">💡</div>
                     <h2 class="card-title">Oportunidades de Negócio Identificadas</h2>
                 </div>
+
+                <!-- Top 3 Ranking -->
+                <div class="top-ranking">
+                    <div class="ranking-title">🏆 Top 3 por Validation Score</div>
+                    <div class="ranking-list">
+                        <div class="ranking-item">
+                            <span class="ranking-position gold">1</span>
+                            <span>Assistente para Cancelar Serviços</span>
+                            <span style="color: var(--accent-green); font-weight: 700;">91/100</span>
+                        </div>
+                        <div class="ranking-item">
+                            <span class="ranking-position silver">2</span>
+                            <span>Monitor de Insolvências PT</span>
+                            <span style="color: var(--accent-green); font-weight: 700;">86/100</span>
+                        </div>
+                        <div class="ranking-item">
+                            <span class="ranking-position bronze">3</span>
+                            <span>Verificador de Lojas Online PT</span>
+                            <span style="color: var(--accent-blue); font-weight: 700;">83/100</span>
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="ideas-grid">
                     <!-- Idea 1 -->
-                    <div class="idea-card">
+                    <div class="idea-card" data-idea-id="tracker">
+                        <div class="validation-score">
+                            <div class="score-circle score-good" style="--score-percent: 72;">72</div>
+                            <span class="score-label">Score</span>
+                        </div>
                         <span class="idea-badge badge-hot">🔥 HOT</span>
                         <h3 class="idea-title">Tracker de Encomendas Unificado</h3>
                         <p class="idea-problem"><strong>Problema:</strong> 15.17% das queixas são sobre falhas na entrega. Consumidores usam 5+ apps diferentes para tracking.</p>
                         <p class="idea-solution"><strong>Solução:</strong> App única que agrega CTT, GLS, DPD, Paack, UPS num só lugar. Notificações proativas de atrasos.</p>
+                        <div class="score-breakdown">
+                            <div class="score-item"><div class="score-item-value">25</div><div class="score-item-label">Volume</div></div>
+                            <div class="score-item"><div class="score-item-value">14</div><div class="score-item-label">Tendência</div></div>
+                            <div class="score-item"><div class="score-item-value">18</div><div class="score-item-label">Build</div></div>
+                            <div class="score-item"><div class="score-item-value">15</div><div class="score-item-label">Competição</div></div>
+                        </div>
                         <div class="idea-meta">
                             <span class="meta-tag">📦 Logística</span>
                             <span class="meta-tag">📱 B2C App</span>
@@ -683,11 +838,21 @@
                     </div>
 
                     <!-- Idea 2 -->
-                    <div class="idea-card">
+                    <div class="idea-card" data-idea-id="comparador">
+                        <div class="validation-score">
+                            <div class="score-circle score-good" style="--score-percent: 76;">76</div>
+                            <span class="score-label">Score</span>
+                        </div>
                         <span class="idea-badge badge-validated">✅ Validado</span>
                         <h3 class="idea-title">Comparador de Operadoras em Tempo Real</h3>
                         <p class="idea-problem"><strong>Problema:</strong> +34% queixas em telecom. Fidelizações abusivas, preços que sobem, Digi a causar disrupção.</p>
                         <p class="idea-solution"><strong>Solução:</strong> Calculadora que compara planos + histórico de queixas por operadora. Alerta quando há melhor oferta.</p>
+                        <div class="score-breakdown">
+                            <div class="score-item"><div class="score-item-value">22</div><div class="score-item-label">Volume</div></div>
+                            <div class="score-item"><div class="score-item-value">22</div><div class="score-item-label">Tendência</div></div>
+                            <div class="score-item"><div class="score-item-value">22</div><div class="score-item-label">Build</div></div>
+                            <div class="score-item"><div class="score-item-value">10</div><div class="score-item-label">Competição</div></div>
+                        </div>
                         <div class="idea-meta">
                             <span class="meta-tag">📱 Telecom</span>
                             <span class="meta-tag">🔄 Comparador</span>
@@ -697,11 +862,21 @@
                     </div>
 
                     <!-- Idea 3 -->
-                    <div class="idea-card">
+                    <div class="idea-card" data-idea-id="verificador">
+                        <div class="validation-score">
+                            <div class="score-circle score-excellent" style="--score-percent: 83;">83</div>
+                            <span class="score-label">Score</span>
+                        </div>
                         <span class="idea-badge badge-trending">📈 Trending</span>
                         <h3 class="idea-title">Verificador de Lojas Online PT</h3>
                         <p class="idea-problem"><strong>Problema:</strong> 8% das queixas são fraude/burla. Lojas falsas proliferam, especialmente em mobiliário.</p>
                         <p class="idea-solution"><strong>Solução:</strong> Extensão Chrome que mostra score de confiança + queixas antes de comprar. "Is this shop legit?"</p>
+                        <div class="score-breakdown">
+                            <div class="score-item"><div class="score-item-value">18</div><div class="score-item-label">Volume</div></div>
+                            <div class="score-item"><div class="score-item-value">25</div><div class="score-item-label">Tendência</div></div>
+                            <div class="score-item"><div class="score-item-value">18</div><div class="score-item-label">Build</div></div>
+                            <div class="score-item"><div class="score-item-value">22</div><div class="score-item-label">Competição</div></div>
+                        </div>
                         <div class="idea-meta">
                             <span class="meta-tag">🛡️ Segurança</span>
                             <span class="meta-tag">🧩 Extensão</span>
@@ -710,12 +885,22 @@
                         </div>
                     </div>
 
-                    <!-- Idea 4 -->
-                    <div class="idea-card">
+                    <!-- Idea 4 - TOP SCORE! -->
+                    <div class="idea-card" data-idea-id="cancelar" style="border: 2px solid var(--accent-green);">
+                        <div class="validation-score">
+                            <div class="score-circle score-excellent" style="--score-percent: 91;">91</div>
+                            <span class="score-label">🥇 #1</span>
+                        </div>
                         <span class="idea-badge badge-hot">🔥 HOT</span>
                         <h3 class="idea-title">Assistente para Cancelar Serviços</h3>
                         <p class="idea-problem"><strong>Problema:</strong> Fidelizações abusivas, processo de cancelamento propositadamente difícil.</p>
                         <p class="idea-solution"><strong>Solução:</strong> "Cancellation concierge" — guia passo-a-passo + templates de carta para cada operadora.</p>
+                        <div class="score-breakdown">
+                            <div class="score-item"><div class="score-item-value">22</div><div class="score-item-label">Volume</div></div>
+                            <div class="score-item"><div class="score-item-value">22</div><div class="score-item-label">Tendência</div></div>
+                            <div class="score-item"><div class="score-item-value">25</div><div class="score-item-label">Build</div></div>
+                            <div class="score-item"><div class="score-item-value">22</div><div class="score-item-label">Competição</div></div>
+                        </div>
                         <div class="idea-meta">
                             <span class="meta-tag">📱 Telecom</span>
                             <span class="meta-tag">🤖 AI Tool</span>
@@ -725,11 +910,21 @@
                     </div>
 
                     <!-- Idea 5 -->
-                    <div class="idea-card">
+                    <div class="idea-card" data-idea-id="clinicas">
+                        <div class="validation-score">
+                            <div class="score-circle score-good" style="--score-percent: 75;">75</div>
+                            <span class="score-label">Score</span>
+                        </div>
                         <span class="idea-badge badge-trending">📈 +52.5%</span>
                         <h3 class="idea-title">Directory de Clínicas Estéticas Verificadas</h3>
                         <p class="idea-problem"><strong>Problema:</strong> Beleza & Estética cresceu 52.5% em queixas. Tratamentos falhados, clínicas sem licença.</p>
                         <p class="idea-solution"><strong>Solução:</strong> Directório com reviews verificados, licenças, antes/depois reais. "Zocdoc para estética".</p>
+                        <div class="score-breakdown">
+                            <div class="score-item"><div class="score-item-value">14</div><div class="score-item-label">Volume</div></div>
+                            <div class="score-item"><div class="score-item-value">25</div><div class="score-item-label">Tendência</div></div>
+                            <div class="score-item"><div class="score-item-value">14</div><div class="score-item-label">Build</div></div>
+                            <div class="score-item"><div class="score-item-value">22</div><div class="score-item-label">Competição</div></div>
+                        </div>
                         <div class="idea-meta">
                             <span class="meta-tag">💄 Beleza</span>
                             <span class="meta-tag">📋 Directory</span>
@@ -738,12 +933,22 @@
                         </div>
                     </div>
 
-                    <!-- Idea 6 -->
-                    <div class="idea-card">
+                    <!-- Idea 6 - #2 SCORE -->
+                    <div class="idea-card" data-idea-id="insolvencias" style="border: 2px solid var(--accent-blue);">
+                        <div class="validation-score">
+                            <div class="score-circle score-excellent" style="--score-percent: 86;">86</div>
+                            <span class="score-label">🥈 #2</span>
+                        </div>
                         <span class="idea-badge badge-validated">✅ Portugal-focused</span>
                         <h3 class="idea-title">Monitor de Insolvências PT</h3>
                         <p class="idea-problem"><strong>Problema:</strong> Mobiliário (+51.9%) tem muitas queixas de empresas que fecham sem entregar.</p>
                         <p class="idea-solution"><strong>Solução:</strong> Scraper do CITIUS + alertas. "Esta empresa tem processo de insolvência?" Protege consumidores.</p>
+                        <div class="score-breakdown">
+                            <div class="score-item"><div class="score-item-value">18</div><div class="score-item-label">Volume</div></div>
+                            <div class="score-item"><div class="score-item-value">25</div><div class="score-item-label">Tendência</div></div>
+                            <div class="score-item"><div class="score-item-value">18</div><div class="score-item-label">Build</div></div>
+                            <div class="score-item"><div class="score-item-value">25</div><div class="score-item-label">Competição</div></div>
+                        </div>
                         <div class="idea-meta">
                             <span class="meta-tag">🛋️ Mobiliário</span>
                             <span class="meta-tag">🔍 Research Tool</span>
@@ -753,11 +958,21 @@
                     </div>
 
                     <!-- Idea 7 -->
-                    <div class="idea-card">
+                    <div class="idea-card" data-idea-id="ihru">
+                        <div class="validation-score">
+                            <div class="score-circle score-good" style="--score-percent: 71;">71</div>
+                            <span class="score-label">Score</span>
+                        </div>
                         <span class="idea-badge badge-hot">🔥 High Demand</span>
                         <h3 class="idea-title">Bot de Apoio IHRU/AIMA</h3>
                         <p class="idea-problem"><strong>Problema:</strong> IHRU é a 4ª marca mais reclamada. 68% são por falhas no acesso a apoios à habitação.</p>
                         <p class="idea-solution"><strong>Solução:</strong> Chatbot que explica requisitos, verifica elegibilidade, e acompanha o processo. "IHRU made simple".</p>
+                        <div class="score-breakdown">
+                            <div class="score-item"><div class="score-item-value">18</div><div class="score-item-label">Volume</div></div>
+                            <div class="score-item"><div class="score-item-value">18</div><div class="score-item-label">Tendência</div></div>
+                            <div class="score-item"><div class="score-item-value">10</div><div class="score-item-label">Build</div></div>
+                            <div class="score-item"><div class="score-item-value">25</div><div class="score-item-label">Competição</div></div>
+                        </div>
                         <div class="idea-meta">
                             <span class="meta-tag">🏛️ Gov Tech</span>
                             <span class="meta-tag">🤖 Chatbot</span>
@@ -767,11 +982,21 @@
                     </div>
 
                     <!-- Idea 8 -->
-                    <div class="idea-card">
+                    <div class="idea-card" data-idea-id="pets">
+                        <div class="validation-score">
+                            <div class="score-circle score-medium" style="--score-percent: 57;">57</div>
+                            <span class="score-label">Score</span>
+                        </div>
                         <span class="idea-badge badge-trending">📈 +42.8%</span>
                         <h3 class="idea-title">Pet Services Marketplace PT</h3>
                         <p class="idea-problem"><strong>Problema:</strong> Sector de animais +42.8% queixas. Serviços inconsistentes, preços opacos.</p>
                         <p class="idea-solution"><strong>Solução:</strong> Marketplace com dog walkers, pet sitters, veterinários verificados. Reviews + booking integrado.</p>
+                        <div class="score-breakdown">
+                            <div class="score-item"><div class="score-item-value">10</div><div class="score-item-label">Volume</div></div>
+                            <div class="score-item"><div class="score-item-value">22</div><div class="score-item-label">Tendência</div></div>
+                            <div class="score-item"><div class="score-item-value">10</div><div class="score-item-label">Build</div></div>
+                            <div class="score-item"><div class="score-item-value">15</div><div class="score-item-label">Competição</div></div>
+                        </div>
                         <div class="idea-meta">
                             <span class="meta-tag">🐕 Pets</span>
                             <span class="meta-tag">🛒 Marketplace</span>
@@ -779,6 +1004,14 @@
                             <span class="meta-tag">⏱️ 4-6 semanas</span>
                         </div>
                     </div>
+                </div>
+
+                <!-- Score Legend -->
+                <div style="margin-top: 1.5rem; padding: 1rem; background: var(--bg-secondary); border-radius: 10px; font-size: 0.85rem; color: var(--text-muted);">
+                    <strong>📊 Validation Score (0-100):</strong> Volume (queixas) + Tendência (crescimento YoY) + Facilidade de Build + Baixa Concorrência. 
+                    <span style="color: var(--accent-green);">●</span> 80+ Excelente 
+                    <span style="color: var(--accent-blue);">●</span> 60-79 Bom 
+                    <span style="color: var(--accent-orange);">●</span> 40-59 Médio
                 </div>
             </div>
         </div>
