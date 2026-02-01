@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-01T17:35:00Z",
+  "lastUpdated": "2026-02-01T17:45:00Z",
   "scoringVersion": "2.0",
   "weights": {
     "market": 0.15,
@@ -24,7 +24,8 @@
       "competitors": ["PandaDoc AI", "Qwilr", "Proposify"],
       "notes": "Pode testar no próprio trabalho de PPC. BYOK trend permite pricing acessível ($9-29/mês).",
       "source": "safira",
-      "dateAdded": "2026-02-01"
+      "dateAdded": "2026-02-01",
+      "detailsFile": "details/AI-Proposal-Generator.md"
     },
     {
       "id": "geo-optimizer",
@@ -40,7 +41,8 @@
       "competitors": ["Profound (early)", "SEMrush (tentando)", "Nenhum dominante"],
       "notes": "Timing perfeito - mercado emergente. First-mover advantage possível.",
       "source": "safira",
-      "dateAdded": "2026-02-01"
+      "dateAdded": "2026-02-01",
+      "detailsFile": "details/GEO-Optimizer.md"
     },
     {
       "id": "ai-brand-monitor",
@@ -56,7 +58,8 @@
       "competitors": ["Brandwatch (pivot)", "Otterly.ai ($62k MRR)", "Peec AI"],
       "notes": "Validado - Otterly.ai tem $62k MRR. Mercado enterprise paga bem.",
       "source": "safira",
-      "dateAdded": "2026-02-01"
+      "dateAdded": "2026-02-01",
+      "detailsFile": "details/AI-Brand-Monitor.md"
     },
     {
       "id": "newsletter-ai-curator",
@@ -72,7 +75,8 @@
       "competitors": ["Curated.co", "Mailbrew", "Refind"],
       "notes": "Útil para a Algarve Newsletter. Dogfooding possível. Mercado crowded.",
       "source": "safira",
-      "dateAdded": "2026-02-01"
+      "dateAdded": "2026-02-01",
+      "detailsFile": "details/Newsletter-AI-Curator.md"
     },
     {
       "id": "ai-sops-generator",
@@ -88,7 +92,8 @@
       "competitors": ["Trainual", "Whale", "Scribe"],
       "notes": "B2B sólido. Scribe fez $25M funding. Mercado validado mas competido.",
       "source": "safira",
-      "dateAdded": "2026-02-01"
+      "dateAdded": "2026-02-01",
+      "detailsFile": "details/AI-SOPs-Generator.md"
     },
     {
       "id": "llm-privacy-auditor",
@@ -104,7 +109,8 @@
       "competitors": ["Robust Intelligence", "Lakera", "Arthur AI"],
       "notes": "Enterprise compliance angle. Complexidade técnica alta. Skills gap.",
       "source": "safira",
-      "dateAdded": "2026-02-01"
+      "dateAdded": "2026-02-01",
+      "detailsFile": "details/LLM-Privacy-Auditor.md"
     },
     {
       "id": "ai-video-dubbing",
@@ -120,7 +126,8 @@
       "competitors": ["ElevenLabs Dubbing", "Papercup", "Deepdub"],
       "notes": "High effort, skills gap em video. ElevenLabs já domina.",
       "source": "safira",
-      "dateAdded": "2026-02-01"
+      "dateAdded": "2026-02-01",
+      "detailsFile": "details/AI-Video-Dubbing.md"
     },
     {
       "id": "statuscheck-pt",
@@ -136,7 +143,8 @@
       "competitors": ["Trustpilot", "Portal da Queixa (parcial)", "ScamAdviser"],
       "notes": "Nicho português. Dados locais são diferencial. Monetização B2B2C.",
       "source": "safira-briefing",
-      "dateAdded": "2026-02-01"
+      "dateAdded": "2026-02-01",
+      "detailsFile": null
     }
   ]
 }
