@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💡 Side Hustle Prioritizer | Qual ideia construir primeiro?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #13131a;
+            --bg-card: #1a1a24;
+            --bg-hover: #22222e;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --text-muted: #6b6b7b;
+            --accent-green: #10b981;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-orange: #f59e0b;
+            --accent-red: #ef4444;
+            --accent-pink: #ec4899;
+            --border: #2a2a3a;
+            --gradient-gold: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            --gradient-silver: linear-gradient(135deg, #9ca3af 0%, #d1d5db 100%);
+            --gradient-bronze: linear-gradient(135deg, #b45309 0%, #d97706 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .formula {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: 10px;
+            font-family: monospace;
+            color: var(--accent-purple);
+        }
+
+        /* Podium */
+        .podium {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 1rem;
+            margin: 2rem 0;
+            min-height: 280px;
+        }
+
+        .podium-item {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 16px;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .podium-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .podium-1 {
+            order: 2;
+            min-height: 260px;
+            border-color: #fbbf24;
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.2);
+        }
+
+        .podium-2 {
+            order: 1;
+            min-height: 220px;
+            border-color: #9ca3af;
+        }
+
+        .podium-3 {
+            order: 3;
+            min-height: 180px;
+            border-color: #d97706;
+        }
+
+        .medal {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .podium-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .podium-score {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .podium-1 .podium-score { color: #fbbf24; }
+        .podium-2 .podium-score { color: #9ca3af; }
+        .podium-3 .podium-score { color: #d97706; }
+
+        .podium-details {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        /* Cards Grid */
+        .ideas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .idea-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .idea-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .idea-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .idea-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .idea-rank {
+            background: var(--bg-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .idea-problem {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .scores-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .score-item {
+            text-align: center;
+            padding: 0.75rem;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+        }
+
+        .score-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .score-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .priority-bar {
+            height: 8px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .priority-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .priority-score {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .priority-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .priority-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        /* Recommendation */
+        .recommendation {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 1px solid var(--accent-green);
+            border-radius: 16px;
+        }
+
+        .rec-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--accent-green);
+        }
+
+        .rec-text {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .rec-text strong {
+            color: var(--text-primary);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .idea-card {
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .idea-card:nth-child(2) { animation-delay: 0.1s; }
+        .idea-card:nth-child(3) { animation-delay: 0.2s; }
+        .idea-card:nth-child(4) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">💡 Side Hustle Prioritizer</div>
+            <p class="tagline">Qual ideia construir primeiro? Deixa os números decidir.</p>
+            <div class="formula">
+                Priority Score = (Potential × Skills) ÷ Effort
+            </div>
+        </header>
+
+        <!-- Podium -->
+        <div class="podium">
+            <div class="podium-item podium-2">
+                <div class="medal">🥈</div>
+                <div class="podium-title">AI Proposal Generator</div>
+                <div class="podium-score">18.0</div>
+                <div class="podium-details">8 × 9 ÷ 4</div>
+            </div>
+            <div class="podium-item podium-1">
+                <div class="medal">🥇</div>
+                <div class="podium-title">GEO Optimizer</div>
+                <div class="podium-score">14.4</div>
+                <div class="podium-details">9 × 8 ÷ 5</div>
+            </div>
+            <div class="podium-item podium-3">
+                <div class="medal">🥉</div>
+                <div class="podium-title">AI Brand Monitor</div>
+                <div class="podium-score">12.0</div>
+                <div class="podium-details">9 × 8 ÷ 6</div>
+            </div>
+        </div>
+
+        <!-- All Ideas -->
+        <div class="ideas-grid">
+            <!-- 1. AI Proposal Generator -->
+            <div class="idea-card">
+                <div class="idea-header">
+                    <div class="idea-title">🥇 AI Proposal Generator</div>
+                    <div class="idea-rank" style="background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); color: #000;">#1</div>
+                </div>
+                <p class="idea-problem">"Consultores gastam 3-5h a criar cada proposta comercial"</p>
+                <div class="scores-grid">
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-green);">8</div>
+                        <div class="score-label">Potential</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-orange);">4</div>
+                        <div class="score-label">Effort</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-purple);">9</div>
+                        <div class="score-label">Skills</div>
+                    </div>
+                </div>
+                <div class="priority-bar">
+                    <div class="priority-fill" style="width: 100%; background: var(--gradient-gold);"></div>
+                </div>
+                <div class="priority-score">
+                    <span class="priority-label">Priority Score</span>
+                    <span class="priority-value" style="color: #fbbf24;">18.0</span>
+                </div>
+            </div>
+
+            <!-- 2. GEO Optimizer -->
+            <div class="idea-card">
+                <div class="idea-header">
+                    <div class="idea-title">🥈 GEO Optimizer</div>
+                    <div class="idea-rank" style="background: linear-gradient(135deg, #9ca3af 0%, #d1d5db 100%); color: #000;">#2</div>
+                </div>
+                <p class="idea-problem">"Ninguém sabe como rankear em AI search (ChatGPT, Perplexity)"</p>
+                <div class="scores-grid">
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-green);">9</div>
+                        <div class="score-label">Potential</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-orange);">5</div>
+                        <div class="score-label">Effort</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-purple);">8</div>
+                        <div class="score-label">Skills</div>
+                    </div>
+                </div>
+                <div class="priority-bar">
+                    <div class="priority-fill" style="width: 80%; background: var(--gradient-silver);"></div>
+                </div>
+                <div class="priority-score">
+                    <span class="priority-label">Priority Score</span>
+                    <span class="priority-value" style="color: #9ca3af;">14.4</span>
+                </div>
+            </div>
+
+            <!-- 3. AI Brand Monitor -->
+            <div class="idea-card">
+                <div class="idea-header">
+                    <div class="idea-title">🥉 AI Brand Monitor</div>
+                    <div class="idea-rank" style="background: linear-gradient(135deg, #b45309 0%, #d97706 100%); color: #fff;">#3</div>
+                </div>
+                <p class="idea-problem">"Marcas não sabem como aparecem nas respostas de AI"</p>
+                <div class="scores-grid">
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-green);">9</div>
+                        <div class="score-label">Potential</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-orange);">6</div>
+                        <div class="score-label">Effort</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-purple);">8</div>
+                        <div class="score-label">Skills</div>
+                    </div>
+                </div>
+                <div class="priority-bar">
+                    <div class="priority-fill" style="width: 67%; background: var(--gradient-bronze);"></div>
+                </div>
+                <div class="priority-score">
+                    <span class="priority-label">Priority Score</span>
+                    <span class="priority-value" style="color: #d97706;">12.0</span>
+                </div>
+            </div>
+
+            <!-- 4. Newsletter AI Curator -->
+            <div class="idea-card">
+                <div class="idea-header">
+                    <div class="idea-title">📰 Newsletter AI Curator</div>
+                    <div class="idea-rank">#4</div>
+                </div>
+                <p class="idea-problem">"Curar conteúdo para newsletters consome horas semanais"</p>
+                <div class="scores-grid">
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-green);">6</div>
+                        <div class="score-label">Potential</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-orange);">4</div>
+                        <div class="score-label">Effort</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-purple);">8</div>
+                        <div class="score-label">Skills</div>
+                    </div>
+                </div>
+                <div class="priority-bar">
+                    <div class="priority-fill" style="width: 67%; background: var(--accent-blue);"></div>
+                </div>
+                <div class="priority-score">
+                    <span class="priority-label">Priority Score</span>
+                    <span class="priority-value">12.0</span>
+                </div>
+            </div>
+
+            <!-- 5. AI SOPs Generator -->
+            <div class="idea-card">
+                <div class="idea-header">
+                    <div class="idea-title">📋 AI SOPs Generator</div>
+                    <div class="idea-rank">#5</div>
+                </div>
+                <p class="idea-problem">"PMEs gastam horas a documentar processos internos"</p>
+                <div class="scores-grid">
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-green);">7</div>
+                        <div class="score-label">Potential</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-orange);">5</div>
+                        <div class="score-label">Effort</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-purple);">7</div>
+                        <div class="score-label">Skills</div>
+                    </div>
+                </div>
+                <div class="priority-bar">
+                    <div class="priority-fill" style="width: 54%; background: var(--accent-blue);"></div>
+                </div>
+                <div class="priority-score">
+                    <span class="priority-label">Priority Score</span>
+                    <span class="priority-value">9.8</span>
+                </div>
+            </div>
+
+            <!-- 6. LLM Privacy Auditor -->
+            <div class="idea-card">
+                <div class="idea-header">
+                    <div class="idea-title">🔒 LLM Privacy Auditor</div>
+                    <div class="idea-rank">#6</div>
+                </div>
+                <p class="idea-problem">"Empresas não sabem que dados enviam para AI tools"</p>
+                <div class="scores-grid">
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-green);">8</div>
+                        <div class="score-label">Potential</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-orange);">6</div>
+                        <div class="score-label">Effort</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-purple);">6</div>
+                        <div class="score-label">Skills</div>
+                    </div>
+                </div>
+                <div class="priority-bar">
+                    <div class="priority-fill" style="width: 44%; background: var(--accent-blue);"></div>
+                </div>
+                <div class="priority-score">
+                    <span class="priority-label">Priority Score</span>
+                    <span class="priority-value">8.0</span>
+                </div>
+            </div>
+
+            <!-- 7. AI Video Dubbing -->
+            <div class="idea-card">
+                <div class="idea-header">
+                    <div class="idea-title">🎬 AI Video Dubbing</div>
+                    <div class="idea-rank">#7</div>
+                </div>
+                <p class="idea-problem">"Dubbing profissional custa milhares"</p>
+                <div class="scores-grid">
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-green);">8</div>
+                        <div class="score-label">Potential</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-orange);">7</div>
+                        <div class="score-label">Effort</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value" style="color: var(--accent-purple);">5</div>
+                        <div class="score-label">Skills</div>
+                    </div>
+                </div>
+                <div class="priority-bar">
+                    <div class="priority-fill" style="width: 32%; background: var(--accent-blue);"></div>
+                </div>
+                <div class="priority-score">
+                    <span class="priority-label">Priority Score</span>
+                    <span class="priority-value">5.7</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendation -->
+        <div class="recommendation">
+            <div class="rec-title">💡 Recomendação da Safira</div>
+            <p class="rec-text">
+                <strong>Começar por: AI Proposal Generator</strong><br><br>
+                Porquê? Tem o melhor equilíbrio entre potencial e esforço. Com score de skills 9/10, 
+                é algo que o Guilherme domina. MVP possível em 1-2 semanas.<br><br>
+                <strong>Bónus:</strong> Pode testar no próprio trabalho de PPC antes de lançar.<br><br>
+                <strong>Segunda opção:</strong> GEO Optimizer tem potencial 9/10 e o timing é perfeito 
+                (mercado emergente), mas requer mais esforço técnico.
+            </p>
+        </div>
+
+        <footer>
+            <p>Safira • Overnight Build • 1 Fevereiro 2026</p>
+            <p style="margin-top: 0.5rem;">Dados de: /knowledge/brain-safira/Ideas/</p>
+        </footer>
+    </div>
+</body>
+</html>
