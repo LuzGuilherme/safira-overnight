@@ -376,25 +376,15 @@
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
 
-            if (idea.detailsFile) {
-                try {
-                    const response = await fetch(idea.detailsFile);
-                    if (response.ok) {
-                        let markdown = await response.text();
-                        // Remove YAML frontmatter
-                        markdown = markdown.replace(/^---[\s\S]*?---\n*/m, '');
-                        // Convert Obsidian callouts to HTML
-                        markdown = markdown.replace(/>\s*\[!(\w+)\]\s*([^\n]*)\n((?:>.*\n?)*)/g, (match, type, title, content) => {
-                            const cleanContent = content.replace(/^>\s?/gm, '').trim();
-                            return `<div class="callout callout-${type}"><strong>${title || type}</strong><br>${cleanContent}</div>`;
-                        });
-                        body.innerHTML = marked.parse(markdown);
-                    } else {
-                        body.innerHTML = renderBasicDetails(idea);
-                    }
-                } catch (error) {
-                    body.innerHTML = renderBasicDetails(idea);
-                }
+            if (idea.detailsContent) {
+                // Use embedded content from JSON
+                let markdown = idea.detailsContent;
+                // Convert Obsidian callouts to HTML
+                markdown = markdown.replace(/>\s*\[!(\w+)\]\s*([^\n]*)\n((?:>.*\n?)*)/g, (match, type, title, content) => {
+                    const cleanContent = content.replace(/^>\s?/gm, '').trim();
+                    return `<div class="callout callout-${type}"><strong>${title || type}</strong><br>${cleanContent}</div>`;
+                });
+                body.innerHTML = marked.parse(markdown);
             } else {
                 body.innerHTML = renderBasicDetails(idea);
             }

@@ -1,13 +1,13 @@
 {
-  "lastUpdated": "2026-02-01T17:45:00Z",
+  "lastUpdated": "2026-02-01T17:50:00Z",
   "scoringVersion": "2.0",
   "weights": {
     "market": 0.15,
     "demand": 0.25,
     "effort": 0.15,
     "skills": 0.15,
-    "revenue": 0.20,
-    "interest": 0.10
+    "revenue": 0.2,
+    "interest": 0.1
   },
   "ideas": [
     {
@@ -21,11 +21,16 @@
       "skills": 9,
       "revenue": 8,
       "interest": 7,
-      "competitors": ["PandaDoc AI", "Qwilr", "Proposify"],
+      "competitors": [
+        "PandaDoc AI",
+        "Qwilr",
+        "Proposify"
+      ],
       "notes": "Pode testar no próprio trabalho de PPC. BYOK trend permite pricing acessível ($9-29/mês).",
       "source": "safira",
       "dateAdded": "2026-02-01",
-      "detailsFile": "details/AI-Proposal-Generator.md"
+      "detailsFile": "details/AI-Proposal-Generator.md",
+      "detailsContent": "# AI Proposal Generator\n\n## Problem\nConsultores e agências perdem tempo enorme com propostas:\n\n- **3-5 horas** por proposta bem estruturada\n- **Copy-paste** de templates antigos\n- **Inconsistência** entre propostas\n- **Personalização** demora mas é crucial para fechar\n- **Win rate** baixo porque propostas são genéricas\n\n> [!note] Fonte\n> Mencionado em análise de micro-SaaS trends como \"AI-powered proposal generator for consultants - not trying to replace entire workflow, just making one painful task way easier\"\n\n> [!tip] BYOK Trend (2026-01-31)\n> **Bring Your Own Key** está a crescer como modelo de negócio:\n> - Utilizador usa a própria API key (Claude, GPT, Gemini)\n> - Não há custos de AI para o SaaS\n> - Pricing mais baixo possível\n> - Exemplos: Nano-Slides, Git AutoReview\n> \n> **Aplicação aqui:** Oferecer tier \"BYOK\" a $9/mês (só software, user paga AI directamente). Tier managed a $29/mês para quem quer simplicidade.\n\n## Solution\n**SaaS que gera propostas profissionais:**\n\n1. **Input simples:**\n   - Nome do cliente + sector\n   - Problema/necessidade\n   - Serviços a propor\n   - Budget range (opcional)\n\n2. **Output completo:**\n   - Proposta PDF profissional\n   - Executive summary\n   - Scope detalhado\n   - Timeline\n   - Pricing breakdown\n   - T&Cs standard\n\n3. **Personalização inteligente:**\n   - Analisa website do cliente (scraping)\n   - Adapta linguagem ao sector\n   - Inclui case studies relevantes\n   - Customiza design por tipo de serviço\n\n## Porque alinhado com Guilherme\n- ✅ **Conhece a dor** — faz propostas PPC\n- ✅ **Pode ser primeiro utilizador** — usa no próprio trabalho\n- ✅ **Network de agências** — potencial early adopters\n- ✅ **Skills de marketing** — sabe promover\n- ✅ **MVP rápido** — pode ser simples no início\n\n## Features MVP\n1. Template de proposta de marketing/PPC\n2. Input: cliente + briefing + serviços\n3. Output: Proposta PDF (1 design)\n4. Estimativa de tempo/budget automática\n\n## Features Futuras\n- Múltiplos templates por indústria\n- Integração CRM (HubSpot, Pipedrive)\n- Tracking de propostas (abriu, não abriu)\n- Follow-up automático\n- Analytics de win rate\n\n## Technical Stack\n- **Frontend:** Next.js\n- **Backend:** Python/FastAPI\n- **AI:** Claude API para texto\n- **PDF:** WeasyPrint ou similar\n- **Scraping:** Para análise de cliente\n\n## Pricing\n| Tier | Preço | Propostas/mês |\n|------|-------|---------------|\n| Starter | $29/mês | 10 propostas |\n| Pro | $79/mês | 50 propostas |\n| Agency | $199/mês | Unlimited |\n\n## Competition\n| Tool | Foco | Gap |\n|------|------|-----|\n| Proposify | Proposal software | Não gera conteúdo |\n| PandaDoc | Docs + e-sign | Genérico |\n| Qwilr | Proposals web | Caro, não é AI |\n| Better Proposals | Templates | Manual |\n\n**Oportunidade:** Nenhum é verdadeiramente AI-first para geração de conteúdo.\n\n## Validation\n- [ ] Criar landing page\n- [ ] Partilhar com network de agências\n- [ ] 5 entrevistas com consultores\n- [ ] MVP funcional em 1 semana\n\n## Challenges\n- Qualidade do output (precisa ser realmente bom)\n- Diferentes sectores = diferentes templates\n- Pricing vs value (quanto vale poupar 3h?)\n\n## Notes\n**Prós:**\n- MVP simples (pode começar com 1 template)\n- Guilherme pode usar/testar pessoalmente\n- Mercado claro (consultores/agências)\n- $29/mês é impulso buy\n\n**Contras:**\n- Competição eventual (fácil de copiar)\n- Dependência de qualidade AI\n- Pode ser feature de outro produto\n\n---\n\n*Ideia encontrada em análise de trends micro-SaaS — 2026-01-30*"
     },
     {
       "id": "geo-optimizer",
@@ -38,11 +43,16 @@
       "skills": 8,
       "revenue": 7,
       "interest": 8,
-      "competitors": ["Profound (early)", "SEMrush (tentando)", "Nenhum dominante"],
+      "competitors": [
+        "Profound (early)",
+        "SEMrush (tentando)",
+        "Nenhum dominante"
+      ],
       "notes": "Timing perfeito - mercado emergente. First-mover advantage possível.",
       "source": "safira",
       "dateAdded": "2026-02-01",
-      "detailsFile": "details/GEO-Optimizer.md"
+      "detailsFile": "details/GEO-Optimizer.md",
+      "detailsContent": "# GEO Optimizer (Generative Engine Optimization)\n\n## Problem\nO mundo está a mudar de **SEO para GEO**:\n- Pessoas perguntam ao ChatGPT/Perplexity em vez de pesquisar no Google\n- Empresas gastam milhares em SEO tradicional\n- **NINGUÉM sabe como optimizar para AI search**\n- Zero ferramentas dedicadas no mercado\n\n> [!quote] Reddit r/microsaas\n> \"GEO ≠ SEO. We've built platform that is content-first to optimise, rank inside ChatGPT/Perplexity (and tracking if it worked)\"\n\n## Solution\n**SaaS para optimizar presença em AI search engines:**\n\n1. **Audit:** Verifica se a marca aparece em respostas do ChatGPT/Perplexity/Gemini\n2. **Analysis:** Identifica gaps entre conteúdo actual e o que AI cita\n3. **Recommendations:** Sugere mudanças estruturais para ser citado\n4. **Tracking:** Monitoriza menções em respostas AI ao longo do tempo\n5. **Competitor Intel:** Vê que concorrentes aparecem e porquê\n\n### Como Funciona GEO\nAI search engines valorizam:\n- Conteúdo estruturado (FAQs, listas, definições claras)\n- Fontes autoritativas citadas\n- Dados e estatísticas concretas\n- Respostas directas a perguntas específicas\n- Schema markup e dados estruturados\n\n## Market\n| Segmento | Dor | Budget |\n|----------|-----|--------|\n| SaaS companies | \"Concorrente aparece no ChatGPT, nós não\" | $200-500/mês |\n| SEO agencies | Serviço novo para vender a clientes | $500-2000/mês |\n| E-commerce | Produtos citados em comparações AI | $100-300/mês |\n| B2B companies | Lead gen via AI recommendations | $300-1000/mês |\n\n**TAM:** Mercado SEO é $80B → GEO vai capturar parte significativa\n\n## Technical Stack\n- **Scraping:** Query ChatGPT/Perplexity/Gemini APIs\n- **NLP:** Análise de quando/como marca é mencionada\n- **Recommendations:** Claude para gerar sugestões de optimização\n- **Tracking:** Database de menções ao longo do tempo\n- **Frontend:** Dashboard com métricas e trends\n\n## Pricing\n- **Starter:** $49/mês — 1 brand, basic monitoring\n- **Pro:** $149/mês — 5 brands, competitor tracking\n- **Agency:** $399/mês — unlimited brands, white-label\n\n## Competition\n| Tool | Foco | Gap |\n|------|------|-----|\n| Semrush/Ahrefs | SEO tradicional | Zero GEO features |\n| Brand24 | Social listening | Não tracking AI |\n| Sparktoro | Audience research | Não específico AI |\n\n> [!important] First Mover Advantage\n> Mercado NOVO — pouquíssimos players. Quem entrar agora domina.\n\n## Validation\n1. Pesquisar \"best [categoria]\" no ChatGPT\n2. Ver quem aparece vs quem é líder de mercado\n3. Há mismatch? → Oportunidade clara\n\n## Sinergia com Guilherme\n- **Background PPC/Marketing** — entende o problema\n- **Pode oferecer como serviço** antes de produtizar\n- **Newsletter Algarve** — testar com próprio conteúdo\n- **Trend emerging** — timing perfeito para entrar\n\n## Next Steps\n- [ ] Testar manualmente: \"best X\" em ChatGPT vs Google\n- [ ] Documentar padrões de quem aparece\n- [ ] MVP: Script que compara rankings Google vs AI\n- [ ] Landing page para validar interesse\n\n## Notes\nEste é o \"SEO de 2010\" — quem perceber primeiro ganha.\n\n---\n\n*Ideia encontrada via pesquisa nocturna — 2026-01-29 23:00 UTC*\n*Fonte: r/microsaas trending + HN patterns*"
     },
     {
       "id": "ai-brand-monitor",
@@ -55,11 +65,16 @@
       "skills": 8,
       "revenue": 8,
       "interest": 7,
-      "competitors": ["Brandwatch (pivot)", "Otterly.ai ($62k MRR)", "Peec AI"],
+      "competitors": [
+        "Brandwatch (pivot)",
+        "Otterly.ai ($62k MRR)",
+        "Peec AI"
+      ],
       "notes": "Validado - Otterly.ai tem $62k MRR. Mercado enterprise paga bem.",
       "source": "safira",
       "dateAdded": "2026-02-01",
-      "detailsFile": "details/AI-Brand-Monitor.md"
+      "detailsFile": "details/AI-Brand-Monitor.md",
+      "detailsContent": "# AI Brand Monitor\n\n## Problem\nCom AI a substituir Google para muitas pesquisas, marcas têm um novo problema:\n\n- **Não sabem** como aparecem nas respostas de ChatGPT/Perplexity/Claude\n- **Não conseguem medir** visibilidade em AI vs competidores\n- **Não têm alertas** quando AI diz algo errado sobre eles\n- **SEO tradicional** não funciona para optimizar para AI\n\n> [!note] Validação\n> Startup \"Mentions\" fez **$0 → $62k MRR em 3 meses** com produto similar.\n> Target para 2026: $100k MRR.\n> Fonte: Indie Hackers (Janeiro 2026)\n\n## Solution\n**SaaS que monitoriza presença da marca em AI:**\n\n1. **Tracking contínuo:**\n   - Queries relevantes ao negócio\n   - Comparação com competidores\n   - Histórico de mudanças\n\n2. **Dashboard:**\n   - Score de visibilidade AI\n   - Sentiment das respostas\n   - Comparação temporal\n\n3. **Alertas:**\n   - Quando AI diz algo incorrecto\n   - Quando competidor ganha visibilidade\n   - Mudanças significativas\n\n4. **Insights:**\n   - Como melhorar presença em AI\n   - Que conteúdo criar para ser citado\n   - Gaps vs competidores\n\n## Porque alinhado com Guilherme\n- ✅ **Marketing adjacent** — não é PPC mas é da área\n- ✅ **B2B SaaS** — receita recorrente\n- ✅ **Timing perfeito** — mercado emergente, pouca competição\n- ✅ **Skills relevantes** — entende de marcas e visibilidade\n- ✅ **Validado** — já há startup com $62k MRR\n\n## MVP Features\n1. Input: nome da marca + 5 queries relevantes\n2. Scrape respostas de ChatGPT/Perplexity (1x por dia)\n3. Dashboard simples com score e menções\n4. Alerta por email se mudança >20%\n\n## Technical Stack\n- **Frontend:** Next.js\n- **Backend:** Python/FastAPI\n- **Scraping:** Playwright para AI interfaces\n- **DB:** Supabase\n- **Alertas:** Resend/email\n\n## Pricing\n| Tier | Preço | Queries | Competidores |\n|------|-------|---------|--------------|\n| Starter | $49/mês | 10 queries | 2 |\n| Pro | $149/mês | 50 queries | 5 |\n| Agency | $399/mês | Unlimited | 20 |\n\n## Competition\n| Tool | Status | Gap |\n|------|--------|-----|\n| Mentions.ai | $62k MRR | Líder atual |\n| Peec.ai | Early | Menos features |\n| Manual | Comum | Não escala |\n\n**Oportunidade:** Mercado novo, só 2-3 players, muito espaço.\n\n## Challenges\n- Scraping de AI interfaces pode mudar\n- Rate limits das plataformas AI\n- Definir \"visibilidade\" de forma consistente\n\n## Next Steps\n- [ ] Validar interesse com 5 empresas/agências\n- [ ] MVP manual (scrape + spreadsheet)\n- [ ] Landing page para waitlist\n\n---\n\n*Ideia encontrada em pesquisa Indie Hackers — 2026-01-31*\n*Alta prioridade pelo timing e validação de mercado*"
     },
     {
       "id": "newsletter-ai-curator",
@@ -72,11 +87,16 @@
       "skills": 8,
       "revenue": 5,
       "interest": 8,
-      "competitors": ["Curated.co", "Mailbrew", "Refind"],
+      "competitors": [
+        "Curated.co",
+        "Mailbrew",
+        "Refind"
+      ],
       "notes": "Útil para a Algarve Newsletter. Dogfooding possível. Mercado crowded.",
       "source": "safira",
       "dateAdded": "2026-02-01",
-      "detailsFile": "details/Newsletter-AI-Curator.md"
+      "detailsFile": "details/Newsletter-AI-Curator.md",
+      "detailsContent": "# Newsletter AI Curator\n\n## Problem\nCriar newsletters de curadoria requer:\n- Horas a pesquisar fontes\n- Filtrar o que é relevante\n- Escrever resumos\n- Manter consistência de tom\n\n## Solution\nAgente AI que:\n1. Monitoriza fontes definidas (RSS, Twitter, Reddit)\n2. Filtra por relevância usando embeddings\n3. Gera resumos no tom da newsletter\n4. Cria draft pronto para revisão\n\n## Market\n- Newsletter creators (Substack, Beehiiv)\n- Content marketers\n- Media companies pequenas\n\n## Technical Stack\n- **Fontes:** RSS parser + Twitter API + Reddit API\n- **Filtering:** Embeddings + similarity search\n- **Generation:** Claude API\n- **Delivery:** Email ou integração directa\n\n## Pricing\n- Solo: $19/mês\n- Pro: $49/mês (múltiplas newsletters)\n- Agency: $99/mês\n\n## Competition\n- Feedly AI\n- Mailbrew\n- Curated (manual)\n\n> [!note] Já temos experiência!\n> O workflow da Algarve Newsletter é basicamente isto.\n> Podemos produtizar o que já fazemos.\n\n## Next Steps\n- [ ] Documentar workflow actual\n- [ ] Identificar pontos de automação\n- [ ] Testar com outra newsletter piloto\n\n## Notes\nAlta sinergia com [[../Projects/Algarve-Newsletter|Algarve Newsletter]]."
     },
     {
       "id": "ai-sops-generator",
@@ -89,11 +109,16 @@
       "skills": 7,
       "revenue": 7,
       "interest": 5,
-      "competitors": ["Trainual", "Whale", "Scribe"],
+      "competitors": [
+        "Trainual",
+        "Whale",
+        "Scribe"
+      ],
       "notes": "B2B sólido. Scribe fez $25M funding. Mercado validado mas competido.",
       "source": "safira",
       "dateAdded": "2026-02-01",
-      "detailsFile": "details/AI-SOPs-Generator.md"
+      "detailsFile": "details/AI-SOPs-Generator.md",
+      "detailsContent": "# AI SOPs Generator\n\n## Problem\nPequenas e médias empresas perdem tempo enorme a:\n- Documentar processos internos\n- Criar manuais de onboarding\n- Manter SOPs atualizados\n\n## Solution\nFerramenta que:\n1. Grava screen + voz enquanto demonstras o processo\n2. Transcreve com Whisper\n3. Extrai screenshots automáticos\n4. Gera documento estruturado com Claude\n5. Exporta para Notion/Confluence/Google Docs\n\n## Market\n- PMEs (10-200 funcionários)\n- Consultoras de processos\n- HR/Onboarding teams\n- Franchises\n\n## Technical Stack\n- **Screen recording:** Browser extension ou Electron\n- **Transcrição:** Whisper\n- **Screenshot:** Puppeteer/system APIs\n- **Geração:** Claude API\n- **Export:** APIs do Notion/Confluence\n\n## Pricing\n- Free: 3 SOPs/mês\n- Pro: $29/mês per seat\n- Team: $19/mês per seat (5+ seats)\n\n## Competition\n- Scribe\n- Tango\n- Loom (parcialmente)\n\n> [!tip] Diferenciador\n> Output é documento editável, não apenas vídeo.\n> Integração directa com ferramentas existentes.\n\n## Next Steps\n- [ ] Testar com Scribe para benchmark\n- [ ] Protótipo com screen recording manual\n- [ ] Validar com 2-3 PMEs\n\n## Notes\nBoa sinergia com skills de programação que já temos."
     },
     {
       "id": "llm-privacy-auditor",
@@ -106,11 +131,16 @@
       "skills": 6,
       "revenue": 7,
       "interest": 5,
-      "competitors": ["Robust Intelligence", "Lakera", "Arthur AI"],
+      "competitors": [
+        "Robust Intelligence",
+        "Lakera",
+        "Arthur AI"
+      ],
       "notes": "Enterprise compliance angle. Complexidade técnica alta. Skills gap.",
       "source": "safira",
       "dateAdded": "2026-02-01",
-      "detailsFile": "details/LLM-Privacy-Auditor.md"
+      "detailsFile": "details/LLM-Privacy-Auditor.md",
+      "detailsContent": "# LLM Privacy Auditor\n\n## Problem\nCom a explosão de AI tools (ChatGPT, Claude, Copilot, Cursor):\n- **Funcionários copiam código, emails, dados de clientes** para LLMs\n- **IT não tem visibilidade** sobre o que é enviado\n- **Compliance nightmare** — GDPR, HIPAA, SOC2\n- **Data leaks acidentais** são inevitáveis\n\n> [!important] Trending on HN (validação forte!)\n> \"Sherlock\" - A MitM proxy to see what your LLM tools are sending\n> **215 pontos, 119 comentários** (30 Jan 2026) — demanda clara!\n> Link: github.com/jmuncor/sherlock\n\n## Solution\n**SaaS/On-prem que audita tráfego para LLMs:**\n\n1. **Proxy Layer:** Interceta requests para OpenAI, Anthropic, etc.\n2. **Data Classification:** Detecta PII, código, credentials, dados sensíveis\n3. **Policy Engine:** Bloqueia ou alerta baseado em regras\n4. **Dashboard:** Visibilidade total para IT/Security\n5. **Reports:** Compliance reports para auditorias\n\n### Features Chave\n- **Shadow AI Discovery** — descobre que AI tools estão a ser usados\n- **Data Loss Prevention** — bloqueia envio de dados sensíveis\n- **Audit Trail** — log completo para compliance\n- **Anomaly Detection** — alerta padrões suspeitos\n\n## Market\n| Segmento | Dor | Budget |\n|----------|-----|--------|\n| Enterprises (500+) | Compliance, data loss | $5K-50K/ano |\n| Mid-market (50-500) | Visibility, control | $1K-5K/ano |\n| Regulated industries | HIPAA, SOC2, GDPR | Premium pricing |\n\n**TAM:** $2B+ (AI security market growing 30%/year)\n\n## Technical Stack\n- **Proxy:** mitmproxy, custom TLS interception\n- **Classification:** Fine-tuned models para PII detection\n- **Backend:** Go/Rust (performance crítica)\n- **Dashboard:** React + charts\n- **Deploy:** Docker, Kubernetes, on-prem option\n\n## Pricing\n- **Starter:** $99/mês — até 50 users, basic policies\n- **Business:** $499/mês — até 500 users, advanced features\n- **Enterprise:** Custom — on-prem, SSO, dedicated support\n\n## Competition\n| Tool | Foco | Gap |\n|------|------|-----|\n| Nightfall AI | DLP geral | Não específico para LLMs |\n| Lakera | LLM security | Foco em prompt injection |\n| Open source (Sherlock) | Dev tool | Não é enterprise-ready |\n\n> [!tip] Oportunidade\n> Mercado novo, poucos players established, enterprises precisam AGORA.\n\n## Challenges\n- [ ] Complexidade técnica (TLS interception)\n- [ ] Enterprise sales cycle longo\n- [ ] Precisa de credibilidade/trust\n- [ ] Competição vai aparecer rápido\n\n## Validation Ideas\n- Criar versão open source primeiro (like Sherlock)\n- Ganhar traction na comunidade dev\n- Converter para paid enterprise features\n\n## Next Steps\n- [ ] Estudar Sherlock (github.com/jmuncor/sherlock)\n- [ ] Testar com setup básico no nosso VPS\n- [ ] Landing page para enterprise waitlist\n- [ ] Contactar 5 security professionals para feedback\n\n## Notes\n**Prós:**\n- Mercado quente (AI security)\n- B2B = higher ACV\n- Pode começar como open source\n\n**Contras:**\n- Mais técnico que outros projectos\n- Enterprise sales é diferente\n- Precisa de investimento em credibilidade\n\n---\n\n*Ideia encontrada via Hacker News Show HN (210 pontos) — 2026-01-29*"
     },
     {
       "id": "ai-video-dubbing",
@@ -123,11 +153,16 @@
       "skills": 5,
       "revenue": 6,
       "interest": 6,
-      "competitors": ["ElevenLabs Dubbing", "Papercup", "Deepdub"],
+      "competitors": [
+        "ElevenLabs Dubbing",
+        "Papercup",
+        "Deepdub"
+      ],
       "notes": "High effort, skills gap em video. ElevenLabs já domina.",
       "source": "safira",
       "dateAdded": "2026-02-01",
-      "detailsFile": "details/AI-Video-Dubbing.md"
+      "detailsFile": "details/AI-Video-Dubbing.md",
+      "detailsContent": "# AI Video Dubbing SaaS\n\n## Problem\nCriadores de conteúdo querem expandir audiência para outros idiomas, mas:\n- Legendas têm baixa conversão\n- Dubbing profissional custa €2000+ por vídeo\n- Qualidade de ferramentas amadoras é fraca\n\n## Solution\nPlataforma que automatiza:\n1. Transcrição (Whisper)\n2. Tradução (Claude/GPT)\n3. Voice cloning (ElevenLabs/Fish Audio)\n4. Lip sync (Wav2Lip/SadTalker)\n\n## Market\n- YouTubers com >100k subs\n- Course creators (Udemy, Teachable)\n- SaaS com video tutorials\n- Agências de marketing\n\n## Technical Stack\n- **Transcrição:** Whisper API\n- **Tradução:** Claude API\n- **TTS:** ElevenLabs (voice cloning)\n- **Lip Sync:** Wav2Lip ou SadTalker\n- **Frontend:** Next.js\n- **Backend:** Python + FastAPI\n- **Queue:** Redis + Celery\n\n## Pricing\n- Starter: $29/mês (5 vídeos)\n- Pro: $99/mês (20 vídeos)\n- Agency: $199/mês (50 vídeos)\n\n## Competition\n- Rask AI\n- HeyGen\n- Papercup\n\n> [!warning] Challenges\n> - Lip sync ainda não é perfeito\n> - Voice cloning precisa de samples\n> - Custos de API podem ser altos\n\n## Next Steps\n- [ ] Testar pipeline completo manualmente\n- [ ] Calcular unit economics\n- [ ] Validar com 3 criadores\n\n## Notes\nIdeia surgiu no briefing de 2026-01-29. ^origin"
     },
     {
       "id": "statuscheck-pt",
@@ -140,7 +175,11 @@
       "skills": 8,
       "revenue": 6,
       "interest": 6,
-      "competitors": ["Trustpilot", "Portal da Queixa (parcial)", "ScamAdviser"],
+      "competitors": [
+        "Trustpilot",
+        "Portal da Queixa (parcial)",
+        "ScamAdviser"
+      ],
       "notes": "Nicho português. Dados locais são diferencial. Monetização B2B2C.",
       "source": "safira-briefing",
       "dateAdded": "2026-02-01",
