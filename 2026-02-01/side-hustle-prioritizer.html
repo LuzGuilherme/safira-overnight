@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💡 Side Hustle Prioritizer | Qual ideia construir primeiro?</title>
+    <title>💡 Side Hustle Prioritizer | Dinâmico</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -19,11 +19,10 @@
             --accent-purple: #8b5cf6;
             --accent-orange: #f59e0b;
             --accent-red: #ef4444;
-            --accent-pink: #ec4899;
             --border: #2a2a3a;
-            --gradient-gold: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
-            --gradient-silver: linear-gradient(135deg, #9ca3af 0%, #d1d5db 100%);
-            --gradient-bronze: linear-gradient(135deg, #b45309 0%, #d97706 100%);
+            --gold: #fbbf24;
+            --silver: #9ca3af;
+            --bronze: #d97706;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -51,17 +50,9 @@
             border: 1px solid var(--border);
         }
 
-        .logo {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-        }
-
-        .tagline {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-
+        .logo { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .tagline { color: var(--text-secondary); font-size: 1.1rem; }
+        
         .formula {
             margin-top: 1rem;
             padding: 1rem;
@@ -69,6 +60,30 @@
             border-radius: 10px;
             font-family: monospace;
             color: var(--accent-purple);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
         }
 
         /* Podium */
@@ -88,58 +103,30 @@
             background: var(--bg-card);
             border: 2px solid var(--border);
             transition: all 0.3s ease;
+            cursor: pointer;
+            width: 200px;
         }
 
-        .podium-item:hover {
-            transform: translateY(-5px);
-        }
+        .podium-item:hover { transform: translateY(-5px); }
 
         .podium-1 {
             order: 2;
             min-height: 260px;
-            border-color: #fbbf24;
+            border-color: var(--gold);
             box-shadow: 0 0 30px rgba(251, 191, 36, 0.2);
         }
+        .podium-2 { order: 1; min-height: 220px; border-color: var(--silver); }
+        .podium-3 { order: 3; min-height: 180px; border-color: var(--bronze); }
 
-        .podium-2 {
-            order: 1;
-            min-height: 220px;
-            border-color: #9ca3af;
-        }
+        .medal { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .podium-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem; }
+        .podium-score { font-size: 2rem; font-weight: 800; }
+        .podium-1 .podium-score { color: var(--gold); }
+        .podium-2 .podium-score { color: var(--silver); }
+        .podium-3 .podium-score { color: var(--bronze); }
+        .podium-details { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; }
 
-        .podium-3 {
-            order: 3;
-            min-height: 180px;
-            border-color: #d97706;
-        }
-
-        .medal {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .podium-title {
-            font-weight: 700;
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .podium-score {
-            font-size: 2rem;
-            font-weight: 800;
-        }
-
-        .podium-1 .podium-score { color: #fbbf24; }
-        .podium-2 .podium-score { color: #9ca3af; }
-        .podium-3 .podium-score { color: #d97706; }
-
-        .podium-details {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-top: 0.5rem;
-        }
-
-        /* Cards Grid */
+        /* Grid */
         .ideas-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -153,12 +140,18 @@
             border: 1px solid var(--border);
             padding: 1.5rem;
             transition: all 0.3s ease;
+            animation: fadeIn 0.4s ease forwards;
         }
 
         .idea-card:hover {
             border-color: var(--accent-blue);
             transform: translateY(-2px);
         }
+
+        .idea-card.top-3 { border-width: 2px; }
+        .idea-card.rank-1 { border-color: var(--gold); }
+        .idea-card.rank-2 { border-color: var(--silver); }
+        .idea-card.rank-3 { border-color: var(--bronze); }
 
         .idea-header {
             display: flex;
@@ -167,24 +160,31 @@
             margin-bottom: 1rem;
         }
 
-        .idea-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
+        .idea-title { font-size: 1.1rem; font-weight: 700; }
 
         .idea-rank {
-            background: var(--bg-secondary);
             padding: 0.25rem 0.75rem;
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
+            background: var(--bg-secondary);
         }
+
+        .idea-rank.rank-1 { background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #000; }
+        .idea-rank.rank-2 { background: linear-gradient(135deg, #9ca3af, #d1d5db); color: #000; }
+        .idea-rank.rank-3 { background: linear-gradient(135deg, #b45309, #d97706); color: #fff; }
 
         .idea-problem {
             color: var(--text-secondary);
             font-size: 0.9rem;
             margin-bottom: 1rem;
             font-style: italic;
+        }
+
+        .idea-source {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
         }
 
         .scores-grid {
@@ -201,16 +201,8 @@
             border-radius: 10px;
         }
 
-        .score-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .score-label {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
+        .score-value { font-size: 1.5rem; font-weight: 700; }
+        .score-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
 
         .priority-bar {
             height: 8px;
@@ -223,7 +215,7 @@
         .priority-fill {
             height: 100%;
             border-radius: 4px;
-            transition: width 0.5s ease;
+            background: var(--accent-blue);
         }
 
         .priority-score {
@@ -233,40 +225,29 @@
             margin-top: 0.5rem;
         }
 
-        .priority-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
+        .priority-label { font-size: 0.8rem; color: var(--text-muted); }
+        .priority-value { font-size: 1.2rem; font-weight: 700; }
 
-        .priority-value {
-            font-size: 1.2rem;
-            font-weight: 700;
+        .idea-notes {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
         }
 
         /* Recommendation */
         .recommendation {
             margin-top: 2rem;
             padding: 2rem;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
             border: 1px solid var(--accent-green);
             border-radius: 16px;
         }
 
-        .rec-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--accent-green);
-        }
-
-        .rec-text {
-            color: var(--text-secondary);
-            line-height: 1.8;
-        }
-
-        .rec-text strong {
-            color: var(--text-primary);
-        }
+        .rec-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; color: var(--accent-green); }
+        .rec-text { color: var(--text-secondary); line-height: 1.8; }
+        .rec-text strong { color: var(--text-primary); }
 
         footer {
             text-align: center;
@@ -277,18 +258,28 @@
             font-size: 0.85rem;
         }
 
+        .update-info {
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .idea-card {
-            animation: fadeIn 0.4s ease forwards;
+        .loading {
+            text-align: center;
+            padding: 4rem;
+            color: var(--text-muted);
         }
 
-        .idea-card:nth-child(2) { animation-delay: 0.1s; }
-        .idea-card:nth-child(3) { animation-delay: 0.2s; }
-        .idea-card:nth-child(4) { animation-delay: 0.3s; }
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .logo { font-size: 1.8rem; }
+            .podium { flex-direction: column; align-items: center; }
+            .podium-item { order: unset !important; width: 100%; max-width: 300px; min-height: auto !important; }
+        }
     </style>
 </head>
 <body>
@@ -296,263 +287,175 @@
         <header>
             <div class="logo">💡 Side Hustle Prioritizer</div>
             <p class="tagline">Qual ideia construir primeiro? Deixa os números decidir.</p>
-            <div class="formula">
-                Priority Score = (Potential × Skills) ÷ Effort
+            <div class="formula">Priority Score = (Potential × Skills) ÷ Effort</div>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value" id="total-ideas">-</div>
+                    <div class="stat-label">Ideias</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="avg-score">-</div>
+                    <div class="stat-label">Score Médio</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="high-potential">-</div>
+                    <div class="stat-label">Alto Potencial</div>
+                </div>
             </div>
         </header>
 
-        <!-- Podium -->
-        <div class="podium">
-            <div class="podium-item podium-2">
-                <div class="medal">🥈</div>
-                <div class="podium-title">AI Proposal Generator</div>
-                <div class="podium-score">18.0</div>
-                <div class="podium-details">8 × 9 ÷ 4</div>
-            </div>
-            <div class="podium-item podium-1">
-                <div class="medal">🥇</div>
-                <div class="podium-title">GEO Optimizer</div>
-                <div class="podium-score">14.4</div>
-                <div class="podium-details">9 × 8 ÷ 5</div>
-            </div>
-            <div class="podium-item podium-3">
-                <div class="medal">🥉</div>
-                <div class="podium-title">AI Brand Monitor</div>
-                <div class="podium-score">12.0</div>
-                <div class="podium-details">9 × 8 ÷ 6</div>
-            </div>
+        <div class="podium" id="podium">
+            <div class="loading">A carregar...</div>
         </div>
 
-        <!-- All Ideas -->
-        <div class="ideas-grid">
-            <!-- 1. AI Proposal Generator -->
-            <div class="idea-card">
-                <div class="idea-header">
-                    <div class="idea-title">🥇 AI Proposal Generator</div>
-                    <div class="idea-rank" style="background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); color: #000;">#1</div>
-                </div>
-                <p class="idea-problem">"Consultores gastam 3-5h a criar cada proposta comercial"</p>
-                <div class="scores-grid">
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-green);">8</div>
-                        <div class="score-label">Potential</div>
-                    </div>
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-orange);">4</div>
-                        <div class="score-label">Effort</div>
-                    </div>
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-purple);">9</div>
-                        <div class="score-label">Skills</div>
-                    </div>
-                </div>
-                <div class="priority-bar">
-                    <div class="priority-fill" style="width: 100%; background: var(--gradient-gold);"></div>
-                </div>
-                <div class="priority-score">
-                    <span class="priority-label">Priority Score</span>
-                    <span class="priority-value" style="color: #fbbf24;">18.0</span>
-                </div>
-            </div>
-
-            <!-- 2. GEO Optimizer -->
-            <div class="idea-card">
-                <div class="idea-header">
-                    <div class="idea-title">🥈 GEO Optimizer</div>
-                    <div class="idea-rank" style="background: linear-gradient(135deg, #9ca3af 0%, #d1d5db 100%); color: #000;">#2</div>
-                </div>
-                <p class="idea-problem">"Ninguém sabe como rankear em AI search (ChatGPT, Perplexity)"</p>
-                <div class="scores-grid">
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-green);">9</div>
-                        <div class="score-label">Potential</div>
-                    </div>
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-orange);">5</div>
-                        <div class="score-label">Effort</div>
-                    </div>
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-purple);">8</div>
-                        <div class="score-label">Skills</div>
-                    </div>
-                </div>
-                <div class="priority-bar">
-                    <div class="priority-fill" style="width: 80%; background: var(--gradient-silver);"></div>
-                </div>
-                <div class="priority-score">
-                    <span class="priority-label">Priority Score</span>
-                    <span class="priority-value" style="color: #9ca3af;">14.4</span>
-                </div>
-            </div>
-
-            <!-- 3. AI Brand Monitor -->
-            <div class="idea-card">
-                <div class="idea-header">
-                    <div class="idea-title">🥉 AI Brand Monitor</div>
-                    <div class="idea-rank" style="background: linear-gradient(135deg, #b45309 0%, #d97706 100%); color: #fff;">#3</div>
-                </div>
-                <p class="idea-problem">"Marcas não sabem como aparecem nas respostas de AI"</p>
-                <div class="scores-grid">
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-green);">9</div>
-                        <div class="score-label">Potential</div>
-                    </div>
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-orange);">6</div>
-                        <div class="score-label">Effort</div>
-                    </div>
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-purple);">8</div>
-                        <div class="score-label">Skills</div>
-                    </div>
-                </div>
-                <div class="priority-bar">
-                    <div class="priority-fill" style="width: 67%; background: var(--gradient-bronze);"></div>
-                </div>
-                <div class="priority-score">
-                    <span class="priority-label">Priority Score</span>
-                    <span class="priority-value" style="color: #d97706;">12.0</span>
-                </div>
-            </div>
-
-            <!-- 4. Newsletter AI Curator -->
-            <div class="idea-card">
-                <div class="idea-header">
-                    <div class="idea-title">📰 Newsletter AI Curator</div>
-                    <div class="idea-rank">#4</div>
-                </div>
-                <p class="idea-problem">"Curar conteúdo para newsletters consome horas semanais"</p>
-                <div class="scores-grid">
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-green);">6</div>
-                        <div class="score-label">Potential</div>
-                    </div>
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-orange);">4</div>
-                        <div class="score-label">Effort</div>
-                    </div>
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-purple);">8</div>
-                        <div class="score-label">Skills</div>
-                    </div>
-                </div>
-                <div class="priority-bar">
-                    <div class="priority-fill" style="width: 67%; background: var(--accent-blue);"></div>
-                </div>
-                <div class="priority-score">
-                    <span class="priority-label">Priority Score</span>
-                    <span class="priority-value">12.0</span>
-                </div>
-            </div>
-
-            <!-- 5. AI SOPs Generator -->
-            <div class="idea-card">
-                <div class="idea-header">
-                    <div class="idea-title">📋 AI SOPs Generator</div>
-                    <div class="idea-rank">#5</div>
-                </div>
-                <p class="idea-problem">"PMEs gastam horas a documentar processos internos"</p>
-                <div class="scores-grid">
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-green);">7</div>
-                        <div class="score-label">Potential</div>
-                    </div>
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-orange);">5</div>
-                        <div class="score-label">Effort</div>
-                    </div>
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-purple);">7</div>
-                        <div class="score-label">Skills</div>
-                    </div>
-                </div>
-                <div class="priority-bar">
-                    <div class="priority-fill" style="width: 54%; background: var(--accent-blue);"></div>
-                </div>
-                <div class="priority-score">
-                    <span class="priority-label">Priority Score</span>
-                    <span class="priority-value">9.8</span>
-                </div>
-            </div>
-
-            <!-- 6. LLM Privacy Auditor -->
-            <div class="idea-card">
-                <div class="idea-header">
-                    <div class="idea-title">🔒 LLM Privacy Auditor</div>
-                    <div class="idea-rank">#6</div>
-                </div>
-                <p class="idea-problem">"Empresas não sabem que dados enviam para AI tools"</p>
-                <div class="scores-grid">
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-green);">8</div>
-                        <div class="score-label">Potential</div>
-                    </div>
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-orange);">6</div>
-                        <div class="score-label">Effort</div>
-                    </div>
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-purple);">6</div>
-                        <div class="score-label">Skills</div>
-                    </div>
-                </div>
-                <div class="priority-bar">
-                    <div class="priority-fill" style="width: 44%; background: var(--accent-blue);"></div>
-                </div>
-                <div class="priority-score">
-                    <span class="priority-label">Priority Score</span>
-                    <span class="priority-value">8.0</span>
-                </div>
-            </div>
-
-            <!-- 7. AI Video Dubbing -->
-            <div class="idea-card">
-                <div class="idea-header">
-                    <div class="idea-title">🎬 AI Video Dubbing</div>
-                    <div class="idea-rank">#7</div>
-                </div>
-                <p class="idea-problem">"Dubbing profissional custa milhares"</p>
-                <div class="scores-grid">
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-green);">8</div>
-                        <div class="score-label">Potential</div>
-                    </div>
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-orange);">7</div>
-                        <div class="score-label">Effort</div>
-                    </div>
-                    <div class="score-item">
-                        <div class="score-value" style="color: var(--accent-purple);">5</div>
-                        <div class="score-label">Skills</div>
-                    </div>
-                </div>
-                <div class="priority-bar">
-                    <div class="priority-fill" style="width: 32%; background: var(--accent-blue);"></div>
-                </div>
-                <div class="priority-score">
-                    <span class="priority-label">Priority Score</span>
-                    <span class="priority-value">5.7</span>
-                </div>
-            </div>
+        <div class="ideas-grid" id="ideas-grid">
+            <div class="loading">A carregar ideias...</div>
         </div>
 
-        <!-- Recommendation -->
-        <div class="recommendation">
+        <div class="recommendation" id="recommendation">
             <div class="rec-title">💡 Recomendação da Safira</div>
-            <p class="rec-text">
-                <strong>Começar por: AI Proposal Generator</strong><br><br>
-                Porquê? Tem o melhor equilíbrio entre potencial e esforço. Com score de skills 9/10, 
-                é algo que o Guilherme domina. MVP possível em 1-2 semanas.<br><br>
-                <strong>Bónus:</strong> Pode testar no próprio trabalho de PPC antes de lançar.<br><br>
-                <strong>Segunda opção:</strong> GEO Optimizer tem potencial 9/10 e o timing é perfeito 
-                (mercado emergente), mas requer mais esforço técnico.
-            </p>
+            <p class="rec-text" id="rec-text">A calcular...</p>
         </div>
 
         <footer>
-            <p>Safira • Overnight Build • 1 Fevereiro 2026</p>
-            <p style="margin-top: 0.5rem;">Dados de: /knowledge/brain-safira/Ideas/</p>
+            <p>Safira • Side Hustle Prioritizer • Versão Dinâmica</p>
+            <p class="update-info">Última actualização: <span id="last-update">-</span></p>
+            <p class="update-info">Dados: side-hustles.json</p>
         </footer>
     </div>
+
+    <script>
+        function calculateScore(idea) {
+            return (idea.potential * idea.skills) / idea.effort;
+        }
+
+        function getScoreColor(rank, total) {
+            if (rank === 1) return 'var(--gold)';
+            if (rank === 2) return 'var(--silver)';
+            if (rank === 3) return 'var(--bronze)';
+            return 'var(--accent-blue)';
+        }
+
+        function renderPodium(ideas) {
+            const top3 = ideas.slice(0, 3);
+            const medals = ['🥇', '🥈', '🥉'];
+            
+            return `
+                <div class="podium-item podium-2" onclick="scrollToCard('${top3[1]?.id}')">
+                    <div class="medal">${medals[1]}</div>
+                    <div class="podium-title">${top3[1]?.emoji || ''} ${top3[1]?.name || '-'}</div>
+                    <div class="podium-score">${calculateScore(top3[1]).toFixed(1)}</div>
+                    <div class="podium-details">${top3[1]?.potential} × ${top3[1]?.skills} ÷ ${top3[1]?.effort}</div>
+                </div>
+                <div class="podium-item podium-1" onclick="scrollToCard('${top3[0]?.id}')">
+                    <div class="medal">${medals[0]}</div>
+                    <div class="podium-title">${top3[0]?.emoji || ''} ${top3[0]?.name || '-'}</div>
+                    <div class="podium-score">${calculateScore(top3[0]).toFixed(1)}</div>
+                    <div class="podium-details">${top3[0]?.potential} × ${top3[0]?.skills} ÷ ${top3[0]?.effort}</div>
+                </div>
+                <div class="podium-item podium-3" onclick="scrollToCard('${top3[2]?.id}')">
+                    <div class="medal">${medals[2]}</div>
+                    <div class="podium-title">${top3[2]?.emoji || ''} ${top3[2]?.name || '-'}</div>
+                    <div class="podium-score">${calculateScore(top3[2]).toFixed(1)}</div>
+                    <div class="podium-details">${top3[2]?.potential} × ${top3[2]?.skills} ÷ ${top3[2]?.effort}</div>
+                </div>
+            `;
+        }
+
+        function renderCard(idea, rank, maxScore) {
+            const score = calculateScore(idea);
+            const barWidth = (score / maxScore) * 100;
+            const rankClass = rank <= 3 ? `top-3 rank-${rank}` : '';
+            const rankBadgeClass = rank <= 3 ? `rank-${rank}` : '';
+            const sourceLabel = idea.source === 'guilherme' ? '👤 Guilherme' : '✨ Safira';
+            
+            return `
+                <div class="idea-card ${rankClass}" id="card-${idea.id}">
+                    <div class="idea-header">
+                        <div class="idea-title">${idea.emoji || '💡'} ${idea.name}</div>
+                        <div class="idea-rank ${rankBadgeClass}">#${rank}</div>
+                    </div>
+                    <div class="idea-source">Fonte: ${sourceLabel} • ${idea.dateAdded}</div>
+                    <p class="idea-problem">"${idea.problem}"</p>
+                    <div class="scores-grid">
+                        <div class="score-item">
+                            <div class="score-value" style="color: var(--accent-green);">${idea.potential}</div>
+                            <div class="score-label">Potential</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-value" style="color: var(--accent-orange);">${idea.effort}</div>
+                            <div class="score-label">Effort</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-value" style="color: var(--accent-purple);">${idea.skills}</div>
+                            <div class="score-label">Skills</div>
+                        </div>
+                    </div>
+                    <div class="priority-bar">
+                        <div class="priority-fill" style="width: ${barWidth}%; background: ${getScoreColor(rank)};"></div>
+                    </div>
+                    <div class="priority-score">
+                        <span class="priority-label">Priority Score</span>
+                        <span class="priority-value" style="color: ${getScoreColor(rank)};">${score.toFixed(1)}</span>
+                    </div>
+                    ${idea.notes ? `<div class="idea-notes">📝 ${idea.notes}</div>` : ''}
+                </div>
+            `;
+        }
+
+        function renderRecommendation(top1, top2) {
+            return `
+                <strong>Começar por: ${top1.emoji} ${top1.name}</strong><br><br>
+                Porquê? Score de ${calculateScore(top1).toFixed(1)} — o melhor equilíbrio entre potencial (${top1.potential}/10), 
+                skills (${top1.skills}/10) e effort (${top1.effort}/10).<br><br>
+                ${top1.notes ? `<strong>Nota:</strong> ${top1.notes}<br><br>` : ''}
+                <strong>Segunda opção:</strong> ${top2.emoji} ${top2.name} com score ${calculateScore(top2).toFixed(1)}.
+            `;
+        }
+
+        function scrollToCard(id) {
+            document.getElementById('card-' + id)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        async function loadData() {
+            try {
+                const response = await fetch('side-hustles.json');
+                const data = await response.json();
+                
+                // Sort by score
+                const ideas = data.ideas
+                    .map(idea => ({ ...idea, score: calculateScore(idea) }))
+                    .sort((a, b) => b.score - a.score);
+                
+                const maxScore = ideas[0].score;
+                
+                // Update stats
+                document.getElementById('total-ideas').textContent = ideas.length;
+                document.getElementById('avg-score').textContent = (ideas.reduce((sum, i) => sum + i.score, 0) / ideas.length).toFixed(1);
+                document.getElementById('high-potential').textContent = ideas.filter(i => i.potential >= 8).length;
+                document.getElementById('last-update').textContent = new Date(data.lastUpdated).toLocaleString('pt-PT');
+                
+                // Render podium
+                document.getElementById('podium').innerHTML = renderPodium(ideas);
+                
+                // Render cards
+                document.getElementById('ideas-grid').innerHTML = ideas
+                    .map((idea, index) => renderCard(idea, index + 1, maxScore))
+                    .join('');
+                
+                // Render recommendation
+                document.getElementById('rec-text').innerHTML = renderRecommendation(ideas[0], ideas[1]);
+                
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+                document.getElementById('ideas-grid').innerHTML = `
+                    <div class="loading">Erro ao carregar: ${error.message}</div>
+                `;
+            }
+        }
+
+        // Load on page ready
+        document.addEventListener('DOMContentLoaded', loadData);
+    </script>
 </body>
 </html>

@@ -1,0 +1,101 @@
+{
+  "lastUpdated": "2026-02-01T17:30:00Z",
+  "ideas": [
+    {
+      "id": "ai-proposal-generator",
+      "name": "AI Proposal Generator",
+      "emoji": "📝",
+      "problem": "Consultores gastam 3-5h a criar cada proposta comercial",
+      "potential": 8,
+      "effort": 4,
+      "skills": 9,
+      "notes": "Pode testar no próprio trabalho de PPC. BYOK trend permite pricing acessível ($9-29/mês).",
+      "source": "safira",
+      "dateAdded": "2026-02-01"
+    },
+    {
+      "id": "geo-optimizer",
+      "name": "GEO Optimizer",
+      "emoji": "🔍",
+      "problem": "Ninguém sabe como rankear em AI search (ChatGPT, Perplexity)",
+      "potential": 9,
+      "effort": 5,
+      "skills": 8,
+      "notes": "Timing perfeito - mercado emergente. Concorrência ainda fraca.",
+      "source": "safira",
+      "dateAdded": "2026-02-01"
+    },
+    {
+      "id": "ai-brand-monitor",
+      "name": "AI Brand Monitor",
+      "emoji": "📊",
+      "problem": "Marcas não sabem como aparecem nas respostas de AI",
+      "potential": 9,
+      "effort": 6,
+      "skills": 8,
+      "notes": "Validado - outro player tem $62k MRR.",
+      "source": "safira",
+      "dateAdded": "2026-02-01"
+    },
+    {
+      "id": "newsletter-ai-curator",
+      "name": "Newsletter AI Curator",
+      "emoji": "📰",
+      "problem": "Curar conteúdo para newsletters consome horas semanais",
+      "potential": 6,
+      "effort": 4,
+      "skills": 8,
+      "notes": "Útil para a Algarve Newsletter. Dogfooding possível.",
+      "source": "safira",
+      "dateAdded": "2026-02-01"
+    },
+    {
+      "id": "ai-sops-generator",
+      "name": "AI SOPs Generator",
+      "emoji": "📋",
+      "problem": "PMEs gastam horas a documentar processos internos",
+      "potential": 7,
+      "effort": 5,
+      "skills": 7,
+      "notes": "B2B sólido. Mercado enterprise menos sexy mas paga bem.",
+      "source": "safira",
+      "dateAdded": "2026-02-01"
+    },
+    {
+      "id": "llm-privacy-auditor",
+      "name": "LLM Privacy Auditor",
+      "emoji": "🔒",
+      "problem": "Empresas não sabem que dados enviam para AI tools",
+      "potential": 8,
+      "effort": 6,
+      "skills": 6,
+      "notes": "Mercado enterprise. Compliance angle forte.",
+      "source": "safira",
+      "dateAdded": "2026-02-01"
+    },
+    {
+      "id": "ai-video-dubbing",
+      "name": "AI Video Dubbing",
+      "emoji": "🎬",
+      "problem": "Dubbing profissional custa milhares",
+      "potential": 8,
+      "effort": 7,
+      "skills": 5,
+      "notes": "High effort, skills gap em video processing.",
+      "source": "safira",
+      "dateAdded": "2026-02-01"
+    },
+    {
+      "id": "statuscheck-pt",
+      "name": "StatusCheck.pt",
+      "emoji": "✅",
+      "problem": "8% das queixas no Portal da Queixa são fraudes online",
+      "potential": 7,
+      "effort": 5,
+      "skills": 8,
+      "notes": "Dados portugueses reais. Widget/API para lojas verificadas.",
+      "source": "safira-briefing",
+      "dateAdded": "2026-02-01"
+    }
+  ]
+}
