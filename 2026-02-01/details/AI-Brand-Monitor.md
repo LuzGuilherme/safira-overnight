@@ -1,107 +1,129 @@
----
-title: AI Brand Monitor
-created: 2026-01-31
-tags:
-  - idea
-  - side-hustle
-  - ai
-  - b2b
-  - saas
-  - marketing
-status: exploring
-potential: 9
-effort: 6
-skills: 8
-problem: "Marcas não sabem como aparecem nas respostas de ChatGPT, Perplexity, Claude"
-solution: "Dashboard que monitoriza menções da marca em AI responses"
-market: "Empresas, Agências de marketing, Brand managers"
----
-
 # AI Brand Monitor
 
-## Problem
-Com AI a substituir Google para muitas pesquisas, marcas têm um novo problema:
+## 🎯 Problema
+Marcas não sabem como aparecem nas respostas de AI (ChatGPT, Perplexity, Gemini).
 
-- **Não sabem** como aparecem nas respostas de ChatGPT/Perplexity/Claude
-- **Não conseguem medir** visibilidade em AI vs competidores
-- **Não têm alertas** quando AI diz algo errado sobre eles
-- **SEO tradicional** não funciona para optimizar para AI
+**Dores específicas:**
+- Zero visibilidade sobre menções em AI
+- Concorrentes podem estar a ser recomendados, tu não
+- Impossível medir ROI de brand em AI search
+- Respostas AI influenciam decisões de compra
+- PR crises podem surgir de respostas AI incorrectas
 
-> [!note] Validação
-> Startup "Mentions" fez **$0 → $62k MRR em 3 meses** com produto similar.
-> Target para 2026: $100k MRR.
-> Fonte: Indie Hackers (Janeiro 2026)
+> **Fonte:** Otterly.ai tem $62k MRR validando este mercado. Enterprise paga bem por brand monitoring.
 
-## Solution
-**SaaS que monitoriza presença da marca em AI:**
+## 📈 Trends Relevantes
+**AI como novo "search":**
+- Consumidores perguntam "qual o melhor X?" ao ChatGPT
+- Respostas AI influenciam percepção de marca
+- Empresas pagam milhares por social listening
+- Mesmo mercado, nova plataforma (AI vs social)
 
-1. **Tracking contínuo:**
-   - Queries relevantes ao negócio
-   - Comparação com competidores
-   - Histórico de mudanças
+## 💡 Solução
 
-2. **Dashboard:**
-   - Score de visibilidade AI
-   - Sentiment das respostas
-   - Comparação temporal
+**Input:**
+- Nome da marca
+- Produtos/serviços principais
+- Concorrentes a monitorizar
 
-3. **Alertas:**
-   - Quando AI diz algo incorrecto
-   - Quando competidor ganha visibilidade
-   - Mudanças significativas
+**Output:**
+- Dashboard de menções em AI responses
+- Sentiment analysis
+- Comparação com concorrentes
+- Alertas de mudanças
+- Reports para stakeholders
 
-4. **Insights:**
-   - Como melhorar presença em AI
-   - Que conteúdo criar para ser citado
-   - Gaps vs competidores
+**Diferencial:**
+- Foco exclusivo em AI engines (não social)
+- Competitive benchmarking built-in
+- Enterprise-ready (reports, exports)
 
-## Porque alinhado com Guilherme
-- ✅ **Marketing adjacent** — não é PPC mas é da área
-- ✅ **B2B SaaS** — receita recorrente
-- ✅ **Timing perfeito** — mercado emergente, pouca competição
-- ✅ **Skills relevantes** — entende de marcas e visibilidade
-- ✅ **Validado** — já há startup com $62k MRR
+## 📊 Scores
+| Dimensão | Score | Justificação |
+|----------|-------|--------------|
+| Market   | 7/10  | Otterly.ai já provou mercado, espaço para mais |
+| Demand   | 8/10  | Enterprise paga por brand monitoring |
+| Effort   | 5/10  | Scraping + dashboard + alertas |
+| Skills   | 8/10  | Background marketing, entende branding |
+| Revenue  | 8/10  | B2B enterprise, high ticket |
+| Interest | 7/10  | Mercado interessante, validado |
 
-## MVP Features
-1. Input: nome da marca + 5 queries relevantes
-2. Scrape respostas de ChatGPT/Perplexity (1x por dia)
-3. Dashboard simples com score e menções
-4. Alerta por email se mudança >20%
+**Score Final: 7.30 — MAYBE 🟡**
 
-## Technical Stack
-- **Frontend:** Next.js
-- **Backend:** Python/FastAPI
-- **Scraping:** Playwright para AI interfaces
-- **DB:** Supabase
-- **Alertas:** Resend/email
+## 🏢 Competidores
+| Tool | Foco | Gap |
+|------|------|-----|
+| Otterly.ai | AI brand monitoring | $62k MRR, validou mercado |
+| Brandwatch | Social listening | Não tracking AI |
+| Mention | Social monitoring | Foco social, não AI |
+| Peec AI | AI monitoring | Early stage |
 
-## Pricing
-| Tier | Preço | Queries | Competidores |
-|------|-------|---------|--------------|
-| Starter | $49/mês | 10 queries | 2 |
-| Pro | $149/mês | 50 queries | 5 |
-| Agency | $399/mês | Unlimited | 20 |
+**Oportunidade:** Mercado validado, espaço para diferenciação.
 
-## Competition
-| Tool | Status | Gap |
-|------|--------|-----|
-| Mentions.ai | $62k MRR | Líder atual |
-| Peec.ai | Early | Menos features |
-| Manual | Comum | Não escala |
+## 👤 Target Market
+| Segmento | Dor | Budget |
+|----------|-----|--------|
+| Enterprise brands | PR e brand perception | $500-2000/mês |
+| Agencies | Serviço para clientes | $300-1000/mês |
+| SaaS companies | Competitive intel | $200-500/mês |
 
-**Oportunidade:** Mercado novo, só 2-3 players, muito espaço.
+## 💰 Monetização
+| Tier | Preço | Inclui |
+|------|-------|--------|
+| Starter | $99/mês | 1 brand, basic monitoring |
+| Pro | $299/mês | 5 brands, alerts, reports |
+| Enterprise | $999/mês | Unlimited, API, white-label |
 
-## Challenges
-- Scraping de AI interfaces pode mudar
-- Rate limits das plataformas AI
-- Definir "visibilidade" de forma consistente
+## 🛠️ Tech Stack
+- **Frontend:** Next.js dashboard
+- **Backend:** Python para scraping e NLP
+- **AI:** Claude para sentiment analysis
+- **Database:** PostgreSQL para histórico
+- **Outros:** Email/Slack para alertas
 
-## Next Steps
-- [ ] Validar interesse com 5 empresas/agências
-- [ ] MVP manual (scrape + spreadsheet)
-- [ ] Landing page para waitlist
+## 🎯 Features MVP
+- [ ] Monitorizar 1 brand em ChatGPT
+- [ ] Report semanal de menções
+- [ ] Comparação com 2 concorrentes
+- [ ] Dashboard básico
+
+## 🚀 Features Futuras
+- Multi-engine (ChatGPT, Perplexity, Gemini, Claude)
+- Sentiment trends ao longo do tempo
+- Alertas em tempo real
+- API para integração
+- White-label para agências
+
+## ✅ Validação
+1. [ ] Analisar Otterly.ai (features, pricing, gaps)
+2. [ ] Criar MVP para 1 brand (testar manualmente)
+3. [ ] Outreach a 5 marketing managers
+4. [ ] Landing page com waitlist
+
+## 🔗 Sinergia Contigo
+- ✅ **Background marketing** — entende brand perception
+- ✅ **Mercado validado** — Otterly.ai provou demand
+- ✅ **B2B experience** — sabe vender a empresas
+- ✅ **Newsletter** — pode testar com própria marca
+
+## ⚠️ Challenges
+- Otterly.ai já tem tração
+- Enterprise sales cycle longo
+- Scraping em escala é complexo
+- Diferenciação necessária
+
+## 📝 Notas
+
+**Prós:**
+- Mercado validado ($62k MRR competitor)
+- Enterprise paga bem
+- Recurring revenue claro
+- Pode começar nicho e expandir
+
+**Contras:**
+- Competição directa com player established
+- Enterprise sales é demorado
+- Requer infra robusta para escala
 
 ---
-
-*Ideia encontrada em pesquisa Indie Hackers — 2026-01-31*
-*Alta prioridade pelo timing e validação de mercado*
+*Fonte: Análise de competidores + Product Hunt — 2026-01-30*

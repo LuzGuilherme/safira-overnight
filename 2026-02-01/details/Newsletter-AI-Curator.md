@@ -1,65 +1,127 @@
----
-title: Newsletter AI Curator
-created: 2026-01-29
-tags:
-  - idea
-  - side-hustle
-  - ai
-  - content
-status: exploring
-potential: 6
-effort: 4
-skills: 8
-problem: "Curar conteúdo para newsletters consome horas semanais"
-solution: "AI que pesquisa, filtra e escreve drafts de newsletters automaticamente"
-market: "Newsletter creators, content marketers"
----
-
 # Newsletter AI Curator
 
-## Problem
-Criar newsletters de curadoria requer:
-- Horas a pesquisar fontes
-- Filtrar o que é relevante
-- Escrever resumos
-- Manter consistência de tom
+## 🎯 Problema
+Curar conteúdo para newsletters consome horas semanais.
 
-## Solution
-Agente AI que:
-1. Monitoriza fontes definidas (RSS, Twitter, Reddit)
-2. Filtra por relevância usando embeddings
-3. Gera resumos no tom da newsletter
-4. Cria draft pronto para revisão
+**Dores específicas:**
+- Horas a procurar artigos relevantes
+- Manter consistência de qualidade é difícil
+- Newsletters de nicho precisam de conteúdo especializado
+- Tempo gasto em curação vs tempo em growth
+- Burnout de criadores de newsletter
 
-## Market
-- Newsletter creators (Substack, Beehiiv)
-- Content marketers
-- Media companies pequenas
+> **Fonte:** Dor pessoal com Algarve Newsletter + feedback de newsletter creators.
 
-## Technical Stack
-- **Fontes:** RSS parser + Twitter API + Reddit API
-- **Filtering:** Embeddings + similarity search
-- **Generation:** Claude API
-- **Delivery:** Email ou integração directa
+## 📈 Trends Relevantes
+**Newsletter boom continua:**
+- Substack, Beehiiv, Ghost a crescer
+- Creators querem automatizar trabalho repetitivo
+- AI curation tools estão a emergir
+- "Creator economy" valoriza tempo
 
-## Pricing
-- Solo: $19/mês
-- Pro: $49/mês (múltiplas newsletters)
-- Agency: $99/mês
+## 💡 Solução
 
-## Competition
-- Feedly AI
-- Mailbrew
-- Curated (manual)
+**Input:**
+- Tópicos/nicho da newsletter
+- Fontes preferidas (sites, RSS, Twitter)
+- Tom e estilo desejado
+- Frequência de publicação
 
-> [!note] Já temos experiência!
-> O workflow da Algarve Newsletter é basicamente isto.
-> Podemos produtizar o que já fazemos.
+**Output:**
+- Lista curada de artigos relevantes
+- Resumos AI de cada artigo
+- Sugestões de ângulos editoriais
+- Draft de secções da newsletter
 
-## Next Steps
-- [ ] Documentar workflow actual
-- [ ] Identificar pontos de automação
-- [ ] Testar com outra newsletter piloto
+**Diferencial:**
+- Foco em newsletters (não genérico)
+- Aprende com feedback do criador
+- Integração com Beehiiv/Substack
 
-## Notes
-Alta sinergia com [[../Projects/Algarve-Newsletter|Algarve Newsletter]].
+## 📊 Scores
+| Dimensão | Score | Justificação |
+|----------|-------|--------------|
+| Market   | 5/10  | Curated.co, Mailbrew existem, mercado crowded |
+| Demand   | 6/10  | Dor real mas nicho pequeno |
+| Effort   | 8/10  | RSS + AI summarization, relativamente simples |
+| Skills   | 8/10  | Tens newsletter, conheces a dor |
+| Revenue  | 5/10  | Creators têm budget limitado |
+| Interest | 8/10  | Útil para ti pessoalmente |
+
+**Score Final: 6.35 — MAYBE 🟡**
+
+## 🏢 Competidores
+| Tool | Foco | Gap |
+|------|------|-----|
+| Curated.co | Newsletter curation | Não AI-powered |
+| Mailbrew | Personal digest | Não para publishers |
+| Refind | Content discovery | Genérico, não newsletters |
+| Feedly | RSS reader | Não AI curation |
+
+## 👤 Target Market
+| Segmento | Dor | Budget |
+|----------|-----|--------|
+| Solo newsletter creators | Tempo limitado | $10-30/mês |
+| Newsletter agencies | Escala múltiplas newsletters | $50-200/mês |
+| Media companies | Eficiência editorial | $200-500/mês |
+
+## 💰 Monetização
+| Tier | Preço | Inclui |
+|------|-------|--------|
+| Starter | $19/mês | 1 newsletter, 20 artigos/semana |
+| Pro | $49/mês | 3 newsletters, unlimited |
+| Agency | $149/mês | 10 newsletters, team features |
+
+## 🛠️ Tech Stack
+- **Frontend:** Next.js
+- **Backend:** Python
+- **AI:** Claude para summarization
+- **Data:** RSS parsing, web scraping
+- **Outros:** Integração Beehiiv/Substack APIs
+
+## 🎯 Features MVP
+- [ ] Input: RSS feeds + keywords
+- [ ] Output: Lista de 10 artigos curados
+- [ ] Resumo AI de cada artigo
+- [ ] Export para copy-paste
+
+## 🚀 Features Futuras
+- Learning algorithm (feedback loop)
+- Integração directa com plataformas
+- Auto-draft de newsletter
+- Analytics de engagement
+
+## ✅ Validação
+1. [ ] Usar para Algarve Newsletter (dogfooding)
+2. [ ] Medir tempo poupado
+3. [ ] Partilhar com 5 newsletter creators
+4. [ ] Iterar baseado em feedback
+
+## 🔗 Sinergia Contigo
+- ✅ **Tens newsletter** — dogfooding natural
+- ✅ **Conheces a dor** — horas em curação
+- ✅ **MVP rápido** — pode começar simples
+- ✅ **Network de creators** — potencial early adopters
+
+## ⚠️ Challenges
+- Mercado crowded com alternatives
+- Creators têm budget baixo
+- Diferenciação difícil
+- Pode ser feature de plataformas existentes
+
+## 📝 Notas
+
+**Prós:**
+- Útil pessoalmente (Algarve Newsletter)
+- MVP simples e rápido
+- Dogfooding possível
+- Pode ser side project de baixo esforço
+
+**Contras:**
+- Mercado pequeno e crowded
+- Pricing pressure (creators cheap)
+- Pode não escalar bem
+- Genérico vs especializado tradeoff
+
+---
+*Fonte: Dor pessoal + análise de mercado — 2026-01-30*

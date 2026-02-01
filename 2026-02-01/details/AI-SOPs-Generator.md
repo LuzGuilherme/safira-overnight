@@ -1,67 +1,126 @@
----
-title: AI SOPs Generator
-created: 2026-01-29
-tags:
-  - idea
-  - side-hustle
-  - ai
-  - b2b
-status: exploring
-potential: 7
-effort: 5
-skills: 7
-problem: "PMEs gastam horas a documentar processos internos (SOPs)"
-solution: "Tool que grava demonstrações e gera SOPs automáticos com screenshots"
-market: "PMEs, consultores, onboarding teams"
----
-
 # AI SOPs Generator
 
-## Problem
-Pequenas e médias empresas perdem tempo enorme a:
-- Documentar processos internos
-- Criar manuais de onboarding
-- Manter SOPs atualizados
+## 🎯 Problema
+PMEs gastam horas a documentar processos internos (SOPs).
 
-## Solution
-Ferramenta que:
-1. Grava screen + voz enquanto demonstras o processo
-2. Transcreve com Whisper
-3. Extrai screenshots automáticos
-4. Gera documento estruturado com Claude
-5. Exporta para Notion/Confluence/Google Docs
+**Dores específicas:**
+- Documentação sempre desactualizada
+- Ninguém quer escrever SOPs
+- Onboarding de funcionários é caótico
+- Conhecimento sai quando pessoas saem
+- Processos inconsistentes entre equipas
 
-## Market
-- PMEs (10-200 funcionários)
-- Consultoras de processos
-- HR/Onboarding teams
-- Franchises
+> **Fonte:** Scribe fez $25M funding. Trainual, Whale validam mercado.
 
-## Technical Stack
-- **Screen recording:** Browser extension ou Electron
-- **Transcrição:** Whisper
-- **Screenshot:** Puppeteer/system APIs
-- **Geração:** Claude API
-- **Export:** APIs do Notion/Confluence
+## 📈 Trends Relevantes
+**Process documentation AI:**
+- Remote work aumentou necessidade de SOPs
+- Turnover alto = perda de conhecimento
+- AI pode capturar e documentar automaticamente
+- Compliance exige documentação
 
-## Pricing
-- Free: 3 SOPs/mês
-- Pro: $29/mês per seat
-- Team: $19/mês per seat (5+ seats)
+## 💡 Solução
 
-## Competition
-- Scribe
-- Tango
-- Loom (parcialmente)
+**Input:**
+- Descrição do processo (voz ou texto)
+- Screen recording da tarefa
+- Exemplos de output desejado
 
-> [!tip] Diferenciador
-> Output é documento editável, não apenas vídeo.
-> Integração directa com ferramentas existentes.
+**Output:**
+- SOP formatado profissionalmente
+- Step-by-step com screenshots
+- Checklist executável
+- Versão para training
 
-## Next Steps
-- [ ] Testar com Scribe para benchmark
-- [ ] Protótipo com screen recording manual
-- [ ] Validar com 2-3 PMEs
+**Diferencial:**
+- AI transforma gravações em SOPs
+- Actualização automática quando processo muda
+- Templates por indústria
 
-## Notes
-Boa sinergia com skills de programação que já temos.
+## 📊 Scores
+| Dimensão | Score | Justificação |
+|----------|-------|--------------|
+| Market   | 6/10  | Scribe, Trainual, Whale existem |
+| Demand   | 7/10  | B2B paga por eficiência operacional |
+| Effort   | 6/10  | Screen capture + AI + formatting |
+| Skills   | 7/10  | Entende operações de negócio |
+| Revenue  | 7/10  | B2B subscription, good LTV |
+| Interest | 5/10  | Menos exciting que outras ideias |
+
+**Score Final: 6.55 — MAYBE 🟡**
+
+## 🏢 Competidores
+| Tool | Foco | Gap |
+|------|------|-----|
+| Scribe | Auto-capture SOPs | $25M funding, established |
+| Trainual | Training + SOPs | Mais training que AI |
+| Whale | Knowledge base | Menos AI-powered |
+| Notion | General docs | Não específico SOPs |
+
+## 👤 Target Market
+| Segmento | Dor | Budget |
+|----------|-----|--------|
+| PMEs (10-50 pessoas) | Onboarding caótico | $50-200/mês |
+| Operations managers | Documentação desactualizada | $100-300/mês |
+| Franchises | Consistência entre locais | $200-500/mês |
+
+## 💰 Monetização
+| Tier | Preço | Inclui |
+|------|-------|--------|
+| Starter | $49/mês | 10 SOPs, 3 users |
+| Pro | $149/mês | 50 SOPs, 10 users |
+| Business | $349/mês | Unlimited, integrations |
+
+## 🛠️ Tech Stack
+- **Frontend:** Next.js
+- **Backend:** Python
+- **AI:** Claude para text generation, Whisper para transcription
+- **Screen:** Browser extension para capture
+- **Outros:** PDF export, Notion integration
+
+## 🎯 Features MVP
+- [ ] Input: texto descritivo do processo
+- [ ] Output: SOP formatado em Markdown
+- [ ] Export PDF
+- [ ] 3 templates (operações, vendas, suporte)
+
+## 🚀 Features Futuras
+- Screen recording auto-capture
+- Vídeo training generation
+- Integração Notion/Confluence
+- Version control de SOPs
+- Analytics de uso
+
+## ✅ Validação
+1. [ ] Criar SOP para processo interno pessoal
+2. [ ] Testar com 3 PMEs conhecidas
+3. [ ] Comparar output com Scribe
+4. [ ] Avaliar diferenciação possível
+
+## 🔗 Sinergia Contigo
+- ✅ **Entende operações** — trabalha em empresa
+- ✅ **Network de PMEs** — pode testar
+- ✅ **B2B experience** — sabe o que empresas precisam
+
+## ⚠️ Challenges
+- Scribe tem $25M e traction
+- Diferenciação difícil
+- Enterprise sales complexo
+- Screen capture é técnico
+
+## 📝 Notas
+
+**Prós:**
+- Mercado validado (Scribe funding)
+- B2B paga bem
+- Recurring revenue natural
+- Problema real em PMEs
+
+**Contras:**
+- Competição forte e bem financiada
+- Requer features técnicas (screen capture)
+- Menos exciting/diferenciado
+- Sales cycle B2B é lento
+
+---
+*Fonte: Análise de competidores + YC trends — 2026-01-30*

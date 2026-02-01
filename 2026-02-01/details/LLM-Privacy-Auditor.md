@@ -1,110 +1,127 @@
----
-title: LLM Privacy Auditor
-created: 2026-01-29
-tags:
-  - idea
-  - side-hustle
-  - ai
-  - security
-  - privacy
-  - b2b
-status: exploring
-potential: 8
-effort: 6
-skills: 6
-problem: "Empresas não sabem que dados sensíveis os funcionários enviam para AI tools"
-solution: "Proxy que audita e alerta sobre dados enviados para LLMs"
-market: "Enterprise IT, Security teams, Compliance officers"
----
-
 # LLM Privacy Auditor
 
-## Problem
-Com a explosão de AI tools (ChatGPT, Claude, Copilot, Cursor):
-- **Funcionários copiam código, emails, dados de clientes** para LLMs
-- **IT não tem visibilidade** sobre o que é enviado
-- **Compliance nightmare** — GDPR, HIPAA, SOC2
-- **Data leaks acidentais** são inevitáveis
+## 🎯 Problema
+Empresas não sabem que dados sensíveis enviam para AI tools.
 
-> [!important] Trending on HN (validação forte!)
-> "Sherlock" - A MitM proxy to see what your LLM tools are sending
-> **215 pontos, 119 comentários** (30 Jan 2026) — demanda clara!
-> Link: github.com/jmuncor/sherlock
+**Dores específicas:**
+- Funcionários colam dados confidenciais no ChatGPT
+- Zero visibilidade sobre AI data leakage
+- Compliance (GDPR, HIPAA) em risco
+- Shadow AI é um problema crescente
+- Não há ferramentas para auditar isto
 
-## Solution
-**SaaS/On-prem que audita tráfego para LLMs:**
+> **Fonte:** Enterprise security concerns + GDPR compliance requirements. Robust Intelligence, Lakera a crescer neste espaço.
 
-1. **Proxy Layer:** Interceta requests para OpenAI, Anthropic, etc.
-2. **Data Classification:** Detecta PII, código, credentials, dados sensíveis
-3. **Policy Engine:** Bloqueia ou alerta baseado em regras
-4. **Dashboard:** Visibilidade total para IT/Security
-5. **Reports:** Compliance reports para auditorias
+## 📈 Trends Relevantes
+**AI Security emergente:**
+- Enterprise adoption de AI está a explodir
+- CISOs preocupados com data leakage
+- Regulação de AI a aumentar (EU AI Act)
+- "Shadow AI" é o novo "Shadow IT"
 
-### Features Chave
-- **Shadow AI Discovery** — descobre que AI tools estão a ser usados
-- **Data Loss Prevention** — bloqueia envio de dados sensíveis
-- **Audit Trail** — log completo para compliance
-- **Anomaly Detection** — alerta padrões suspeitos
+## 💡 Solução
 
-## Market
-| Segmento | Dor | Budget |
-|----------|-----|--------|
-| Enterprises (500+) | Compliance, data loss | $5K-50K/ano |
-| Mid-market (50-500) | Visibility, control | $1K-5K/ano |
-| Regulated industries | HIPAA, SOC2, GDPR | Premium pricing |
+**Input:**
+- Integração com browser/apps
+- Logs de AI tool usage
+- Data classification rules
 
-**TAM:** $2B+ (AI security market growing 30%/year)
+**Output:**
+- Dashboard de dados enviados para AI
+- Alertas de PII/dados sensíveis
+- Compliance reports
+- Risk scoring por departamento
 
-## Technical Stack
-- **Proxy:** mitmproxy, custom TLS interception
-- **Classification:** Fine-tuned models para PII detection
-- **Backend:** Go/Rust (performance crítica)
-- **Dashboard:** React + charts
-- **Deploy:** Docker, Kubernetes, on-prem option
+**Diferencial:**
+- Foco específico em AI tools (não genérico DLP)
+- Fácil setup (browser extension)
+- Reporting para compliance
 
-## Pricing
-- **Starter:** $99/mês — até 50 users, basic policies
-- **Business:** $499/mês — até 500 users, advanced features
-- **Enterprise:** Custom — on-prem, SSO, dedicated support
+## 📊 Scores
+| Dimensão | Score | Justificação |
+|----------|-------|--------------|
+| Market   | 8/10  | Mercado novo, poucos players estabelecidos |
+| Demand   | 6/10  | Enterprise demand real mas early |
+| Effort   | 4/10  | Complexo: browser ext + NLP + dashboard |
+| Skills   | 6/10  | Requer conhecimento security/compliance |
+| Revenue  | 7/10  | Enterprise paga muito bem |
+| Interest | 5/10  | Menos exciting, mais técnico |
 
-## Competition
+**Score Final: 6.15 — MAYBE 🟡**
+
+## 🏢 Competidores
 | Tool | Foco | Gap |
 |------|------|-----|
-| Nightfall AI | DLP geral | Não específico para LLMs |
+| Robust Intelligence | AI security platform | Enterprise, muito caro |
 | Lakera | LLM security | Foco em prompt injection |
-| Open source (Sherlock) | Dev tool | Não é enterprise-ready |
+| Arthur AI | AI monitoring | Mais ML ops que privacy |
+| Traditional DLP | Data loss prevention | Não específico para AI |
 
-> [!tip] Oportunidade
-> Mercado novo, poucos players established, enterprises precisam AGORA.
+## 👤 Target Market
+| Segmento | Dor | Budget |
+|----------|-----|--------|
+| Enterprise (500+) | Compliance risk | $1000-5000/mês |
+| Mid-market (100-500) | Shadow AI | $300-1000/mês |
+| Regulated industries | GDPR/HIPAA | $500-2000/mês |
 
-## Challenges
-- [ ] Complexidade técnica (TLS interception)
-- [ ] Enterprise sales cycle longo
-- [ ] Precisa de credibilidade/trust
-- [ ] Competição vai aparecer rápido
+## 💰 Monetização
+| Tier | Preço | Inclui |
+|------|-------|--------|
+| Team | $299/mês | 50 users, basic monitoring |
+| Business | $799/mês | 200 users, compliance reports |
+| Enterprise | Custom | Unlimited, SSO, dedicated support |
 
-## Validation Ideas
-- Criar versão open source primeiro (like Sherlock)
-- Ganhar traction na comunidade dev
-- Converter para paid enterprise features
+## 🛠️ Tech Stack
+- **Frontend:** React dashboard
+- **Backend:** Python/Go para performance
+- **AI:** NLP para PII detection
+- **Browser:** Chrome extension
+- **Outros:** SIEM integrations
 
-## Next Steps
-- [ ] Estudar Sherlock (github.com/jmuncor/sherlock)
-- [ ] Testar com setup básico no nosso VPS
-- [ ] Landing page para enterprise waitlist
-- [ ] Contactar 5 security professionals para feedback
+## 🎯 Features MVP
+- [ ] Chrome extension que detecta AI tool usage
+- [ ] Log de prompts enviados (hashed for privacy)
+- [ ] Alertas básicos de PII detectado
+- [ ] Dashboard simples com métricas
 
-## Notes
+## 🚀 Features Futuras
+- Integração Slack/Teams
+- Policy enforcement (block certain data)
+- Compliance report generation
+- SIEM integration (Splunk, etc)
+- Mobile app monitoring
+
+## ✅ Validação
+1. [ ] Falar com 3 CISOs/compliance officers
+2. [ ] Criar browser extension PoC
+3. [ ] Testar PII detection accuracy
+4. [ ] Avaliar enterprise sales feasibility
+
+## 🔗 Sinergia Contigo
+- ⚠️ **Skills gap** — não é área de expertise
+- ⚠️ **Enterprise sales** — ciclo longo, complexo
+- ✅ **Mercado lucrativo** — se conseguir entrar
+
+## ⚠️ Challenges
+- Complexidade técnica alta
+- Enterprise sales é difícil sem network
+- Competidores bem financiados
+- Requer expertise em security/compliance
+- Browser extension é limitante
+
+## 📝 Notas
+
 **Prós:**
-- Mercado quente (AI security)
-- B2B = higher ACV
-- Pode começar como open source
+- Mercado enterprise paga muito
+- Problema real e crescente
+- Regulação vai aumentar demand
+- Poucos players ainda
 
 **Contras:**
-- Mais técnico que outros projectos
-- Enterprise sales é diferente
-- Precisa de investimento em credibilidade
+- Fora da área de expertise
+- Complexidade técnica
+- Enterprise sales difícil
+- Requer credibilidade em security
 
 ---
-
-*Ideia encontrada via Hacker News Show HN (210 pontos) — 2026-01-29*
+*Fonte: Enterprise security trends + YC batch analysis — 2026-01-30*

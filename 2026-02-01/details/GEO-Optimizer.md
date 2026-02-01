@@ -1,52 +1,66 @@
----
-title: GEO Optimizer (Generative Engine Optimization)
-created: 2026-01-29
-tags:
-  - idea
-  - side-hustle
-  - ai
-  - seo
-  - marketing
-  - b2b
-status: exploring
-potential: 9
-effort: 5
-skills: 8
-problem: "Empresas optimizam para Google mas AI search (ChatGPT, Perplexity) está a crescer e ninguém sabe como rankear lá"
-solution: "Ferramenta que analisa e optimiza conteúdo para aparecer em respostas de AI search engines"
-market: "Marketing teams, SEO agencies, content creators, SaaS companies"
----
-
 # GEO Optimizer (Generative Engine Optimization)
 
-## Problem
-O mundo está a mudar de **SEO para GEO**:
+## 🎯 Problema
+Empresas optimizam para Google mas AI search está a crescer e ninguém sabe como rankear lá.
+
+**Dores específicas:**
 - Pessoas perguntam ao ChatGPT/Perplexity em vez de pesquisar no Google
 - Empresas gastam milhares em SEO tradicional
-- **NINGUÉM sabe como optimizar para AI search**
+- NINGUÉM sabe como optimizar para AI search
 - Zero ferramentas dedicadas no mercado
+- Concorrentes aparecem em respostas AI, tu não
 
-> [!quote] Reddit r/microsaas
-> "GEO ≠ SEO. We've built platform that is content-first to optimise, rank inside ChatGPT/Perplexity (and tracking if it worked)"
+> **Fonte:** Reddit r/microsaas — "GEO ≠ SEO. We've built platform that is content-first to optimise, rank inside ChatGPT/Perplexity (and tracking if it worked)"
 
-## Solution
-**SaaS para optimizar presença em AI search engines:**
+## 📈 Trends Relevantes
+**AI Search Revolution:**
+- ChatGPT, Perplexity, Gemini a substituir pesquisas Google
+- SEO tradicional ($80B market) vai migrar parcialmente para GEO
+- First-mover advantage enorme — mercado nascente
+- Empresas começam a perguntar "como apareço no ChatGPT?"
 
-1. **Audit:** Verifica se a marca aparece em respostas do ChatGPT/Perplexity/Gemini
-2. **Analysis:** Identifica gaps entre conteúdo actual e o que AI cita
-3. **Recommendations:** Sugere mudanças estruturais para ser citado
-4. **Tracking:** Monitoriza menções em respostas AI ao longo do tempo
-5. **Competitor Intel:** Vê que concorrentes aparecem e porquê
+## 💡 Solução
 
-### Como Funciona GEO
-AI search engines valorizam:
-- Conteúdo estruturado (FAQs, listas, definições claras)
-- Fontes autoritativas citadas
-- Dados e estatísticas concretas
-- Respostas directas a perguntas específicas
-- Schema markup e dados estruturados
+**Input:**
+- Nome da marca/website
+- Keywords/categorias relevantes
+- Concorrentes a monitorizar
 
-## Market
+**Output:**
+- Audit: Apareces em respostas AI? Quanto?
+- Analysis: Gaps entre conteúdo actual e o que AI cita
+- Recommendations: Mudanças estruturais para ser citado
+- Tracking: Menções ao longo do tempo
+- Competitor Intel: Quem aparece e porquê
+
+**Diferencial:**
+- Primeiro a focar exclusivamente em GEO
+- Tracking de menções em múltiplos AI engines
+- Recomendações accionáveis (não só reports)
+
+## 📊 Scores
+| Dimensão | Score | Justificação |
+|----------|-------|--------------|
+| Market   | 9/10  | Mercado novo, poucos players, timing perfeito |
+| Demand   | 7/10  | Demand emergente, early adopters já procuram |
+| Effort   | 6/10  | APIs de AI + scraping + dashboard |
+| Skills   | 8/10  | Background PPC/SEO, entende o problema |
+| Revenue  | 7/10  | B2B SaaS, agencies pagam bem |
+| Interest | 8/10  | Mercado exciting, first-mover opportunity |
+
+**Score Final: 7.45 — MAYBE 🟡** (muito perto de BUILD IT)
+
+## 🏢 Competidores
+| Tool | Foco | Gap |
+|------|------|-----|
+| Semrush/Ahrefs | SEO tradicional | Zero GEO features |
+| Brand24 | Social listening | Não tracking AI |
+| Sparktoro | Audience research | Não específico AI |
+| Profound | GEO (early) | Muito novo, features limitadas |
+
+**Oportunidade:** Mercado NOVO — quem entrar agora domina.
+
+## 👤 Target Market
 | Segmento | Dor | Budget |
 |----------|-----|--------|
 | SaaS companies | "Concorrente aparece no ChatGPT, nós não" | $200-500/mês |
@@ -54,51 +68,64 @@ AI search engines valorizam:
 | E-commerce | Produtos citados em comparações AI | $100-300/mês |
 | B2B companies | Lead gen via AI recommendations | $300-1000/mês |
 
-**TAM:** Mercado SEO é $80B → GEO vai capturar parte significativa
+## 💰 Monetização
+| Tier | Preço | Inclui |
+|------|-------|--------|
+| Starter | $49/mês | 1 brand, basic monitoring |
+| Pro | $149/mês | 5 brands, competitor tracking |
+| Agency | $399/mês | Unlimited brands, white-label |
 
-## Technical Stack
-- **Scraping:** Query ChatGPT/Perplexity/Gemini APIs
-- **NLP:** Análise de quando/como marca é mencionada
-- **Recommendations:** Claude para gerar sugestões de optimização
-- **Tracking:** Database de menções ao longo do tempo
-- **Frontend:** Dashboard com métricas e trends
+## 🛠️ Tech Stack
+- **Frontend:** Next.js dashboard com métricas e trends
+- **Backend:** Python para scraping e análise
+- **AI:** Claude para gerar recomendações
+- **Database:** Tracking de menções ao longo do tempo
+- **Outros:** APIs ChatGPT/Perplexity/Gemini para queries
 
-## Pricing
-- **Starter:** $49/mês — 1 brand, basic monitoring
-- **Pro:** $149/mês — 5 brands, competitor tracking
-- **Agency:** $399/mês — unlimited brands, white-label
+## 🎯 Features MVP
+- [ ] Input: brand name + keywords
+- [ ] Query "best [categoria]" em ChatGPT/Perplexity
+- [ ] Report: aparece ou não, contexto
+- [ ] Comparação básica com 2-3 concorrentes
 
-## Competition
-| Tool | Foco | Gap |
-|------|------|-----|
-| Semrush/Ahrefs | SEO tradicional | Zero GEO features |
-| Brand24 | Social listening | Não tracking AI |
-| Sparktoro | Audience research | Não específico AI |
+## 🚀 Features Futuras
+- Dashboard com trends ao longo do tempo
+- Alertas quando menções mudam
+- Recomendações AI-powered
+- Integração com SEO tools existentes
+- White-label para agências
 
-> [!important] First Mover Advantage
-> Mercado NOVO — pouquíssimos players. Quem entrar agora domina.
+## ✅ Validação
+1. [ ] Testar manualmente: "best X" em ChatGPT vs Google
+2. [ ] Documentar padrões de quem aparece
+3. [ ] MVP: Script que compara rankings Google vs AI
+4. [ ] Landing page para validar interesse
+5. [ ] Outreach a 10 SEO agencies
 
-## Validation
-1. Pesquisar "best [categoria]" no ChatGPT
-2. Ver quem aparece vs quem é líder de mercado
-3. Há mismatch? → Oportunidade clara
+## 🔗 Sinergia Contigo
+- ✅ **Background PPC/Marketing** — entende SEO e o problema
+- ✅ **Pode oferecer como serviço** antes de produtizar
+- ✅ **Newsletter Algarve** — testar com próprio conteúdo
+- ✅ **Timing perfeito** — mercado emergente, first-mover
 
-## Sinergia com Guilherme
-- **Background PPC/Marketing** — entende o problema
-- **Pode oferecer como serviço** antes de produtizar
-- **Newsletter Algarve** — testar com próprio conteúdo
-- **Trend emerging** — timing perfeito para entrar
+## ⚠️ Challenges
+- APIs de AI podem mudar/limitar acesso
+- Definir métricas claras de sucesso
+- Educar mercado sobre GEO (conceito novo)
+- Scraping pode ter rate limits
 
-## Next Steps
-- [ ] Testar manualmente: "best X" em ChatGPT vs Google
-- [ ] Documentar padrões de quem aparece
-- [ ] MVP: Script que compara rankings Google vs AI
-- [ ] Landing page para validar interesse
+## 📝 Notas
 
-## Notes
-Este é o "SEO de 2010" — quem perceber primeiro ganha.
+**Prós:**
+- "SEO de 2010" — quem perceber primeiro ganha
+- Mercado B2B paga bem
+- Pode começar como serviço manual
+- Timing excepcional
+
+**Contras:**
+- Mercado ainda a educar
+- Dependência de APIs terceiros
+- Pode ser copiado quando validado
 
 ---
-
-*Ideia encontrada via pesquisa nocturna — 2026-01-29 23:00 UTC*
-*Fonte: r/microsaas trending + HN patterns*
+*Fonte: r/microsaas + HN patterns — 2026-01-29*

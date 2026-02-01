@@ -1,130 +1,128 @@
----
-title: AI Proposal Generator
-created: 2026-01-30
-tags:
-  - idea
-  - side-hustle
-  - ai
-  - b2b
-  - saas
-  - ppc
-  - marketing
-status: exploring
-potential: 8
-effort: 4
-skills: 9
-problem: "Consultores e agências gastam 3-5 horas a criar cada proposta comercial"
-solution: "AI que gera propostas profissionais a partir de briefing"
-market: "Consultores, Agências de marketing, Freelancers B2B"
----
-
 # AI Proposal Generator
 
-## Problem
-Consultores e agências perdem tempo enorme com propostas:
+## 🎯 Problema
+Consultores e agências perdem tempo enorme a criar propostas comerciais.
 
-- **3-5 horas** por proposta bem estruturada
-- **Copy-paste** de templates antigos
-- **Inconsistência** entre propostas
-- **Personalização** demora mas é crucial para fechar
-- **Win rate** baixo porque propostas são genéricas
+**Dores específicas:**
+- 3-5 horas por proposta bem estruturada
+- Copy-paste de templates antigos
+- Inconsistência entre propostas
+- Personalização demora mas é crucial para fechar
+- Win rate baixo porque propostas são genéricas
 
-> [!note] Fonte
-> Mencionado em análise de micro-SaaS trends como "AI-powered proposal generator for consultants - not trying to replace entire workflow, just making one painful task way easier"
+> **Fonte:** Análise de micro-SaaS trends — "AI-powered proposal generator for consultants - not trying to replace entire workflow, just making one painful task way easier"
 
-> [!tip] BYOK Trend (2026-01-31)
-> **Bring Your Own Key** está a crescer como modelo de negócio:
-> - Utilizador usa a própria API key (Claude, GPT, Gemini)
-> - Não há custos de AI para o SaaS
-> - Pricing mais baixo possível
-> - Exemplos: Nano-Slides, Git AutoReview
-> 
-> **Aplicação aqui:** Oferecer tier "BYOK" a $9/mês (só software, user paga AI directamente). Tier managed a $29/mês para quem quer simplicidade.
+## 📈 Trends Relevantes
+**BYOK (Bring Your Own Key)** está a crescer como modelo de negócio:
+- Utilizador usa a própria API key (Claude, GPT, Gemini)
+- Não há custos de AI para o SaaS
+- Pricing mais baixo possível
+- Exemplos: Nano-Slides, Git AutoReview
 
-## Solution
-**SaaS que gera propostas profissionais:**
+**Aplicação aqui:** Tier "BYOK" a $9/mês (só software). Tier managed a $29/mês para quem quer simplicidade.
 
-1. **Input simples:**
-   - Nome do cliente + sector
-   - Problema/necessidade
-   - Serviços a propor
-   - Budget range (opcional)
+## 💡 Solução
 
-2. **Output completo:**
-   - Proposta PDF profissional
-   - Executive summary
-   - Scope detalhado
-   - Timeline
-   - Pricing breakdown
-   - T&Cs standard
+**Input:**
+- Nome do cliente + sector
+- Problema/necessidade
+- Serviços a propor
+- Budget range (opcional)
 
-3. **Personalização inteligente:**
-   - Analisa website do cliente (scraping)
-   - Adapta linguagem ao sector
-   - Inclui case studies relevantes
-   - Customiza design por tipo de serviço
+**Output:**
+- Proposta PDF profissional
+- Executive summary
+- Scope detalhado
+- Timeline
+- Pricing breakdown
+- T&Cs standard
 
-## Porque alinhado com Guilherme
-- ✅ **Conhece a dor** — faz propostas PPC
-- ✅ **Pode ser primeiro utilizador** — usa no próprio trabalho
-- ✅ **Network de agências** — potencial early adopters
-- ✅ **Skills de marketing** — sabe promover
-- ✅ **MVP rápido** — pode ser simples no início
+**Diferencial:**
+- Analisa website do cliente (scraping)
+- Adapta linguagem ao sector
+- Inclui case studies relevantes
+- Customiza design por tipo de serviço
 
-## Features MVP
-1. Template de proposta de marketing/PPC
-2. Input: cliente + briefing + serviços
-3. Output: Proposta PDF (1 design)
-4. Estimativa de tempo/budget automática
+## 📊 Scores
+| Dimensão | Score | Justificação |
+|----------|-------|--------------|
+| Market   | 6/10  | Competição existe mas nenhum é AI-first |
+| Demand   | 8/10  | Dor real, consultores pagam por produtividade |
+| Effort   | 8/10  | MVP simples (1 template), 1-2 semanas |
+| Skills   | 9/10  | Guilherme faz propostas PPC, conhece a dor |
+| Revenue  | 8/10  | SaaS subscription claro, BYOK reduz custos |
+| Interest | 7/10  | Útil e aplicável ao próprio trabalho |
 
-## Features Futuras
+**Score Final: 7.75 — BUILD IT 🟢**
+
+## 🏢 Competidores
+| Tool | Foco | Gap |
+|------|------|-----|
+| Proposify | Proposal software | Não gera conteúdo |
+| PandaDoc | Docs + e-sign | Genérico, não AI |
+| Qwilr | Proposals web | Caro, não é AI |
+| Better Proposals | Templates | Manual, sem AI |
+
+**Oportunidade:** Nenhum é verdadeiramente AI-first para geração de conteúdo.
+
+## 👤 Target Market
+- **Consultores independentes** — $29-79/mês, precisam parecer profissionais
+- **Agências de marketing** — $79-199/mês, volume alto de propostas
+- **Freelancers B2B** — $29/mês, impulse buy
+
+## 💰 Monetização
+| Tier | Preço | Inclui |
+|------|-------|--------|
+| BYOK | $9/mês | Software only, user paga AI |
+| Starter | $29/mês | 10 propostas/mês |
+| Pro | $79/mês | 50 propostas/mês |
+| Agency | $199/mês | Unlimited |
+
+## 🛠️ Tech Stack
+- **Frontend:** Next.js
+- **Backend:** Python/FastAPI
+- **AI:** Claude API para texto
+- **PDF:** WeasyPrint ou similar
+- **Outros:** Scraping para análise de cliente
+
+## 🎯 Features MVP
+- [ ] Template de proposta de marketing/PPC
+- [ ] Input: cliente + briefing + serviços
+- [ ] Output: Proposta PDF (1 design)
+- [ ] Estimativa de tempo/budget automática
+
+## 🚀 Features Futuras
 - Múltiplos templates por indústria
 - Integração CRM (HubSpot, Pipedrive)
 - Tracking de propostas (abriu, não abriu)
 - Follow-up automático
 - Analytics de win rate
 
-## Technical Stack
-- **Frontend:** Next.js
-- **Backend:** Python/FastAPI
-- **AI:** Claude API para texto
-- **PDF:** WeasyPrint ou similar
-- **Scraping:** Para análise de cliente
+## ✅ Validação
+1. [ ] Criar landing page simples
+2. [ ] Partilhar com network de agências
+3. [ ] 5 entrevistas com consultores
+4. [ ] MVP funcional em 1 semana
 
-## Pricing
-| Tier | Preço | Propostas/mês |
-|------|-------|---------------|
-| Starter | $29/mês | 10 propostas |
-| Pro | $79/mês | 50 propostas |
-| Agency | $199/mês | Unlimited |
+## 🔗 Sinergia Contigo
+- ✅ **Conhece a dor** — faz propostas PPC no trabalho
+- ✅ **Primeiro utilizador** — pode testar no próprio trabalho
+- ✅ **Network de agências** — potencial early adopters
+- ✅ **Skills de marketing** — sabe promover
+- ✅ **MVP rápido** — pode começar simples
 
-## Competition
-| Tool | Foco | Gap |
-|------|------|-----|
-| Proposify | Proposal software | Não gera conteúdo |
-| PandaDoc | Docs + e-sign | Genérico |
-| Qwilr | Proposals web | Caro, não é AI |
-| Better Proposals | Templates | Manual |
-
-**Oportunidade:** Nenhum é verdadeiramente AI-first para geração de conteúdo.
-
-## Validation
-- [ ] Criar landing page
-- [ ] Partilhar com network de agências
-- [ ] 5 entrevistas com consultores
-- [ ] MVP funcional em 1 semana
-
-## Challenges
+## ⚠️ Challenges
 - Qualidade do output (precisa ser realmente bom)
 - Diferentes sectores = diferentes templates
 - Pricing vs value (quanto vale poupar 3h?)
 
-## Notes
+## 📝 Notas
+
 **Prós:**
 - MVP simples (pode começar com 1 template)
-- Guilherme pode usar/testar pessoalmente
+- Pode usar/testar pessoalmente
 - Mercado claro (consultores/agências)
-- $29/mês é impulso buy
+- $29/mês é impulse buy
 
 **Contras:**
 - Competição eventual (fácil de copiar)
@@ -132,5 +130,4 @@ Consultores e agências perdem tempo enorme com propostas:
 - Pode ser feature de outro produto
 
 ---
-
-*Ideia encontrada em análise de trends micro-SaaS — 2026-01-30*
+*Fonte: r/microsaas trends + análise pessoal — 2026-01-30*
