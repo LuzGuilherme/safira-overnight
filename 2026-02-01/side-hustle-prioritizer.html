@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💡 Side Hustle Prioritizer | Dinâmico</title>
+    <title>💡 Side Hustle Prioritizer v2.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0a0a0f;
             --bg-secondary: #13131a;
             --bg-card: #1a1a24;
-            --bg-hover: #22222e;
             --text-primary: #ffffff;
             --text-secondary: #a0a0b0;
             --text-muted: #6b6b7b;
@@ -23,6 +22,9 @@
             --gold: #fbbf24;
             --silver: #9ca3af;
             --bronze: #d97706;
+            --build: #10b981;
+            --maybe: #f59e0b;
+            --skip: #ef4444;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -35,11 +37,7 @@
             line-height: 1.6;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
 
         header {
             text-align: center;
@@ -51,18 +49,42 @@
         }
 
         .logo { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .version { font-size: 0.8rem; color: var(--accent-purple); margin-bottom: 0.5rem; }
         .tagline { color: var(--text-secondary); font-size: 1.1rem; }
-        
-        .formula {
-            margin-top: 1rem;
-            padding: 1rem;
+
+        .formula-box {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
             background: var(--bg-card);
-            border-radius: 10px;
-            font-family: monospace;
-            color: var(--accent-purple);
+            border-radius: 12px;
+            border: 1px solid var(--border);
         }
 
-        .stats {
+        .formula {
+            font-family: monospace;
+            color: var(--accent-purple);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .weights-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .weight-item {
+            text-align: center;
+            padding: 0.5rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+        }
+
+        .weight-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; }
+        .weight-value { font-size: 0.9rem; font-weight: 700; color: var(--accent-blue); }
+
+        .verdict-legend {
             display: flex;
             justify-content: center;
             gap: 2rem;
@@ -70,21 +92,34 @@
             flex-wrap: wrap;
         }
 
-        .stat {
-            text-align: center;
+        .verdict-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
         }
 
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent-blue);
+        .verdict-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
         }
 
-        .stat-label {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
+        .verdict-dot.build { background: var(--build); }
+        .verdict-dot.maybe { background: var(--maybe); }
+        .verdict-dot.skip { background: var(--skip); }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
         }
+
+        .stat { text-align: center; }
+        .stat-value { font-size: 1.5rem; font-weight: 700; color: var(--accent-blue); }
+        .stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
 
         /* Podium */
         .podium {
@@ -93,7 +128,7 @@
             align-items: flex-end;
             gap: 1rem;
             margin: 2rem 0;
-            min-height: 280px;
+            min-height: 300px;
         }
 
         .podium-item {
@@ -104,19 +139,14 @@
             border: 2px solid var(--border);
             transition: all 0.3s ease;
             cursor: pointer;
-            width: 200px;
+            width: 220px;
         }
 
         .podium-item:hover { transform: translateY(-5px); }
 
-        .podium-1 {
-            order: 2;
-            min-height: 260px;
-            border-color: var(--gold);
-            box-shadow: 0 0 30px rgba(251, 191, 36, 0.2);
-        }
-        .podium-2 { order: 1; min-height: 220px; border-color: var(--silver); }
-        .podium-3 { order: 3; min-height: 180px; border-color: var(--bronze); }
+        .podium-1 { order: 2; min-height: 280px; border-color: var(--gold); box-shadow: 0 0 30px rgba(251, 191, 36, 0.2); }
+        .podium-2 { order: 1; min-height: 240px; border-color: var(--silver); }
+        .podium-3 { order: 3; min-height: 200px; border-color: var(--bronze); }
 
         .medal { font-size: 2.5rem; margin-bottom: 0.5rem; }
         .podium-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem; }
@@ -124,12 +154,24 @@
         .podium-1 .podium-score { color: var(--gold); }
         .podium-2 .podium-score { color: var(--silver); }
         .podium-3 .podium-score { color: var(--bronze); }
-        .podium-details { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; }
+
+        .podium-verdict {
+            margin-top: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .verdict-build { background: rgba(16, 185, 129, 0.2); color: var(--build); }
+        .verdict-maybe { background: rgba(245, 158, 11, 0.2); color: var(--maybe); }
+        .verdict-skip { background: rgba(239, 68, 68, 0.2); color: var(--skip); }
 
         /* Grid */
         .ideas-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 1.5rem;
             margin-top: 2rem;
         }
@@ -143,11 +185,7 @@
             animation: fadeIn 0.4s ease forwards;
         }
 
-        .idea-card:hover {
-            border-color: var(--accent-blue);
-            transform: translateY(-2px);
-        }
-
+        .idea-card:hover { border-color: var(--accent-blue); transform: translateY(-2px); }
         .idea-card.top-3 { border-width: 2px; }
         .idea-card.rank-1 { border-color: var(--gold); }
         .idea-card.rank-2 { border-color: var(--silver); }
@@ -157,15 +195,22 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
+            gap: 0.5rem;
         }
 
         .idea-title { font-size: 1.1rem; font-weight: 700; }
 
+        .idea-badges {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
         .idea-rank {
             padding: 0.25rem 0.75rem;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
             background: var(--bg-secondary);
         }
@@ -174,6 +219,22 @@
         .idea-rank.rank-2 { background: linear-gradient(135deg, #9ca3af, #d1d5db); color: #000; }
         .idea-rank.rank-3 { background: linear-gradient(135deg, #b45309, #d97706); color: #fff; }
 
+        .idea-verdict {
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .idea-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+            display: flex;
+            gap: 1rem;
+        }
+
         .idea-problem {
             color: var(--text-secondary);
             font-size: 0.9rem;
@@ -181,73 +242,75 @@
             font-style: italic;
         }
 
-        .idea-source {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-        }
-
         .scores-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.75rem;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.5rem;
             margin-bottom: 1rem;
         }
 
         .score-item {
             text-align: center;
-            padding: 0.75rem;
+            padding: 0.5rem 0.25rem;
             background: var(--bg-secondary);
-            border-radius: 10px;
+            border-radius: 8px;
         }
 
-        .score-value { font-size: 1.5rem; font-weight: 700; }
-        .score-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
+        .score-value { font-size: 1.1rem; font-weight: 700; }
+        .score-label { font-size: 0.55rem; color: var(--text-muted); text-transform: uppercase; }
 
-        .priority-bar {
-            height: 8px;
-            background: var(--bg-secondary);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 1rem;
-        }
+        .score-market .score-value { color: #60a5fa; }
+        .score-demand .score-value { color: var(--accent-green); }
+        .score-effort .score-value { color: var(--accent-orange); }
+        .score-skills .score-value { color: var(--accent-purple); }
+        .score-revenue .score-value { color: #f472b6; }
+        .score-interest .score-value { color: #fbbf24; }
 
-        .priority-fill {
-            height: 100%;
-            border-radius: 4px;
-            background: var(--accent-blue);
-        }
-
-        .priority-score {
+        .final-score {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 0.5rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            margin-top: 1rem;
         }
 
-        .priority-label { font-size: 0.8rem; color: var(--text-muted); }
-        .priority-value { font-size: 1.2rem; font-weight: 700; }
+        .final-score-label { font-size: 0.85rem; color: var(--text-secondary); }
+        .final-score-value { font-size: 1.5rem; font-weight: 800; }
 
-        .idea-notes {
+        .competitors {
             margin-top: 1rem;
             padding-top: 1rem;
             border-top: 1px solid var(--border);
-            font-size: 0.85rem;
+        }
+
+        .competitors-title {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .competitors-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .competitor-tag {
+            font-size: 0.75rem;
+            background: var(--bg-secondary);
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
             color: var(--text-secondary);
         }
 
-        /* Recommendation */
-        .recommendation {
-            margin-top: 2rem;
-            padding: 2rem;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
-            border: 1px solid var(--accent-green);
-            border-radius: 16px;
+        .idea-notes {
+            margin-top: 0.75rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
         }
-
-        .rec-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; color: var(--accent-green); }
-        .rec-text { color: var(--text-secondary); line-height: 1.8; }
-        .rec-text strong { color: var(--text-primary); }
 
         footer {
             text-align: center;
@@ -258,20 +321,9 @@
             font-size: 0.85rem;
         }
 
-        .update-info {
-            margin-top: 0.5rem;
-            font-size: 0.75rem;
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        .loading {
-            text-align: center;
-            padding: 4rem;
-            color: var(--text-muted);
         }
 
         @media (max-width: 768px) {
@@ -279,6 +331,8 @@
             .logo { font-size: 1.8rem; }
             .podium { flex-direction: column; align-items: center; }
             .podium-item { order: unset !important; width: 100%; max-width: 300px; min-height: auto !important; }
+            .weights-grid { grid-template-columns: repeat(3, 1fr); }
+            .scores-grid { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
@@ -286,85 +340,125 @@
     <div class="container">
         <header>
             <div class="logo">💡 Side Hustle Prioritizer</div>
-            <p class="tagline">Qual ideia construir primeiro? Deixa os números decidir.</p>
-            <div class="formula">Priority Score = (Potential × Skills) ÷ Effort</div>
+            <div class="version">v2.0 — Sistema de Scoring Avançado</div>
+            <p class="tagline">6 dimensões, pesos calibrados, verdito automático</p>
+            
+            <div class="formula-box">
+                <div class="formula">
+                    Score = (Market×15%) + (Demand×25%) + (Effort×15%) + (Skills×15%) + (Revenue×20%) + (Interest×10%)
+                </div>
+                <div class="weights-grid">
+                    <div class="weight-item">
+                        <div class="weight-value">15%</div>
+                        <div class="weight-label">Market</div>
+                    </div>
+                    <div class="weight-item">
+                        <div class="weight-value">25%</div>
+                        <div class="weight-label">Demand</div>
+                    </div>
+                    <div class="weight-item">
+                        <div class="weight-value">15%</div>
+                        <div class="weight-label">Effort</div>
+                    </div>
+                    <div class="weight-item">
+                        <div class="weight-value">15%</div>
+                        <div class="weight-label">Skills</div>
+                    </div>
+                    <div class="weight-item">
+                        <div class="weight-value">20%</div>
+                        <div class="weight-label">Revenue</div>
+                    </div>
+                    <div class="weight-item">
+                        <div class="weight-value">10%</div>
+                        <div class="weight-label">Interest</div>
+                    </div>
+                </div>
+                <div class="verdict-legend">
+                    <div class="verdict-item"><div class="verdict-dot build"></div> ≥7.5 BUILD IT</div>
+                    <div class="verdict-item"><div class="verdict-dot maybe"></div> 5-7.4 MAYBE</div>
+                    <div class="verdict-item"><div class="verdict-dot skip"></div> &lt;5 SKIP IT</div>
+                </div>
+            </div>
+
             <div class="stats">
                 <div class="stat">
                     <div class="stat-value" id="total-ideas">-</div>
                     <div class="stat-label">Ideias</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-value" id="avg-score">-</div>
-                    <div class="stat-label">Score Médio</div>
+                    <div class="stat-value" id="build-count">-</div>
+                    <div class="stat-label">Build It</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-value" id="high-potential">-</div>
-                    <div class="stat-label">Alto Potencial</div>
+                    <div class="stat-value" id="maybe-count">-</div>
+                    <div class="stat-label">Maybe</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="skip-count">-</div>
+                    <div class="stat-label">Skip</div>
                 </div>
             </div>
         </header>
 
-        <div class="podium" id="podium">
-            <div class="loading">A carregar...</div>
-        </div>
-
-        <div class="ideas-grid" id="ideas-grid">
-            <div class="loading">A carregar ideias...</div>
-        </div>
-
-        <div class="recommendation" id="recommendation">
-            <div class="rec-title">💡 Recomendação da Safira</div>
-            <p class="rec-text" id="rec-text">A calcular...</p>
-        </div>
+        <div class="podium" id="podium"></div>
+        <div class="ideas-grid" id="ideas-grid"></div>
 
         <footer>
-            <p>Safira • Side Hustle Prioritizer • Versão Dinâmica</p>
-            <p class="update-info">Última actualização: <span id="last-update">-</span></p>
-            <p class="update-info">Dados: side-hustles.json</p>
+            <p>Safira • Side Hustle Prioritizer v2.0</p>
+            <p style="margin-top: 0.5rem;">Última actualização: <span id="last-update">-</span></p>
         </footer>
     </div>
 
     <script>
-        function calculateScore(idea) {
-            return (idea.potential * idea.skills) / idea.effort;
+        function calculateScore(idea, weights) {
+            return (
+                (idea.market * weights.market) +
+                (idea.demand * weights.demand) +
+                (idea.effort * weights.effort) +
+                (idea.skills * weights.skills) +
+                (idea.revenue * weights.revenue) +
+                (idea.interest * weights.interest)
+            );
         }
 
-        function getScoreColor(rank, total) {
-            if (rank === 1) return 'var(--gold)';
-            if (rank === 2) return 'var(--silver)';
-            if (rank === 3) return 'var(--bronze)';
-            return 'var(--accent-blue)';
+        function getVerdict(score) {
+            if (score >= 7.5) return { text: 'BUILD IT', class: 'verdict-build' };
+            if (score >= 5) return { text: 'MAYBE', class: 'verdict-maybe' };
+            return { text: 'SKIP IT', class: 'verdict-skip' };
+        }
+
+        function getScoreColor(score) {
+            if (score >= 7.5) return 'var(--build)';
+            if (score >= 5) return 'var(--maybe)';
+            return 'var(--skip)';
         }
 
         function renderPodium(ideas) {
             const top3 = ideas.slice(0, 3);
             const medals = ['🥇', '🥈', '🥉'];
-            
-            return `
-                <div class="podium-item podium-2" onclick="scrollToCard('${top3[1]?.id}')">
-                    <div class="medal">${medals[1]}</div>
-                    <div class="podium-title">${top3[1]?.emoji || ''} ${top3[1]?.name || '-'}</div>
-                    <div class="podium-score">${calculateScore(top3[1]).toFixed(1)}</div>
-                    <div class="podium-details">${top3[1]?.potential} × ${top3[1]?.skills} ÷ ${top3[1]?.effort}</div>
-                </div>
-                <div class="podium-item podium-1" onclick="scrollToCard('${top3[0]?.id}')">
-                    <div class="medal">${medals[0]}</div>
-                    <div class="podium-title">${top3[0]?.emoji || ''} ${top3[0]?.name || '-'}</div>
-                    <div class="podium-score">${calculateScore(top3[0]).toFixed(1)}</div>
-                    <div class="podium-details">${top3[0]?.potential} × ${top3[0]?.skills} ÷ ${top3[0]?.effort}</div>
-                </div>
-                <div class="podium-item podium-3" onclick="scrollToCard('${top3[2]?.id}')">
-                    <div class="medal">${medals[2]}</div>
-                    <div class="podium-title">${top3[2]?.emoji || ''} ${top3[2]?.name || '-'}</div>
-                    <div class="podium-score">${calculateScore(top3[2]).toFixed(1)}</div>
-                    <div class="podium-details">${top3[2]?.potential} × ${top3[2]?.skills} ÷ ${top3[2]?.effort}</div>
-                </div>
-            `;
+            const positions = [
+                { class: 'podium-2', idx: 1 },
+                { class: 'podium-1', idx: 0 },
+                { class: 'podium-3', idx: 2 }
+            ];
+
+            return positions.map(pos => {
+                const idea = top3[pos.idx];
+                if (!idea) return '';
+                const verdict = getVerdict(idea.score);
+                return `
+                    <div class="podium-item ${pos.class}" onclick="scrollToCard('${idea.id}')">
+                        <div class="medal">${medals[pos.idx]}</div>
+                        <div class="podium-title">${idea.emoji} ${idea.name}</div>
+                        <div class="podium-score">${idea.score.toFixed(1)}</div>
+                        <div class="podium-verdict ${verdict.class}">${verdict.text}</div>
+                    </div>
+                `;
+            }).join('');
         }
 
-        function renderCard(idea, rank, maxScore) {
-            const score = calculateScore(idea);
-            const barWidth = (score / maxScore) * 100;
+        function renderCard(idea, rank) {
+            const verdict = getVerdict(idea.score);
             const rankClass = rank <= 3 ? `top-3 rank-${rank}` : '';
             const rankBadgeClass = rank <= 3 ? `rank-${rank}` : '';
             const sourceLabel = idea.source === 'guilherme' ? '👤 Guilherme' : '✨ Safira';
@@ -372,44 +466,57 @@
             return `
                 <div class="idea-card ${rankClass}" id="card-${idea.id}">
                     <div class="idea-header">
-                        <div class="idea-title">${idea.emoji || '💡'} ${idea.name}</div>
-                        <div class="idea-rank ${rankBadgeClass}">#${rank}</div>
+                        <div class="idea-title">${idea.emoji} ${idea.name}</div>
+                        <div class="idea-badges">
+                            <div class="idea-verdict ${verdict.class}">${verdict.text}</div>
+                            <div class="idea-rank ${rankBadgeClass}">#${rank}</div>
+                        </div>
                     </div>
-                    <div class="idea-source">Fonte: ${sourceLabel} • ${idea.dateAdded}</div>
+                    <div class="idea-meta">
+                        <span>${sourceLabel}</span>
+                        <span>${idea.dateAdded}</span>
+                    </div>
                     <p class="idea-problem">"${idea.problem}"</p>
                     <div class="scores-grid">
-                        <div class="score-item">
-                            <div class="score-value" style="color: var(--accent-green);">${idea.potential}</div>
-                            <div class="score-label">Potential</div>
+                        <div class="score-item score-market">
+                            <div class="score-value">${idea.market}</div>
+                            <div class="score-label">Market</div>
                         </div>
-                        <div class="score-item">
-                            <div class="score-value" style="color: var(--accent-orange);">${idea.effort}</div>
+                        <div class="score-item score-demand">
+                            <div class="score-value">${idea.demand}</div>
+                            <div class="score-label">Demand</div>
+                        </div>
+                        <div class="score-item score-effort">
+                            <div class="score-value">${idea.effort}</div>
                             <div class="score-label">Effort</div>
                         </div>
-                        <div class="score-item">
-                            <div class="score-value" style="color: var(--accent-purple);">${idea.skills}</div>
+                        <div class="score-item score-skills">
+                            <div class="score-value">${idea.skills}</div>
                             <div class="score-label">Skills</div>
                         </div>
+                        <div class="score-item score-revenue">
+                            <div class="score-value">${idea.revenue}</div>
+                            <div class="score-label">Revenue</div>
+                        </div>
+                        <div class="score-item score-interest">
+                            <div class="score-value">${idea.interest}</div>
+                            <div class="score-label">Interest</div>
+                        </div>
                     </div>
-                    <div class="priority-bar">
-                        <div class="priority-fill" style="width: ${barWidth}%; background: ${getScoreColor(rank)};"></div>
+                    <div class="final-score">
+                        <span class="final-score-label">Final Score</span>
+                        <span class="final-score-value" style="color: ${getScoreColor(idea.score)}">${idea.score.toFixed(2)}</span>
                     </div>
-                    <div class="priority-score">
-                        <span class="priority-label">Priority Score</span>
-                        <span class="priority-value" style="color: ${getScoreColor(rank)};">${score.toFixed(1)}</span>
-                    </div>
+                    ${idea.competitors && idea.competitors.length > 0 ? `
+                        <div class="competitors">
+                            <div class="competitors-title">Competidores</div>
+                            <div class="competitors-list">
+                                ${idea.competitors.map(c => `<span class="competitor-tag">${c}</span>`).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
                     ${idea.notes ? `<div class="idea-notes">📝 ${idea.notes}</div>` : ''}
                 </div>
-            `;
-        }
-
-        function renderRecommendation(top1, top2) {
-            return `
-                <strong>Começar por: ${top1.emoji} ${top1.name}</strong><br><br>
-                Porquê? Score de ${calculateScore(top1).toFixed(1)} — o melhor equilíbrio entre potencial (${top1.potential}/10), 
-                skills (${top1.skills}/10) e effort (${top1.effort}/10).<br><br>
-                ${top1.notes ? `<strong>Nota:</strong> ${top1.notes}<br><br>` : ''}
-                <strong>Segunda opção:</strong> ${top2.emoji} ${top2.name} com score ${calculateScore(top2).toFixed(1)}.
             `;
         }
 
@@ -421,40 +528,32 @@
             try {
                 const response = await fetch('side-hustles.json');
                 const data = await response.json();
+                const weights = data.weights;
                 
-                // Sort by score
                 const ideas = data.ideas
-                    .map(idea => ({ ...idea, score: calculateScore(idea) }))
+                    .map(idea => ({ ...idea, score: calculateScore(idea, weights) }))
                     .sort((a, b) => b.score - a.score);
                 
-                const maxScore = ideas[0].score;
+                // Stats
+                const buildCount = ideas.filter(i => i.score >= 7.5).length;
+                const maybeCount = ideas.filter(i => i.score >= 5 && i.score < 7.5).length;
+                const skipCount = ideas.filter(i => i.score < 5).length;
                 
-                // Update stats
                 document.getElementById('total-ideas').textContent = ideas.length;
-                document.getElementById('avg-score').textContent = (ideas.reduce((sum, i) => sum + i.score, 0) / ideas.length).toFixed(1);
-                document.getElementById('high-potential').textContent = ideas.filter(i => i.potential >= 8).length;
+                document.getElementById('build-count').textContent = buildCount;
+                document.getElementById('maybe-count').textContent = maybeCount;
+                document.getElementById('skip-count').textContent = skipCount;
                 document.getElementById('last-update').textContent = new Date(data.lastUpdated).toLocaleString('pt-PT');
                 
-                // Render podium
                 document.getElementById('podium').innerHTML = renderPodium(ideas);
-                
-                // Render cards
-                document.getElementById('ideas-grid').innerHTML = ideas
-                    .map((idea, index) => renderCard(idea, index + 1, maxScore))
-                    .join('');
-                
-                // Render recommendation
-                document.getElementById('rec-text').innerHTML = renderRecommendation(ideas[0], ideas[1]);
+                document.getElementById('ideas-grid').innerHTML = ideas.map((idea, idx) => renderCard(idea, idx + 1)).join('');
                 
             } catch (error) {
-                console.error('Erro ao carregar dados:', error);
-                document.getElementById('ideas-grid').innerHTML = `
-                    <div class="loading">Erro ao carregar: ${error.message}</div>
-                `;
+                console.error('Erro:', error);
+                document.getElementById('ideas-grid').innerHTML = `<p>Erro ao carregar: ${error.message}</p>`;
             }
         }
 
-        // Load on page ready
         document.addEventListener('DOMContentLoaded', loadData);
     </script>
 </body>
