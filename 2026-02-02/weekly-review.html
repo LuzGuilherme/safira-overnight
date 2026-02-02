@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Review — Semana 5 | Guilherme</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-orange: #f59e0b;
+            --accent-purple: #8b5cf6;
+            --accent-red: #ef4444;
+            --accent-cyan: #06b6d4;
+            --border: #2a2a3a;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .week-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .date-range {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .card {
+            background: var(--bg-card);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        /* Training Card */
+        .training-icon { background: linear-gradient(135deg, var(--accent-green), #059669); }
+        
+        .training-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .sport-stat {
+            text-align: center;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 0.75rem;
+        }
+        
+        .sport-emoji {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sport-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+        
+        .sport-unit {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        
+        .sport-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+        
+        .highlight-activity {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .highlight-icon {
+            font-size: 2rem;
+        }
+        
+        .highlight-details h4 {
+            font-size: 0.875rem;
+            color: var(--accent-green);
+            margin-bottom: 0.25rem;
+        }
+        
+        .highlight-details p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Side Hustles Card */
+        .hustles-icon { background: linear-gradient(135deg, var(--accent-orange), #d97706); }
+        
+        .hustle-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            background: var(--bg-secondary);
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hustle-rank {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 700;
+            margin-right: 0.75rem;
+        }
+        
+        .rank-1 { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #000; }
+        .rank-2 { background: linear-gradient(135deg, #9ca3af, #6b7280); color: #000; }
+        .rank-3 { background: linear-gradient(135deg, #d97706, #b45309); color: #fff; }
+        
+        .hustle-name {
+            flex: 1;
+            font-size: 0.875rem;
+        }
+        
+        .hustle-score {
+            font-weight: 600;
+            color: var(--accent-orange);
+        }
+        
+        .new-badge {
+            background: var(--accent-green);
+            color: #000;
+            font-size: 0.625rem;
+            padding: 0.125rem 0.5rem;
+            border-radius: 1rem;
+            margin-left: 0.5rem;
+            font-weight: 600;
+        }
+        
+        /* Achievements Card */
+        .achievements-icon { background: linear-gradient(135deg, var(--accent-purple), #7c3aed); }
+        
+        .achievement-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .achievement-item:last-child {
+            border-bottom: none;
+        }
+        
+        .achievement-emoji {
+            font-size: 1.25rem;
+        }
+        
+        .achievement-text {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .achievement-text strong {
+            color: var(--text-primary);
+        }
+        
+        /* Stats Card */
+        .stats-icon { background: linear-gradient(135deg, var(--accent-cyan), #0891b2); }
+        
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        .stat-value {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .stat-value.positive { color: var(--accent-green); }
+        .stat-value.streak { color: var(--accent-orange); }
+        
+        /* Focus Card - Full Width */
+        .focus-card {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        
+        .focus-icon { background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); }
+        
+        .focus-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .focus-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 0.75rem;
+        }
+        
+        .focus-number {
+            width: 24px;
+            height: 24px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .focus-text {
+            font-size: 0.875rem;
+        }
+        
+        .focus-text strong {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        
+        .focus-text span {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+        
+        /* Quote */
+        .quote-section {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .quote {
+            font-size: 1.25rem;
+            font-style: italic;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .quote-author {
+            margin-top: 1rem;
+            color: var(--accent-purple);
+            font-size: 0.875rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        .safira-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-card);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            margin-top: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            h1 { font-size: 1.75rem; }
+            .training-stats { grid-template-columns: 1fr; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="week-badge">📅 Semana 5 de 2026</div>
+            <h1>Weekly Review</h1>
+            <p class="date-range">27 Janeiro — 2 Fevereiro</p>
+        </header>
+        
+        <div class="grid">
+            <!-- Training Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon training-icon">🏃</div>
+                    <h3 class="card-title">Treino da Semana</h3>
+                </div>
+                
+                <div class="training-stats">
+                    <div class="sport-stat">
+                        <div class="sport-emoji">🏃</div>
+                        <div class="sport-value">54.1</div>
+                        <div class="sport-unit">km</div>
+                        <div class="sport-label">Running</div>
+                    </div>
+                    <div class="sport-stat">
+                        <div class="sport-emoji">🚴</div>
+                        <div class="sport-value">0</div>
+                        <div class="sport-unit">km</div>
+                        <div class="sport-label">Cycling</div>
+                    </div>
+                    <div class="sport-stat">
+                        <div class="sport-emoji">🏊</div>
+                        <div class="sport-value">0</div>
+                        <div class="sport-unit">km</div>
+                        <div class="sport-label">Swimming</div>
+                    </div>
+                </div>
+                
+                <div class="highlight-activity">
+                    <div class="highlight-icon">⛰️</div>
+                    <div class="highlight-details">
+                        <h4>🏆 Destaque da Semana</h4>
+                        <p>Morning Trail Run — 13.2 km, 640m D+</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Side Hustles Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon hustles-icon">💡</div>
+                    <h3 class="card-title">Side Hustles — Top 3</h3>
+                </div>
+                
+                <div class="hustle-item">
+                    <div class="hustle-rank rank-1">1</div>
+                    <span class="hustle-name">AI Proposal Generator</span>
+                    <span class="hustle-score">18.0</span>
+                </div>
+                
+                <div class="hustle-item">
+                    <div class="hustle-rank rank-2">2</div>
+                    <span class="hustle-name">GEO Optimizer</span>
+                    <span class="hustle-score">14.4</span>
+                </div>
+                
+                <div class="hustle-item">
+                    <div class="hustle-rank rank-3">3</div>
+                    <span class="hustle-name">AI Agent Cost Tracker</span>
+                    <span class="new-badge">NEW</span>
+                    <span class="hustle-score">11.2</span>
+                </div>
+                
+                <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-secondary);">
+                    📊 8 ideias no total • Score = (Potential × Skills) ÷ Effort
+                </p>
+            </div>
+            
+            <!-- Achievements Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon achievements-icon">🏆</div>
+                    <h3 class="card-title">Conquistas da Semana</h3>
+                </div>
+                
+                <div class="achievement-item">
+                    <span class="achievement-emoji">🔥</span>
+                    <span class="achievement-text"><strong>6 overnight builds</strong> consecutivos (streak!)</span>
+                </div>
+                
+                <div class="achievement-item">
+                    <span class="achievement-emoji">🇵🇹</span>
+                    <span class="achievement-text"><strong>BigIdeasDB Portugal</strong> lançado com live scraper</span>
+                </div>
+                
+                <div class="achievement-item">
+                    <span class="achievement-emoji">💡</span>
+                    <span class="achievement-text"><strong>Side Hustle Prioritizer</strong> criado e publicado</span>
+                </div>
+                
+                <div class="achievement-item">
+                    <span class="achievement-emoji">🛒</span>
+                    <span class="achievement-text"><strong>Automação Continente</strong> — receitas → carrinho</span>
+                </div>
+                
+                <div class="achievement-item">
+                    <span class="achievement-emoji">🔒</span>
+                    <span class="achievement-text"><strong>Security checks</strong> nocturnos configurados</span>
+                </div>
+            </div>
+            
+            <!-- Stats Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon stats-icon">📊</div>
+                    <h3 class="card-title">Números da Semana</h3>
+                </div>
+                
+                <div class="stat-row">
+                    <span class="stat-label">Overnight Builds</span>
+                    <span class="stat-value streak">6 🔥</span>
+                </div>
+                
+                <div class="stat-row">
+                    <span class="stat-label">Ideias Novas</span>
+                    <span class="stat-value positive">+2</span>
+                </div>
+                
+                <div class="stat-row">
+                    <span class="stat-label">Km Corridos (Fev)</span>
+                    <span class="stat-value">13.2 km</span>
+                </div>
+                
+                <div class="stat-row">
+                    <span class="stat-label">IPs Banidos (Security)</span>
+                    <span class="stat-value">39</span>
+                </div>
+                
+                <div class="stat-row">
+                    <span class="stat-label">Cron Jobs Activos</span>
+                    <span class="stat-value">14</span>
+                </div>
+            </div>
+            
+            <!-- Focus Card - Full Width -->
+            <div class="card focus-card">
+                <div class="card-header">
+                    <div class="card-icon focus-icon">🎯</div>
+                    <h3 class="card-title">Foco para a Próxima Semana</h3>
+                </div>
+                
+                <div class="focus-items">
+                    <div class="focus-item">
+                        <div class="focus-number">1</div>
+                        <div class="focus-text">
+                            <strong>Validar AI Proposal Generator</strong>
+                            <span>Post no HN "Ask HN" para validar interesse</span>
+                        </div>
+                    </div>
+                    
+                    <div class="focus-item">
+                        <div class="focus-number">2</div>
+                        <div class="focus-text">
+                            <strong>Treino consistente</strong>
+                            <span>Manter volume de corrida, adicionar bike/swim</span>
+                        </div>
+                    </div>
+                    
+                    <div class="focus-item">
+                        <div class="focus-number">3</div>
+                        <div class="focus-text">
+                            <strong>Fix Gmail OAuth</strong>
+                            <span>Re-autenticar para email triage funcionar</span>
+                        </div>
+                    </div>
+                    
+                    <div class="focus-item">
+                        <div class="focus-number">4</div>
+                        <div class="focus-text">
+                            <strong>Overnight builds</strong>
+                            <span>Continuar streak — meta: 10 noites</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="quote-section">
+            <p class="quote">"Não é sobre ter tempo, é sobre fazer tempo para o que importa."</p>
+            <p class="quote-author">— Weekly Review #5</p>
+        </div>
+        
+        <footer>
+            <p>Generated by Safira • 2 Fevereiro 2026</p>
+            <div class="safira-badge">
+                ✨ <span>Overnight Build #6</span>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
