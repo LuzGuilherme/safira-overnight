@@ -319,11 +319,80 @@
             padding: 0.75rem;
             background: var(--bg-secondary);
             border-radius: 8px;
+            position: relative;
+            cursor: help;
+        }
+
+        .indicator-item:hover {
+            background: var(--bg-card);
         }
 
         .indicator-name {
             font-size: 0.85rem;
             color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .indicator-name .info-icon {
+            font-size: 0.7rem;
+            opacity: 0.5;
+        }
+
+        /* Tooltips */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            width: 280px;
+            text-align: left;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            pointer-events: none;
+        }
+
+        .tooltip::before {
+            content: '';
+            position: absolute;
+            bottom: calc(100% + 2px);
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-top-color: var(--border);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 101;
+        }
+
+        .tooltip:hover::after,
+        .tooltip:hover::before {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (max-width: 600px) {
+            .tooltip::after {
+                width: 220px;
+                font-size: 0.75rem;
+            }
         }
 
         .indicator-value {
@@ -363,10 +432,16 @@
             justify-content: space-between;
             padding: 0.5rem 0;
             border-bottom: 1px solid var(--border);
+            position: relative;
+            cursor: help;
         }
 
         .level-item:last-child {
             border-bottom: none;
+        }
+
+        .level-item:hover {
+            background: rgba(255,255,255,0.02);
         }
 
         /* Historical Context */
@@ -491,9 +566,9 @@
             </div>
 
             <!-- Fear & Greed -->
-            <div class="card">
+            <div class="card tooltip" data-tooltip="😱 O Fear & Greed Index mede o sentimento do mercado crypto. 0-25 = Extreme Fear (historicamente bom para comprar). 75-100 = Extreme Greed (cuidado, possível bolha). Warren Buffett: 'Be fearful when others are greedy, greedy when others are fearful.'">
                 <div class="card-header">
-                    <span class="card-title">Fear & Greed Index</span>
+                    <span class="card-title">Fear & Greed Index <span class="info-icon" style="opacity:0.5;font-size:0.8rem;">ⓘ</span></span>
                 </div>
                 <div class="fng-value" id="fng-value">--</div>
                 <div class="fng-label" id="fng-label">A carregar...</div>
@@ -552,30 +627,30 @@
                     <span class="chart-title">🔧 Indicadores Técnicos</span>
                 </div>
                 <div class="indicators-grid">
-                    <div class="indicator-item">
+                    <div class="indicator-item tooltip" data-tooltip="📊 RSI (Relative Strength Index) mede a velocidade das mudanças de preço. Abaixo de 30 = oversold (possível fundo, bom para comprar). Acima de 70 = overbought (possível topo, cuidado). 14 é o período padrão.">
                         <div>
-                            <div class="indicator-name">RSI (14)</div>
+                            <div class="indicator-name">RSI (14) <span class="info-icon">ⓘ</span></div>
                             <div class="indicator-value" id="rsi-value">--</div>
                         </div>
                         <span class="indicator-signal neutral" id="rsi-signal">--</span>
                     </div>
-                    <div class="indicator-item">
+                    <div class="indicator-item tooltip" data-tooltip="📈 MA50 é a média móvel dos últimos 50 dias. Se o preço está ACIMA da MA50, a tendência de curto prazo é positiva. Se está ABAIXO, a tendência é negativa. Mostra a % de diferença.">
                         <div>
-                            <div class="indicator-name">MA 50 vs Preço</div>
+                            <div class="indicator-name">MA 50 vs Preço <span class="info-icon">ⓘ</span></div>
                             <div class="indicator-value" id="ma50-value">--</div>
                         </div>
                         <span class="indicator-signal neutral" id="ma50-signal">--</span>
                     </div>
-                    <div class="indicator-item">
+                    <div class="indicator-item tooltip" data-tooltip="📈 MA200 é a média móvel dos últimos 200 dias — o indicador mais importante para definir bull/bear market. Preço ACIMA = bull market. Preço ABAIXO = bear market. Muito usado por investidores institucionais.">
                         <div>
-                            <div class="indicator-name">MA 200 vs Preço</div>
+                            <div class="indicator-name">MA 200 vs Preço <span class="info-icon">ⓘ</span></div>
                             <div class="indicator-value" id="ma200-value">--</div>
                         </div>
                         <span class="indicator-signal neutral" id="ma200-signal">--</span>
                     </div>
-                    <div class="indicator-item">
+                    <div class="indicator-item tooltip" data-tooltip="📉 Volatilidade mede quanto o preço oscila. Alta volatilidade = mais risco e oportunidade. Baixa volatilidade = mercado mais calmo. Calculada como desvio padrão das variações diárias nos últimos 30 dias.">
                         <div>
-                            <div class="indicator-name">Volatilidade (30D)</div>
+                            <div class="indicator-name">Volatilidade (30D) <span class="info-icon">ⓘ</span></div>
                             <div class="indicator-value" id="volatility-value">--</div>
                         </div>
                         <span class="indicator-signal neutral" id="volatility-signal">--</span>
@@ -586,16 +661,16 @@
                     <div class="chart-header" style="margin-top: 1rem;">
                         <span class="chart-title">📍 Níveis de Preço</span>
                     </div>
-                    <div class="level-item">
-                        <span class="indicator-name">Máximo 365D</span>
+                    <div class="level-item tooltip" data-tooltip="📈 O preço mais alto que o BTC atingiu nos últimos 365 dias. Serve como resistência psicológica.">
+                        <span class="indicator-name">Máximo 365D <span class="info-icon">ⓘ</span></span>
                         <span class="indicator-value" id="high-365">--</span>
                     </div>
-                    <div class="level-item">
-                        <span class="indicator-name">Mínimo 365D</span>
+                    <div class="level-item tooltip" data-tooltip="📉 O preço mais baixo que o BTC atingiu nos últimos 365 dias. Serve como suporte psicológico.">
+                        <span class="indicator-name">Mínimo 365D <span class="info-icon">ⓘ</span></span>
                         <span class="indicator-value" id="low-365">--</span>
                     </div>
-                    <div class="level-item">
-                        <span class="indicator-name">Distância do ATH</span>
+                    <div class="level-item tooltip" data-tooltip="🎯 ATH = All-Time High (máximo histórico do ano). Mostra quanto o preço actual está abaixo do pico. Quanto maior o desconto, potencialmente melhor a oportunidade — mas não significa que vai recuperar.">
+                        <span class="indicator-name">Distância do ATH <span class="info-icon">ⓘ</span></span>
                         <span class="indicator-value" id="from-ath">--</span>
                     </div>
                 </div>
