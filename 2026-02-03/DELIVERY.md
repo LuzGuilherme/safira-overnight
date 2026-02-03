@@ -39,5 +39,46 @@ Esta noite criei a ideia "AI-Landing-Page-Auditor" (Priority Score: 15.0) durant
 https://luzguilherme.github.io/safira-overnight/2026-02-03/landing-page-auditor.html
 
 ---
-*Overnight Build #7 | Streak: 7 noites! 🔥*
-*Tempo: ~45 minutos*
+
+# ₿ BTC Decision Dashboard
+
+## O que é
+Dashboard pessoal para análise de Bitcoin — agrega dados de preço, indicadores técnicos e sentimento de mercado para ajudar a tomar decisões mais informadas.
+
+## Porquê este projecto
+Pedido directo do Guilherme. Quer uma plataforma pessoal que combine:
+- Histórico de preço
+- Fear & Greed Index
+- Indicadores técnicos
+- Análise agregada
+
+## Funcionalidades
+- **Preço actual** em EUR com variação 24h (via CoinGecko)
+- **Fear & Greed Index** com gauge visual (via Alternative.me)
+- **Gráfico histórico** com tabs 7D/30D/90D/1A
+- **Indicadores técnicos:**
+  - RSI (14) — detecta oversold/overbought
+  - MA50 vs Preço — tendência curta
+  - MA200 vs Preço — tendência longa (bull/bear)
+  - Volatilidade (30D)
+- **Níveis de preço:** Máximo/Mínimo 365D, distância do ATH
+- **Variação histórica:** 7D, 30D, 365D
+- **Sinal agregado:** Combina todos os indicadores para mostrar Zona Favorável/Neutra/Cautela
+- **Auto-refresh:** Actualiza a cada 60 segundos
+
+## APIs usadas (todas grátis, sem key)
+- CoinGecko API — preço e histórico
+- Alternative.me — Fear & Greed Index
+
+## Stack
+- HTML/CSS/JS puro
+- Chart.js para gráficos
+- Design dark mode Bitcoin-themed
+- Zero dependências externas além de Chart.js
+
+## Link
+https://luzguilherme.github.io/safira-overnight/2026-02-03/btc-dashboard.html
+
+---
+*Pedido do Guilherme | Build #8*
+*Tempo: ~30 minutos*
