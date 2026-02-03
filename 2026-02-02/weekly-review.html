@@ -364,11 +364,163 @@
             margin-top: 1rem;
         }
         
+        /* Mobile-first responsive design */
+        @media (max-width: 1024px) {
+            .focus-items {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
         @media (max-width: 768px) {
-            body { padding: 1rem; }
-            h1 { font-size: 1.75rem; }
-            .training-stats { grid-template-columns: 1fr; }
-            .grid { grid-template-columns: 1fr; }
+            body { 
+                padding: 1rem; 
+            }
+            h1 { 
+                font-size: 1.75rem; 
+            }
+            .training-stats { 
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .grid { 
+                grid-template-columns: 1fr; 
+            }
+            .focus-items {
+                grid-template-columns: 1fr;
+            }
+            .card {
+                padding: 1.25rem;
+            }
+            .card-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body { 
+                padding: 0.75rem; 
+            }
+            header {
+                padding-bottom: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            .week-badge {
+                font-size: 0.75rem;
+                padding: 0.4rem 1rem;
+            }
+            h1 { 
+                font-size: 1.5rem; 
+            }
+            .date-range {
+                font-size: 0.95rem;
+            }
+            .card {
+                padding: 1rem;
+                border-radius: 0.75rem;
+            }
+            .card-header {
+                margin-bottom: 1rem;
+                padding-bottom: 0.75rem;
+            }
+            .card-title {
+                font-size: 1rem;
+            }
+            .training-stats { 
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.5rem;
+            }
+            .sport-stat {
+                padding: 0.75rem 0.5rem;
+            }
+            .sport-emoji {
+                font-size: 1.2rem;
+            }
+            .sport-value {
+                font-size: 1.2rem;
+            }
+            .sport-unit, .sport-label {
+                font-size: 0.65rem;
+            }
+            .highlight-activity {
+                padding: 0.75rem;
+                flex-direction: column;
+                text-align: center;
+            }
+            .highlight-icon {
+                font-size: 1.5rem;
+            }
+            .highlight-details h4, .highlight-details p {
+                font-size: 0.8rem;
+            }
+            .hustle-item {
+                padding: 0.6rem;
+            }
+            .hustle-rank {
+                width: 24px;
+                height: 24px;
+                font-size: 0.75rem;
+            }
+            .hustle-name {
+                font-size: 0.8rem;
+            }
+            .hustle-score {
+                font-size: 0.85rem;
+            }
+            .new-badge {
+                font-size: 0.55rem;
+                padding: 0.1rem 0.4rem;
+            }
+            .achievement-item {
+                padding: 0.5rem 0;
+            }
+            .achievement-emoji {
+                font-size: 1rem;
+            }
+            .achievement-text {
+                font-size: 0.8rem;
+            }
+            .stat-row {
+                padding: 0.5rem 0;
+            }
+            .stat-label {
+                font-size: 0.8rem;
+            }
+            .stat-value {
+                font-size: 0.9rem;
+            }
+            .focus-item {
+                padding: 0.75rem;
+            }
+            .focus-number {
+                width: 20px;
+                height: 20px;
+                font-size: 0.65rem;
+            }
+            .focus-text {
+                font-size: 0.8rem;
+            }
+            .focus-text span {
+                font-size: 0.75rem;
+            }
+            .quote {
+                font-size: 1rem;
+            }
+            .quote-author {
+                font-size: 0.8rem;
+            }
+            .quote-section {
+                padding: 1.5rem 1rem;
+            }
+            footer {
+                margin-top: 2rem;
+                padding-top: 1.5rem;
+                font-size: 0.8rem;
+            }
+            .safira-badge {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.75rem;
+            }
         }
     </style>
 </head>

@@ -339,6 +339,16 @@
             text-decoration: none;
         }
         
+        /* Mobile-first responsive design */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 1.5rem;
+            }
+            .score-overview {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
         @media (max-width: 768px) {
             .container {
                 padding: 1rem;
@@ -354,6 +364,152 @@
             
             .url-input {
                 min-width: auto;
+                width: 100%;
+            }
+            
+            .audit-btn {
+                width: 100%;
+                min-height: 48px;
+            }
+            
+            .score-overview {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .score-card .score {
+                font-size: 1.5rem;
+            }
+            
+            .total-score .score {
+                font-size: 2rem;
+            }
+            
+            .section-header {
+                padding: 1rem;
+            }
+            
+            .section-content {
+                padding: 1rem;
+            }
+            
+            .check-item {
+                padding: 0.75rem;
+            }
+            
+            .check-item input[type="checkbox"] {
+                width: 22px;
+                height: 22px;
+                min-width: 22px;
+            }
+            
+            .report-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+            
+            .export-btn {
+                width: 100%;
+                min-height: 44px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.75rem;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            h1 {
+                font-size: 1.4rem;
+            }
+            
+            .tagline {
+                font-size: 0.95rem;
+            }
+            
+            .url-input-section {
+                padding: 1rem;
+            }
+            
+            .url-input {
+                padding: 0.875rem 1rem;
+                font-size: 0.95rem;
+            }
+            
+            .score-overview {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .score-card {
+                padding: 1rem;
+            }
+            
+            .score-card .icon {
+                font-size: 1.5rem;
+            }
+            
+            .score-card .label {
+                font-size: 0.75rem;
+            }
+            
+            .score-card .score {
+                font-size: 1.25rem;
+            }
+            
+            .total-score .score {
+                font-size: 1.75rem;
+            }
+            
+            .section-title {
+                font-size: 0.95rem;
+                flex-wrap: wrap;
+            }
+            
+            .section-score {
+                font-size: 0.75rem;
+                padding: 0.35rem 0.75rem;
+            }
+            
+            .check-label {
+                font-size: 0.9rem;
+            }
+            
+            .check-hint {
+                font-size: 0.8rem;
+            }
+            
+            .check-weight {
+                font-size: 0.7rem;
+            }
+            
+            .report-section {
+                padding: 1rem;
+            }
+            
+            .report-title {
+                font-size: 1.2rem;
+            }
+            
+            .issue-item {
+                padding: 0.75rem;
+            }
+            
+            .issue-content h4 {
+                font-size: 0.9rem;
+            }
+            
+            .issue-content p {
+                font-size: 0.8rem;
+            }
+            
+            footer {
+                padding: 1.5rem 1rem;
+                font-size: 0.8rem;
             }
         }
     </style>

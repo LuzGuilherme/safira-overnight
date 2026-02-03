@@ -572,6 +572,278 @@
         .card:nth-child(2) { animation-delay: 0.1s; }
         .card:nth-child(3) { animation-delay: 0.2s; }
         .card:nth-child(4) { animation-delay: 0.3s; }
+        
+        /* Enhanced Mobile-first responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            .logo {
+                font-size: 2rem;
+            }
+            .tagline {
+                font-size: 1rem;
+            }
+            .stats-bar {
+                gap: 1.5rem;
+            }
+            .stat-value {
+                font-size: 1.4rem;
+            }
+            .stat-label {
+                font-size: 0.75rem;
+            }
+            .card {
+                padding: 1.25rem;
+            }
+            .card-header {
+                margin-bottom: 1rem;
+            }
+            .sector-item {
+                padding: 0.75rem;
+            }
+            .sector-emoji {
+                font-size: 1.25rem;
+            }
+            .sector-name {
+                font-size: 0.9rem;
+            }
+            .sector-stats {
+                font-size: 0.75rem;
+            }
+            .sector-trend {
+                font-size: 0.7rem;
+                padding: 0.2rem 0.5rem;
+            }
+            .problem-card {
+                padding: 0.85rem;
+            }
+            .problem-title {
+                font-size: 0.9rem;
+            }
+            .problem-desc {
+                font-size: 0.8rem;
+            }
+            .brand-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .ranking-list {
+                gap: 0.5rem;
+            }
+            .ranking-item {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.6rem;
+            }
+            .idea-card {
+                padding: 1rem;
+            }
+            .idea-title {
+                font-size: 1rem;
+            }
+            .idea-problem, .idea-solution {
+                font-size: 0.85rem;
+            }
+            .score-breakdown {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+            .validation-score {
+                top: 0.75rem;
+                right: 0.75rem;
+            }
+            .score-circle {
+                width: 44px;
+                height: 44px;
+                font-size: 0.95rem;
+            }
+            .meta-tag {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.75rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.75rem;
+            }
+            header {
+                padding: 1.25rem;
+            }
+            .logo {
+                font-size: 1.6rem;
+            }
+            .tagline {
+                font-size: 0.9rem;
+            }
+            .stats-bar {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            .stat-item {
+                width: 100%;
+                max-width: 160px;
+            }
+            .stat-value {
+                font-size: 1.2rem;
+            }
+            .stat-label {
+                font-size: 0.7rem;
+            }
+            .card {
+                padding: 1rem;
+                border-radius: 12px;
+            }
+            .card-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+            .card-title {
+                font-size: 0.95rem;
+            }
+            .sector-list {
+                gap: 0;
+            }
+            .sector-item {
+                padding: 0.65rem;
+                margin-bottom: 0.5rem;
+                flex-wrap: wrap;
+            }
+            .sector-emoji {
+                font-size: 1.1rem;
+                margin-right: 0.75rem;
+            }
+            .sector-info {
+                min-width: 0;
+                flex: 1;
+            }
+            .sector-name {
+                font-size: 0.85rem;
+            }
+            .sector-stats {
+                font-size: 0.7rem;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            .sector-trend {
+                font-size: 0.65rem;
+                padding: 0.15rem 0.4rem;
+            }
+            .problem-card {
+                padding: 0.75rem;
+                margin-bottom: 0.5rem;
+            }
+            .problem-title {
+                font-size: 0.85rem;
+                flex-wrap: wrap;
+                gap: 0.35rem;
+            }
+            .problem-percent {
+                font-size: 0.8rem;
+            }
+            .problem-desc {
+                font-size: 0.75rem;
+            }
+            .chart-container {
+                height: 200px;
+            }
+            .brand-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
+            .brand-item {
+                padding: 0.6rem;
+                font-size: 0.75rem;
+            }
+            .brand-rank {
+                font-size: 0.6rem;
+            }
+            .top-ranking {
+                padding: 1rem;
+            }
+            .ranking-title {
+                font-size: 0.9rem;
+            }
+            .ranking-list {
+                flex-direction: column;
+            }
+            .ranking-item {
+                font-size: 0.75rem;
+                padding: 0.5rem;
+                justify-content: space-between;
+            }
+            .ranking-position {
+                width: 20px;
+                height: 20px;
+                font-size: 0.65rem;
+            }
+            .idea-card {
+                padding: 0.85rem;
+                padding-top: 3.5rem;
+            }
+            .idea-badge {
+                font-size: 0.65rem;
+                padding: 0.2rem 0.5rem;
+            }
+            .idea-title {
+                font-size: 0.95rem;
+                padding-right: 0;
+            }
+            .idea-problem, .idea-solution {
+                font-size: 0.8rem;
+                padding-left: 0.75rem;
+            }
+            .score-breakdown {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 0.5rem;
+                padding: 0.75rem;
+            }
+            .score-item-value {
+                font-size: 0.9rem;
+            }
+            .score-item-label {
+                font-size: 0.6rem;
+            }
+            .validation-score {
+                top: 0.5rem;
+                right: 0.5rem;
+            }
+            .score-circle {
+                width: 40px;
+                height: 40px;
+                font-size: 0.85rem;
+            }
+            .score-label {
+                font-size: 0.55rem;
+            }
+            .idea-meta {
+                gap: 0.5rem;
+            }
+            .meta-tag {
+                font-size: 0.7rem;
+                padding: 0.35rem 0.6rem;
+            }
+            .sources {
+                padding: 1rem;
+            }
+            .sources h3 {
+                font-size: 0.8rem;
+            }
+            .source-list {
+                gap: 1rem;
+            }
+            .source-link {
+                font-size: 0.8rem;
+            }
+            footer {
+                margin-top: 2rem;
+                padding-top: 1.5rem;
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
