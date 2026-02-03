@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page Auditor | AI-Powered Conversion Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            color: #e2e8f0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tagline {
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+        
+        .url-input-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .url-form {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .url-input {
+            flex: 1;
+            min-width: 300px;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .url-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+        
+        .audit-btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .audit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .score-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .score-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .score-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+        
+        .score-card .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .score-card .label {
+            color: #94a3b8;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .score-card .score {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .total-score {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            border: 2px solid rgba(102, 126, 234, 0.5);
+        }
+        
+        .total-score .score {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .audit-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .section-header:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .section-score {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .section-content {
+            padding: 1.5rem;
+        }
+        
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .check-item:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .check-item input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            accent-color: #667eea;
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .check-content {
+            flex: 1;
+        }
+        
+        .check-label {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        
+        .check-hint {
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+        
+        .check-weight {
+            color: #667eea;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .report-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .report-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .export-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #667eea;
+            background: transparent;
+            color: #667eea;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .export-btn:hover {
+            background: #667eea;
+            color: #fff;
+        }
+        
+        .issues-list {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .issue-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+        }
+        
+        .issue-critical {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid #ef4444;
+        }
+        
+        .issue-warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .issue-success {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 4px solid #22c55e;
+        }
+        
+        .issue-icon {
+            font-size: 1.25rem;
+        }
+        
+        .issue-content h4 {
+            margin-bottom: 0.25rem;
+        }
+        
+        .issue-content p {
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .grade {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+        
+        .grade-a { background: #22c55e; color: #fff; }
+        .grade-b { background: #84cc16; color: #fff; }
+        .grade-c { background: #f59e0b; color: #fff; }
+        .grade-d { background: #f97316; color: #fff; }
+        .grade-f { background: #ef4444; color: #fff; }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+        
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            .url-form {
+                flex-direction: column;
+            }
+            
+            .url-input {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🔍</div>
+            <h1>Landing Page Auditor</h1>
+            <p class="tagline">Professional conversion analysis in 5 minutes</p>
+        </header>
+        
+        <section class="url-input-section">
+            <form class="url-form" onsubmit="startAudit(event)">
+                <input type="url" class="url-input" id="pageUrl" placeholder="https://your-landing-page.com" required>
+                <button type="submit" class="audit-btn">🚀 Start Audit</button>
+            </form>
+        </section>
+        
+        <div id="auditContent" class="hidden">
+            <section class="score-overview">
+                <div class="score-card total-score">
+                    <div class="icon">🎯</div>
+                    <div class="label">Overall Score</div>
+                    <div class="score" id="totalScore">0</div>
+                    <span class="grade grade-f" id="overallGrade">F</span>
+                </div>
+                <div class="score-card">
+                    <div class="icon">📝</div>
+                    <div class="label">Copy & Messaging</div>
+                    <div class="score" id="copyScore">0</div>
+                </div>
+                <div class="score-card">
+                    <div class="icon">🎨</div>
+                    <div class="label">Visual Design</div>
+                    <div class="score" id="designScore">0</div>
+                </div>
+                <div class="score-card">
+                    <div class="icon">🎯</div>
+                    <div class="label">Call-to-Action</div>
+                    <div class="score" id="ctaScore">0</div>
+                </div>
+                <div class="score-card">
+                    <div class="icon">🛡️</div>
+                    <div class="label">Trust & Proof</div>
+                    <div class="score" id="trustScore">0</div>
+                </div>
+                <div class="score-card">
+                    <div class="icon">📱</div>
+                    <div class="label">Mobile & Speed</div>
+                    <div class="score" id="mobileScore">0</div>
+                </div>
+            </section>
+            
+            <div class="audit-section">
+                <div class="section-header" onclick="toggleSection('copy')">
+                    <div class="section-title">
+                        <span>📝</span>
+                        <span>Copy & Messaging</span>
+                    </div>
+                    <div class="section-score" id="copySectionScore">0/25</div>
+                </div>
+                <div class="section-content" id="copyContent">
+                    <div class="check-item">
+                        <input type="checkbox" data-category="copy" data-points="5" onchange="updateScores()">
+                        <div class="check-content">
+                            <div class="check-label">Clear headline that explains the value proposition</div>
+                            <div class="check-hint">Visitor should understand what you offer within 5 seconds</div>
+                            <div class="check-weight">+5 points</div>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" data-category="copy" data-points="5" onchange="updateScores()">
+                        <div class="check-content">
+                            <div class="check-label">Subheadline expands on the headline</div>
+                            <div class="check-hint">Provides additional context about benefits or how it works</div>
+                            <div class="check-weight">+5 points</div>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" data-category="copy" data-points="5" onchange="updateScores()">
+                        <div class="check-content">
+                            <div class="check-label">Benefits-focused copy (not feature-focused)</div>
+                            <div class="check-hint">Explains how the user's life improves, not just what features exist</div>
+                            <div class="check-weight">+5 points</div>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" data-category="copy" data-points="5" onchange="updateScores()">
+                        <div class="check-content">
+                            <div class="check-label">Copy addresses objections/concerns</div>
+                            <div class="check-hint">FAQ, guarantees, or copy that overcomes common hesitations</div>
+                            <div class="check-weight">+5 points</div>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" data-category="copy" data-points="5" onchange="updateScores()">
+                        <div class="check-content">
+                            <div class="check-label">No jargon or confusing language</div>
+                            <div class="check-hint">A 12-year-old could understand the main message</div>
+                            <div class="check-weight">+5 points</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="audit-section">
+                <div class="section-header" onclick="toggleSection('design')">
+                    <div class="section-title">
+                        <span>🎨</span>
+                        <span>Visual Design & Layout</span>
+                    </div>
+                    <div class="section-score" id="designSectionScore">0/20</div>
+                </div>
+                <div class="section-content" id="designContent">
+                    <div class="check-item">
+                        <input type="checkbox" data-category="design" data-points="5" onchange="updateScores()">
+                        <div class="check-content">
+                            <div class="check-label">Hero section is compelling above the fold</div>
+                            <div class="check-hint">Main value visible without scrolling on desktop</div>
+                            <div class="check-weight">+5 points</div>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" data-category="design" data-points="5" onchange="updateScores()">
+                        <div class="check-content">
+                            <div class="check-label">Clean visual hierarchy guides the eye</div>
+                            <div class="check-hint">Clear flow from headline → benefits → CTA</div>
+                            <div class="check-weight">+5 points</div>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" data-category="design" data-points="5" onchange="updateScores()">
+                        <div class="check-content">
+                            <div class="check-label">Professional, consistent styling</div>
+                            <div class="check-hint">Consistent fonts, colors, spacing throughout</div>
+                            <div class="check-weight">+5 points</div>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" data-category="design" data-points="5" onchange="updateScores()">
+                        <div class="check-content">
+                            <div class="check-label">Adequate whitespace (not cluttered)</div>
+                            <div class="check-hint">Content has room to breathe, easy to scan</div>
+                            <div class="check-weight">+5 points</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="audit-section">
+                <div class="section-header" onclick="toggleSection('cta')">
+                    <div class="section-title">
+                        <span>🎯</span>
+                        <span>Call-to-Action</span>
+                    </div>
+                    <div class="section-score" id="ctaSectionScore">0/25</div>
+                </div>
+                <div class="section-content" id="ctaContent">
+                    <div class="check-item">
+                        <input type="checkbox" data-category="cta" data-points="5" onchange="updateScores()">
+                        <div class="check-content">
+                            <div class="check-label">Primary CTA is visible above the fold</div>
+                            <div class="check-hint">User can take action without scrolling</div>
+                            <div class="check-weight">+5 points</div>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" data-category="cta" data-points="5" onchange="updateScores()">
+                        <div class="check-content">
+                            <div class="check-label">CTA button has strong contrast</div>
+                            <div class="check-hint">Stands out visually from the rest of the page</div>
+                            <div class="check-weight">+5 points</div>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" data-category="cta" data-points="5" onchange="updateScores()">
+                        <div class="check-content">
+                            <div class="check-label">CTA copy is action-oriented and specific</div>
+                            <div class="check-hint">"Get Started Free" beats "Submit" or "Click Here"</div>
+                            <div class="check-weight">+5 points</div>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" data-category="cta" data-points="5" onchange="updateScores()">
+                        <div class="check-content">
+                            <div class="check-label">Only ONE primary CTA (clear focus)</div>
+                            <div class="check-hint">Not competing with multiple equal options</div>
+                            <div class="check-weight">+5 points</div>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" data-category="cta" data-points="5" onchange="updateScores()">
+                        <div class="check-content">
+                            <div class="check-label">CTA repeated strategically throughout</div>
+                            <div class="check-hint">After key sections, user can act when convinced</div>
+                            <div class="check-weight">+5 points</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="audit-section">
+                <div class="section-header" onclick="toggleSection('trust')">
+                    <div class="section-title">
+                        <span>🛡️</span>
+                        <span>Trust & Social Proof</span>
+                    </div>
+                    <div class="section-score" id="trustSectionScore">0/15</div>
+                </div>
+                <div class="section-content" id="trustContent">
+                    <div class="check-item">
+                        <input type="checkbox" data-category="trust" data-points="5" onchange="updateScores()">
+                        <div class="check-content">
+                            <div class="check-label">Testimonials or reviews present</div>
+                            <div class="check-hint">Real quotes from real customers with names/photos</div>
+                            <div class="check-weight">+5 points</div>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" data-category="trust" data-points="5" onchange="updateScores()">
+                        <div class="check-content">
+                            <div class="check-label">Trust badges or partner logos</div>
+                            <div class="check-hint">"As seen in", security badges, certifications</div>
+                            <div class="check-weight">+5 points</div>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" data-category="trust" data-points="5" onchange="updateScores()">
+                        <div class="check-content">
+                            <div class="check-label">Metrics or results showcased</div>
+                            <div class="check-hint">"10,000+ customers", "4.9 rating", case study results</div>
+                            <div class="check-weight">+5 points</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="audit-section">
+                <div class="section-header" onclick="toggleSection('mobile')">
+                    <div class="section-title">
+                        <span>📱</span>
+                        <span>Mobile & Technical</span>
+                    </div>
+                    <div class="section-score" id="mobileSectionScore">0/15</div>
+                </div>
+                <div class="section-content" id="mobileContent">
+                    <div class="check-item">
+                        <input type="checkbox" data-category="mobile" data-points="5" onchange="updateScores()">
+                        <div class="check-content">
+                            <div class="check-label">Fully responsive on mobile</div>
+                            <div class="check-hint">All content readable and CTAs tappable on phone</div>
+                            <div class="check-weight">+5 points</div>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" data-category="mobile" data-points="5" onchange="updateScores()">
+                        <div class="check-content">
+                            <div class="check-label">Fast loading (under 3 seconds)</div>
+                            <div class="check-hint">No long waits, images optimized</div>
+                            <div class="check-weight">+5 points</div>
+                        </div>
+                    </div>
+                    <div class="check-item">
+                        <input type="checkbox" data-category="mobile" data-points="5" onchange="updateScores()">
+                        <div class="check-content">
+                            <div class="check-label">HTTPS secure connection</div>
+                            <div class="check-hint">Padlock in browser, no security warnings</div>
+                            <div class="check-weight">+5 points</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <section class="report-section">
+                <div class="report-header">
+                    <h2 class="report-title">📋 Priority Issues</h2>
+                    <button class="export-btn" onclick="exportReport()">📄 Export Report</button>
+                </div>
+                <div class="issues-list" id="issuesList">
+                    <p style="color: #94a3b8; text-align: center; padding: 2rem;">
+                        Complete the audit checklist above to see priority issues
+                    </p>
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+            <p>Built with ✨ by <a href="#">Safira</a> | Overnight Build 2026-02-03</p>
+            <p style="margin-top: 0.5rem;">Idea: AI Landing Page Auditor (Priority Score: 15.0)</p>
+        </footer>
+    </div>
+    
+    <script>
+        let auditedUrl = '';
+        
+        function startAudit(e) {
+            e.preventDefault();
+            auditedUrl = document.getElementById('pageUrl').value;
+            document.getElementById('auditContent').classList.remove('hidden');
+            
+            // Reset all checkboxes
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+            updateScores();
+            
+            // Smooth scroll to audit
+            document.getElementById('auditContent').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function toggleSection(section) {
+            const content = document.getElementById(section + 'Content');
+            content.style.display = content.style.display === 'none' ? 'block' : 'none';
+        }
+        
+        function updateScores() {
+            const categories = {
+                copy: { score: 0, max: 25 },
+                design: { score: 0, max: 20 },
+                cta: { score: 0, max: 25 },
+                trust: { score: 0, max: 15 },
+                mobile: { score: 0, max: 15 }
+            };
+            
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                if (cb.checked) {
+                    const category = cb.dataset.category;
+                    const points = parseInt(cb.dataset.points);
+                    categories[category].score += points;
+                }
+            });
+            
+            // Update individual scores
+            document.getElementById('copyScore').textContent = categories.copy.score;
+            document.getElementById('designScore').textContent = categories.design.score;
+            document.getElementById('ctaScore').textContent = categories.cta.score;
+            document.getElementById('trustScore').textContent = categories.trust.score;
+            document.getElementById('mobileScore').textContent = categories.mobile.score;
+            
+            // Update section scores
+            document.getElementById('copySectionScore').textContent = `${categories.copy.score}/${categories.copy.max}`;
+            document.getElementById('designSectionScore').textContent = `${categories.design.score}/${categories.design.max}`;
+            document.getElementById('ctaSectionScore').textContent = `${categories.cta.score}/${categories.cta.max}`;
+            document.getElementById('trustSectionScore').textContent = `${categories.trust.score}/${categories.trust.max}`;
+            document.getElementById('mobileSectionScore').textContent = `${categories.mobile.score}/${categories.mobile.max}`;
+            
+            // Calculate total
+            const total = categories.copy.score + categories.design.score + categories.cta.score + categories.trust.score + categories.mobile.score;
+            document.getElementById('totalScore').textContent = total;
+            
+            // Update grade
+            const gradeEl = document.getElementById('overallGrade');
+            gradeEl.className = 'grade';
+            if (total >= 90) {
+                gradeEl.textContent = 'A';
+                gradeEl.classList.add('grade-a');
+            } else if (total >= 75) {
+                gradeEl.textContent = 'B';
+                gradeEl.classList.add('grade-b');
+            } else if (total >= 60) {
+                gradeEl.textContent = 'C';
+                gradeEl.classList.add('grade-c');
+            } else if (total >= 40) {
+                gradeEl.textContent = 'D';
+                gradeEl.classList.add('grade-d');
+            } else {
+                gradeEl.textContent = 'F';
+                gradeEl.classList.add('grade-f');
+            }
+            
+            // Update issues list
+            updateIssues(categories);
+        }
+        
+        function updateIssues(categories) {
+            const issuesList = document.getElementById('issuesList');
+            const issues = [];
+            
+            // Analyze and generate issues
+            if (categories.cta.score < 15) {
+                issues.push({
+                    type: 'critical',
+                    title: 'Weak Call-to-Action',
+                    desc: 'Your CTA needs improvement. Focus on visibility, contrast, and action-oriented copy.'
+                });
+            }
+            if (categories.copy.score < 15) {
+                issues.push({
+                    type: 'critical',
+                    title: 'Copy Needs Work',
+                    desc: 'Improve your headline clarity and focus on benefits over features.'
+                });
+            }
+            if (categories.trust.score < 10) {
+                issues.push({
+                    type: 'warning',
+                    title: 'Missing Social Proof',
+                    desc: 'Add testimonials, logos, or metrics to build trust with visitors.'
+                });
+            }
+            if (categories.mobile.score < 10) {
+                issues.push({
+                    type: 'warning',
+                    title: 'Technical Issues',
+                    desc: 'Check mobile responsiveness and page speed.'
+                });
+            }
+            if (categories.design.score < 10) {
+                issues.push({
+                    type: 'warning',
+                    title: 'Design Improvements Needed',
+                    desc: 'Work on visual hierarchy and above-the-fold impact.'
+                });
+            }
+            
+            // Add successes
+            if (categories.copy.score >= 20) {
+                issues.push({
+                    type: 'success',
+                    title: 'Strong Copy ✓',
+                    desc: 'Your messaging is clear and benefit-focused.'
+                });
+            }
+            if (categories.cta.score >= 20) {
+                issues.push({
+                    type: 'success',
+                    title: 'Effective CTA ✓',
+                    desc: 'Your call-to-action is well-designed and prominent.'
+                });
+            }
+            
+            if (issues.length === 0) {
+                issuesList.innerHTML = '<p style="color: #94a3b8; text-align: center; padding: 2rem;">Complete the audit checklist above to see priority issues</p>';
+                return;
+            }
+            
+            issuesList.innerHTML = issues.map(issue => `
+                <div class="issue-item issue-${issue.type}">
+                    <span class="issue-icon">${issue.type === 'critical' ? '🔴' : issue.type === 'warning' ? '🟡' : '🟢'}</span>
+                    <div class="issue-content">
+                        <h4>${issue.title}</h4>
+                        <p>${issue.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function exportReport() {
+            const total = document.getElementById('totalScore').textContent;
+            const grade = document.getElementById('overallGrade').textContent;
+            const categories = {
+                'Copy & Messaging': document.getElementById('copyScore').textContent + '/25',
+                'Visual Design': document.getElementById('designScore').textContent + '/20',
+                'Call-to-Action': document.getElementById('ctaScore').textContent + '/25',
+                'Trust & Proof': document.getElementById('trustScore').textContent + '/15',
+                'Mobile & Technical': document.getElementById('mobileScore').textContent + '/15'
+            };
+            
+            let report = `LANDING PAGE AUDIT REPORT
+========================
+URL: ${auditedUrl}
+Date: ${new Date().toISOString().split('T')[0]}
+
+OVERALL SCORE: ${total}/100 (Grade: ${grade})
+
+CATEGORY SCORES:
+`;
+            
+            for (const [cat, score] of Object.entries(categories)) {
+                report += `• ${cat}: ${score}\n`;
+            }
+            
+            report += `\nCHECKED ITEMS:\n`;
+            
+            document.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
+                const label = cb.closest('.check-item').querySelector('.check-label').textContent;
+                report += `✓ ${label}\n`;
+            });
+            
+            report += `\nMISSING ITEMS:\n`;
+            
+            document.querySelectorAll('input[type="checkbox"]:not(:checked)').forEach(cb => {
+                const label = cb.closest('.check-item').querySelector('.check-label').textContent;
+                report += `✗ ${label}\n`;
+            });
+            
+            report += `\n---\nGenerated by Landing Page Auditor | ${new Date().toLocaleString()}`;
+            
+            // Download as text file
+            const blob = new Blob([report], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `landing-page-audit-${new Date().toISOString().split('T')[0]}.txt`;
+            a.click();
+        }
+    </script>
+</body>
+</html>

@@ -137,6 +137,16 @@
             color: #d4d4d8;
         }
         
+        .new-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+            font-weight: 600;
+        }
+        
         footer {
             text-align: center;
             margin-top: 3rem;
@@ -148,12 +158,6 @@
         footer a {
             color: #667eea;
             text-decoration: none;
-        }
-        
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: #71717a;
         }
         
         @media (max-width: 600px) {
@@ -179,22 +183,83 @@
             <p class="subtitle">Projectos criados enquanto o Guilherme dorme</p>
             <div class="stats">
                 <div class="stat">
-                    <div class="stat-value" id="total-projects">3</div>
+                    <div class="stat-value">7</div>
                     <div class="stat-label">Projectos</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-value" id="total-nights">3</div>
+                    <div class="stat-value">7</div>
                     <div class="stat-label">Noites</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-value" id="streak">3</div>
-                    <div class="stat-label">Streak 🔥</div>
+                    <div class="stat-value">7 🔥</div>
+                    <div class="stat-label">Streak</div>
                 </div>
             </div>
         </header>
         
-        <main class="projects" id="projects">
-            <!-- Projects are listed here -->
+        <main class="projects">
+            
+            <a href="2026-02-03/landing-page-auditor.html" class="project">
+                <div class="project-header">
+                    <span class="project-title">🔍 Landing Page Auditor <span class="new-badge">NEW</span></span>
+                    <span class="project-date">03 Feb 2026</span>
+                </div>
+                <p class="project-description">
+                    Ferramenta de auditoria de landing pages para conversão. Checklist de 20 pontos em 5 categorias (Copy, Design, CTA, Trust, Mobile), scoring 0-100, grade A-F, export de relatório. MVP da ideia com Priority Score 15.0!
+                </p>
+                <div class="project-tags">
+                    <span class="tag">HTML</span>
+                    <span class="tag">Standalone</span>
+                    <span class="tag">CRO</span>
+                    <span class="tag">Side Hustle</span>
+                </div>
+            </a>
+            
+            <a href="2026-02-02/weekly-review.html" class="project">
+                <div class="project-header">
+                    <span class="project-title">📅 Weekly Review Dashboard</span>
+                    <span class="project-date">02 Feb 2026</span>
+                </div>
+                <p class="project-description">
+                    Dashboard visual para revisão semanal de Domingo. Combina treino (Strava), side hustles top 3, conquistas da semana, métricas, e foco para a próxima semana.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">HTML</span>
+                    <span class="tag">Produtividade</span>
+                    <span class="tag">Review</span>
+                </div>
+            </a>
+            
+            <a href="2026-02-01/side-hustle-prioritizer.html" class="project">
+                <div class="project-header">
+                    <span class="project-title">💡 Side Hustle Prioritizer</span>
+                    <span class="project-date">01 Feb 2026</span>
+                </div>
+                <p class="project-description">
+                    Dashboard de ranking de ideias de side hustle por Priority Score. Fórmula: (Potential × Skills) ÷ Effort. Podium visual com top 3, cards detalhados, recomendação automática.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">HTML</span>
+                    <span class="tag">Standalone</span>
+                    <span class="tag">Side Hustle</span>
+                </div>
+            </a>
+            
+            <a href="2026-01-31/bigideas-portugal.html" class="project">
+                <div class="project-header">
+                    <span class="project-title">🇵🇹 BigIdeasDB Portugal</span>
+                    <span class="project-date">31 Jan 2026</span>
+                </div>
+                <p class="project-description">
+                    Dashboard de oportunidades de negócio baseado em complaints do Portal da Queixa. Scraper automático, Validation Scores, tendências por sector, ideias ordenadas por potencial.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">HTML</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">Scraper</span>
+                    <span class="tag">Side Hustle</span>
+                </div>
+            </a>
             
             <a href="2026-01-30/triathlon-dashboard.html" class="project">
                 <div class="project-header">
@@ -202,7 +267,7 @@
                     <span class="project-date">30 Jan 2026</span>
                 </div>
                 <p class="project-description">
-                    Dashboard interativo de treino triathlon com dados Strava. Stats de Janeiro 2026, destaque do Algarve Xtreme Trail (19.2km, 994m D+), gráficos de distribuição e volume semanal, totais de carreira.
+                    Dashboard interativo de treino triathlon com dados Strava. Stats mensais, destaque de actividades, gráficos de distribuição e volume semanal, totais de carreira.
                 </p>
                 <div class="project-tags">
                     <span class="tag">HTML</span>

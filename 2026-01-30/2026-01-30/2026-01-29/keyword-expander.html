@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔑 Keyword Expander - PPC Tool</title>
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --bg-card: #1c2128;
+            --accent: #7c3aed;
+            --accent-light: #8b5cf6;
+            --accent-glow: rgba(124, 58, 237, 0.3);
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+            --border: #30363d;
+            --success: #2ea043;
+            --warning: #d29922;
+            --danger: #f85149;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--accent-light), #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .stats-bar {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .stat {
+            background: var(--bg-tertiary);
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-light);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .input-section {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            padding: 24px;
+            margin-bottom: 30px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+
+        .input-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .input-group input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: white;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .history-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .history-label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        .history-chips {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .history-chip {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .history-chip:hover {
+            border-color: var(--accent);
+            color: var(--accent-light);
+        }
+
+        .actions-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .actions-bar .spacer {
+            flex: 1;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .category-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover {
+            border-color: var(--accent);
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-title h3 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .category-count {
+            background: var(--accent-glow);
+            color: var(--accent-light);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .category-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-toggle label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .category-toggle input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        .keyword-list {
+            padding: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .keyword-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+        }
+
+        .keyword-item:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .keyword-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--accent);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .keyword-text {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            word-break: break-word;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--success);
+            color: white;
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-weight: 500;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .input-row {
+                flex-direction: column;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .actions-bar .spacer {
+                display: none;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🔑 Keyword Expander</h1>
+        <p>Generate keyword variations for PPC & SEO campaigns</p>
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-value" id="totalKeywords">0</div>
+                <div class="stat-label">Total Keywords</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="selectedCount">0</div>
+                <div class="stat-label">Selected</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="categoriesCount">0</div>
+                <div class="stat-label">Categories</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="input-section">
+            <div class="input-row">
+                <div class="input-group" style="flex: 2;">
+                    <label for="seedKeyword">Seed Keyword *</label>
+                    <input type="text" id="seedKeyword" placeholder="e.g., digital marketing" autofocus>
+                </div>
+                <div class="input-group">
+                    <label for="cityInput">City (optional)</label>
+                    <input type="text" id="cityInput" placeholder="e.g., Lisbon">
+                </div>
+                <button class="btn btn-primary" onclick="expandKeywords()" id="expandBtn">
+                    🚀 Expand
+                </button>
+            </div>
+            
+            <div class="history-section" id="historySection" style="display: none;">
+                <div class="history-label">Recent searches:</div>
+                <div class="history-chips" id="historyChips"></div>
+            </div>
+        </div>
+
+        <div class="actions-bar" id="actionsBar" style="display: none;">
+            <button class="btn btn-secondary" onclick="selectAll()">☑️ Select All</button>
+            <button class="btn btn-secondary" onclick="deselectAll()">⬜ Deselect All</button>
+            <div class="spacer"></div>
+            <button class="btn btn-success" onclick="copySelected()" id="copyBtn">📋 Copy Selected</button>
+            <button class="btn btn-secondary" onclick="exportCSV()">📥 Export CSV</button>
+        </div>
+
+        <div class="results-grid" id="resultsGrid">
+            <div class="empty-state" style="grid-column: 1 / -1;">
+                <div class="empty-state-icon">🔑</div>
+                <h3>Enter a seed keyword</h3>
+                <p>Type a keyword and click "Expand" to generate variations for your campaigns.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const STORAGE_KEY = 'keyword-expander-history';
+        const CURRENT_YEAR = new Date().getFullYear();
+
+        const patterns = {
+            questions: {
+                icon: '❓',
+                name: 'Questions',
+                templates: [
+                    'how to {kw}',
+                    'what is {kw}',
+                    'why {kw}',
+                    'when to {kw}',
+                    'where to {kw}',
+                    'is {kw} worth it',
+                    'can {kw}',
+                    'does {kw}',
+                    'how does {kw} work',
+                    'what are the benefits of {kw}',
+                    'how much does {kw} cost',
+                    'which {kw} is best'
+                ]
+            },
+            comparisons: {
+                icon: '⚖️',
+                name: 'Comparisons',
+                templates: [
+                    '{kw} vs',
+                    '{kw} alternatives',
+                    '{kw} or',
+                    'best {kw}',
+                    'top {kw}',
+                    '{kw} comparison',
+                    '{kw} versus',
+                    'compare {kw}',
+                    '{kw} competitors',
+                    'like {kw}'
+                ]
+            },
+            commercial: {
+                icon: '💰',
+                name: 'Commercial',
+                templates: [
+                    'buy {kw}',
+                    '{kw} price',
+                    '{kw} cost',
+                    'cheap {kw}',
+                    '{kw} discount',
+                    '{kw} deal',
+                    '{kw} review',
+                    '{kw} reviews',
+                    '{kw} pricing',
+                    'affordable {kw}',
+                    '{kw} free trial',
+                    '{kw} coupon'
+                ]
+            },
+            local: {
+                icon: '📍',
+                name: 'Local',
+                templates: [
+                    '{kw} near me',
+                    'local {kw}',
+                    '{kw} nearby',
+                    '{kw} services',
+                    '{kw} in my area'
+                ],
+                cityTemplates: [
+                    '{kw} in {city}',
+                    '{kw} {city}',
+                    'best {kw} in {city}',
+                    '{city} {kw}'
+                ]
+            },
+            longtail: {
+                icon: '🎯',
+                name: 'Long-tail',
+                templates: [
+                    'best {kw} for beginners',
+                    '{kw} for small business',
+                    '{kw} for {year}',
+                    'how to use {kw}',
+                    '{kw} tips',
+                    '{kw} guide',
+                    '{kw} tutorial',
+                    '{kw} examples',
+                    '{kw} strategies',
+                    '{kw} best practices',
+                    '{kw} step by step',
+                    'complete {kw} guide'
+                ]
+            },
+            negative: {
+                icon: '⚠️',
+                name: 'Problem/Negative',
+                templates: [
+                    '{kw} problems',
+                    '{kw} issues',
+                    '{kw} not working',
+                    '{kw} alternatives to',
+                    '{kw} disadvantages',
+                    '{kw} complaints',
+                    '{kw} troubleshooting',
+                    'why {kw} fails',
+                    '{kw} mistakes'
+                ]
+            }
+        };
+
+        let currentKeywords = {};
+        let selectedKeywords = new Set();
+
+        function getHistory() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            return data ? JSON.parse(data) : [];
+        }
+
+        function saveToHistory(keyword) {
+            let history = getHistory();
+            history = history.filter(k => k.toLowerCase() !== keyword.toLowerCase());
+            history.unshift(keyword);
+            history = history.slice(0, 10);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+            renderHistory();
+        }
+
+        function renderHistory() {
+            const history = getHistory();
+            const section = document.getElementById('historySection');
+            const chips = document.getElementById('historyChips');
+
+            if (history.length === 0) {
+                section.style.display = 'none';
+                return;
+            }
+
+            section.style.display = 'block';
+            chips.innerHTML = history.map(kw => 
+                `<span class="history-chip" onclick="useFromHistory('${escapeHtml(kw)}')">${escapeHtml(kw)}</span>`
+            ).join('');
+        }
+
+        function useFromHistory(keyword) {
+            document.getElementById('seedKeyword').value = keyword;
+            expandKeywords();
+        }
+
+        function expandKeywords() {
+            const seedInput = document.getElementById('seedKeyword');
+            const cityInput = document.getElementById('cityInput');
+            const seed = seedInput.value.trim().toLowerCase();
+            const city = cityInput.value.trim();
+
+            if (!seed) {
+                showToast('Please enter a seed keyword', 'error');
+                seedInput.focus();
+                return;
+            }
+
+            saveToHistory(seed);
+            currentKeywords = {};
+            selectedKeywords.clear();
+
+            for (const [categoryId, category] of Object.entries(patterns)) {
+                const keywords = [];
+
+                for (const template of category.templates) {
+                    const kw = template
+                        .replace('{kw}', seed)
+                        .replace('{year}', CURRENT_YEAR);
+                    keywords.push(kw);
+                }
+
+                if (category.cityTemplates && city) {
+                    for (const template of category.cityTemplates) {
+                        const kw = template
+                            .replace('{kw}', seed)
+                            .replace('{city}', city);
+                        keywords.push(kw);
+                    }
+                }
+
+                currentKeywords[categoryId] = {
+                    ...category,
+                    keywords: keywords
+                };
+            }
+
+            renderResults();
+            document.getElementById('actionsBar').style.display = 'flex';
+            updateStats();
+        }
+
+        function renderResults() {
+            const grid = document.getElementById('resultsGrid');
+
+            if (Object.keys(currentKeywords).length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <div class="empty-state-icon">🔑</div>
+                        <h3>Enter a seed keyword</h3>
+                        <p>Type a keyword and click "Expand" to generate variations for your campaigns.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = Object.entries(currentKeywords).map(([categoryId, category]) => `
+                <div class="category-card">
+                    <div class="category-header">
+                        <div class="category-title">
+                            <span>${category.icon}</span>
+                            <h3>${category.name}</h3>
+                            <span class="category-count">${category.keywords.length}</span>
+                        </div>
+                        <div class="category-toggle">
+                            <label for="toggle-${categoryId}">All</label>
+                            <input type="checkbox" id="toggle-${categoryId}" 
+                                onchange="toggleCategory('${categoryId}', this.checked)">
+                        </div>
+                    </div>
+                    <div class="keyword-list">
+                        ${category.keywords.map((kw, idx) => `
+                            <div class="keyword-item">
+                                <input type="checkbox" 
+                                    id="kw-${categoryId}-${idx}"
+                                    data-category="${categoryId}"
+                                    data-keyword="${escapeHtml(kw)}"
+                                    onchange="toggleKeyword('${categoryId}', '${escapeHtml(kw)}', this.checked)"
+                                    ${selectedKeywords.has(kw) ? 'checked' : ''}>
+                                <label class="keyword-text" for="kw-${categoryId}-${idx}">${escapeHtml(kw)}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            updateCategoryToggles();
+        }
+
+        function toggleCategory(categoryId, checked) {
+            const category = currentKeywords[categoryId];
+            if (!category) return;
+
+            for (const kw of category.keywords) {
+                if (checked) {
+                    selectedKeywords.add(kw);
+                } else {
+                    selectedKeywords.delete(kw);
+                }
+            }
+
+            document.querySelectorAll(`input[data-category="${categoryId}"]`).forEach(cb => {
+                cb.checked = checked;
+            });
+
+            updateStats();
+        }
+
+        function toggleKeyword(categoryId, keyword, checked) {
+            if (checked) {
+                selectedKeywords.add(keyword);
+            } else {
+                selectedKeywords.delete(keyword);
+            }
+            updateCategoryToggles();
+            updateStats();
+        }
+
+        function updateCategoryToggles() {
+            for (const categoryId of Object.keys(currentKeywords)) {
+                const category = currentKeywords[categoryId];
+                const allSelected = category.keywords.every(kw => selectedKeywords.has(kw));
+                const toggle = document.getElementById(`toggle-${categoryId}`);
+                if (toggle) {
+                    toggle.checked = allSelected;
+                }
+            }
+        }
+
+        function selectAll() {
+            for (const category of Object.values(currentKeywords)) {
+                for (const kw of category.keywords) {
+                    selectedKeywords.add(kw);
+                }
+            }
+            renderResults();
+            updateStats();
+        }
+
+        function deselectAll() {
+            selectedKeywords.clear();
+            renderResults();
+            updateStats();
+        }
+
+        function updateStats() {
+            let total = 0;
+            for (const category of Object.values(currentKeywords)) {
+                total += category.keywords.length;
+            }
+
+            document.getElementById('totalKeywords').textContent = total;
+            document.getElementById('selectedCount').textContent = selectedKeywords.size;
+            document.getElementById('categoriesCount').textContent = Object.keys(currentKeywords).length;
+
+            document.getElementById('copyBtn').disabled = selectedKeywords.size === 0;
+        }
+
+        function copySelected() {
+            if (selectedKeywords.size === 0) {
+                showToast('No keywords selected', 'error');
+                return;
+            }
+
+            const text = Array.from(selectedKeywords).join('\n');
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(`✅ Copied ${selectedKeywords.size} keywords to clipboard!`);
+            }).catch(() => {
+                showToast('Failed to copy', 'error');
+            });
+        }
+
+        function exportCSV() {
+            if (selectedKeywords.size === 0) {
+                showToast('No keywords selected', 'error');
+                return;
+            }
+
+            const rows = [['Keyword', 'Category']];
+
+            for (const [categoryId, category] of Object.entries(currentKeywords)) {
+                for (const kw of category.keywords) {
+                    if (selectedKeywords.has(kw)) {
+                        rows.push([kw, category.name]);
+                    }
+                }
+            }
+
+            const csv = rows.map(row => row.map(cell => `"${cell}"`).join(',')).join('\n');
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `keywords-${Date.now()}.csv`;
+            a.click();
+
+            URL.revokeObjectURL(url);
+            showToast(`📥 Exported ${selectedKeywords.size} keywords to CSV!`);
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.background = type === 'error' ? 'var(--danger)' : 'var(--success)';
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderHistory();
+
+            // Enter key to expand
+            document.getElementById('seedKeyword').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    expandKeywords();
+                }
+            });
+
+            document.getElementById('cityInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    expandKeywords();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

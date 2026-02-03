@@ -1,0 +1,2364 @@
+{
+  "exported_at": "2026-01-30T21:43:14.987975",
+  "stats": {
+    "total_transactions": 545,
+    "first_date": "2025-01-02",
+    "last_date": "2026-01-29",
+    "total_income": 31351.420000000002,
+    "total_expenses": 24683.55,
+    "net_balance": 6667.870000000003
+  },
+  "trends": [
+    {
+      "month": "2025-02",
+      "income": 1476.5,
+      "expenses": 1247.77,
+      "count": 33,
+      "balance": 228.73000000000002
+    },
+    {
+      "month": "2025-03",
+      "income": 1332.0,
+      "expenses": 1547.46,
+      "count": 38,
+      "balance": -215.46000000000004
+    },
+    {
+      "month": "2025-04",
+      "income": 1385.0,
+      "expenses": 1460.3,
+      "count": 34,
+      "balance": -75.29999999999995
+    },
+    {
+      "month": "2025-05",
+      "income": 1648.97,
+      "expenses": 2038.1,
+      "count": 39,
+      "balance": -389.1299999999999
+    },
+    {
+      "month": "2025-06",
+      "income": 2896.75,
+      "expenses": 2449.17,
+      "count": 59,
+      "balance": 447.5799999999999
+    },
+    {
+      "month": "2025-07",
+      "income": 1690.16,
+      "expenses": 2202.74,
+      "count": 41,
+      "balance": -512.5799999999997
+    },
+    {
+      "month": "2025-08",
+      "income": 11761.64,
+      "expenses": 1734.61,
+      "count": 43,
+      "balance": 10027.029999999999
+    },
+    {
+      "month": "2025-09",
+      "income": 1330.0,
+      "expenses": 2126.98,
+      "count": 49,
+      "balance": -796.98
+    },
+    {
+      "month": "2025-10",
+      "income": 1050.4,
+      "expenses": 2516.94,
+      "count": 38,
+      "balance": -1466.54
+    },
+    {
+      "month": "2025-11",
+      "income": 1200.0,
+      "expenses": 1812.71,
+      "count": 32,
+      "balance": -612.71
+    },
+    {
+      "month": "2025-12",
+      "income": 1630.0,
+      "expenses": 2140.02,
+      "count": 48,
+      "balance": -510.02
+    },
+    {
+      "month": "2026-01",
+      "income": 2550.0,
+      "expenses": 1954.51,
+      "count": 49,
+      "balance": 595.49
+    }
+  ],
+  "categories": {
+    "transferencias": {
+      "display_name": "💰 Transferências",
+      "income": 9556.19,
+      "expenses": 9732.82,
+      "count": 96
+    },
+    "alimentacao": {
+      "display_name": "🍎 Alimentação",
+      "income": 0,
+      "expenses": 5099.72,
+      "count": 139
+    },
+    "tecnologia": {
+      "display_name": "📱 Tecnologia",
+      "income": 0,
+      "expenses": 1878.6499999999999,
+      "count": 47
+    },
+    "outros": {
+      "display_name": "🎁 Outros",
+      "income": 118.0,
+      "expenses": 1850.65,
+      "count": 48
+    },
+    "fitness": {
+      "display_name": "🏋️ Fitness",
+      "income": 0,
+      "expenses": 1525.21,
+      "count": 34
+    },
+    "transportes": {
+      "display_name": "🚗 Transportes",
+      "income": 12.4,
+      "expenses": 1501.07,
+      "count": 26
+    },
+    "casa": {
+      "display_name": "🏠 Casa",
+      "income": 0,
+      "expenses": 1295.34,
+      "count": 22
+    },
+    "trabalho": {
+      "display_name": "💼 Trabalho",
+      "income": 0,
+      "expenses": 1023.66,
+      "count": 72
+    },
+    "saude": {
+      "display_name": "💊 Saúde",
+      "income": 0,
+      "expenses": 353.27,
+      "count": 12
+    },
+    "lazer": {
+      "display_name": "🎮 Lazer",
+      "income": 0,
+      "expenses": 223.79,
+      "count": 7
+    },
+    "animais": {
+      "display_name": "🐾 Animais",
+      "income": 0,
+      "expenses": 111.36999999999999,
+      "count": 5
+    },
+    "educacao": {
+      "display_name": "📚 Educação",
+      "income": 0,
+      "expenses": 53.31999999999999,
+      "count": 2
+    },
+    "vestuario": {
+      "display_name": "👕 Vestuário",
+      "income": 0,
+      "expenses": 34.68,
+      "count": 2
+    },
+    "salario": {
+      "display_name": "💵 Salário",
+      "income": 21664.83,
+      "expenses": 0,
+      "count": 33
+    }
+  },
+  "monthly": {
+    "2026-01": {
+      "month": "2026-01",
+      "total_income": 2550.0,
+      "total_expenses": -1954.5099999999998,
+      "categories": {
+        "alimentacao": {
+          "display_name": "🍎 Alimentação",
+          "income": 0,
+          "expenses": -338.39,
+          "count": 7
+        },
+        "casa": {
+          "display_name": "🏠 Casa",
+          "income": 0,
+          "expenses": -75.21,
+          "count": 2
+        },
+        "fitness": {
+          "display_name": "🏋️ Fitness",
+          "income": 0,
+          "expenses": -429.19,
+          "count": 6
+        },
+        "outros": {
+          "display_name": "🎁 Outros",
+          "income": 0,
+          "expenses": -69.0,
+          "count": 2
+        },
+        "salario": {
+          "display_name": "💵 Salário",
+          "income": 2200.0,
+          "expenses": 0,
+          "count": 2
+        },
+        "saude": {
+          "display_name": "💊 Saúde",
+          "income": 0,
+          "expenses": -13.98,
+          "count": 1
+        },
+        "tecnologia": {
+          "display_name": "📱 Tecnologia",
+          "income": 0,
+          "expenses": -124.73,
+          "count": 7
+        },
+        "trabalho": {
+          "display_name": "💼 Trabalho",
+          "income": 0,
+          "expenses": -33.6,
+          "count": 10
+        },
+        "transferencias": {
+          "display_name": "💰 Transferências",
+          "income": 350.0,
+          "expenses": -818.41,
+          "count": 10
+        },
+        "transportes": {
+          "display_name": "🚗 Transportes",
+          "income": 0,
+          "expenses": -52.0,
+          "count": 2
+        }
+      }
+    },
+    "2025-12": {
+      "month": "2025-12",
+      "total_income": 1630.0,
+      "total_expenses": -2140.0199999999995,
+      "categories": {
+        "alimentacao": {
+          "display_name": "🍎 Alimentação",
+          "income": 0,
+          "expenses": -428.56,
+          "count": 10
+        },
+        "casa": {
+          "display_name": "🏠 Casa",
+          "income": 0,
+          "expenses": -82.45,
+          "count": 2
+        },
+        "fitness": {
+          "display_name": "🏋️ Fitness",
+          "income": 0,
+          "expenses": -100.26,
+          "count": 1
+        },
+        "lazer": {
+          "display_name": "🎮 Lazer",
+          "income": 0,
+          "expenses": -41.9,
+          "count": 1
+        },
+        "outros": {
+          "display_name": "🎁 Outros",
+          "income": 0,
+          "expenses": -20.0,
+          "count": 1
+        },
+        "salario": {
+          "display_name": "💵 Salário",
+          "income": 1330.0,
+          "expenses": 0,
+          "count": 3
+        },
+        "tecnologia": {
+          "display_name": "📱 Tecnologia",
+          "income": 0,
+          "expenses": -464.28,
+          "count": 14
+        },
+        "trabalho": {
+          "display_name": "💼 Trabalho",
+          "income": 0,
+          "expenses": -10.31,
+          "count": 6
+        },
+        "transferencias": {
+          "display_name": "💰 Transferências",
+          "income": 300.0,
+          "expenses": -835.5,
+          "count": 8
+        },
+        "transportes": {
+          "display_name": "🚗 Transportes",
+          "income": 0,
+          "expenses": -156.76,
+          "count": 2
+        }
+      }
+    },
+    "2025-11": {
+      "month": "2025-11",
+      "total_income": 1200.0,
+      "total_expenses": -1812.71,
+      "categories": {
+        "alimentacao": {
+          "display_name": "🍎 Alimentação",
+          "income": 0,
+          "expenses": -361.08,
+          "count": 9
+        },
+        "casa": {
+          "display_name": "🏠 Casa",
+          "income": 0,
+          "expenses": -80.12,
+          "count": 2
+        },
+        "fitness": {
+          "display_name": "🏋️ Fitness",
+          "income": 0,
+          "expenses": -100.0,
+          "count": 3
+        },
+        "lazer": {
+          "display_name": "🎮 Lazer",
+          "income": 0,
+          "expenses": -105.69,
+          "count": 2
+        },
+        "outros": {
+          "display_name": "🎁 Outros",
+          "income": 0,
+          "expenses": -35.8,
+          "count": 2
+        },
+        "salario": {
+          "display_name": "💵 Salário",
+          "income": 900.0,
+          "expenses": 0,
+          "count": 1
+        },
+        "tecnologia": {
+          "display_name": "📱 Tecnologia",
+          "income": 0,
+          "expenses": -159.99,
+          "count": 1
+        },
+        "trabalho": {
+          "display_name": "💼 Trabalho",
+          "income": 0,
+          "expenses": -26.14,
+          "count": 3
+        },
+        "transferencias": {
+          "display_name": "💰 Transferências",
+          "income": 300.0,
+          "expenses": -898.89,
+          "count": 7
+        },
+        "transportes": {
+          "display_name": "🚗 Transportes",
+          "income": 0,
+          "expenses": -45.0,
+          "count": 2
+        }
+      }
+    },
+    "2025-10": {
+      "month": "2025-10",
+      "total_income": 1050.4,
+      "total_expenses": -2516.94,
+      "categories": {
+        "alimentacao": {
+          "display_name": "🍎 Alimentação",
+          "income": 0,
+          "expenses": -466.56,
+          "count": 14
+        },
+        "casa": {
+          "display_name": "🏠 Casa",
+          "income": 0,
+          "expenses": -64.27000000000001,
+          "count": 2
+        },
+        "fitness": {
+          "display_name": "🏋️ Fitness",
+          "income": 0,
+          "expenses": -92.4,
+          "count": 3
+        },
+        "outros": {
+          "display_name": "🎁 Outros",
+          "income": 0,
+          "expenses": -188.5,
+          "count": 3
+        },
+        "salario": {
+          "display_name": "💵 Salário",
+          "income": 900.0,
+          "expenses": 0,
+          "count": 1
+        },
+        "tecnologia": {
+          "display_name": "📱 Tecnologia",
+          "income": 0,
+          "expenses": -58.339999999999996,
+          "count": 2
+        },
+        "trabalho": {
+          "display_name": "💼 Trabalho",
+          "income": 0,
+          "expenses": -26.61,
+          "count": 5
+        },
+        "transferencias": {
+          "display_name": "💰 Transferências",
+          "income": 150.0,
+          "expenses": -824.84,
+          "count": 5
+        },
+        "transportes": {
+          "display_name": "🚗 Transportes",
+          "income": 0.4,
+          "expenses": -795.42,
+          "count": 3
+        }
+      }
+    },
+    "2025-09": {
+      "month": "2025-09",
+      "total_income": 1330.0,
+      "total_expenses": -2126.98,
+      "categories": {
+        "alimentacao": {
+          "display_name": "🍎 Alimentação",
+          "income": 0,
+          "expenses": -440.69,
+          "count": 12
+        },
+        "animais": {
+          "display_name": "🐾 Animais",
+          "income": 0,
+          "expenses": -42.38,
+          "count": 4
+        },
+        "casa": {
+          "display_name": "🏠 Casa",
+          "income": 0,
+          "expenses": -91.44,
+          "count": 2
+        },
+        "fitness": {
+          "display_name": "🏋️ Fitness",
+          "income": 0,
+          "expenses": -34.7,
+          "count": 2
+        },
+        "outros": {
+          "display_name": "🎁 Outros",
+          "income": 0,
+          "expenses": -380.91,
+          "count": 6
+        },
+        "salario": {
+          "display_name": "💵 Salário",
+          "income": 1030.0,
+          "expenses": 0,
+          "count": 2
+        },
+        "saude": {
+          "display_name": "💊 Saúde",
+          "income": 0,
+          "expenses": -36.64,
+          "count": 1
+        },
+        "tecnologia": {
+          "display_name": "📱 Tecnologia",
+          "income": 0,
+          "expenses": -29.58,
+          "count": 1
+        },
+        "trabalho": {
+          "display_name": "💼 Trabalho",
+          "income": 0,
+          "expenses": -46.14,
+          "count": 4
+        },
+        "transferencias": {
+          "display_name": "💰 Transferências",
+          "income": 300.0,
+          "expenses": -883.03,
+          "count": 10
+        },
+        "transportes": {
+          "display_name": "🚗 Transportes",
+          "income": 0,
+          "expenses": -141.47,
+          "count": 5
+        }
+      }
+    },
+    "2025-08": {
+      "month": "2025-08",
+      "total_income": 11761.64,
+      "total_expenses": -1734.61,
+      "categories": {
+        "alimentacao": {
+          "display_name": "🍎 Alimentação",
+          "income": 0,
+          "expenses": -442.62,
+          "count": 12
+        },
+        "animais": {
+          "display_name": "🐾 Animais",
+          "income": 0,
+          "expenses": -68.99,
+          "count": 1
+        },
+        "casa": {
+          "display_name": "🏠 Casa",
+          "income": 0,
+          "expenses": -84.82,
+          "count": 2
+        },
+        "fitness": {
+          "display_name": "🏋️ Fitness",
+          "income": 0,
+          "expenses": -85.8,
+          "count": 2
+        },
+        "outros": {
+          "display_name": "🎁 Outros",
+          "income": 0,
+          "expenses": -31.5,
+          "count": 2
+        },
+        "salario": {
+          "display_name": "💵 Salário",
+          "income": 5631.0,
+          "expenses": 0,
+          "count": 4
+        },
+        "saude": {
+          "display_name": "💊 Saúde",
+          "income": 0,
+          "expenses": -19.41,
+          "count": 2
+        },
+        "tecnologia": {
+          "display_name": "📱 Tecnologia",
+          "income": 0,
+          "expenses": -67.89,
+          "count": 1
+        },
+        "trabalho": {
+          "display_name": "💼 Trabalho",
+          "income": 0,
+          "expenses": -6.140000000000001,
+          "count": 2
+        },
+        "transferencias": {
+          "display_name": "💰 Transferências",
+          "income": 6130.64,
+          "expenses": -868.24,
+          "count": 13
+        },
+        "transportes": {
+          "display_name": "🚗 Transportes",
+          "income": 0,
+          "expenses": -59.2,
+          "count": 2
+        }
+      }
+    },
+    "2025-07": {
+      "month": "2025-07",
+      "total_income": 1690.16,
+      "total_expenses": -2202.74,
+      "categories": {
+        "alimentacao": {
+          "display_name": "🍎 Alimentação",
+          "income": 0,
+          "expenses": -408.93,
+          "count": 10
+        },
+        "casa": {
+          "display_name": "🏠 Casa",
+          "income": 0,
+          "expenses": -86.73,
+          "count": 2
+        },
+        "fitness": {
+          "display_name": "🏋️ Fitness",
+          "income": 0,
+          "expenses": -30.0,
+          "count": 2
+        },
+        "lazer": {
+          "display_name": "🎮 Lazer",
+          "income": 0,
+          "expenses": -42.95,
+          "count": 1
+        },
+        "outros": {
+          "display_name": "🎁 Outros",
+          "income": 0,
+          "expenses": -164.0,
+          "count": 3
+        },
+        "salario": {
+          "display_name": "💵 Salário",
+          "income": 1390.16,
+          "expenses": 0,
+          "count": 3
+        },
+        "saude": {
+          "display_name": "💊 Saúde",
+          "income": 0,
+          "expenses": -8.89,
+          "count": 1
+        },
+        "tecnologia": {
+          "display_name": "📱 Tecnologia",
+          "income": 0,
+          "expenses": -176.45999999999998,
+          "count": 2
+        },
+        "trabalho": {
+          "display_name": "💼 Trabalho",
+          "income": 0,
+          "expenses": -417.3,
+          "count": 7
+        },
+        "transferencias": {
+          "display_name": "💰 Transferências",
+          "income": 300.0,
+          "expenses": -774.88,
+          "count": 7
+        },
+        "transportes": {
+          "display_name": "🚗 Transportes",
+          "income": 0,
+          "expenses": -92.6,
+          "count": 3
+        }
+      }
+    },
+    "2025-06": {
+      "month": "2025-06",
+      "total_income": 2896.75,
+      "total_expenses": -2449.17,
+      "categories": {
+        "alimentacao": {
+          "display_name": "🍎 Alimentação",
+          "income": 0,
+          "expenses": -309.66,
+          "count": 10
+        },
+        "casa": {
+          "display_name": "🏠 Casa",
+          "income": 0,
+          "expenses": -92.07,
+          "count": 2
+        },
+        "educacao": {
+          "display_name": "📚 Educação",
+          "income": 0,
+          "expenses": -53.31999999999999,
+          "count": 2
+        },
+        "fitness": {
+          "display_name": "🏋️ Fitness",
+          "income": 0,
+          "expenses": -89.59,
+          "count": 4
+        },
+        "outros": {
+          "display_name": "🎁 Outros",
+          "income": 0,
+          "expenses": -61.97,
+          "count": 2
+        },
+        "salario": {
+          "display_name": "💵 Salário",
+          "income": 2590.17,
+          "expenses": 0,
+          "count": 4
+        },
+        "tecnologia": {
+          "display_name": "📱 Tecnologia",
+          "income": 0,
+          "expenses": -279.71,
+          "count": 8
+        },
+        "trabalho": {
+          "display_name": "💼 Trabalho",
+          "income": 0,
+          "expenses": -321.63,
+          "count": 15
+        },
+        "transferencias": {
+          "display_name": "💰 Transferências",
+          "income": 306.58000000000004,
+          "expenses": -1197.72,
+          "count": 11
+        },
+        "transportes": {
+          "display_name": "🚗 Transportes",
+          "income": 0,
+          "expenses": -43.5,
+          "count": 1
+        }
+      }
+    },
+    "2025-05": {
+      "month": "2025-05",
+      "total_income": 1648.97,
+      "total_expenses": -2038.1,
+      "categories": {
+        "alimentacao": {
+          "display_name": "🍎 Alimentação",
+          "income": 0,
+          "expenses": -393.96,
+          "count": 12
+        },
+        "casa": {
+          "display_name": "🏠 Casa",
+          "income": 0,
+          "expenses": -395.53000000000003,
+          "count": 2
+        },
+        "fitness": {
+          "display_name": "🏋️ Fitness",
+          "income": 0,
+          "expenses": -25.0,
+          "count": 1
+        },
+        "outros": {
+          "display_name": "🎁 Outros",
+          "income": 0,
+          "expenses": -209.86,
+          "count": 6
+        },
+        "salario": {
+          "display_name": "💵 Salário",
+          "income": 1230.0,
+          "expenses": 0,
+          "count": 2
+        },
+        "saude": {
+          "display_name": "💊 Saúde",
+          "income": 0,
+          "expenses": -28.6,
+          "count": 1
+        },
+        "tecnologia": {
+          "display_name": "📱 Tecnologia",
+          "income": 0,
+          "expenses": -59.4,
+          "count": 3
+        },
+        "trabalho": {
+          "display_name": "💼 Trabalho",
+          "income": 0,
+          "expenses": -26.31,
+          "count": 5
+        },
+        "transferencias": {
+          "display_name": "💰 Transferências",
+          "income": 418.97,
+          "expenses": -874.44,
+          "count": 6
+        },
+        "transportes": {
+          "display_name": "🚗 Transportes",
+          "income": 0,
+          "expenses": -25.0,
+          "count": 1
+        }
+      }
+    },
+    "2025-04": {
+      "month": "2025-04",
+      "total_income": 1385.0,
+      "total_expenses": -1460.3000000000002,
+      "categories": {
+        "alimentacao": {
+          "display_name": "🍎 Alimentação",
+          "income": 0,
+          "expenses": -387.95,
+          "count": 11
+        },
+        "casa": {
+          "display_name": "🏠 Casa",
+          "income": 0,
+          "expenses": -61.18,
+          "count": 1
+        },
+        "outros": {
+          "display_name": "🎁 Outros",
+          "income": 0,
+          "expenses": -146.66,
+          "count": 5
+        },
+        "salario": {
+          "display_name": "💵 Salário",
+          "income": 1185.0,
+          "expenses": 0,
+          "count": 2
+        },
+        "saude": {
+          "display_name": "💊 Saúde",
+          "income": 0,
+          "expenses": -92.68,
+          "count": 3
+        },
+        "tecnologia": {
+          "display_name": "📱 Tecnologia",
+          "income": 0,
+          "expenses": -40.56,
+          "count": 1
+        },
+        "trabalho": {
+          "display_name": "💼 Trabalho",
+          "income": 0,
+          "expenses": -26.14,
+          "count": 3
+        },
+        "transferencias": {
+          "display_name": "💰 Transferências",
+          "income": 200.0,
+          "expenses": -663.0,
+          "count": 5
+        },
+        "transportes": {
+          "display_name": "🚗 Transportes",
+          "income": 0,
+          "expenses": -39.43,
+          "count": 2
+        },
+        "vestuario": {
+          "display_name": "👕 Vestuário",
+          "income": 0,
+          "expenses": -2.7,
+          "count": 1
+        }
+      }
+    },
+    "2025-03": {
+      "month": "2025-03",
+      "total_income": 1332.0,
+      "total_expenses": -1547.46,
+      "categories": {
+        "alimentacao": {
+          "display_name": "🍎 Alimentação",
+          "income": 0,
+          "expenses": -457.7,
+          "count": 13
+        },
+        "casa": {
+          "display_name": "🏠 Casa",
+          "income": 0,
+          "expenses": -61.18,
+          "count": 1
+        },
+        "fitness": {
+          "display_name": "🏋️ Fitness",
+          "income": 0,
+          "expenses": -25.0,
+          "count": 1
+        },
+        "lazer": {
+          "display_name": "🎮 Lazer",
+          "income": 0,
+          "expenses": -33.25,
+          "count": 3
+        },
+        "outros": {
+          "display_name": "🎁 Outros",
+          "income": 0,
+          "expenses": -124.53999999999999,
+          "count": 4
+        },
+        "salario": {
+          "display_name": "💵 Salário",
+          "income": 1120.0,
+          "expenses": 0,
+          "count": 3
+        },
+        "tecnologia": {
+          "display_name": "📱 Tecnologia",
+          "income": 0,
+          "expenses": -260.02,
+          "count": 2
+        },
+        "trabalho": {
+          "display_name": "💼 Trabalho",
+          "income": 0,
+          "expenses": -26.14,
+          "count": 3
+        },
+        "transferencias": {
+          "display_name": "💰 Transferências",
+          "income": 200.0,
+          "expenses": -508.94,
+          "count": 5
+        },
+        "transportes": {
+          "display_name": "🚗 Transportes",
+          "income": 12.0,
+          "expenses": -50.69,
+          "count": 3
+        }
+      }
+    },
+    "2025-02": {
+      "month": "2025-02",
+      "total_income": 1476.5,
+      "total_expenses": -1247.77,
+      "categories": {
+        "alimentacao": {
+          "display_name": "🍎 Alimentação",
+          "income": 0,
+          "expenses": -331.38,
+          "count": 10
+        },
+        "casa": {
+          "display_name": "🏠 Casa",
+          "income": 0,
+          "expenses": -60.17,
+          "count": 1
+        },
+        "fitness": {
+          "display_name": "🏋️ Fitness",
+          "income": 0,
+          "expenses": -225.9,
+          "count": 4
+        },
+        "outros": {
+          "display_name": "🎁 Outros",
+          "income": 118.0,
+          "expenses": -153.13,
+          "count": 4
+        },
+        "salario": {
+          "display_name": "💵 Salário",
+          "income": 1158.5,
+          "expenses": 0,
+          "count": 4
+        },
+        "saude": {
+          "display_name": "💊 Saúde",
+          "income": 0,
+          "expenses": -56.63,
+          "count": 1
+        },
+        "tecnologia": {
+          "display_name": "📱 Tecnologia",
+          "income": 0,
+          "expenses": -64.02,
+          "count": 2
+        },
+        "trabalho": {
+          "display_name": "💼 Trabalho",
+          "income": 0,
+          "expenses": -26.14,
+          "count": 3
+        },
+        "transferencias": {
+          "display_name": "💰 Transferências",
+          "income": 200.0,
+          "expenses": -330.4,
+          "count": 4
+        }
+      }
+    },
+    "2025-01": {
+      "month": "2025-01",
+      "total_income": 1400.0,
+      "total_expenses": -1452.24,
+      "categories": {
+        "alimentacao": {
+          "display_name": "🍎 Alimentação",
+          "income": 0,
+          "expenses": -332.24,
+          "count": 9
+        },
+        "casa": {
+          "display_name": "🏠 Casa",
+          "income": 0,
+          "expenses": -60.17,
+          "count": 1
+        },
+        "fitness": {
+          "display_name": "🏋️ Fitness",
+          "income": 0,
+          "expenses": -287.37,
+          "count": 5
+        },
+        "outros": {
+          "display_name": "🎁 Outros",
+          "income": 0,
+          "expenses": -264.78,
+          "count": 8
+        },
+        "salario": {
+          "display_name": "💵 Salário",
+          "income": 1000.0,
+          "expenses": 0,
+          "count": 2
+        },
+        "saude": {
+          "display_name": "💊 Saúde",
+          "income": 0,
+          "expenses": -96.44,
+          "count": 2
+        },
+        "tecnologia": {
+          "display_name": "📱 Tecnologia",
+          "income": 0,
+          "expenses": -93.67,
+          "count": 3
+        },
+        "trabalho": {
+          "display_name": "💼 Trabalho",
+          "income": 0,
+          "expenses": -31.06,
+          "count": 6
+        },
+        "transferencias": {
+          "display_name": "💰 Transferências",
+          "income": 400.0,
+          "expenses": -254.53,
+          "count": 5
+        },
+        "vestuario": {
+          "display_name": "👕 Vestuário",
+          "income": 0,
+          "expenses": -31.98,
+          "count": 1
+        }
+      }
+    }
+  },
+  "recent_transactions": [
+    {
+      "id": "dc20d8b53e5aae16",
+      "date": "2026-01-29T00:00:00",
+      "description": "COMPRA ZWIFT, INC.",
+      "amount": -199.99,
+      "category": "fitness",
+      "category_display": "🏋️ Fitness",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7725.54,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "59689b73286ccdf9",
+      "date": "2026-01-29T00:00:00",
+      "description": "COMISSAO COMPRAS FORA",
+      "amount": -4.0,
+      "category": "trabalho",
+      "category_display": "💼 Trabalho",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7721.54,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "c76bedc2de21da50",
+      "date": "2026-01-29T00:00:00",
+      "description": "IMPOSTO SELO S COMISS",
+      "amount": -0.16,
+      "category": "trabalho",
+      "category_display": "💼 Trabalho",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7721.38,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "243a75d549604cd3",
+      "date": "2026-01-29T00:00:00",
+      "description": "COMPRA TWILIO INC",
+      "amount": -17.05,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7926.06,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "b70fe5bdf45df5fc",
+      "date": "2026-01-29T00:00:00",
+      "description": "COMISSAO COMPRAS FORA",
+      "amount": -0.51,
+      "category": "trabalho",
+      "category_display": "💼 Trabalho",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7925.55,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "f0acea5e15a80321",
+      "date": "2026-01-29T00:00:00",
+      "description": "IMPOSTO SELO S COMISS",
+      "amount": -0.02,
+      "category": "trabalho",
+      "category_display": "💼 Trabalho",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7925.53,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "b09830bcfca4d0b7",
+      "date": "2026-01-28T00:00:00",
+      "description": "COMPRA ADR QTA S PEDR",
+      "amount": -50.0,
+      "category": "outros",
+      "category_display": "🎁 Outros",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7943.11,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "26027f5a0e1f0cbf",
+      "date": "2026-01-27T00:00:00",
+      "description": "COMPRA CONTINENTE",
+      "amount": -48.21,
+      "category": "alimentacao",
+      "category_display": "🍎 Alimentação",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7993.11,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "de3057df97f3e7d0",
+      "date": "2026-01-26T00:00:00",
+      "description": "Poupanca",
+      "amount": -200.0,
+      "category": "transferencias",
+      "category_display": "💰 Transferências",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8041.32,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "0a579d23003887f0",
+      "date": "2026-01-26T00:00:00",
+      "description": "COMPRA FACEBK 7DWHND",
+      "amount": -0.05,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8245.56,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "c9892a7f64f36717",
+      "date": "2026-01-26T00:00:00",
+      "description": "COMPRA FACEBK NN7CDC",
+      "amount": -0.24,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8245.32,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "da1824d107b4ffd9",
+      "date": "2026-01-26T00:00:00",
+      "description": "COMPRA FACEBK P82ZMD",
+      "amount": -4.0,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8241.32,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "e61e07a476ce6af4",
+      "date": "2026-01-25T00:00:00",
+      "description": "TRF CXDOL",
+      "amount": -250.0,
+      "category": "transferencias",
+      "category_display": "💰 Transferências",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8245.61,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "40eb6dd22401f8cd",
+      "date": "2026-01-24T00:00:00",
+      "description": "COMPRA DECATHLON POR",
+      "amount": -14.8,
+      "category": "fitness",
+      "category_display": "🏋️ Fitness",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8495.61,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "d4886c8c9f006ddf",
+      "date": "2026-01-23T00:00:00",
+      "description": "COMPRA CONTINENTE",
+      "amount": -38.13,
+      "category": "alimentacao",
+      "category_display": "🍎 Alimentação",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8524.39,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "ffd88777f65155c6",
+      "date": "2026-01-23T00:00:00",
+      "description": "COMPRA WELL S PORTIMA",
+      "amount": -13.98,
+      "category": "saude",
+      "category_display": "💊 Saúde",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8510.41,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "c9df7c2bf4471230",
+      "date": "2026-01-21T00:00:00",
+      "description": "COMPRA CONTINENTE",
+      "amount": -53.34,
+      "category": "alimentacao",
+      "category_display": "🍎 Alimentação",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8562.52,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "e4a233195374aa65",
+      "date": "2026-01-20T00:00:00",
+      "description": "INSTITUTO DE GESTAO F",
+      "amount": -20.0,
+      "category": "trabalho",
+      "category_display": "💼 Trabalho",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8630.86,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "5da8b2546a7a23e9",
+      "date": "2026-01-20T00:00:00",
+      "description": "Trf Mbway 965XXX437",
+      "amount": -15.0,
+      "category": "transferencias",
+      "category_display": "💰 Transferências",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8615.86,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "276270ed1fc90031",
+      "date": "2026-01-18T00:00:00",
+      "description": "COMPRA POSICAO 11907",
+      "amount": -25.0,
+      "category": "transportes",
+      "category_display": "🚗 Transportes",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8650.86,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "1358be5380617fa5",
+      "date": "2026-01-17T00:00:00",
+      "description": "COMPRAS C.DEB PAYPAL",
+      "amount": -17.22,
+      "category": "transferencias",
+      "category_display": "💰 Transferências",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8675.86,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "9ff3082a863dc5fa",
+      "date": "2026-01-16T00:00:00",
+      "description": "TRF GUILHERME LUZ",
+      "amount": 200.0,
+      "category": "transferencias",
+      "category_display": "💰 Transferências",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8693.08,
+      "is_debit": false,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "e8a710d78c27656f",
+      "date": "2026-01-15T00:00:00",
+      "description": "COMPRA CONTINENTE",
+      "amount": -30.73,
+      "category": "alimentacao",
+      "category_display": "🍎 Alimentação",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8493.08,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "d876cf9c3ba127ff",
+      "date": "2026-01-13T00:00:00",
+      "description": "TRF PAULO MARQUES M",
+      "amount": 150.0,
+      "category": "transferencias",
+      "category_display": "💰 Transferências",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8614.64,
+      "is_debit": false,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "3c08d0b73db5c7cb",
+      "date": "2026-01-13T00:00:00",
+      "description": "EMARP EMPRESA MUNICIP",
+      "amount": -23.02,
+      "category": "casa",
+      "category_display": "🏠 Casa",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8586.45,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "0e470525b81e26c0",
+      "date": "2026-01-13T00:00:00",
+      "description": "INSTITUTO M T TERREST",
+      "amount": -27.0,
+      "category": "transportes",
+      "category_display": "🚗 Transportes",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8559.45,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "fee856a0b35bd843",
+      "date": "2026-01-13T00:00:00",
+      "description": "COMPRA CONTINENTE",
+      "amount": -35.64,
+      "category": "alimentacao",
+      "category_display": "🍎 Alimentação",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8523.81,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "82ccafa70b2976ee",
+      "date": "2026-01-13T00:00:00",
+      "description": "COMPRAS C.DEB PAYPAL",
+      "amount": -5.17,
+      "category": "transferencias",
+      "category_display": "💰 Transferências",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8609.47,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "68d5e1e3cb1e13fb",
+      "date": "2026-01-10T00:00:00",
+      "description": "DISP CARTAO DEBITO",
+      "amount": -19.0,
+      "category": "outros",
+      "category_display": "🎁 Outros",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8465.4,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "3117f3062ac8c5fa",
+      "date": "2026-01-10T00:00:00",
+      "description": "IMPOSTO SELO S COMISS",
+      "amount": -0.76,
+      "category": "trabalho",
+      "category_display": "💼 Trabalho",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8464.64,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "ed2af8df22c5ab50",
+      "date": "2026-01-10T00:00:00",
+      "description": "COMPRAS C.DEB PAYPAL",
+      "amount": -29.8,
+      "category": "transferencias",
+      "category_display": "💰 Transferências",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8484.4,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "9324d81f9a92eea1",
+      "date": "2026-01-09T00:00:00",
+      "description": "COMPRA CONTINENTE",
+      "amount": -47.64,
+      "category": "alimentacao",
+      "category_display": "🍎 Alimentação",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8514.2,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "77f485e7ae79dafe",
+      "date": "2026-01-08T00:00:00",
+      "description": "TFI ADFORCE PERFORM",
+      "amount": 1000.0,
+      "category": "salario",
+      "category_display": "💵 Salário",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8561.84,
+      "is_debit": false,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "9ff61317a934cbac",
+      "date": "2026-01-06T00:00:00",
+      "description": "MEO SA",
+      "amount": -52.19,
+      "category": "casa",
+      "category_display": "🏠 Casa",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7646.54,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "4c68cbe087d2e643",
+      "date": "2026-01-06T00:00:00",
+      "description": "COMPRA CONTINENTE",
+      "amount": -84.7,
+      "category": "alimentacao",
+      "category_display": "🍎 Alimentação",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7561.84,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "4a1c15df88d6967c",
+      "date": "2026-01-05T00:00:00",
+      "description": "MANUTENCAO CONTA ORDE",
+      "amount": -5.15,
+      "category": "trabalho",
+      "category_display": "💼 Trabalho",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 6768.11,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "586289aac5906574",
+      "date": "2026-01-05T00:00:00",
+      "description": "COMPRA MALIBU PRO RUN",
+      "amount": -136.0,
+      "category": "fitness",
+      "category_display": "🏋️ Fitness",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 6533.63,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "c0af5f97ebf3678d",
+      "date": "2026-01-05T00:00:00",
+      "description": "TFI HERNANI MANUEL FR",
+      "amount": 1200.0,
+      "category": "salario",
+      "category_display": "💵 Salário",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7733.63,
+      "is_debit": false,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "9d87e04bf25c2ca3",
+      "date": "2026-01-05T00:00:00",
+      "description": "COMPRA DECATHLON",
+      "amount": -34.9,
+      "category": "fitness",
+      "category_display": "🏋️ Fitness",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7698.73,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "1c7d6e35422c4cfc",
+      "date": "2026-01-05T00:00:00",
+      "description": "COMPRA CLAUDE.AI SUBS",
+      "amount": -96.47,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 6671.64,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "9684443ef36a2718",
+      "date": "2026-01-05T00:00:00",
+      "description": "IMPOSTO SELO S COMISS",
+      "amount": -0.08,
+      "category": "trabalho",
+      "category_display": "💼 Trabalho",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 6671.56,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "b8200bda77419039",
+      "date": "2026-01-05T00:00:00",
+      "description": "COMISSAO COMPRAS FORA",
+      "amount": -1.93,
+      "category": "trabalho",
+      "category_display": "💼 Trabalho",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 6669.63,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "4c74d1952069bd99",
+      "date": "2026-01-03T00:00:00",
+      "description": "COMPRA DECATHLON - PO",
+      "amount": -8.5,
+      "category": "fitness",
+      "category_display": "🏋️ Fitness",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 6773.26,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "b4b68db50237390c",
+      "date": "2026-01-02T00:00:00",
+      "description": "TRF CXDOL",
+      "amount": -300.0,
+      "category": "transferencias",
+      "category_display": "💰 Transferências",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 6817.75,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "0c321b06ccfffc1e",
+      "date": "2026-01-02T00:00:00",
+      "description": "COMPRA PORTINADO ASSO",
+      "amount": -35.0,
+      "category": "fitness",
+      "category_display": "🏋️ Fitness",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 6782.75,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "fcace2c57f12563b",
+      "date": "2026-01-02T00:00:00",
+      "description": "ORDEM PERMANENTE SEPA",
+      "amount": -0.99,
+      "category": "trabalho",
+      "category_display": "💼 Trabalho",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 6781.76,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "a5191824de1f75dd",
+      "date": "2026-01-02T00:00:00",
+      "description": "COMPRA FACEBK APPVMB",
+      "amount": -2.9,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7117.75,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "3fe52f945492545e",
+      "date": "2026-01-02T00:00:00",
+      "description": "COMPRA FACEBK PHS78C",
+      "amount": -4.02,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7120.65,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "eb0c0a2ec8a09946",
+      "date": "2026-01-01T00:00:00",
+      "description": "COMPRAS C.DEB PAYPAL",
+      "amount": -1.22,
+      "category": "transferencias",
+      "category_display": "💰 Transferências",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7124.67,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "68aaaea77ae64fff",
+      "date": "2025-12-31T00:00:00",
+      "description": "COMPRA CONTINENTE",
+      "amount": -62.74,
+      "category": "alimentacao",
+      "category_display": "🍎 Alimentação",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7125.89,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "fa0d63fca0ff613b",
+      "date": "2025-12-31T00:00:00",
+      "description": "COMPRA FACEBK 2WKTKB",
+      "amount": -8.0,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7188.63,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "8f38ad75241ad9a7",
+      "date": "2025-12-31T00:00:00",
+      "description": "COMPRA AMAZON Z573S2",
+      "amount": -29.79,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7196.63,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "1d3bcf58105b7930",
+      "date": "2025-12-30T00:00:00",
+      "description": "DMNS Dominios S A",
+      "amount": -1.23,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7269.65,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "294ae455735ba3eb",
+      "date": "2025-12-30T00:00:00",
+      "description": "PETROGAL S A",
+      "amount": -43.23,
+      "category": "transportes",
+      "category_display": "🚗 Transportes",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7226.42,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "8007c3a0b18f24ca",
+      "date": "2025-12-29T00:00:00",
+      "description": "COMPRA FACEBK TYCFWA",
+      "amount": -5.0,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7283.88,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "f0affab924f084d7",
+      "date": "2025-12-29T00:00:00",
+      "description": "COMPRA FACEBK XSXFXA",
+      "amount": -6.0,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7277.88,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "4a7346593be6b856",
+      "date": "2025-12-29T00:00:00",
+      "description": "COMPRA FACEBK YS8GAA",
+      "amount": -7.0,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7270.88,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "9f807a396b86d08f",
+      "date": "2025-12-29T00:00:00",
+      "description": "COMPRA FACEBK 7NFF8C",
+      "amount": -3.0,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7292.88,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "505a3c0bc07287a6",
+      "date": "2025-12-29T00:00:00",
+      "description": "COMPRA FACEBK 567VAC",
+      "amount": -4.0,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7288.88,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "ec4596f3a1abc4f7",
+      "date": "2025-12-29T00:00:00",
+      "description": "COMPRA FACEBK 8HT3PA",
+      "amount": -2.0,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7295.88,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "d7f6fe9c6df9d7e5",
+      "date": "2025-12-26T00:00:00",
+      "description": "Poupanca",
+      "amount": -200.0,
+      "category": "transferencias",
+      "category_display": "💰 Transferências",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7349.76,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "030fd5d7484a906a",
+      "date": "2025-12-26T00:00:00",
+      "description": "COMPRA CONTINENTE",
+      "amount": -51.88,
+      "category": "alimentacao",
+      "category_display": "🍎 Alimentação",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7297.88,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "2c329d5759bdf7cc",
+      "date": "2025-12-25T00:00:00",
+      "description": "TRF CXDOL",
+      "amount": -250.0,
+      "category": "transferencias",
+      "category_display": "💰 Transferências",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7549.76,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "922b36a0c67b9cf6",
+      "date": "2025-12-24T00:00:00",
+      "description": "TFI PATRICIA DOMINGOS",
+      "amount": 30.0,
+      "category": "salario",
+      "category_display": "💵 Salário",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7529.75,
+      "is_debit": false,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "86ddcb0ae25e9137",
+      "date": "2025-12-24T00:00:00",
+      "description": "COMPRA WORTEN",
+      "amount": -29.99,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7499.76,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "f9500b3a06cd9d46",
+      "date": "2025-12-24T00:00:00",
+      "description": "TFI HERNANI MANUEL FR",
+      "amount": 300.0,
+      "category": "salario",
+      "category_display": "💵 Salário",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7799.76,
+      "is_debit": false,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "0616a5cef3f6c448",
+      "date": "2025-12-22T00:00:00",
+      "description": "INST GEST FINANCEIRA",
+      "amount": -20.0,
+      "category": "outros",
+      "category_display": "🎁 Outros",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7640.61,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "d79ca8c96e5cb2f9",
+      "date": "2025-12-22T00:00:00",
+      "description": "COMPRA WORTEN",
+      "amount": -84.89,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7555.72,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "0058f25e5a806b2e",
+      "date": "2025-12-22T00:00:00",
+      "description": "COMPRA CONTINENTE",
+      "amount": -55.97,
+      "category": "alimentacao",
+      "category_display": "🍎 Alimentação",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7499.75,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "09a4c28580734315",
+      "date": "2025-12-19T00:00:00",
+      "description": "COMPRA CENTROXOGO POR",
+      "amount": -41.9,
+      "category": "lazer",
+      "category_display": "🎮 Lazer",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7713.39,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "52f5e6e9998e2917",
+      "date": "2025-12-19T00:00:00",
+      "description": "COMPRA AUCHAN PORTIMA",
+      "amount": -1.79,
+      "category": "alimentacao",
+      "category_display": "🍎 Alimentação",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7711.6,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "86d81cd9bb090f5e",
+      "date": "2025-12-19T00:00:00",
+      "description": "COMPRA WORTEN",
+      "amount": -50.99,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7660.61,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "d6fc0208e2875205",
+      "date": "2025-12-18T00:00:00",
+      "description": "COMPRA CONTINENTE",
+      "amount": -54.77,
+      "category": "alimentacao",
+      "category_display": "🍎 Alimentação",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7755.29,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "f244687c9051fa89",
+      "date": "2025-12-15T00:00:00",
+      "description": "COMPRA MBWAY IFTHENPA",
+      "amount": -60.5,
+      "category": "transferencias",
+      "category_display": "💰 Transferências",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7810.06,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "9ab8834460179cfc",
+      "date": "2025-12-15T00:00:00",
+      "description": "COMPRA AMAZON ZE4SZ1",
+      "amount": -182.39,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7870.56,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "8b16ba850898a1c8",
+      "date": "2025-12-14T00:00:00",
+      "description": "COMPRA CONTINENTE",
+      "amount": -61.52,
+      "category": "alimentacao",
+      "category_display": "🍎 Alimentação",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8196.74,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "2cb7519edd7e14de",
+      "date": "2025-12-14T00:00:00",
+      "description": "EMARP EMPRESA MUNICIP",
+      "amount": -30.26,
+      "category": "casa",
+      "category_display": "🏠 Casa",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8166.48,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "f3a44f7d9702bb1c",
+      "date": "2025-12-14T00:00:00",
+      "description": "PETROGAL S A",
+      "amount": -113.53,
+      "category": "transportes",
+      "category_display": "🚗 Transportes",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8052.95,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "b23664c119db8722",
+      "date": "2025-12-13T00:00:00",
+      "description": "COMPRAS C.DEB PAYPAL",
+      "amount": -12.5,
+      "category": "transferencias",
+      "category_display": "💰 Transferências",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8258.26,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "c533e1660c5cf901",
+      "date": "2025-12-12T00:00:00",
+      "description": "TRF PAULO MARQUES M",
+      "amount": 150.0,
+      "category": "transferencias",
+      "category_display": "💰 Transferências",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8270.76,
+      "is_debit": false,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "a1054246014f63dd",
+      "date": "2025-12-11T00:00:00",
+      "description": "TFI ADFORCE PERFORM",
+      "amount": 1000.0,
+      "category": "salario",
+      "category_display": "💵 Salário",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 8120.76,
+      "is_debit": false,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "efcda7253deda6e5",
+      "date": "2025-12-10T00:00:00",
+      "description": "COMPRA LOVABLE",
+      "amount": -50.0,
+      "category": "tecnologia",
+      "category_display": "📱 Tecnologia",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7121.8,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "21e578fffbbe6304",
+      "date": "2025-12-10T00:00:00",
+      "description": "COMISSAO COMPRAS FORA",
+      "amount": -1.0,
+      "category": "trabalho",
+      "category_display": "💼 Trabalho",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7120.8,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "ac7890775e6f9920",
+      "date": "2025-12-10T00:00:00",
+      "description": "IMPOSTO SELO S COMISS",
+      "amount": -0.04,
+      "category": "trabalho",
+      "category_display": "💼 Trabalho",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7120.76,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "e5f181d1358323aa",
+      "date": "2025-12-09T00:00:00",
+      "description": "COMPRA CONTINENTE",
+      "amount": -39.41,
+      "category": "alimentacao",
+      "category_display": "🍎 Alimentação",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7171.8,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "b3401858c8ade273",
+      "date": "2025-12-09T00:00:00",
+      "description": "COMPRAS C.DEB PAYPAL",
+      "amount": -12.5,
+      "category": "transferencias",
+      "category_display": "💰 Transferências",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7211.21,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "aec4f25e791f93ee",
+      "date": "2025-12-06T00:00:00",
+      "description": "COMPRA CONTINENTE",
+      "amount": -67.64,
+      "category": "alimentacao",
+      "category_display": "🍎 Alimentação",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7228.86,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "e4b5e559cdaa812f",
+      "date": "2025-12-06T00:00:00",
+      "description": "MANUTENCAO CONTA ORDE",
+      "amount": -5.15,
+      "category": "trabalho",
+      "category_display": "💼 Trabalho",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7223.71,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "c96dc3290412a27f",
+      "date": "2025-12-05T00:00:00",
+      "description": "COMPRA UBER EATS",
+      "amount": -13.35,
+      "category": "alimentacao",
+      "category_display": "🍎 Alimentação",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7296.5,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "894afd68806cd61a",
+      "date": "2025-12-04T00:00:00",
+      "description": "MEO SA",
+      "amount": -52.19,
+      "category": "casa",
+      "category_display": "🏠 Casa",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7309.85,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "f40692fb99d1f6c7",
+      "date": "2025-12-03T00:00:00",
+      "description": "TRF EFEITO OPTICO LDA",
+      "amount": 150.0,
+      "category": "transferencias",
+      "category_display": "💰 Transferências",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7362.04,
+      "is_debit": false,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "875f99abedb7753e",
+      "date": "2025-12-02T00:00:00",
+      "description": "TRF CXDOL",
+      "amount": -300.0,
+      "category": "transferencias",
+      "category_display": "💰 Transferências",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7232.52,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "068ac58484c88856",
+      "date": "2025-12-02T00:00:00",
+      "description": "ORDEM PERMANENTE SEPA",
+      "amount": -0.99,
+      "category": "trabalho",
+      "category_display": "💼 Trabalho",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7231.53,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "20fff58033d04c7e",
+      "date": "2025-12-02T00:00:00",
+      "description": "COMPRA CONTINENTE",
+      "amount": -19.49,
+      "category": "alimentacao",
+      "category_display": "🍎 Alimentação",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7212.04,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "220b3abacdd7f034",
+      "date": "2025-12-02T00:00:00",
+      "description": "COMPRA APP.HUMANGO.AI",
+      "amount": -100.26,
+      "category": "fitness",
+      "category_display": "🏋️ Fitness",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7535.65,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "3e6c5036163856f9",
+      "date": "2025-12-02T00:00:00",
+      "description": "IMPOSTO SELO S COMISS",
+      "amount": -0.12,
+      "category": "trabalho",
+      "category_display": "💼 Trabalho",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7535.53,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "b7d5d52f450e5019",
+      "date": "2025-12-02T00:00:00",
+      "description": "COMISSAO COMPRAS FORA",
+      "amount": -3.01,
+      "category": "trabalho",
+      "category_display": "💼 Trabalho",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7532.52,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "1c8af3d4c5109f62",
+      "date": "2025-11-28T00:00:00",
+      "description": "COMPRA PORTINADO ASSO",
+      "amount": -55.0,
+      "category": "fitness",
+      "category_display": "🏋️ Fitness",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7641.71,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "15540256155a54b0",
+      "date": "2025-11-28T00:00:00",
+      "description": "COMPRA TROVADOR DO FU",
+      "amount": -5.8,
+      "category": "outros",
+      "category_display": "🎁 Outros",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7635.91,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    },
+    {
+      "id": "a1389c945e58ca8a",
+      "date": "2025-11-27T00:00:00",
+      "description": "COMPRA CONTINENTE",
+      "amount": -36.28,
+      "category": "alimentacao",
+      "category_display": "🍎 Alimentação",
+      "subcategory": null,
+      "account": "CGD",
+      "balance_after": 7696.71,
+      "is_debit": true,
+      "created_at": "2026-01-30T21:29:58"
+    }
+  ]
+}

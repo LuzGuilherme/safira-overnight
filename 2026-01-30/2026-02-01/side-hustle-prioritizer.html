@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💡 Side Hustle Prioritizer v2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #13131a;
+            --bg-card: #1a1a24;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --text-muted: #6b6b7b;
+            --accent-green: #10b981;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-orange: #f59e0b;
+            --accent-red: #ef4444;
+            --border: #2a2a3a;
+            --gold: #fbbf24;
+            --silver: #9ca3af;
+            --bronze: #d97706;
+            --build: #10b981;
+            --maybe: #f59e0b;
+            --skip: #ef4444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .logo { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .version { font-size: 0.8rem; color: var(--accent-purple); margin-bottom: 0.5rem; }
+        .tagline { color: var(--text-secondary); font-size: 1.1rem; }
+
+        .formula-box {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .formula {
+            font-family: monospace;
+            color: var(--accent-purple);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .weights-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .weight-item { text-align: center; padding: 0.5rem; background: var(--bg-secondary); border-radius: 8px; }
+        .weight-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; }
+        .weight-value { font-size: 0.9rem; font-weight: 700; color: var(--accent-blue); }
+
+        .verdict-legend { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap; }
+        .verdict-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; }
+        .verdict-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .verdict-dot.build { background: var(--build); }
+        .verdict-dot.maybe { background: var(--maybe); }
+        .verdict-dot.skip { background: var(--skip); }
+
+        .stats { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap; }
+        .stat { text-align: center; }
+        .stat-value { font-size: 1.5rem; font-weight: 700; color: var(--accent-blue); }
+        .stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
+
+        .podium { display: flex; justify-content: center; align-items: flex-end; gap: 1rem; margin: 2rem 0; min-height: 300px; }
+        .podium-item { text-align: center; padding: 1.5rem; border-radius: 16px; background: var(--bg-card); border: 2px solid var(--border); transition: all 0.3s ease; cursor: pointer; width: 220px; }
+        .podium-item:hover { transform: translateY(-5px); }
+        .podium-1 { order: 2; min-height: 280px; border-color: var(--gold); box-shadow: 0 0 30px rgba(251, 191, 36, 0.2); }
+        .podium-2 { order: 1; min-height: 240px; border-color: var(--silver); }
+        .podium-3 { order: 3; min-height: 200px; border-color: var(--bronze); }
+        .medal { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .podium-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem; }
+        .podium-score { font-size: 2rem; font-weight: 800; }
+        .podium-1 .podium-score { color: var(--gold); }
+        .podium-2 .podium-score { color: var(--silver); }
+        .podium-3 .podium-score { color: var(--bronze); }
+        .podium-verdict { margin-top: 0.5rem; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.7rem; font-weight: 600; display: inline-block; }
+        .verdict-build { background: rgba(16, 185, 129, 0.2); color: var(--build); }
+        .verdict-maybe { background: rgba(245, 158, 11, 0.2); color: var(--maybe); }
+        .verdict-skip { background: rgba(239, 68, 68, 0.2); color: var(--skip); }
+
+        .ideas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .idea-card { background: var(--bg-card); border-radius: 16px; border: 1px solid var(--border); padding: 1.5rem; transition: all 0.3s ease; animation: fadeIn 0.4s ease forwards; cursor: pointer; }
+        .idea-card:hover { border-color: var(--accent-blue); transform: translateY(-2px); }
+        .idea-card.top-3 { border-width: 2px; }
+        .idea-card.rank-1 { border-color: var(--gold); }
+        .idea-card.rank-2 { border-color: var(--silver); }
+        .idea-card.rank-3 { border-color: var(--bronze); }
+        .idea-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; gap: 0.5rem; }
+        .idea-title { font-size: 1.1rem; font-weight: 700; }
+        .idea-badges { display: flex; gap: 0.5rem; align-items: center; }
+        .idea-rank { padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; background: var(--bg-secondary); }
+        .idea-rank.rank-1 { background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #000; }
+        .idea-rank.rank-2 { background: linear-gradient(135deg, #9ca3af, #d1d5db); color: #000; }
+        .idea-rank.rank-3 { background: linear-gradient(135deg, #b45309, #d97706); color: #fff; }
+        .idea-verdict { padding: 0.25rem 0.6rem; border-radius: 20px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; }
+        .idea-meta { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.75rem; display: flex; gap: 1rem; }
+        .idea-problem { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem; font-style: italic; }
+        .scores-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.5rem; margin-bottom: 1rem; }
+        .score-item { text-align: center; padding: 0.5rem 0.25rem; background: var(--bg-secondary); border-radius: 8px; }
+        .score-value { font-size: 1.1rem; font-weight: 700; }
+        .score-label { font-size: 0.55rem; color: var(--text-muted); text-transform: uppercase; }
+        .score-market .score-value { color: #60a5fa; }
+        .score-demand .score-value { color: var(--accent-green); }
+        .score-effort .score-value { color: var(--accent-orange); }
+        .score-skills .score-value { color: var(--accent-purple); }
+        .score-revenue .score-value { color: #f472b6; }
+        .score-interest .score-value { color: #fbbf24; }
+        .final-score { display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: var(--bg-secondary); border-radius: 10px; margin-top: 1rem; }
+        .final-score-label { font-size: 0.85rem; color: var(--text-secondary); }
+        .final-score-value { font-size: 1.5rem; font-weight: 800; }
+        .competitors { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+        .competitors-title { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem; }
+        .competitors-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .competitor-tag { font-size: 0.75rem; background: var(--bg-secondary); padding: 0.25rem 0.5rem; border-radius: 6px; color: var(--text-secondary); }
+        .idea-notes { margin-top: 0.75rem; font-size: 0.85rem; color: var(--text-secondary); }
+        .click-hint { margin-top: 1rem; text-align: center; font-size: 0.75rem; color: var(--accent-blue); }
+
+        footer { text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.85rem; }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .modal-overlay.active { display: flex; justify-content: center; }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            position: sticky;
+            top: 0;
+            background: var(--bg-secondary);
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .modal-title { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 0.75rem; }
+        .modal-close { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-primary); font-size: 1.5rem; width: 40px; height: 40px; border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+        .modal-close:hover { background: var(--accent-red); border-color: var(--accent-red); }
+
+        .modal-body { padding: 2rem; }
+        .modal-body h1 { font-size: 1.8rem; margin-bottom: 1rem; color: var(--text-primary); }
+        .modal-body h2 { font-size: 1.3rem; margin-top: 2rem; margin-bottom: 0.75rem; color: var(--accent-blue); border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+        .modal-body h3 { font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--accent-purple); }
+        .modal-body p { color: var(--text-secondary); margin-bottom: 1rem; }
+        .modal-body ul, .modal-body ol { color: var(--text-secondary); margin-bottom: 1rem; padding-left: 1.5rem; }
+        .modal-body li { margin-bottom: 0.5rem; }
+        .modal-body strong { color: var(--text-primary); }
+        .modal-body code { background: var(--bg-card); padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9rem; }
+        .modal-body pre { background: var(--bg-card); padding: 1rem; border-radius: 8px; overflow-x: auto; margin-bottom: 1rem; }
+        .modal-body blockquote { border-left: 3px solid var(--accent-purple); padding-left: 1rem; margin: 1rem 0; color: var(--text-secondary); font-style: italic; }
+        .modal-body table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        .modal-body th, .modal-body td { padding: 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+        .modal-body th { color: var(--text-primary); background: var(--bg-card); }
+        .modal-body td { color: var(--text-secondary); }
+        .modal-body a { color: var(--accent-blue); text-decoration: none; }
+        .modal-body a:hover { text-decoration: underline; }
+
+        /* Obsidian callouts */
+        .modal-body .callout { background: var(--bg-card); border-left: 4px solid var(--accent-blue); padding: 1rem; margin: 1rem 0; border-radius: 0 8px 8px 0; }
+
+        .modal-loading { text-align: center; padding: 3rem; color: var(--text-muted); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .logo { font-size: 1.8rem; }
+            .podium { flex-direction: column; align-items: center; }
+            .podium-item { order: unset !important; width: 100%; max-width: 300px; min-height: auto !important; }
+            .weights-grid { grid-template-columns: repeat(3, 1fr); }
+            .scores-grid { grid-template-columns: repeat(3, 1fr); }
+            .modal-overlay { padding: 1rem; }
+            .modal-content { max-height: 95vh; }
+            .modal-header { padding: 1rem; }
+            .modal-body { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">💡 Side Hustle Prioritizer</div>
+            <div class="version">v2.0 — Sistema de Scoring Avançado</div>
+            <p class="tagline">6 dimensões, pesos calibrados, verdito automático</p>
+            
+            <div class="formula-box">
+                <div class="formula">Score = (Market×15%) + (Demand×25%) + (Effort×15%) + (Skills×15%) + (Revenue×20%) + (Interest×10%)</div>
+                <div class="weights-grid">
+                    <div class="weight-item"><div class="weight-value">15%</div><div class="weight-label">Market</div></div>
+                    <div class="weight-item"><div class="weight-value">25%</div><div class="weight-label">Demand</div></div>
+                    <div class="weight-item"><div class="weight-value">15%</div><div class="weight-label">Effort</div></div>
+                    <div class="weight-item"><div class="weight-value">15%</div><div class="weight-label">Skills</div></div>
+                    <div class="weight-item"><div class="weight-value">20%</div><div class="weight-label">Revenue</div></div>
+                    <div class="weight-item"><div class="weight-value">10%</div><div class="weight-label">Interest</div></div>
+                </div>
+                <div class="verdict-legend">
+                    <div class="verdict-item"><div class="verdict-dot build"></div> ≥7.5 BUILD IT</div>
+                    <div class="verdict-item"><div class="verdict-dot maybe"></div> 5-7.4 MAYBE</div>
+                    <div class="verdict-item"><div class="verdict-dot skip"></div> &lt;5 SKIP IT</div>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat"><div class="stat-value" id="total-ideas">-</div><div class="stat-label">Ideias</div></div>
+                <div class="stat"><div class="stat-value" id="build-count">-</div><div class="stat-label">Build It</div></div>
+                <div class="stat"><div class="stat-value" id="maybe-count">-</div><div class="stat-label">Maybe</div></div>
+                <div class="stat"><div class="stat-value" id="skip-count">-</div><div class="stat-label">Skip</div></div>
+            </div>
+        </header>
+
+        <div class="podium" id="podium"></div>
+        <div class="ideas-grid" id="ideas-grid"></div>
+
+        <footer>
+            <p>Safira • Side Hustle Prioritizer v2.0</p>
+            <p style="margin-top: 0.5rem;">Última actualização: <span id="last-update">-</span></p>
+        </footer>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div class="modal-title" id="modal-title">Loading...</div>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="modal-loading">A carregar detalhes...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let ideasData = [];
+
+        function calculateScore(idea, weights) {
+            return (idea.market * weights.market) + (idea.demand * weights.demand) + (idea.effort * weights.effort) + (idea.skills * weights.skills) + (idea.revenue * weights.revenue) + (idea.interest * weights.interest);
+        }
+
+        function getVerdict(score) {
+            if (score >= 7.5) return { text: 'BUILD IT', class: 'verdict-build' };
+            if (score >= 5) return { text: 'MAYBE', class: 'verdict-maybe' };
+            return { text: 'SKIP IT', class: 'verdict-skip' };
+        }
+
+        function getScoreColor(score) {
+            if (score >= 7.5) return 'var(--build)';
+            if (score >= 5) return 'var(--maybe)';
+            return 'var(--skip)';
+        }
+
+        function renderPodium(ideas) {
+            const top3 = ideas.slice(0, 3);
+            const medals = ['🥇', '🥈', '🥉'];
+            const positions = [{ class: 'podium-2', idx: 1 }, { class: 'podium-1', idx: 0 }, { class: 'podium-3', idx: 2 }];
+            return positions.map(pos => {
+                const idea = top3[pos.idx];
+                if (!idea) return '';
+                const verdict = getVerdict(idea.score);
+                return `
+                    <div class="podium-item ${pos.class}" onclick="openModal('${idea.id}')">
+                        <div class="medal">${medals[pos.idx]}</div>
+                        <div class="podium-title">${idea.emoji} ${idea.name}</div>
+                        <div class="podium-score">${idea.score.toFixed(1)}</div>
+                        <div class="podium-verdict ${verdict.class}">${verdict.text}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderCard(idea, rank) {
+            const verdict = getVerdict(idea.score);
+            const rankClass = rank <= 3 ? `top-3 rank-${rank}` : '';
+            const rankBadgeClass = rank <= 3 ? `rank-${rank}` : '';
+            const sourceLabel = idea.source === 'guilherme' ? '👤 Guilherme' : '✨ Safira';
+            const hasDetails = idea.detailsFile ? '📖 Clica para detalhes' : '';
+            
+            return `
+                <div class="idea-card ${rankClass}" id="card-${idea.id}" onclick="openModal('${idea.id}')">
+                    <div class="idea-header">
+                        <div class="idea-title">${idea.emoji} ${idea.name}</div>
+                        <div class="idea-badges">
+                            <div class="idea-verdict ${verdict.class}">${verdict.text}</div>
+                            <div class="idea-rank ${rankBadgeClass}">#${rank}</div>
+                        </div>
+                    </div>
+                    <div class="idea-meta"><span>${sourceLabel}</span><span>${idea.dateAdded}</span></div>
+                    <p class="idea-problem">"${idea.problem}"</p>
+                    <div class="scores-grid">
+                        <div class="score-item score-market"><div class="score-value">${idea.market}</div><div class="score-label">Market</div></div>
+                        <div class="score-item score-demand"><div class="score-value">${idea.demand}</div><div class="score-label">Demand</div></div>
+                        <div class="score-item score-effort"><div class="score-value">${idea.effort}</div><div class="score-label">Effort</div></div>
+                        <div class="score-item score-skills"><div class="score-value">${idea.skills}</div><div class="score-label">Skills</div></div>
+                        <div class="score-item score-revenue"><div class="score-value">${idea.revenue}</div><div class="score-label">Revenue</div></div>
+                        <div class="score-item score-interest"><div class="score-value">${idea.interest}</div><div class="score-label">Interest</div></div>
+                    </div>
+                    <div class="final-score">
+                        <span class="final-score-label">Final Score</span>
+                        <span class="final-score-value" style="color: ${getScoreColor(idea.score)}">${idea.score.toFixed(2)}</span>
+                    </div>
+                    ${idea.competitors?.length ? `<div class="competitors"><div class="competitors-title">Competidores</div><div class="competitors-list">${idea.competitors.map(c => `<span class="competitor-tag">${c}</span>`).join('')}</div></div>` : ''}
+                    ${idea.notes ? `<div class="idea-notes">📝 ${idea.notes}</div>` : ''}
+                    ${hasDetails ? `<div class="click-hint">${hasDetails}</div>` : ''}
+                </div>
+            `;
+        }
+
+        async function openModal(ideaId) {
+            const idea = ideasData.find(i => i.id === ideaId);
+            if (!idea) return;
+
+            const modal = document.getElementById('modal-overlay');
+            const title = document.getElementById('modal-title');
+            const body = document.getElementById('modal-body');
+
+            title.innerHTML = `${idea.emoji} ${idea.name}`;
+            body.innerHTML = '<div class="modal-loading">A carregar detalhes...</div>';
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            if (idea.detailsContent) {
+                // Use embedded content from JSON
+                let markdown = idea.detailsContent;
+                // Convert Obsidian callouts to HTML
+                markdown = markdown.replace(/>\s*\[!(\w+)\]\s*([^\n]*)\n((?:>.*\n?)*)/g, (match, type, title, content) => {
+                    const cleanContent = content.replace(/^>\s?/gm, '').trim();
+                    return `<div class="callout callout-${type}"><strong>${title || type}</strong><br>${cleanContent}</div>`;
+                });
+                body.innerHTML = marked.parse(markdown);
+            } else {
+                body.innerHTML = renderBasicDetails(idea);
+            }
+        }
+
+        function renderBasicDetails(idea) {
+            const verdict = getVerdict(idea.score);
+            return `
+                <h2>📊 Resumo</h2>
+                <p><strong>Problema:</strong> ${idea.problem}</p>
+                <p><strong>Score Final:</strong> <span style="color: ${getScoreColor(idea.score)}; font-weight: bold;">${idea.score.toFixed(2)}</span> (${verdict.text})</p>
+                
+                <h2>📈 Scores Detalhados</h2>
+                <table>
+                    <tr><th>Dimensão</th><th>Score</th><th>Peso</th></tr>
+                    <tr><td>Market</td><td>${idea.market}/10</td><td>15%</td></tr>
+                    <tr><td>Demand</td><td>${idea.demand}/10</td><td>25%</td></tr>
+                    <tr><td>Effort</td><td>${idea.effort}/10</td><td>15%</td></tr>
+                    <tr><td>Skills</td><td>${idea.skills}/10</td><td>15%</td></tr>
+                    <tr><td>Revenue</td><td>${idea.revenue}/10</td><td>20%</td></tr>
+                    <tr><td>Interest</td><td>${idea.interest}/10</td><td>10%</td></tr>
+                </table>
+                
+                ${idea.competitors?.length ? `<h2>🏢 Competidores</h2><ul>${idea.competitors.map(c => `<li>${c}</li>`).join('')}</ul>` : ''}
+                ${idea.notes ? `<h2>📝 Notas</h2><p>${idea.notes}</p>` : ''}
+                
+                <p style="margin-top: 2rem; color: var(--text-muted); font-size: 0.85rem;">
+                    <em>Detalhes completos ainda não disponíveis para esta ideia. Adiciona um ficheiro .md ao Obsidian para ver mais informação aqui.</em>
+                </p>
+            `;
+        }
+
+        function closeModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+            document.getElementById('modal-overlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+        async function loadData() {
+            try {
+                const response = await fetch('side-hustles.json');
+                const data = await response.json();
+                const weights = data.weights;
+                
+                ideasData = data.ideas.map(idea => ({ ...idea, score: calculateScore(idea, weights) })).sort((a, b) => b.score - a.score);
+                
+                const buildCount = ideasData.filter(i => i.score >= 7.5).length;
+                const maybeCount = ideasData.filter(i => i.score >= 5 && i.score < 7.5).length;
+                const skipCount = ideasData.filter(i => i.score < 5).length;
+                
+                document.getElementById('total-ideas').textContent = ideasData.length;
+                document.getElementById('build-count').textContent = buildCount;
+                document.getElementById('maybe-count').textContent = maybeCount;
+                document.getElementById('skip-count').textContent = skipCount;
+                document.getElementById('last-update').textContent = new Date(data.lastUpdated).toLocaleString('pt-PT');
+                
+                document.getElementById('podium').innerHTML = renderPodium(ideasData);
+                document.getElementById('ideas-grid').innerHTML = ideasData.map((idea, idx) => renderCard(idea, idx + 1)).join('');
+            } catch (error) {
+                console.error('Erro:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+</html>
