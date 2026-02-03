@@ -35,12 +35,14 @@
             color: var(--text-primary);
             min-height: 100vh;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 1.5rem;
+            overflow-x: hidden;
         }
 
         /* Header */
@@ -347,6 +349,8 @@
             grid-template-columns: 2fr 1fr;
             gap: 1rem;
             margin-bottom: 1.5rem;
+            max-width: 100%;
+            overflow: hidden;
         }
 
         @media (max-width: 968px) {
@@ -360,6 +364,8 @@
             border-radius: 12px;
             border: 1px solid var(--border);
             padding: 1.25rem;
+            min-width: 0;
+            overflow: hidden;
         }
 
         .chart-header {
@@ -398,12 +404,21 @@
 
         .chart-container {
             height: 300px;
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+        }
+        
+        .chart-container canvas {
+            max-width: 100% !important;
         }
 
         /* Technical Indicators */
         .indicators-grid {
             display: grid;
             gap: 1rem;
+            min-width: 0;
+            overflow: hidden;
         }
 
         .indicator-item {
@@ -415,6 +430,8 @@
             border-radius: 8px;
             position: relative;
             cursor: help;
+            min-width: 0;
+            overflow: hidden;
         }
 
         .indicator-item:hover {
