@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-01T18:00:00Z",
+  "lastUpdated": "2026-02-03T12:00:00Z",
   "scoringVersion": "2.0",
   "weights": {
     "market": 0.15,
@@ -10,6 +10,27 @@
     "interest": 0.1
   },
   "ideas": [
+    {
+      "id": "ai-landing-page-auditor",
+      "name": "AI Landing Page Auditor",
+      "emoji": "🔍",
+      "problem": "Empreendedores criam landing pages mas não sabem porque não convertem",
+      "market": 7,
+      "demand": 9,
+      "effort": 7,
+      "skills": 10,
+      "revenue": 8,
+      "interest": 9,
+      "competitors": [
+        "Unbounce Smart Copy",
+        "PageSpeed Insights",
+        "Hotjar"
+      ],
+      "notes": "Já existe MVP construído! Priority Score 15.0. Validado no Reddit (serviço manual a $29 teve compradores).",
+      "source": "safira-research",
+      "dateAdded": "2026-02-02",
+      "detailsFile": null
+    },
     {
       "id": "ai-proposal-generator",
       "name": "AI Proposal Generator",
@@ -53,6 +74,27 @@
       "dateAdded": "2026-02-01",
       "detailsFile": "details/GEO-Optimizer.md",
       "detailsContent": "# GEO Optimizer (Generative Engine Optimization)\n\n## 🎯 Problema\nEmpresas optimizam para Google mas AI search está a crescer e ninguém sabe como rankear lá.\n\n**Dores específicas:**\n- Pessoas perguntam ao ChatGPT/Perplexity em vez de pesquisar no Google\n- Empresas gastam milhares em SEO tradicional\n- NINGUÉM sabe como optimizar para AI search\n- Zero ferramentas dedicadas no mercado\n- Concorrentes aparecem em respostas AI, tu não\n\n> **Fonte:** Reddit r/microsaas — \"GEO ≠ SEO. We've built platform that is content-first to optimise, rank inside ChatGPT/Perplexity (and tracking if it worked)\"\n\n## 📈 Trends Relevantes\n**AI Search Revolution:**\n- ChatGPT, Perplexity, Gemini a substituir pesquisas Google\n- SEO tradicional ($80B market) vai migrar parcialmente para GEO\n- First-mover advantage enorme — mercado nascente\n- Empresas começam a perguntar \"como apareço no ChatGPT?\"\n\n## 💡 Solução\n\n**Input:**\n- Nome da marca/website\n- Keywords/categorias relevantes\n- Concorrentes a monitorizar\n\n**Output:**\n- Audit: Apareces em respostas AI? Quanto?\n- Analysis: Gaps entre conteúdo actual e o que AI cita\n- Recommendations: Mudanças estruturais para ser citado\n- Tracking: Menções ao longo do tempo\n- Competitor Intel: Quem aparece e porquê\n\n**Diferencial:**\n- Primeiro a focar exclusivamente em GEO\n- Tracking de menções em múltiplos AI engines\n- Recomendações accionáveis (não só reports)\n\n## 📊 Scores\n| Dimensão | Score | Justificação |\n|----------|-------|--------------|\n| Market   | 9/10  | Mercado novo, poucos players, timing perfeito |\n| Demand   | 7/10  | Demand emergente, early adopters já procuram |\n| Effort   | 6/10  | APIs de AI + scraping + dashboard |\n| Skills   | 8/10  | Background PPC/SEO, entende o problema |\n| Revenue  | 7/10  | B2B SaaS, agencies pagam bem |\n| Interest | 8/10  | Mercado exciting, first-mover opportunity |\n\n**Score Final: 7.45 — MAYBE 🟡** (muito perto de BUILD IT)\n\n## 🏢 Competidores\n| Tool | Foco | Gap |\n|------|------|-----|\n| Semrush/Ahrefs | SEO tradicional | Zero GEO features |\n| Brand24 | Social listening | Não tracking AI |\n| Sparktoro | Audience research | Não específico AI |\n| Profound | GEO (early) | Muito novo, features limitadas |\n\n**Oportunidade:** Mercado NOVO — quem entrar agora domina.\n\n## 👤 Target Market\n| Segmento | Dor | Budget |\n|----------|-----|--------|\n| SaaS companies | \"Concorrente aparece no ChatGPT, nós não\" | $200-500/mês |\n| SEO agencies | Serviço novo para vender a clientes | $500-2000/mês |\n| E-commerce | Produtos citados em comparações AI | $100-300/mês |\n| B2B companies | Lead gen via AI recommendations | $300-1000/mês |\n\n## 💰 Monetização\n| Tier | Preço | Inclui |\n|------|-------|--------|\n| Starter | $49/mês | 1 brand, basic monitoring |\n| Pro | $149/mês | 5 brands, competitor tracking |\n| Agency | $399/mês | Unlimited brands, white-label |\n\n## 🛠️ Tech Stack\n- **Frontend:** Next.js dashboard com métricas e trends\n- **Backend:** Python para scraping e análise\n- **AI:** Claude para gerar recomendações\n- **Database:** Tracking de menções ao longo do tempo\n- **Outros:** APIs ChatGPT/Perplexity/Gemini para queries\n\n## 🎯 Features MVP\n- [ ] Input: brand name + keywords\n- [ ] Query \"best [categoria]\" em ChatGPT/Perplexity\n- [ ] Report: aparece ou não, contexto\n- [ ] Comparação básica com 2-3 concorrentes\n\n## 🚀 Features Futuras\n- Dashboard com trends ao longo do tempo\n- Alertas quando menções mudam\n- Recomendações AI-powered\n- Integração com SEO tools existentes\n- White-label para agências\n\n## ✅ Validação\n1. [ ] Testar manualmente: \"best X\" em ChatGPT vs Google\n2. [ ] Documentar padrões de quem aparece\n3. [ ] MVP: Script que compara rankings Google vs AI\n4. [ ] Landing page para validar interesse\n5. [ ] Outreach a 10 SEO agencies\n\n## 🔗 Sinergia Contigo\n- ✅ **Background PPC/Marketing** — entende SEO e o problema\n- ✅ **Pode oferecer como serviço** antes de produtizar\n- ✅ **Newsletter Algarve** — testar com próprio conteúdo\n- ✅ **Timing perfeito** — mercado emergente, first-mover\n\n## ⚠️ Challenges\n- APIs de AI podem mudar/limitar acesso\n- Definir métricas claras de sucesso\n- Educar mercado sobre GEO (conceito novo)\n- Scraping pode ter rate limits\n\n## 📝 Notas\n\n**Prós:**\n- \"SEO de 2010\" — quem perceber primeiro ganha\n- Mercado B2B paga bem\n- Pode começar como serviço manual\n- Timing excepcional\n\n**Contras:**\n- Mercado ainda a educar\n- Dependência de APIs terceiros\n- Pode ser copiado quando validado\n\n---\n*Fonte: r/microsaas + HN patterns — 2026-01-29*\n"
+    },
+    {
+      "id": "ai-agent-cost-tracker",
+      "name": "AI Agent Cost Tracker",
+      "emoji": "💰",
+      "problem": "Empresas não sabem quanto gastam em AI agents",
+      "market": 8,
+      "demand": 7,
+      "effort": 7,
+      "skills": 8,
+      "revenue": 7,
+      "interest": 7,
+      "competitors": [
+        "Helicone",
+        "LangSmith",
+        "PromptLayer"
+      ],
+      "notes": "FinOps para AI é o próximo big thing. Dashboard de custos por agente + alertas.",
+      "source": "safira-research",
+      "dateAdded": "2026-02-01",
+      "detailsFile": null
     },
     {
       "id": "ai-brand-monitor",
