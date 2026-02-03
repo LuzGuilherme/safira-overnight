@@ -158,16 +158,33 @@
             .gauge-labels {
                 font-size: 0.6rem;
             }
+            .signal-card {
+                overflow: hidden;
+            }
+            .signal-indicator {
+                flex-wrap: wrap;
+            }
             .signal-dot {
                 width: 45px;
                 height: 45px;
                 font-size: 1.2rem;
+                flex-shrink: 0;
+            }
+            .signal-details {
+                width: 100%;
+                min-width: 0;
             }
             .signal-title {
                 font-size: 1.1rem;
+                word-wrap: break-word;
             }
             .signal-reasons {
                 font-size: 0.8rem;
+                padding-left: 0;
+                list-style-position: inside;
+            }
+            .signal-reasons li {
+                word-wrap: break-word;
             }
             .chart-header {
                 flex-direction: column;
@@ -295,6 +312,7 @@
         /* Signal Card */
         .signal-card {
             grid-column: span 2;
+            overflow: hidden;
         }
 
         .signal-indicator {
@@ -302,6 +320,7 @@
             align-items: center;
             gap: 1rem;
             margin-top: 0.5rem;
+            min-width: 0;
         }
 
         .signal-dot {
@@ -326,21 +345,29 @@
 
         .signal-details {
             flex: 1;
+            min-width: 0;
+            overflow: hidden;
         }
 
         .signal-title {
             font-size: 1.5rem;
             font-weight: 700;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .signal-reasons {
             margin-top: 0.5rem;
             font-size: 0.85rem;
             color: var(--text-secondary);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .signal-reasons li {
             margin: 0.25rem 0;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         /* Chart Section */
