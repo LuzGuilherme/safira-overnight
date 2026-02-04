@@ -1,0 +1,53 @@
+{
+  "generated_at": "2026-02-04T07:14:18.888619",
+  "total_invoices": 22,
+  "total_spent": 943.4,
+  "avg_per_visit": 42.88,
+  "current_month": {
+    "month": "2026-02",
+    "total": 65.05,
+    "visits": 1,
+    "change_pct": -82.5
+  },
+  "monthly_data": [
+    {
+      "month": "2025-08",
+      "total": 150.17,
+      "visits": 4
+    },
+    {
+      "month": "2025-09",
+      "total": 78.1,
+      "visits": 4
+    },
+    {
+      "month": "2025-11",
+      "total": 51.19,
+      "visits": 1
+    },
+    {
+      "month": "2025-12",
+      "total": 227.35,
+      "visits": 4
+    },
+    {
+      "month": "2026-01",
+      "total": 371.54,
+      "visits": 8
+    },
+    {
+      "month": "2026-02",
+      "total": 65.05,
+      "visits": 1
+    }
+  ],
+  "top_products": [
+    {
+      "name": "(C) FORMA RETANGULAR METAL",
+      "count": 1
+    }
+  ],
+  "categories": {
+    "outros": 37.64
+  }
+}

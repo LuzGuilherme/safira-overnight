@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💰 Spending Insights - Fev 2026</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-dark: #0f0f0f;
+            --bg-card: #1a1a1a;
+            --accent: #10b981;
+            --accent-light: #34d399;
+            --text: #f5f5f5;
+            --text-muted: #a3a3a3;
+            --warning: #f59e0b;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        header {
+            text-align: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 1.5rem;
+        }
+        header h1 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+        header p { color: var(--text-muted); font-size: 0.9rem; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        @media (min-width: 600px) {
+            .stats-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .stat-card .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .stat-card .label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+            text-transform: uppercase;
+        }
+        .stat-card.warning .value { color: var(--warning); }
+        .stat-card.success .value { color: var(--accent); }
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        .card h2 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .chart-container { position: relative; height: 250px; margin: 1rem 0; }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        @media (min-width: 600px) {
+            .product-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        .product-item {
+            background: #252525;
+            padding: 0.75rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .product-item .emoji { font-size: 1.5rem; margin-bottom: 0.25rem; }
+        .product-item .name { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem; }
+        .product-item .count { font-size: 0.75rem; color: var(--accent); }
+        .insight-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        .insight-box h3 { font-size: 0.9rem; color: var(--accent); margin-bottom: 0.5rem; }
+        .insight-box p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+        footer {
+            text-align: center;
+            padding: 2rem 0 1rem;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+        .update-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--bg-dark);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💰 Spending Insights</h1>
+            <p>Fev 2026 • Continente</p>
+            <span class="update-badge">🔄 Auto-actualizado</span>
+        </header>
+        
+        <div class="stats-grid">
+            <div class="stat-card success">
+                <div class="value">€65.05</div>
+                <div class="label">Total Fev</div>
+            </div>
+            <div class="stat-card">
+                <div class="value">1</div>
+                <div class="label">Compras</div>
+            </div>
+            <div class="stat-card success">
+                <div class="value">€42.88</div>
+                <div class="label">Média/Compra</div>
+            </div>
+            <div class="stat-card">
+                <div class="value">-82%</div>
+                <div class="label">vs Mês Anterior</div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>📈 Tendência Mensal</h2>
+            <div class="chart-container">
+                <canvas id="trendChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>🏆 Top Produtos</h2>
+            <div class="product-grid">
+                <div class="product-item">
+            <div class="emoji">🛒</div>
+            <div class="name">(C) FORMA RETANGULAR</div>
+            <div class="count">1x comprado</div>
+        </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>🔄 Actualizado automaticamente</p>
+            <p style="margin-top: 0.5rem;">22 faturas analisadas</p>
+            <p style="margin-top: 0.25rem; font-size: 0.65rem;">Última actualização: 04/02/2026 07:14</p>
+        </footer>
+    </div>
+    
+    <script>
+        new Chart(document.getElementById('trendChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ["Ago", "Set", "Nov", "Dez", "Jan", "Fev"],
+                datasets: [{
+                    label: 'Gastos (€)',
+                    data: [150.17, 78.1, 51.19, 227.35, 371.54, 65.05],
+                    backgroundColor: 'rgba(16, 185, 129, 0.6)',
+                    borderColor: '#10b981',
+                    borderWidth: 2,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: '#333' }, ticks: { color: '#a3a3a3' } },
+                    x: { grid: { display: false }, ticks: { color: '#a3a3a3' } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
