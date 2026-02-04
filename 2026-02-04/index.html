@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💰 Spending Insights - Janeiro 2026</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-dark: #0f0f0f;
+            --bg-card: #1a1a1a;
+            --bg-card-hover: #222;
+            --accent: #10b981;
+            --accent-light: #34d399;
+            --text: #f5f5f5;
+            --text-muted: #a3a3a3;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 1.5rem;
+        }
+        
+        header h1 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        @media (min-width: 600px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .stat-card .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .stat-card .label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .stat-card.warning .value {
+            color: var(--warning);
+        }
+        
+        .stat-card.success .value {
+            color: var(--accent);
+        }
+        
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card h2 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .trend-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #333;
+        }
+        
+        .trend-row:last-child {
+            border-bottom: none;
+        }
+        
+        .trend-row .month {
+            font-weight: 500;
+        }
+        
+        .trend-row .amount {
+            font-weight: 600;
+        }
+        
+        .trend-row .change {
+            font-size: 0.85rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 20px;
+        }
+        
+        .trend-row .change.up {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+        
+        .trend-row .change.down {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 250px;
+            margin: 1rem 0;
+        }
+        
+        .category-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .category-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .category-item .bar-container {
+            flex: 1;
+            height: 24px;
+            background: #333;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .category-item .bar {
+            height: 100%;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            padding-left: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            min-width: fit-content;
+        }
+        
+        .category-item .amount {
+            width: 60px;
+            text-align: right;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        
+        @media (min-width: 600px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .product-item {
+            background: #252525;
+            padding: 0.75rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .product-item .emoji {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .product-item .name {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+        
+        .product-item .count {
+            font-size: 0.75rem;
+            color: var(--accent);
+        }
+        
+        .shopping-list {
+            display: grid;
+            gap: 0.5rem;
+        }
+        
+        .shopping-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: #252525;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .shopping-item:hover {
+            background: #2a2a2a;
+        }
+        
+        .shopping-item.checked {
+            opacity: 0.5;
+        }
+        
+        .shopping-item.checked .text {
+            text-decoration: line-through;
+        }
+        
+        .shopping-item .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .shopping-item.checked .checkbox {
+            background: var(--accent);
+        }
+        
+        .shopping-item .checkbox::after {
+            content: '✓';
+            color: var(--bg-dark);
+            font-size: 0.8rem;
+            display: none;
+        }
+        
+        .shopping-item.checked .checkbox::after {
+            display: block;
+        }
+        
+        .insight-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .insight-box h3 {
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .insight-box p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0 1rem;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+        
+        .tab-container {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+        
+        .tab {
+            padding: 0.5rem 1rem;
+            background: #252525;
+            border: none;
+            border-radius: 20px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        
+        .tab.active {
+            background: var(--accent);
+            color: var(--bg-dark);
+        }
+        
+        .tab:hover:not(.active) {
+            background: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💰 Spending Insights</h1>
+            <p>Janeiro 2026 • Continente</p>
+        </header>
+        
+        <!-- Quick Stats -->
+        <div class="stats-grid">
+            <div class="stat-card warning">
+                <div class="value">€319,66</div>
+                <div class="label">Total Janeiro</div>
+            </div>
+            <div class="stat-card">
+                <div class="value">7</div>
+                <div class="label">Compras</div>
+            </div>
+            <div class="stat-card success">
+                <div class="value">€45,67</div>
+                <div class="label">Média/Compra</div>
+            </div>
+            <div class="stat-card">
+                <div class="value">+14%</div>
+                <div class="label">vs Dezembro</div>
+            </div>
+        </div>
+        
+        <!-- Monthly Trend -->
+        <div class="card">
+            <h2>📈 Tendência Mensal</h2>
+            <div class="chart-container">
+                <canvas id="trendChart"></canvas>
+            </div>
+            <div class="insight-box">
+                <h3>💡 Insight</h3>
+                <p>Gastas mais em Janeiro (+14%), mas a média por compra baixou 18%. Significa compras mais frequentes e controladas — sinal de melhor planeamento!</p>
+            </div>
+        </div>
+        
+        <!-- Categories -->
+        <div class="card">
+            <h2>🥧 Por Categoria</h2>
+            <div class="chart-container" style="height: 200px;">
+                <canvas id="categoryChart"></canvas>
+            </div>
+            <div class="category-list" style="margin-top: 1rem;">
+                <div class="category-item">
+                    <span style="width: 100px; font-size: 0.85rem;">🍗 Proteínas</span>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 100%; background: #10b981;">29.6%</div>
+                    </div>
+                    <span class="amount">€259,95</span>
+                </div>
+                <div class="category-item">
+                    <span style="width: 100px; font-size: 0.85rem;">🥬 Frutas/Leg.</span>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 80%; background: #34d399;">23.6%</div>
+                    </div>
+                    <span class="amount">€207,32</span>
+                </div>
+                <div class="category-item">
+                    <span style="width: 100px; font-size: 0.85rem;">🥛 Laticínios</span>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 27%; background: #6ee7b7;">7.9%</div>
+                    </div>
+                    <span class="amount">€69,81</span>
+                </div>
+                <div class="category-item">
+                    <span style="width: 100px; font-size: 0.85rem;">🍪 Snacks</span>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 14%; background: #a7f3d0;">4.1%</div>
+                    </div>
+                    <span class="amount">€36,07</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Top Products -->
+        <div class="card">
+            <h2>🏆 Top Produtos (6 meses)</h2>
+            <div class="product-grid">
+                <div class="product-item">
+                    <div class="emoji">🍗</div>
+                    <div class="name">Peito Frango</div>
+                    <div class="count">22x comprado</div>
+                </div>
+                <div class="product-item">
+                    <div class="emoji">🍌</div>
+                    <div class="name">Banana</div>
+                    <div class="count">13x comprado</div>
+                </div>
+                <div class="product-item">
+                    <div class="emoji">🍎</div>
+                    <div class="name">Maçã Pink Lady</div>
+                    <div class="count">12x comprado</div>
+                </div>
+                <div class="product-item">
+                    <div class="emoji">🥛</div>
+                    <div class="name">Skyr Natural</div>
+                    <div class="count">12x comprado</div>
+                </div>
+                <div class="product-item">
+                    <div class="emoji">🍊</div>
+                    <div class="name">Laranja Algarve</div>
+                    <div class="count">10x comprado</div>
+                </div>
+                <div class="product-item">
+                    <div class="emoji">🥚</div>
+                    <div class="name">Ovos</div>
+                    <div class="count">9x comprado</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Smart Shopping List -->
+        <div class="card">
+            <h2>🛒 Lista Inteligente</h2>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">Baseada nos teus hábitos de compra</p>
+            
+            <div class="tab-container">
+                <button class="tab active" onclick="showList('sempre')">Sempre</button>
+                <button class="tab" onclick="showList('frequente')">Frequente</button>
+                <button class="tab" onclick="showList('ocasional')">Ocasional</button>
+            </div>
+            
+            <div id="list-sempre" class="shopping-list">
+                <div class="shopping-item" onclick="toggleItem(this)">
+                    <div class="checkbox"></div>
+                    <span class="text">🍗 Peito de frango (2-3 embalagens)</span>
+                </div>
+                <div class="shopping-item" onclick="toggleItem(this)">
+                    <div class="checkbox"></div>
+                    <span class="text">🥚 Ovos 1 dúzia</span>
+                </div>
+                <div class="shopping-item" onclick="toggleItem(this)">
+                    <div class="checkbox"></div>
+                    <span class="text">🥛 Skyr natural (5-10 unidades)</span>
+                </div>
+                <div class="shopping-item" onclick="toggleItem(this)">
+                    <div class="checkbox"></div>
+                    <span class="text">🍌 Bananas</span>
+                </div>
+                <div class="shopping-item" onclick="toggleItem(this)">
+                    <div class="checkbox"></div>
+                    <span class="text">🍎 Maçãs Pink Lady</span>
+                </div>
+                <div class="shopping-item" onclick="toggleItem(this)">
+                    <div class="checkbox"></div>
+                    <span class="text">🥕 Cenouras</span>
+                </div>
+                <div class="shopping-item" onclick="toggleItem(this)">
+                    <div class="checkbox"></div>
+                    <span class="text">🥒 Curgete</span>
+                </div>
+            </div>
+            
+            <div id="list-frequente" class="shopping-list" style="display: none;">
+                <div class="shopping-item" onclick="toggleItem(this)">
+                    <div class="checkbox"></div>
+                    <span class="text">🍊 Laranja Algarve</span>
+                </div>
+                <div class="shopping-item" onclick="toggleItem(this)">
+                    <div class="checkbox"></div>
+                    <span class="text">🥦 Brócolos</span>
+                </div>
+                <div class="shopping-item" onclick="toggleItem(this)">
+                    <div class="checkbox"></div>
+                    <span class="text">🌾 Farinha de aveia bio</span>
+                </div>
+                <div class="shopping-item" onclick="toggleItem(this)">
+                    <div class="checkbox"></div>
+                    <span class="text">🍠 Batata doce</span>
+                </div>
+                <div class="shopping-item" onclick="toggleItem(this)">
+                    <div class="checkbox"></div>
+                    <span class="text">🌿 Espargos congelados</span>
+                </div>
+            </div>
+            
+            <div id="list-ocasional" class="shopping-list" style="display: none;">
+                <div class="shopping-item" onclick="toggleItem(this)">
+                    <div class="checkbox"></div>
+                    <span class="text">☕ Café Delta</span>
+                </div>
+                <div class="shopping-item" onclick="toggleItem(this)">
+                    <div class="checkbox"></div>
+                    <span class="text">🍪 Bolachas Marinheiras</span>
+                </div>
+                <div class="shopping-item" onclick="toggleItem(this)">
+                    <div class="checkbox"></div>
+                    <span class="text">🥜 Caju/Amêndoas</span>
+                </div>
+                <div class="shopping-item" onclick="toggleItem(this)">
+                    <div class="checkbox"></div>
+                    <span class="text">🥛 Nata para cozinhar</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- February Projection -->
+        <div class="card">
+            <h2>🎯 Projeção Fevereiro</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; text-align: center;">
+                <div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent);">€280-300</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">META SUGERIDA</div>
+                </div>
+                <div>
+                    <div style="font-size: 1.5rem; font-weight: 700;">5-6</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">COMPRAS PREVISTAS</div>
+                </div>
+            </div>
+            <div class="insight-box">
+                <h3>📋 Dica</h3>
+                <p>Fevereiro tem menos dias. Com 5-6 compras de ~€50 cada, ficas dentro do orçamento. Mantém o padrão de compras pequenas e frequentes!</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>🌙 Construído pela Safira enquanto dormias</p>
+            <p style="margin-top: 0.5rem;">Dados: Ago 2025 - Jan 2026 • 21 faturas analisadas</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Trend Chart
+        const trendCtx = document.getElementById('trendChart').getContext('2d');
+        new Chart(trendCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Ago', 'Set', 'Nov', 'Dez', 'Jan'],
+                datasets: [{
+                    label: 'Gastos (€)',
+                    data: [150.17, 78.10, 51.19, 279.23, 319.66],
+                    backgroundColor: [
+                        'rgba(16, 185, 129, 0.6)',
+                        'rgba(16, 185, 129, 0.6)',
+                        'rgba(16, 185, 129, 0.6)',
+                        'rgba(16, 185, 129, 0.6)',
+                        'rgba(245, 158, 11, 0.8)'
+                    ],
+                    borderColor: [
+                        '#10b981',
+                        '#10b981',
+                        '#10b981',
+                        '#10b981',
+                        '#f59e0b'
+                    ],
+                    borderWidth: 2,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#333' },
+                        ticks: { color: '#a3a3a3' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#a3a3a3' }
+                    }
+                }
+            }
+        });
+        
+        // Category Chart
+        const catCtx = document.getElementById('categoryChart').getContext('2d');
+        new Chart(catCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Proteínas', 'Frutas/Legumes', 'Laticínios', 'Snacks', 'Outros'],
+                datasets: [{
+                    data: [29.6, 23.6, 7.9, 4.1, 34.8],
+                    backgroundColor: [
+                        '#10b981',
+                        '#34d399',
+                        '#6ee7b7',
+                        '#a7f3d0',
+                        '#333'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            color: '#a3a3a3',
+                            padding: 10,
+                            font: { size: 11 }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Tab functionality
+        function showList(listId) {
+            document.querySelectorAll('.shopping-list').forEach(list => {
+                list.style.display = 'none';
+            });
+            document.getElementById('list-' + listId).style.display = 'grid';
+            
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+        
+        // Toggle shopping item
+        function toggleItem(element) {
+            element.classList.toggle('checked');
+            
+            // Save state to localStorage
+            const items = document.querySelectorAll('.shopping-item');
+            const state = [];
+            items.forEach((item, index) => {
+                if (item.classList.contains('checked')) {
+                    state.push(index);
+                }
+            });
+            localStorage.setItem('shoppingList', JSON.stringify(state));
+        }
+        
+        // Load saved state
+        window.onload = function() {
+            const saved = localStorage.getItem('shoppingList');
+            if (saved) {
+                const state = JSON.parse(saved);
+                const items = document.querySelectorAll('.shopping-item');
+                state.forEach(index => {
+                    if (items[index]) {
+                        items[index].classList.add('checked');
+                    }
+                });
+            }
+        };
+    </script>
+</body>
+</html>
