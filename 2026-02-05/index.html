@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 Side Hustle Scoreboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg: #0f0f0f;
+            --card: #1a1a1a;
+            --accent: #10b981;
+            --accent2: #6366f1;
+            --text: #e5e5e5;
+            --muted: #737373;
+            --gold: #fbbf24;
+            --silver: #9ca3af;
+            --bronze: #d97706;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            color: var(--muted);
+            font-size: 1.1rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .stat-label {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        .section {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Leaderboard */
+        .leaderboard {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .idea-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            transition: transform 0.2s, background 0.2s;
+        }
+        
+        .idea-row:hover {
+            background: rgba(255,255,255,0.06);
+            transform: translateX(4px);
+        }
+        
+        .rank {
+            font-size: 1.5rem;
+            font-weight: 700;
+            width: 40px;
+            text-align: center;
+        }
+        
+        .rank.gold { color: var(--gold); }
+        .rank.silver { color: var(--silver); }
+        .rank.bronze { color: var(--bronze); }
+        
+        .idea-info {
+            flex: 1;
+        }
+        
+        .idea-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .idea-problem {
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+        
+        .idea-scores {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .score-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .score-total {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: white;
+        }
+        
+        .score-mini {
+            background: rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            padding: 0.3rem 0.6rem;
+        }
+        
+        /* Chart */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 1rem;
+        }
+        
+        /* Matrix Guide */
+        .matrix-guide {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+        }
+        
+        .quadrant {
+            padding: 0.75rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .quadrant.quick-wins {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid var(--accent);
+        }
+        
+        .quadrant.big-bets {
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid var(--accent2);
+        }
+        
+        .quadrant.fill-ins {
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .quadrant.avoid {
+            background: rgba(239, 68, 68, 0.1);
+        }
+        
+        /* Status */
+        .status-grid {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        
+        .status-dot.exploring { background: var(--gold); }
+        .status-dot.building { background: var(--accent); }
+        .status-dot.launched { background: var(--accent2); }
+        
+        /* Incomplete ideas */
+        .incomplete-section {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .incomplete-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .incomplete-tag {
+            padding: 0.4rem 0.8rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            .idea-row { flex-direction: column; align-items: flex-start; }
+            .idea-scores { margin-top: 0.5rem; }
+            .chart-container { height: 250px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Side Hustle Scoreboard</h1>
+            <p class="subtitle">Ideias ordenadas por potencial • Actualizado 5 Fev 2026</p>
+        </header>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">11</div>
+                <div class="stat-label">Total Ideias</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Com Score</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">21</div>
+                <div class="stat-label">Melhor Score</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">0</div>
+                <div class="stat-label">Em Construção</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">🏆 Leaderboard</h2>
+            <div class="leaderboard">
+                <div class="idea-row">
+                    <span class="rank gold">🥇</span>
+                    <div class="idea-info">
+                        <div class="idea-name">AI Client Reporting Tool</div>
+                        <div class="idea-problem">Agências gastam horas em relatórios manuais para clientes</div>
+                    </div>
+                    <div class="idea-scores">
+                        <span class="score-badge score-mini">P:8</span>
+                        <span class="score-badge score-mini">E:6</span>
+                        <span class="score-badge score-mini">S:9</span>
+                        <span class="score-badge score-total">21</span>
+                    </div>
+                </div>
+                
+                <div class="idea-row">
+                    <span class="rank silver">🥈</span>
+                    <div class="idea-info">
+                        <div class="idea-name">WaaS - Websites as a Service</div>
+                        <div class="idea-problem">PMEs precisam de sites profissionais sem pagar milhares</div>
+                    </div>
+                    <div class="idea-scores">
+                        <span class="score-badge score-mini">P:8</span>
+                        <span class="score-badge score-mini">E:5</span>
+                        <span class="score-badge score-mini">S:8</span>
+                        <span class="score-badge score-total">19</span>
+                    </div>
+                </div>
+                
+                <div class="idea-row">
+                    <span class="rank bronze">🥉</span>
+                    <div class="idea-info">
+                        <div class="idea-name">AI Agent Cost Tracker</div>
+                        <div class="idea-problem">Empresas não sabem quanto gastam em AI agents</div>
+                    </div>
+                    <div class="idea-scores">
+                        <span class="score-badge score-mini">P:8</span>
+                        <span class="score-badge score-mini">E:5</span>
+                        <span class="score-badge score-mini">S:7</span>
+                        <span class="score-badge score-total">11</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="incomplete-section">
+                <p style="color: var(--muted); margin-bottom: 0.75rem;">📝 Ideias sem score (precisam avaliação):</p>
+                <div class="incomplete-list">
+                    <span class="incomplete-tag">AI-Brand-Monitor</span>
+                    <span class="incomplete-tag">AI-Landing-Page-Auditor</span>
+                    <span class="incomplete-tag">AI-Proposal-Generator</span>
+                    <span class="incomplete-tag">AI-SOPs-Generator</span>
+                    <span class="incomplete-tag">AI-Video-Dubbing</span>
+                    <span class="incomplete-tag">GEO-Optimizer</span>
+                    <span class="incomplete-tag">LLM-Privacy-Auditor</span>
+                    <span class="incomplete-tag">Newsletter-AI-Curator</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">📊 Matriz Esforço vs Potencial</h2>
+            <div class="chart-container">
+                <canvas id="matrixChart"></canvas>
+            </div>
+            <div class="matrix-guide">
+                <div class="quadrant quick-wins">✅ Quick Wins<br><small>Alto potencial, baixo esforço</small></div>
+                <div class="quadrant big-bets">🚀 Big Bets<br><small>Alto potencial, alto esforço</small></div>
+                <div class="quadrant fill-ins">📋 Fill-ins<br><small>Baixo potencial, baixo esforço</small></div>
+                <div class="quadrant avoid">⚠️ Evitar<br><small>Baixo potencial, alto esforço</small></div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">📈 Próximos Passos</h2>
+            <div style="padding: 1rem; background: rgba(16, 185, 129, 0.1); border-radius: 10px; border-left: 4px solid var(--accent);">
+                <p style="font-weight: 600; margin-bottom: 0.5rem;">🎯 Recomendação: AI Client Reporting Tool</p>
+                <p style="color: var(--muted); font-size: 0.9rem;">
+                    Score mais alto (21), alinhado com skills de PPC/Marketing.<br>
+                    Podes testar com os teus próprios clientes primeiro.
+                </p>
+            </div>
+            <div style="margin-top: 1rem;">
+                <p style="color: var(--muted);">
+                    <strong>Para fazer:</strong><br>
+                    • Avaliar as 8 ideias sem score<br>
+                    • Validar top 3 com potenciais clientes<br>
+                    • Escolher 1 para MVP de 2 semanas
+                </p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Construído pela Safira 🌙 5 Fev 2026 02:00</p>
+            <p style="margin-top: 0.5rem;">P = Potencial • E = Esforço • S = Skills Fit</p>
+        </footer>
+    </div>
+    
+    <script>
+        const ctx = document.getElementById('matrixChart').getContext('2d');
+        
+        new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'Ideias',
+                    data: [
+                        { x: 6, y: 8, label: 'AI Client Reporting', r: 21 },
+                        { x: 5, y: 8, label: 'WaaS', r: 19 },
+                        { x: 5, y: 8, label: 'AI Cost Tracker', r: 11 }
+                    ],
+                    backgroundColor: [
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(99, 102, 241, 0.8)',
+                        'rgba(251, 191, 36, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgb(16, 185, 129)',
+                        'rgb(99, 102, 241)',
+                        'rgb(251, 191, 36)'
+                    ],
+                    borderWidth: 2,
+                    pointRadius: 15,
+                    pointHoverRadius: 18
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        min: 0,
+                        max: 10,
+                        title: {
+                            display: true,
+                            text: 'Esforço →',
+                            color: '#737373'
+                        },
+                        grid: {
+                            color: 'rgba(255,255,255,0.05)'
+                        },
+                        ticks: { color: '#737373' }
+                    },
+                    y: {
+                        min: 0,
+                        max: 10,
+                        title: {
+                            display: true,
+                            text: '↑ Potencial',
+                            color: '#737373'
+                        },
+                        grid: {
+                            color: 'rgba(255,255,255,0.05)'
+                        },
+                        ticks: { color: '#737373' }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const point = context.raw;
+                                return `${point.label}: Score ${point.r}`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
