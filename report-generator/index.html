@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReportAI - Client Report Generator</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --success: #10b981;
+            --success-light: #34d399;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg: #f8fafc;
+            --bg-card: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        
+        /* Header */
+        header {
+            background: var(--gradient);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .logo span { opacity: 0.9; font-weight: 400; }
+        
+        /* Input Section */
+        .input-section {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .input-section h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .form-group label { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); }
+        .form-group input, .form-group select {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(99,102,241,0.4); }
+        .btn-secondary {
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { background: var(--border); }
+        
+        .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+        
+        /* Report Preview */
+        .report-section {
+            display: none;
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .report-section.visible { display: block; }
+        
+        .report-header {
+            background: var(--gradient);
+            color: white;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .report-header h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .report-header p { opacity: 0.9; }
+        .agency-logo {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .report-content { padding: 2rem; }
+        
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .kpi-card {
+            background: var(--bg);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        .kpi-card .value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+        .kpi-card .label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .kpi-card .change {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        .kpi-card .change.positive { color: var(--success); }
+        .kpi-card .change.negative { color: var(--danger); }
+        
+        /* Charts */
+        .chart-section {
+            background: var(--bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+        .chart-section h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .chart-container { position: relative; height: 250px; }
+        
+        /* AI Insights */
+        .insights-section {
+            background: linear-gradient(135deg, rgba(99,102,241,0.05), rgba(139,92,246,0.05));
+            border: 1px solid rgba(99,102,241,0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .insights-section h3 {
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .insight-item {
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--primary);
+        }
+        .insight-item:last-child { margin-bottom: 0; }
+        .insight-item h4 {
+            font-size: 0.875rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .insight-item p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+        
+        /* Recommendations */
+        .recommendations {
+            background: linear-gradient(135deg, rgba(16,185,129,0.05), rgba(52,211,153,0.05));
+            border: 1px solid rgba(16,185,129,0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .recommendations h3 {
+            color: var(--success);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .recommendation-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(16,185,129,0.1);
+        }
+        .recommendation-item:last-child { border-bottom: none; }
+        .recommendation-item .icon {
+            width: 24px;
+            height: 24px;
+            background: var(--success);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+        .recommendation-item p { font-size: 0.875rem; }
+        
+        /* Export buttons */
+        .export-section {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        /* Loading */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+        .loading.visible { display: block; }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .form-grid { grid-template-columns: 1fr 1fr; }
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        /* Print styles */
+        @media print {
+            header, .input-section, .export-section { display: none !important; }
+            .report-section { box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">📊 ReportAI <span>| Client Report Generator</span></div>
+            <div style="font-size: 0.875rem; opacity: 0.9;">MVP v1.0</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Input Section -->
+        <div class="input-section">
+            <h2>📝 Dados da Campanha</h2>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Nome do Cliente</label>
+                    <input type="text" id="clientName" placeholder="Ex: Empresa XYZ">
+                </div>
+                <div class="form-group">
+                    <label>Campanha</label>
+                    <input type="text" id="campaignName" placeholder="Ex: Black Friday 2026">
+                </div>
+                <div class="form-group">
+                    <label>Período</label>
+                    <input type="text" id="period" placeholder="Ex: Jan 2026">
+                </div>
+                <div class="form-group">
+                    <label>Plataforma</label>
+                    <select id="platform">
+                        <option value="google">Google Ads</option>
+                        <option value="meta">Meta Ads</option>
+                        <option value="both">Google + Meta</option>
+                    </select>
+                </div>
+            </div>
+            
+            <h3 style="font-size: 1rem; margin: 1.5rem 0 1rem; color: var(--text-muted);">📈 Métricas do Período Atual</h3>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Impressões</label>
+                    <input type="number" id="impressions" placeholder="0">
+                </div>
+                <div class="form-group">
+                    <label>Cliques</label>
+                    <input type="number" id="clicks" placeholder="0">
+                </div>
+                <div class="form-group">
+                    <label>Custo (€)</label>
+                    <input type="number" id="cost" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label>Conversões</label>
+                    <input type="number" id="conversions" placeholder="0">
+                </div>
+                <div class="form-group">
+                    <label>Receita (€)</label>
+                    <input type="number" id="revenue" step="0.01" placeholder="0.00">
+                </div>
+            </div>
+            
+            <h3 style="font-size: 1rem; margin: 1.5rem 0 1rem; color: var(--text-muted);">📊 Métricas do Período Anterior (opcional)</h3>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Impressões Ant.</label>
+                    <input type="number" id="impressionsPrev" placeholder="0">
+                </div>
+                <div class="form-group">
+                    <label>Cliques Ant.</label>
+                    <input type="number" id="clicksPrev" placeholder="0">
+                </div>
+                <div class="form-group">
+                    <label>Custo Ant. (€)</label>
+                    <input type="number" id="costPrev" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label>Conversões Ant.</label>
+                    <input type="number" id="conversionsPrev" placeholder="0">
+                </div>
+                <div class="form-group">
+                    <label>Receita Ant. (€)</label>
+                    <input type="number" id="revenuePrev" step="0.01" placeholder="0.00">
+                </div>
+            </div>
+            
+            <div class="btn-group" style="margin-top: 1.5rem;">
+                <button class="btn btn-primary" onclick="generateReport()">
+                    ✨ Gerar Relatório com AI
+                </button>
+                <button class="btn btn-secondary" onclick="loadSampleData()">
+                    📋 Carregar Dados de Exemplo
+                </button>
+            </div>
+        </div>
+        
+        <!-- Loading -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>A gerar relatório com insights AI...</p>
+        </div>
+        
+        <!-- Report Preview -->
+        <div class="report-section" id="reportSection">
+            <div class="report-header">
+                <div>
+                    <h1 id="reportTitle">Relatório de Performance</h1>
+                    <p id="reportSubtitle">Período: Janeiro 2026</p>
+                </div>
+                <div class="agency-logo" id="agencyLogo">AG</div>
+            </div>
+            
+            <div class="report-content" id="reportContent">
+                <div class="kpi-grid" id="kpiGrid">
+                    <!-- KPIs inserted by JS -->
+                </div>
+                
+                <div class="chart-section">
+                    <h3>📈 Tendência de Performance</h3>
+                    <div class="chart-container">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="insights-section" id="insightsSection">
+                    <h3>🤖 Análise AI</h3>
+                    <!-- Insights inserted by JS -->
+                </div>
+                
+                <div class="recommendations" id="recommendationsSection">
+                    <h3>💡 Recomendações</h3>
+                    <!-- Recommendations inserted by JS -->
+                </div>
+                
+                <div class="export-section">
+                    <button class="btn btn-secondary" onclick="window.print()">
+                        🖨️ Imprimir
+                    </button>
+                    <button class="btn btn-primary" onclick="exportPDF()">
+                        📄 Download PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let performanceChart = null;
+        
+        function loadSampleData() {
+            document.getElementById('clientName').value = 'TechStore Portugal';
+            document.getElementById('campaignName').value = 'Campanha Q1 2026';
+            document.getElementById('period').value = 'Janeiro 2026';
+            document.getElementById('platform').value = 'google';
+            
+            // Current period
+            document.getElementById('impressions').value = 125000;
+            document.getElementById('clicks').value = 4500;
+            document.getElementById('cost').value = 2800;
+            document.getElementById('conversions').value = 180;
+            document.getElementById('revenue').value = 15400;
+            
+            // Previous period
+            document.getElementById('impressionsPrev').value = 98000;
+            document.getElementById('clicksPrev').value = 3200;
+            document.getElementById('costPrev').value = 2500;
+            document.getElementById('conversionsPrev').value = 120;
+            document.getElementById('revenuePrev').value = 9600;
+        }
+        
+        function calculateChange(current, previous) {
+            if (!previous || previous === 0) return null;
+            return ((current - previous) / previous * 100).toFixed(1);
+        }
+        
+        function formatNumber(num) {
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+            return num.toLocaleString('pt-PT');
+        }
+        
+        function formatCurrency(num) {
+            return '€' + parseFloat(num).toLocaleString('pt-PT', { minimumFractionDigits: 2 });
+        }
+        
+        function generateReport() {
+            const loading = document.getElementById('loading');
+            const reportSection = document.getElementById('reportSection');
+            
+            loading.classList.add('visible');
+            reportSection.classList.remove('visible');
+            
+            // Simulate AI processing
+            setTimeout(() => {
+                const data = {
+                    clientName: document.getElementById('clientName').value || 'Cliente',
+                    campaignName: document.getElementById('campaignName').value || 'Campanha',
+                    period: document.getElementById('period').value || 'Período',
+                    platform: document.getElementById('platform').value,
+                    impressions: parseFloat(document.getElementById('impressions').value) || 0,
+                    clicks: parseFloat(document.getElementById('clicks').value) || 0,
+                    cost: parseFloat(document.getElementById('cost').value) || 0,
+                    conversions: parseFloat(document.getElementById('conversions').value) || 0,
+                    revenue: parseFloat(document.getElementById('revenue').value) || 0,
+                    impressionsPrev: parseFloat(document.getElementById('impressionsPrev').value) || 0,
+                    clicksPrev: parseFloat(document.getElementById('clicksPrev').value) || 0,
+                    costPrev: parseFloat(document.getElementById('costPrev').value) || 0,
+                    conversionsPrev: parseFloat(document.getElementById('conversionsPrev').value) || 0,
+                    revenuePrev: parseFloat(document.getElementById('revenuePrev').value) || 0
+                };
+                
+                // Calculate metrics
+                data.ctr = data.impressions > 0 ? (data.clicks / data.impressions * 100).toFixed(2) : 0;
+                data.cpc = data.clicks > 0 ? (data.cost / data.clicks).toFixed(2) : 0;
+                data.cpa = data.conversions > 0 ? (data.cost / data.conversions).toFixed(2) : 0;
+                data.roas = data.cost > 0 ? (data.revenue / data.cost).toFixed(2) : 0;
+                
+                data.ctrPrev = data.impressionsPrev > 0 ? (data.clicksPrev / data.impressionsPrev * 100).toFixed(2) : 0;
+                data.cpaPrev = data.conversionsPrev > 0 ? (data.costPrev / data.conversionsPrev).toFixed(2) : 0;
+                data.roasPrev = data.costPrev > 0 ? (data.revenuePrev / data.costPrev).toFixed(2) : 0;
+                
+                renderReport(data);
+                
+                loading.classList.remove('visible');
+                reportSection.classList.add('visible');
+                
+                // Scroll to report
+                reportSection.scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        }
+        
+        function renderReport(data) {
+            // Header
+            document.getElementById('reportTitle').textContent = `Relatório: ${data.clientName}`;
+            document.getElementById('reportSubtitle').textContent = `${data.campaignName} | ${data.period}`;
+            document.getElementById('agencyLogo').textContent = data.clientName.substring(0, 2).toUpperCase();
+            
+            // KPIs
+            const kpis = [
+                { label: 'Impressões', value: formatNumber(data.impressions), change: calculateChange(data.impressions, data.impressionsPrev) },
+                { label: 'Cliques', value: formatNumber(data.clicks), change: calculateChange(data.clicks, data.clicksPrev) },
+                { label: 'CTR', value: data.ctr + '%', change: calculateChange(data.ctr, data.ctrPrev) },
+                { label: 'Custo', value: formatCurrency(data.cost), change: calculateChange(data.cost, data.costPrev), inverse: true },
+                { label: 'Conversões', value: formatNumber(data.conversions), change: calculateChange(data.conversions, data.conversionsPrev) },
+                { label: 'CPA', value: formatCurrency(data.cpa), change: calculateChange(data.cpa, data.cpaPrev), inverse: true },
+                { label: 'Receita', value: formatCurrency(data.revenue), change: calculateChange(data.revenue, data.revenuePrev) },
+                { label: 'ROAS', value: data.roas + 'x', change: calculateChange(data.roas, data.roasPrev) }
+            ];
+            
+            document.getElementById('kpiGrid').innerHTML = kpis.map(kpi => {
+                let changeHtml = '';
+                if (kpi.change !== null) {
+                    const isPositive = kpi.inverse ? parseFloat(kpi.change) < 0 : parseFloat(kpi.change) > 0;
+                    const arrow = parseFloat(kpi.change) > 0 ? '↑' : '↓';
+                    changeHtml = `<div class="change ${isPositive ? 'positive' : 'negative'}">${arrow} ${Math.abs(kpi.change)}%</div>`;
+                }
+                return `
+                    <div class="kpi-card">
+                        <div class="value">${kpi.value}</div>
+                        <div class="label">${kpi.label}</div>
+                        ${changeHtml}
+                    </div>
+                `;
+            }).join('');
+            
+            // Chart
+            renderChart(data);
+            
+            // AI Insights
+            const insights = generateInsights(data);
+            document.getElementById('insightsSection').innerHTML = `
+                <h3>🤖 Análise AI</h3>
+                ${insights.map(insight => `
+                    <div class="insight-item">
+                        <h4>${insight.title}</h4>
+                        <p>${insight.text}</p>
+                    </div>
+                `).join('')}
+            `;
+            
+            // Recommendations
+            const recommendations = generateRecommendations(data);
+            document.getElementById('recommendationsSection').innerHTML = `
+                <h3>💡 Recomendações</h3>
+                ${recommendations.map((rec, i) => `
+                    <div class="recommendation-item">
+                        <div class="icon">${i + 1}</div>
+                        <p>${rec}</p>
+                    </div>
+                `).join('')}
+            `;
+        }
+        
+        function renderChart(data) {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            
+            if (performanceChart) performanceChart.destroy();
+            
+            // Generate mock daily data based on totals
+            const days = ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'];
+            const clicksData = [
+                Math.round(data.clicks * 0.22),
+                Math.round(data.clicks * 0.25),
+                Math.round(data.clicks * 0.28),
+                Math.round(data.clicks * 0.25)
+            ];
+            const conversionsData = [
+                Math.round(data.conversions * 0.20),
+                Math.round(data.conversions * 0.24),
+                Math.round(data.conversions * 0.30),
+                Math.round(data.conversions * 0.26)
+            ];
+            
+            performanceChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: days,
+                    datasets: [
+                        {
+                            label: 'Cliques',
+                            data: clicksData,
+                            borderColor: '#6366f1',
+                            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Conversões',
+                            data: conversionsData,
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top' }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+        
+        function generateInsights(data) {
+            const insights = [];
+            
+            // Performance summary
+            const roasStatus = data.roas >= 3 ? 'excelente' : data.roas >= 2 ? 'bom' : data.roas >= 1 ? 'aceitável' : 'abaixo do esperado';
+            insights.push({
+                title: '📊 Resumo de Performance',
+                text: `A campanha gerou ${formatCurrency(data.revenue)} em receita com um investimento de ${formatCurrency(data.cost)}, resultando num ROAS de ${data.roas}x (${roasStatus}). Foram registadas ${data.conversions} conversões a um custo médio de ${formatCurrency(data.cpa)} por aquisição.`
+            });
+            
+            // CTR analysis
+            const ctrStatus = data.ctr >= 3 ? 'acima da média do mercado' : data.ctr >= 1.5 ? 'dentro da média' : 'abaixo da média';
+            insights.push({
+                title: '🎯 Análise de CTR',
+                text: `O CTR de ${data.ctr}% está ${ctrStatus}. ${data.ctr >= 2 ? 'Os anúncios estão a captar bem a atenção do público-alvo.' : 'Recomenda-se testar novas variações de copy e criativos para melhorar o engagement.'}`
+            });
+            
+            // Comparison insight
+            if (data.conversionsPrev > 0) {
+                const convChange = calculateChange(data.conversions, data.conversionsPrev);
+                const trend = convChange > 0 ? 'crescimento' : 'redução';
+                insights.push({
+                    title: '📈 Comparação com Período Anterior',
+                    text: `Comparado com o período anterior, verificou-se um ${trend} de ${Math.abs(convChange)}% nas conversões. ${convChange > 0 ? 'A estratégia está a mostrar resultados positivos.' : 'É importante analisar possíveis causas e ajustar a estratégia.'}`
+                });
+            }
+            
+            return insights;
+        }
+        
+        function generateRecommendations(data) {
+            const recs = [];
+            
+            if (data.ctr < 2) {
+                recs.push('Testar novos criativos e copies de anúncios para melhorar o CTR. Considerar utilizar mais call-to-actions claros e benefícios específicos.');
+            }
+            
+            if (data.roas < 3) {
+                recs.push('Optimizar a segmentação de audiências para focar em utilizadores com maior intenção de compra. Considerar excluir audiências de baixo desempenho.');
+            }
+            
+            if (data.cpa > data.revenue / data.conversions * 0.3) {
+                recs.push('O CPA está elevado relativamente ao valor médio de conversão. Recomenda-se ajustar lances ou explorar palavras-chave/audiências de menor custo.');
+            }
+            
+            recs.push('Implementar remarketing para utilizadores que visitaram o site mas não converteram. Estas audiências tipicamente têm taxas de conversão 2-3x superiores.');
+            
+            recs.push('Monitorizar a performance por dispositivo e hora do dia para identificar oportunidades de optimização de lances.');
+            
+            return recs.slice(0, 4);
+        }
+        
+        function exportPDF() {
+            const element = document.getElementById('reportSection');
+            const opt = {
+                margin: 10,
+                filename: 'relatorio-performance.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            // Hide export buttons for PDF
+            const exportSection = document.querySelector('.export-section');
+            exportSection.style.display = 'none';
+            
+            html2pdf().set(opt).from(element).save().then(() => {
+                exportSection.style.display = 'flex';
+            });
+        }
+    </script>
+</body>
+</html>
