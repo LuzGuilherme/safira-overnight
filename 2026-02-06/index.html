@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReportAI - Client Reports in Seconds, Not Hours</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #10b981;
+            --bg: #0f0f0f;
+            --bg-card: #1a1a1a;
+            --bg-elevated: #262626;
+            --text: #f5f5f5;
+            --text-muted: #a3a3a3;
+            --border: #333;
+            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover { color: var(--text); }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--bg-elevated);
+        }
+        
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--secondary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        
+        h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-light);
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        /* Problem Section */
+        .section {
+            padding: 6rem 2rem;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .problem-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+        }
+        
+        .problem-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .problem-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .problem-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        
+        /* Solution Section */
+        .solution-bg {
+            background: linear-gradient(180deg, var(--bg) 0%, var(--bg-card) 50%, var(--bg) 100%);
+        }
+        
+        .solution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        @media (max-width: 768px) {
+            .solution-grid { grid-template-columns: 1fr; }
+        }
+        
+        .solution-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .solution-content p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-check {
+            width: 24px;
+            height: 24px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            flex-shrink: 0;
+        }
+        
+        .solution-image {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        
+        .solution-image img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        
+        .mock-dashboard {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .mock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .mock-title {
+            font-weight: 600;
+        }
+        
+        .mock-badge {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+        }
+        
+        .mock-kpis {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .mock-kpi {
+            background: var(--bg-card);
+            padding: 0.75rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .mock-kpi-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-light);
+        }
+        
+        .mock-kpi-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+        
+        .mock-chart {
+            height: 100px;
+            background: linear-gradient(180deg, rgba(99, 102, 241, 0.2) 0%, transparent 100%);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mock-chart::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .pricing-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .pricing-card.featured {
+            border-color: var(--primary);
+            background: linear-gradient(180deg, rgba(99, 102, 241, 0.05) 0%, var(--bg-card) 100%);
+        }
+        
+        .pricing-card.featured::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient);
+            padding: 0.25rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .pricing-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pricing-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+        
+        .pricing-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+        }
+        
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        /* CTA */
+        .cta {
+            text-align: center;
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, var(--bg) 0%, var(--bg-card) 100%);
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .email-form {
+            display: flex;
+            gap: 0.75rem;
+            max-width: 400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .email-form input {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+        
+        .email-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .mock-kpis { grid-template-columns: repeat(2, 1fr); }
+            .hero-stats { gap: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">ReportAI</div>
+        <div class="nav-links">
+            <a href="#problem">Problem</a>
+            <a href="#solution">Solution</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#" class="btn btn-primary">Get Early Access</a>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge">
+                <span class="badge-dot"></span>
+                Now in Early Access
+            </div>
+            <h1>Client Reports in <span>Seconds</span>, Not Hours</h1>
+            <p>Stop spending 4+ hours per week creating client reports. Let AI analyze your campaign data and generate beautiful, insightful reports automatically.</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-primary">
+                    <span>🚀</span> Get Early Access
+                </a>
+                <a href="https://luzguilherme.github.io/safira-overnight/report-generator/" class="btn btn-secondary">
+                    <span>👀</span> Try Demo
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-value">4h → 4s</div>
+                    <div class="stat-label">Time saved per client</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">€200+</div>
+                    <div class="stat-label">Cheaper than competitors</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">AI-Powered</div>
+                    <div class="stat-label">Insights that sound human</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="problem">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Reporting Problem</h2>
+                <p>Every agency and freelancer knows this pain too well</p>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">⏰</div>
+                    <h3>Time-Consuming</h3>
+                    <p>Copying data from Google Ads, Meta, Analytics... formatting slides... writing analysis. Hours of mind-numbing work.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">💸</div>
+                    <h3>Expensive Tools</h3>
+                    <p>DashThis, AgencyAnalytics, Databox — they all cost €100-500/month. Too expensive for small agencies.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">😴</div>
+                    <h3>Boring Numbers</h3>
+                    <p>Clients don't want spreadsheets. They want to understand what the numbers mean and what to do next.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section solution-bg" id="solution">
+        <div class="container">
+            <div class="solution-grid">
+                <div class="solution-content">
+                    <h2>Reports That Write Themselves</h2>
+                    <p>Paste your campaign data, and watch AI transform it into a professional report with real insights — in seconds.</p>
+                    <ul class="feature-list">
+                        <li>
+                            <span class="feature-check">✓</span>
+                            <div>
+                                <strong>AI-Written Insights</strong>
+                                <p style="color: var(--text-muted); font-size: 0.9rem;">Not just charts — actual analysis of what's working and what's not</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="feature-check">✓</span>
+                            <div>
+                                <strong>Beautiful PDF Export</strong>
+                                <p style="color: var(--text-muted); font-size: 0.9rem;">White-label ready with your agency branding</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="feature-check">✓</span>
+                            <div>
+                                <strong>Smart Recommendations</strong>
+                                <p style="color: var(--text-muted); font-size: 0.9rem;">AI suggests optimizations based on your data</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="https://luzguilherme.github.io/safira-overnight/report-generator/" class="btn btn-primary">Try the Demo →</a>
+                </div>
+                <div class="solution-image">
+                    <div class="mock-dashboard">
+                        <div class="mock-header">
+                            <span class="mock-title">📊 Campaign Report</span>
+                            <span class="mock-badge">AI Generated</span>
+                        </div>
+                        <div class="mock-kpis">
+                            <div class="mock-kpi">
+                                <div class="mock-kpi-value">125K</div>
+                                <div class="mock-kpi-label">Impressions</div>
+                            </div>
+                            <div class="mock-kpi">
+                                <div class="mock-kpi-value">3.6%</div>
+                                <div class="mock-kpi-label">CTR</div>
+                            </div>
+                            <div class="mock-kpi">
+                                <div class="mock-kpi-value">€2.4</div>
+                                <div class="mock-kpi-label">CPC</div>
+                            </div>
+                            <div class="mock-kpi">
+                                <div class="mock-kpi-value">5.5x</div>
+                                <div class="mock-kpi-label">ROAS</div>
+                            </div>
+                        </div>
+                        <div class="mock-chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>Simple, Fair Pricing</h2>
+                <p>No hidden fees. Cancel anytime.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-name">Solo</div>
+                    <div class="pricing-price">€29<span>/month</span></div>
+                    <div class="pricing-desc">Perfect for freelancers</div>
+                    <ul class="pricing-features">
+                        <li>Up to 3 clients</li>
+                        <li>Unlimited reports</li>
+                        <li>AI insights</li>
+                        <li>PDF export</li>
+                        <li>Email support</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary" style="width: 100%; justify-content: center;">Get Started</a>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-name">Pro</div>
+                    <div class="pricing-price">€59<span>/month</span></div>
+                    <div class="pricing-desc">For growing agencies</div>
+                    <ul class="pricing-features">
+                        <li>Up to 10 clients</li>
+                        <li>Unlimited reports</li>
+                        <li>AI insights + recommendations</li>
+                        <li>White-label branding</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" style="width: 100%; justify-content: center;">Get Started</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-name">Agency</div>
+                    <div class="pricing-price">€99<span>/month</span></div>
+                    <div class="pricing-desc">For established agencies</div>
+                    <ul class="pricing-features">
+                        <li>Up to 25 clients</li>
+                        <li>Everything in Pro</li>
+                        <li>API access</li>
+                        <li>Team accounts</li>
+                        <li>Custom integrations</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary" style="width: 100%; justify-content: center;">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta">
+        <h2>Ready to Save Hours Every Week?</h2>
+        <p>Join the waitlist and get early access pricing (50% off) when we launch.</p>
+        <form class="email-form" onsubmit="event.preventDefault(); alert('Thanks! We\'ll be in touch soon.');">
+            <input type="email" placeholder="your@email.com" required>
+            <button type="submit" class="btn btn-primary">Join Waitlist</button>
+        </form>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>Built with ❤️ by Safira & Guilherme • © 2026 ReportAI</p>
+        </div>
+    </footer>
+</body>
+</html>
