@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚽ Football Calendar | Safira</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e8e8e8;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #00d4aa, #00a8cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .teams-followed {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .team-badge {
+            padding: 4px 12px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: #aaa;
+        }
+        
+        .team-badge.portugal { border-left: 3px solid #ff6b6b; }
+        .team-badge.england { border-left: 3px solid #4ecdc4; }
+        .team-badge.spain { border-left: 3px solid #ffe66d; }
+        
+        .section {
+            margin-bottom: 25px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .section-date {
+            color: #666;
+            font-size: 0.85rem;
+        }
+        
+        .match-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255,255,255,0.08);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 15px;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+        
+        .match-card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(0,212,170,0.3);
+        }
+        
+        .match-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .teams {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .teams .followed {
+            color: #00d4aa;
+            font-weight: 600;
+        }
+        
+        .match-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+        
+        .match-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .competition {
+            padding: 3px 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .competition.liga-pt { background: rgba(255,107,107,0.2); color: #ff6b6b; }
+        .competition.premier { background: rgba(78,205,196,0.2); color: #4ecdc4; }
+        .competition.laliga { background: rgba(255,230,109,0.2); color: #ffe66d; }
+        .competition.ucl { background: rgba(138,43,226,0.2); color: #a855f7; }
+        
+        .calendar-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #00d4aa, #00a8cc);
+            color: #000;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        
+        .calendar-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,212,170,0.3);
+        }
+        
+        .no-matches {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .highlight-match {
+            border-left: 3px solid #ff6b6b;
+        }
+        
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #00d4aa;
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 4px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #555;
+            font-size: 0.8rem;
+        }
+        
+        .week-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .week-btn {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #aaa;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .week-btn.active {
+            background: rgba(0,212,170,0.2);
+            border-color: #00d4aa;
+            color: #00d4aa;
+        }
+        
+        @media (max-width: 600px) {
+            .match-card {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚽ Football Calendar</h1>
+            <p class="subtitle">Jogos das tuas equipas favoritas · Fevereiro 2026</p>
+            <div class="teams-followed">
+                <span class="team-badge portugal">🔴 Benfica</span>
+                <span class="team-badge portugal">🔵 Porto</span>
+                <span class="team-badge portugal">🟢 Sporting</span>
+                <span class="team-badge england">🔴 Man United</span>
+                <span class="team-badge england">🔵 Man City</span>
+                <span class="team-badge england">🔴 Arsenal</span>
+                <span class="team-badge england">🔵 Chelsea</span>
+                <span class="team-badge england">🔴 Liverpool</span>
+                <span class="team-badge spain">⚪ Real Madrid</span>
+                <span class="team-badge spain">🔵🔴 Barcelona</span>
+            </div>
+        </header>
+        
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-value">8</div>
+                <div class="stat-label">Jogos Esta Semana</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Hoje/Amanhã</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">2</div>
+                <div class="stat-label">Champions League</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">🔥</div>
+                <div class="stat-label">Liverpool vs City</div>
+            </div>
+        </div>
+        
+        <!-- TODAY / TOMORROW -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-title">📅 Hoje & Amanhã</span>
+                <span class="section-date">8-9 Fevereiro</span>
+            </div>
+            
+            <div class="match-card highlight-match">
+                <div class="match-info">
+                    <div class="teams">
+                        <span class="followed">Benfica</span> vs FC Alverca
+                    </div>
+                    <div class="match-meta">
+                        <span>⏰ 20:30</span>
+                        <span>📺 Sport TV 1</span>
+                        <span>📍 Estádio da Luz</span>
+                        <span class="competition liga-pt">Liga Portugal</span>
+                    </div>
+                </div>
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Benfica%20vs%20FC%20Alverca&dates=20260208T203000/20260208T223000&details=Liga%20Portugal%20-%20Sport%20TV%201&location=Est%C3%A1dio%20da%20Luz" 
+                   target="_blank" class="calendar-btn">
+                    📅 Adicionar
+                </a>
+            </div>
+            
+            <div class="match-card highlight-match">
+                <div class="match-info">
+                    <div class="teams">
+                        <span class="followed">Liverpool</span> vs <span class="followed">Manchester City</span>
+                    </div>
+                    <div class="match-meta">
+                        <span>⏰ 16:30</span>
+                        <span>📺 Sport TV 1</span>
+                        <span>📍 Anfield</span>
+                        <span class="competition premier">Premier League</span>
+                    </div>
+                </div>
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Liverpool%20vs%20Manchester%20City&dates=20260208T163000/20260208T183000&details=Premier%20League%20-%20Sport%20TV%201&location=Anfield" 
+                   target="_blank" class="calendar-btn">
+                    📅 Adicionar
+                </a>
+            </div>
+            
+            <div class="match-card">
+                <div class="match-info">
+                    <div class="teams">
+                        Valencia vs <span class="followed">Real Madrid</span>
+                    </div>
+                    <div class="match-meta">
+                        <span>⏰ 21:00</span>
+                        <span>📺 Eleven Sports 1</span>
+                        <span>📍 Mestalla</span>
+                        <span class="competition laliga">La Liga</span>
+                    </div>
+                </div>
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Valencia%20vs%20Real%20Madrid&dates=20260208T210000/20260208T230000&details=La%20Liga%20-%20Eleven%20Sports%201&location=Mestalla" 
+                   target="_blank" class="calendar-btn">
+                    📅 Adicionar
+                </a>
+            </div>
+        </div>
+        
+        <!-- THIS WEEK -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-title">📆 Esta Semana</span>
+                <span class="section-date">10-14 Fevereiro</span>
+            </div>
+            
+            <div class="match-card">
+                <div class="match-info">
+                    <div class="teams">
+                        West Ham vs <span class="followed">Manchester United</span>
+                    </div>
+                    <div class="match-meta">
+                        <span>⏰ 20:00</span>
+                        <span>📺 Sport TV 2</span>
+                        <span class="competition premier">Premier League</span>
+                    </div>
+                </div>
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=West%20Ham%20vs%20Manchester%20United&dates=20260210T200000/20260210T220000&details=Premier%20League%20-%20Sport%20TV%202&location=London%20Stadium" 
+                   target="_blank" class="calendar-btn">
+                    📅 Adicionar
+                </a>
+            </div>
+            
+            <div class="match-card">
+                <div class="match-info">
+                    <div class="teams">
+                        <span class="followed">Manchester City</span> vs Fulham
+                    </div>
+                    <div class="match-meta">
+                        <span>⏰ 20:00</span>
+                        <span>📺 Sport TV 3</span>
+                        <span class="competition premier">Premier League</span>
+                    </div>
+                </div>
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Manchester%20City%20vs%20Fulham&dates=20260211T200000/20260211T220000&details=Premier%20League%20-%20Sport%20TV%203&location=Etihad%20Stadium" 
+                   target="_blank" class="calendar-btn">
+                    📅 Adicionar
+                </a>
+            </div>
+            
+            <div class="match-card">
+                <div class="match-info">
+                    <div class="teams">
+                        Sunderland vs <span class="followed">Liverpool</span>
+                    </div>
+                    <div class="match-meta">
+                        <span>⏰ 20:30</span>
+                        <span>📺 Sport TV 1</span>
+                        <span class="competition premier">Premier League</span>
+                    </div>
+                </div>
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sunderland%20vs%20Liverpool&dates=20260211T203000/20260211T223000&details=Premier%20League%20-%20Sport%20TV%201&location=Stadium%20of%20Light" 
+                   target="_blank" class="calendar-btn">
+                    📅 Adicionar
+                </a>
+            </div>
+            
+            <div class="match-card">
+                <div class="match-info">
+                    <div class="teams">
+                        Brentford vs <span class="followed">Arsenal</span>
+                    </div>
+                    <div class="match-meta">
+                        <span>⏰ 20:30</span>
+                        <span>📺 Sport TV 2</span>
+                        <span class="competition premier">Premier League</span>
+                    </div>
+                </div>
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Brentford%20vs%20Arsenal&dates=20260212T203000/20260212T223000&details=Premier%20League%20-%20Sport%20TV%202&location=Brentford%20Community%20Stadium" 
+                   target="_blank" class="calendar-btn">
+                    📅 Adicionar
+                </a>
+            </div>
+            
+            <div class="match-card">
+                <div class="match-info">
+                    <div class="teams">
+                        Santa Clara vs <span class="followed">Benfica</span>
+                    </div>
+                    <div class="match-meta">
+                        <span>⏰ 18:30</span>
+                        <span>📺 Sport TV 1</span>
+                        <span class="competition liga-pt">Liga Portugal</span>
+                    </div>
+                </div>
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Santa%20Clara%20vs%20Benfica&dates=20260213T183000/20260213T203000&details=Liga%20Portugal%20-%20Sport%20TV%201&location=Azores" 
+                   target="_blank" class="calendar-btn">
+                    📅 Adicionar
+                </a>
+            </div>
+            
+            <div class="match-card">
+                <div class="match-info">
+                    <div class="teams">
+                        <span class="followed">Real Madrid</span> vs Real Sociedad
+                    </div>
+                    <div class="match-meta">
+                        <span>⏰ 21:00</span>
+                        <span>📺 Eleven Sports 1</span>
+                        <span class="competition laliga">La Liga</span>
+                    </div>
+                </div>
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Real%20Madrid%20vs%20Real%20Sociedad&dates=20260214T210000/20260214T230000&details=La%20Liga%20-%20Eleven%20Sports%201&location=Santiago%20Bernab%C3%A9u" 
+                   target="_blank" class="calendar-btn">
+                    📅 Adicionar
+                </a>
+            </div>
+        </div>
+        
+        <!-- CHAMPIONS LEAGUE -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-title">🏆 Champions League</span>
+                <span class="section-date">Play-offs Fevereiro</span>
+            </div>
+            
+            <div class="match-card highlight-match">
+                <div class="match-info">
+                    <div class="teams">
+                        <span class="followed">Benfica</span> vs <span class="followed">Real Madrid</span>
+                    </div>
+                    <div class="match-meta">
+                        <span>⏰ 20:00</span>
+                        <span>📺 Sport TV 1</span>
+                        <span>📍 Estádio da Luz</span>
+                        <span class="competition ucl">Champions League</span>
+                    </div>
+                </div>
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Benfica%20vs%20Real%20Madrid%20(UCL)&dates=20260217T200000/20260217T220000&details=UEFA%20Champions%20League%20Play-off%20-%20Sport%20TV%201&location=Est%C3%A1dio%20da%20Luz" 
+                   target="_blank" class="calendar-btn">
+                    📅 Adicionar
+                </a>
+            </div>
+            
+            <div class="match-card">
+                <div class="match-info">
+                    <div class="teams">
+                        <span class="followed">Real Madrid</span> vs <span class="followed">Benfica</span>
+                    </div>
+                    <div class="match-meta">
+                        <span>⏰ 20:00</span>
+                        <span>📺 Sport TV 1</span>
+                        <span>📍 Santiago Bernabéu</span>
+                        <span class="competition ucl">Champions League</span>
+                    </div>
+                </div>
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Real%20Madrid%20vs%20Benfica%20(UCL)&dates=20260225T200000/20260225T220000&details=UEFA%20Champions%20League%20Play-off%20(2nd%20leg)%20-%20Sport%20TV%201&location=Santiago%20Bernab%C3%A9u" 
+                   target="_blank" class="calendar-btn">
+                    📅 Adicionar
+                </a>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Construído pela Safira 🌙 · Overnight Build 8 Fev 2026</p>
+            <p style="margin-top: 8px; font-size: 0.7rem;">
+                Dados: Flashscore, ZeroZero · Horários em hora de Lisboa
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
