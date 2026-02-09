@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💡 Side Hustle Validator</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --card: #161b22;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --green: #3fb950;
+            --yellow: #d29922;
+            --red: #f85149;
+            --purple: #a371f7;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+        
+        .idea-input {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .idea-input input {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+        
+        .idea-input input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        
+        .section-header h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .section-score {
+            background: var(--bg);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .question {
+            margin-bottom: 16px;
+        }
+        
+        .question label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .question .hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        
+        .options {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .option {
+            flex: 1;
+            min-width: 80px;
+            padding: 10px 16px;
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        
+        .option:hover {
+            border-color: var(--accent);
+        }
+        
+        .option.selected {
+            border-color: var(--accent);
+            background: rgba(88, 166, 255, 0.1);
+        }
+        
+        .option.selected.score-high {
+            border-color: var(--green);
+            background: rgba(63, 185, 80, 0.1);
+        }
+        
+        .option.selected.score-mid {
+            border-color: var(--yellow);
+            background: rgba(210, 153, 34, 0.1);
+        }
+        
+        .option.selected.score-low {
+            border-color: var(--red);
+            background: rgba(248, 81, 73, 0.1);
+        }
+        
+        .result-card {
+            background: linear-gradient(135deg, #1a1f2e 0%, #161b22 100%);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .result-card.visible {
+            display: block;
+        }
+        
+        .final-score {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .final-score.excellent { color: var(--green); }
+        .final-score.good { color: var(--accent); }
+        .final-score.maybe { color: var(--yellow); }
+        .final-score.skip { color: var(--red); }
+        
+        .verdict {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .verdict-detail {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        
+        .breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        
+        .breakdown-item {
+            background: var(--bg);
+            padding: 12px;
+            border-radius: 8px;
+        }
+        
+        .breakdown-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .breakdown-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+        
+        .action-btn {
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: opacity 0.2s;
+        }
+        
+        .action-btn:hover {
+            opacity: 0.9;
+        }
+        
+        .tips {
+            margin-top: 16px;
+            padding: 16px;
+            background: var(--bg);
+            border-radius: 8px;
+            text-align: left;
+        }
+        
+        .tips h4 {
+            color: var(--purple);
+            margin-bottom: 8px;
+        }
+        
+        .tips ul {
+            margin-left: 20px;
+            color: var(--text-muted);
+        }
+        
+        .tips li {
+            margin-bottom: 4px;
+        }
+        
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+        
+        @media (max-width: 600px) {
+            .options {
+                flex-direction: column;
+            }
+            .option {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💡 Side Hustle Validator</h1>
+            <p class="subtitle">Valida a tua ideia em 2 minutos. Respostas honestas = resultados úteis.</p>
+        </header>
+        
+        <div class="idea-input">
+            <input type="text" id="ideaName" placeholder="Nome da ideia (ex: AI Interview Coach)">
+        </div>
+        
+        <!-- Problem Section -->
+        <div class="section" id="section-problem">
+            <div class="section-header">
+                <h2>🎯 Problema</h2>
+                <span class="section-score" id="score-problem">0/15</span>
+            </div>
+            
+            <div class="question">
+                <label>Consegues descrever o problema em 1 frase?</label>
+                <p class="hint">Se precisas de um parágrafo, o problema não está claro.</p>
+                <div class="options" data-category="problem" data-max="5">
+                    <div class="option" data-value="5">Sim, muito claro</div>
+                    <div class="option" data-value="3">Mais ou menos</div>
+                    <div class="option" data-value="1">É complicado</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label>Pessoas reais queixam-se deste problema?</label>
+                <p class="hint">Reddit, Twitter, fóruns, reviews...</p>
+                <div class="options" data-category="problem" data-max="5">
+                    <div class="option" data-value="5">Sim, frequentemente</div>
+                    <div class="option" data-value="3">Já vi algumas</div>
+                    <div class="option" data-value="0">Nunca vi</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label>As pessoas pagam para resolver este problema?</label>
+                <p class="hint">Existem competidores pagos?</p>
+                <div class="options" data-category="problem" data-max="5">
+                    <div class="option" data-value="5">Sim, vários</div>
+                    <div class="option" data-value="3">Alguns free, poucos pagos</div>
+                    <div class="option" data-value="0">Tudo grátis</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Market Section -->
+        <div class="section" id="section-market">
+            <div class="section-header">
+                <h2>📊 Mercado</h2>
+                <span class="section-score" id="score-market">0/15</span>
+            </div>
+            
+            <div class="question">
+                <label>Quem é o cliente ideal?</label>
+                <p class="hint">Quanto mais específico, melhor.</p>
+                <div class="options" data-category="market" data-max="5">
+                    <div class="option" data-value="5">Sei exactamente quem</div>
+                    <div class="option" data-value="3">Ideia geral</div>
+                    <div class="option" data-value="1">"Toda a gente"</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label>Consegues chegar a esse cliente?</label>
+                <p class="hint">Sabes onde estão? Como comunicar?</p>
+                <div class="options" data-category="market" data-max="5">
+                    <div class="option" data-value="5">Sim, tenho acesso</div>
+                    <div class="option" data-value="3">Com algum esforço</div>
+                    <div class="option" data-value="1">Não faço ideia</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label>Quantas pessoas têm este problema?</label>
+                <div class="options" data-category="market" data-max="5">
+                    <div class="option" data-value="5">Milhares+</div>
+                    <div class="option" data-value="3">Centenas</div>
+                    <div class="option" data-value="1">Dezenas</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Skills Section -->
+        <div class="section" id="section-skills">
+            <div class="section-header">
+                <h2>🛠️ Skills & Execução</h2>
+                <span class="section-score" id="score-skills">0/15</span>
+            </div>
+            
+            <div class="question">
+                <label>Tens as skills para construir isto?</label>
+                <div class="options" data-category="skills" data-max="5">
+                    <div class="option" data-value="5">Sim, 100%</div>
+                    <div class="option" data-value="3">Preciso aprender algo</div>
+                    <div class="option" data-value="1">Fora da minha zona</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label>Quanto tempo para um MVP funcional?</label>
+                <div class="options" data-category="skills" data-max="5">
+                    <div class="option" data-value="5">1 semana</div>
+                    <div class="option" data-value="3">2-4 semanas</div>
+                    <div class="option" data-value="1">1+ mês</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label>Precisas de muito capital inicial?</label>
+                <div class="options" data-category="skills" data-max="5">
+                    <div class="option" data-value="5">Não, só tempo</div>
+                    <div class="option" data-value="3"><€500</div>
+                    <div class="option" data-value="1">€1000+</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Revenue Section -->
+        <div class="section" id="section-revenue">
+            <div class="section-header">
+                <h2>💰 Revenue</h2>
+                <span class="section-score" id="score-revenue">0/15</span>
+            </div>
+            
+            <div class="question">
+                <label>Modelo de receita claro?</label>
+                <div class="options" data-category="revenue" data-max="5">
+                    <div class="option" data-value="5">Sim, óbvio</div>
+                    <div class="option" data-value="3">Tenho ideias</div>
+                    <div class="option" data-value="0">"Monetizo depois"</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label>Receita recorrente possível?</label>
+                <div class="options" data-category="revenue" data-max="5">
+                    <div class="option" data-value="5">Sim, subscription natural</div>
+                    <div class="option" data-value="3">Talvez com upsells</div>
+                    <div class="option" data-value="1">Pagamento único</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label>Preço que o mercado aceita?</label>
+                <div class="options" data-category="revenue" data-max="5">
+                    <div class="option" data-value="5">€50+/mês</div>
+                    <div class="option" data-value="3">€10-50/mês</div>
+                    <div class="option" data-value="1"><€10/mês</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Passion Section -->
+        <div class="section" id="section-passion">
+            <div class="section-header">
+                <h2>❤️ Motivação</h2>
+                <span class="section-score" id="score-passion">0/10</span>
+            </div>
+            
+            <div class="question">
+                <label>Queres mesmo construir isto?</label>
+                <p class="hint">Vais precisar de persistir quando for difícil.</p>
+                <div class="options" data-category="passion" data-max="5">
+                    <div class="option" data-value="5">Sim, entusiasma-me!</div>
+                    <div class="option" data-value="3">Parece interessante</div>
+                    <div class="option" data-value="1">Só pelo dinheiro</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <label>Usarias tu próprio o produto?</label>
+                <div class="options" data-category="passion" data-max="5">
+                    <div class="option" data-value="5">Sim, já precisei!</div>
+                    <div class="option" data-value="3">Provavelmente</div>
+                    <div class="option" data-value="1">Não, é para outros</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Result Card -->
+        <div class="result-card" id="resultCard">
+            <div class="final-score" id="finalScore">0</div>
+            <div class="verdict" id="verdict">-</div>
+            <div class="verdict-detail" id="verdictDetail">-</div>
+            
+            <div class="breakdown">
+                <div class="breakdown-item">
+                    <div class="breakdown-label">Problema</div>
+                    <div class="breakdown-value" id="bd-problem">-</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="breakdown-label">Mercado</div>
+                    <div class="breakdown-value" id="bd-market">-</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="breakdown-label">Skills</div>
+                    <div class="breakdown-value" id="bd-skills">-</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="breakdown-label">Revenue</div>
+                    <div class="breakdown-value" id="bd-revenue">-</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="breakdown-label">Motivação</div>
+                    <div class="breakdown-value" id="bd-passion">-</div>
+                </div>
+            </div>
+            
+            <div class="tips" id="tips"></div>
+            
+            <button class="action-btn" onclick="resetForm()">🔄 Validar Outra Ideia</button>
+        </div>
+        
+        <footer>
+            <p>Criado pela Safira ✨ durante a noite de 9 Fev 2026</p>
+            <p style="margin-top: 8px;">Baseado no framework de validação de indie hackers</p>
+        </footer>
+    </div>
+    
+    <script>
+        const scores = {
+            problem: 0,
+            market: 0,
+            skills: 0,
+            revenue: 0,
+            passion: 0
+        };
+        
+        const maxScores = {
+            problem: 15,
+            market: 15,
+            skills: 15,
+            revenue: 15,
+            passion: 10
+        };
+        
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                const options = this.parentElement.querySelectorAll('.option');
+                options.forEach(o => o.classList.remove('selected', 'score-high', 'score-mid', 'score-low'));
+                
+                this.classList.add('selected');
+                const value = parseInt(this.dataset.value);
+                const max = parseInt(this.parentElement.dataset.max);
+                
+                if (value >= max * 0.8) this.classList.add('score-high');
+                else if (value >= max * 0.5) this.classList.add('score-mid');
+                else this.classList.add('score-low');
+                
+                calculateScores();
+            });
+        });
+        
+        function calculateScores() {
+            // Reset scores
+            Object.keys(scores).forEach(k => scores[k] = 0);
+            
+            // Calculate each category
+            document.querySelectorAll('.options').forEach(optionGroup => {
+                const category = optionGroup.dataset.category;
+                const selected = optionGroup.querySelector('.option.selected');
+                if (selected) {
+                    scores[category] += parseInt(selected.dataset.value);
+                }
+            });
+            
+            // Update section scores
+            Object.keys(scores).forEach(category => {
+                const scoreEl = document.getElementById(`score-${category}`);
+                if (scoreEl) {
+                    scoreEl.textContent = `${scores[category]}/${maxScores[category]}`;
+                }
+            });
+            
+            // Check if all questions answered
+            const totalQuestions = document.querySelectorAll('.options').length;
+            const answeredQuestions = document.querySelectorAll('.option.selected').length;
+            
+            if (answeredQuestions === totalQuestions) {
+                showResult();
+            }
+        }
+        
+        function showResult() {
+            const totalMax = Object.values(maxScores).reduce((a, b) => a + b, 0);
+            const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
+            const percentage = Math.round((totalScore / totalMax) * 100);
+            
+            const resultCard = document.getElementById('resultCard');
+            const finalScore = document.getElementById('finalScore');
+            const verdict = document.getElementById('verdict');
+            const verdictDetail = document.getElementById('verdictDetail');
+            const tips = document.getElementById('tips');
+            
+            finalScore.textContent = `${percentage}%`;
+            finalScore.className = 'final-score';
+            
+            // Set verdict based on score
+            if (percentage >= 80) {
+                finalScore.classList.add('excellent');
+                verdict.textContent = '🚀 BUILD IT!';
+                verdictDetail.textContent = 'Esta ideia tem forte potencial. Começa o MVP esta semana!';
+            } else if (percentage >= 65) {
+                finalScore.classList.add('good');
+                verdict.textContent = '👍 Promissor';
+                verdictDetail.textContent = 'Boa base. Resolve os pontos fracos antes de construir.';
+            } else if (percentage >= 45) {
+                finalScore.classList.add('maybe');
+                verdict.textContent = '🤔 Precisa Trabalho';
+                verdictDetail.textContent = 'Há potencial mas falta validação. Faz mais research.';
+            } else {
+                finalScore.classList.add('skip');
+                verdict.textContent = '⏭️ Próxima Ideia';
+                verdictDetail.textContent = 'Melhor investir tempo noutra coisa.';
+            }
+            
+            // Update breakdown
+            document.getElementById('bd-problem').textContent = `${scores.problem}/${maxScores.problem}`;
+            document.getElementById('bd-market').textContent = `${scores.market}/${maxScores.market}`;
+            document.getElementById('bd-skills').textContent = `${scores.skills}/${maxScores.skills}`;
+            document.getElementById('bd-revenue').textContent = `${scores.revenue}/${maxScores.revenue}`;
+            document.getElementById('bd-passion').textContent = `${scores.passion}/${maxScores.passion}`;
+            
+            // Generate tips
+            let tipsHtml = '<h4>💡 Próximos Passos</h4><ul>';
+            
+            if (scores.problem < 10) {
+                tipsHtml += '<li>Fala com 5 pessoas que têm este problema</li>';
+            }
+            if (scores.market < 10) {
+                tipsHtml += '<li>Define melhor o ICP (Ideal Customer Profile)</li>';
+            }
+            if (scores.skills < 10) {
+                tipsHtml += '<li>Considera simplificar o MVP ou aprender a skill em falta</li>';
+            }
+            if (scores.revenue < 10) {
+                tipsHtml += '<li>Pesquisa pricing de competidores</li>';
+            }
+            if (scores.passion < 7) {
+                tipsHtml += '<li>Será que há uma variante que te entusiasma mais?</li>';
+            }
+            
+            if (percentage >= 65) {
+                tipsHtml += '<li>Cria landing page para testar interesse</li>';
+                tipsHtml += '<li>Define scope do MVP (max 1-2 semanas)</li>';
+            }
+            
+            tipsHtml += '</ul>';
+            tips.innerHTML = tipsHtml;
+            
+            resultCard.classList.add('visible');
+            resultCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        function resetForm() {
+            document.querySelectorAll('.option').forEach(o => {
+                o.classList.remove('selected', 'score-high', 'score-mid', 'score-low');
+            });
+            
+            Object.keys(scores).forEach(k => scores[k] = 0);
+            Object.keys(scores).forEach(category => {
+                const scoreEl = document.getElementById(`score-${category}`);
+                if (scoreEl) scoreEl.textContent = `0/${maxScores[category]}`;
+            });
+            
+            document.getElementById('resultCard').classList.remove('visible');
+            document.getElementById('ideaName').value = '';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
