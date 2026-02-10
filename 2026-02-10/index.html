@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancelar.pt — Cancela serviços em segundos</title>
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --surface-hover: #1a1a25;
+            --border: #2a2a3a;
+            --text: #e8e8ed;
+            --text-muted: #8888a0;
+            --accent: #ff4757;
+            --accent-hover: #ff6b7a;
+            --success: #26de81;
+            --warning: #fed330;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), #ff8c42);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .tagline {
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        .wizard {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+        
+        .step {
+            display: none;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        .step-header {
+            margin-bottom: 1.5rem;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: 600;
+            margin-right: 0.75rem;
+        }
+        
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .category-grid, .provider-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+        
+        .category-card, .provider-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .category-card:hover, .provider-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        .category-card.selected, .provider-card.selected {
+            border-color: var(--accent);
+            background: rgba(255, 71, 87, 0.1);
+        }
+        
+        .category-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .category-name, .provider-name {
+            font-weight: 500;
+        }
+        
+        .category-count {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .btn-row {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+        
+        .btn-secondary {
+            background: var(--surface-hover);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+        
+        .letter-preview {
+            background: white;
+            color: #1a1a1a;
+            padding: 2rem;
+            border-radius: 8px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 14px;
+            line-height: 1.8;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .letter-preview .header {
+            text-align: right;
+            margin-bottom: 2rem;
+        }
+        
+        .letter-preview .subject {
+            font-weight: bold;
+            margin: 1.5rem 0;
+        }
+        
+        .letter-preview .signature {
+            margin-top: 2rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: #0a0a0f;
+        }
+        
+        .btn-success:hover {
+            opacity: 0.9;
+        }
+        
+        .legal-note {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(254, 211, 48, 0.1);
+            border: 1px solid var(--warning);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--warning);
+        }
+        
+        .legal-note strong {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        
+        .tips {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+        
+        .tips h3 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .tips ul {
+            list-style: none;
+        }
+        
+        .tips li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-muted);
+        }
+        
+        .tips li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .copied-toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success);
+            color: #0a0a0f;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 100;
+        }
+        
+        .copied-toast.show {
+            opacity: 1;
+        }
+        
+        @media (max-width: 600px) {
+            .stats {
+                gap: 1rem;
+            }
+            .stat-value {
+                font-size: 1.4rem;
+            }
+            .category-grid, .provider-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .btn-row {
+                flex-direction: column;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Cancelar.pt</div>
+            <p class="tagline">Cancela serviços portugueses em segundos. Grátis.</p>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value">28.500+</div>
+                    <div class="stat-label">Queixas/ano</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">34%</div>
+                    <div class="stat-label">Crescimento</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">2 min</div>
+                    <div class="stat-label">Tempo médio</div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="wizard">
+            <!-- Step 1: Category -->
+            <div class="step active" id="step1">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <span class="step-title">Que tipo de serviço queres cancelar?</span>
+                </div>
+                <div class="category-grid">
+                    <div class="category-card" data-category="telecom">
+                        <div class="category-icon">📱</div>
+                        <div class="category-name">Telecomunicações</div>
+                        <div class="category-count">MEO, NOS, Vodafone, NOWO</div>
+                    </div>
+                    <div class="category-card" data-category="internet">
+                        <div class="category-icon">🌐</div>
+                        <div class="category-name">Internet/TV</div>
+                        <div class="category-count">Fibra, cabo, IPTV</div>
+                    </div>
+                    <div class="category-card" data-category="gym">
+                        <div class="category-icon">💪</div>
+                        <div class="category-name">Ginásio</div>
+                        <div class="category-count">Holmes Place, Fitness Hut, Solinca</div>
+                    </div>
+                    <div class="category-card" data-category="insurance">
+                        <div class="category-icon">🛡️</div>
+                        <div class="category-name">Seguros</div>
+                        <div class="category-count">Auto, saúde, vida</div>
+                    </div>
+                    <div class="category-card" data-category="streaming">
+                        <div class="category-icon">🎬</div>
+                        <div class="category-name">Streaming</div>
+                        <div class="category-count">Netflix, HBO, Disney+</div>
+                    </div>
+                    <div class="category-card" data-category="energy">
+                        <div class="category-icon">⚡</div>
+                        <div class="category-name">Energia</div>
+                        <div class="category-count">EDP, Galp, Endesa</div>
+                    </div>
+                    <div class="category-card" data-category="subscription">
+                        <div class="category-icon">📦</div>
+                        <div class="category-name">Subscrições</div>
+                        <div class="category-count">Revistas, apps, SaaS</div>
+                    </div>
+                    <div class="category-card" data-category="other">
+                        <div class="category-icon">📝</div>
+                        <div class="category-name">Outro</div>
+                        <div class="category-count">Qualquer serviço</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 2: Provider -->
+            <div class="step" id="step2">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <span class="step-title">Qual o fornecedor?</span>
+                </div>
+                <div class="provider-grid" id="providerGrid">
+                    <!-- Filled by JS -->
+                </div>
+                <div class="btn-row">
+                    <button class="btn btn-secondary" onclick="goToStep(1)">← Voltar</button>
+                </div>
+            </div>
+            
+            <!-- Step 3: Details -->
+            <div class="step" id="step3">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <span class="step-title">Os teus dados</span>
+                </div>
+                <div class="form-group">
+                    <label for="name">Nome completo</label>
+                    <input type="text" id="name" placeholder="Ex: João Miguel Silva">
+                </div>
+                <div class="form-group">
+                    <label for="nif">NIF</label>
+                    <input type="text" id="nif" placeholder="Ex: 123456789">
+                </div>
+                <div class="form-group">
+                    <label for="address">Morada</label>
+                    <input type="text" id="address" placeholder="Ex: Rua das Flores, 123, 1º Dto">
+                </div>
+                <div class="form-group">
+                    <label for="postalCode">Código Postal e Localidade</label>
+                    <input type="text" id="postalCode" placeholder="Ex: 1000-001 Lisboa">
+                </div>
+                <div class="form-group">
+                    <label for="clientNumber">Número de cliente (se aplicável)</label>
+                    <input type="text" id="clientNumber" placeholder="Ex: C123456789">
+                </div>
+                <div class="form-group">
+                    <label for="contractNumber">Número de contrato (se aplicável)</label>
+                    <input type="text" id="contractNumber" placeholder="Ex: CT-2024-12345">
+                </div>
+                <div class="form-group">
+                    <label for="reason">Motivo do cancelamento (opcional)</label>
+                    <select id="reason">
+                        <option value="">Selecionar motivo...</option>
+                        <option value="cost">Custo elevado</option>
+                        <option value="service">Insatisfação com o serviço</option>
+                        <option value="moving">Mudança de residência</option>
+                        <option value="alternative">Mudança para outro fornecedor</option>
+                        <option value="unused">Serviço não utilizado</option>
+                        <option value="other">Outro motivo</option>
+                    </select>
+                </div>
+                <div class="btn-row">
+                    <button class="btn btn-secondary" onclick="goToStep(2)">← Voltar</button>
+                    <button class="btn btn-primary" onclick="generateLetter()">Gerar Carta →</button>
+                </div>
+            </div>
+            
+            <!-- Step 4: Letter -->
+            <div class="step" id="step4">
+                <div class="step-header">
+                    <span class="step-number">4</span>
+                    <span class="step-title">A tua carta de cancelamento</span>
+                </div>
+                <div class="letter-preview" id="letterPreview">
+                    <!-- Generated letter -->
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-success" onclick="copyLetter()">📋 Copiar Carta</button>
+                    <button class="btn btn-primary" onclick="downloadLetter()">📄 Download PDF</button>
+                    <button class="btn btn-secondary" onclick="goToStep(3)">← Editar</button>
+                </div>
+                <div class="legal-note">
+                    <strong>⚠️ Nota Legal</strong>
+                    Esta carta é um modelo baseado na legislação portuguesa. Verifica sempre os termos do teu contrato e os prazos de pré-aviso aplicáveis. Envia por carta registada com aviso de recepção para teres prova de entrega.
+                </div>
+            </div>
+        </div>
+        
+        <div class="tips">
+            <h3>💡 Dicas para cancelar com sucesso</h3>
+            <ul>
+                <li>Envia sempre por <strong>carta registada com aviso de recepção</strong></li>
+                <li>Guarda o comprovativo de envio e o aviso de recepção</li>
+                <li>O período de fidelização máximo legal é de 24 meses</li>
+                <li>Se mudares de morada, podes cancelar sem penalização</li>
+                <li>Tens 14 dias para desistir de contratos feitos à distância</li>
+                <li>A ANACOM e a DECO podem ajudar em caso de conflito</li>
+            </ul>
+        </div>
+        
+        <footer>
+            <p>Feito com ❤️ para ajudar os portugueses a libertar-se de contratos indesejados.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem;">Este serviço é gratuito e não substitui aconselhamento jurídico.</p>
+        </footer>
+    </div>
+    
+    <div class="copied-toast" id="toast">✓ Carta copiada!</div>
+    
+    <script>
+        // Provider data
+        const providers = {
+            telecom: [
+                { id: 'meo', name: 'MEO', address: 'Av. Fontes Pereira de Melo, 40, 1069-300 Lisboa' },
+                { id: 'nos', name: 'NOS', address: 'Rua Actor António Silva, 9, 1649-033 Lisboa' },
+                { id: 'vodafone', name: 'Vodafone', address: 'Av. D. João II, Lote 1.04.01, 1998-017 Lisboa' },
+                { id: 'nowo', name: 'NOWO', address: 'Quinta do Paizinho, Parceiros de Igreja, 2400-441 Leiria' }
+            ],
+            internet: [
+                { id: 'meo-fibra', name: 'MEO Fibra', address: 'Av. Fontes Pereira de Melo, 40, 1069-300 Lisboa' },
+                { id: 'nos-fibra', name: 'NOS Fibra', address: 'Rua Actor António Silva, 9, 1649-033 Lisboa' },
+                { id: 'vodafone-fibra', name: 'Vodafone Fibra', address: 'Av. D. João II, Lote 1.04.01, 1998-017 Lisboa' }
+            ],
+            gym: [
+                { id: 'holmes', name: 'Holmes Place', address: 'Edifício Atrium Saldanha, Praça Duque de Saldanha, 1, 1050-094 Lisboa' },
+                { id: 'fitness-hut', name: 'Fitness Hut', address: 'Via correspondente ao clube' },
+                { id: 'solinca', name: 'Solinca', address: 'Via correspondente ao clube' },
+                { id: 'pump', name: 'Pump', address: 'Via correspondente ao clube' },
+                { id: 'vivafit', name: 'Vivafit', address: 'Via correspondente ao clube' }
+            ],
+            insurance: [
+                { id: 'fidelidade', name: 'Fidelidade', address: 'Largo do Calhariz, 30, 1249-001 Lisboa' },
+                { id: 'allianz', name: 'Allianz', address: 'Rua Andrade Corvo, 32, 1069-014 Lisboa' },
+                { id: 'ageas', name: 'Ageas', address: 'Av. da Liberdade, 242, 1250-149 Lisboa' },
+                { id: 'tranquilidade', name: 'Tranquilidade', address: 'Av. da Liberdade, 242, 1250-149 Lisboa' },
+                { id: 'multicare', name: 'Multicare', address: 'Av. da Liberdade, 242, 1250-149 Lisboa' }
+            ],
+            streaming: [
+                { id: 'netflix', name: 'Netflix', address: 'Via website netflix.com/cancelar' },
+                { id: 'hbo', name: 'HBO Max', address: 'Via website hbomax.com' },
+                { id: 'disney', name: 'Disney+', address: 'Via website disneyplus.com' },
+                { id: 'prime', name: 'Amazon Prime', address: 'Via website amazon.pt' },
+                { id: 'spotify', name: 'Spotify', address: 'Via website spotify.com' }
+            ],
+            energy: [
+                { id: 'edp', name: 'EDP Comercial', address: 'Av. 24 de Julho, 12, 1249-300 Lisboa' },
+                { id: 'galp', name: 'Galp Energia', address: 'Rua Tomás da Fonseca, Torre C, 1600-209 Lisboa' },
+                { id: 'endesa', name: 'Endesa', address: 'Av. da Liberdade, 36, 1250-145 Lisboa' },
+                { id: 'goldenergy', name: 'Goldenergy', address: 'Rua D. João de Castro, 7-2ºA, 1700-049 Lisboa' }
+            ],
+            subscription: [
+                { id: 'other-sub', name: 'Outra subscrição', address: '' }
+            ],
+            other: [
+                { id: 'custom', name: 'Serviço personalizado', address: '' }
+            ]
+        };
+        
+        const reasonTexts = {
+            cost: 'por razões de natureza económica',
+            service: 'devido a insatisfação com a qualidade do serviço prestado',
+            moving: 'por motivo de mudança de residência para local onde o serviço não está disponível',
+            alternative: 'por ter optado por um fornecedor alternativo',
+            unused: 'por já não fazer uso do serviço',
+            other: 'por motivos pessoais'
+        };
+        
+        let selectedCategory = null;
+        let selectedProvider = null;
+        
+        // Category selection
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.category-card').forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                selectedCategory = card.dataset.category;
+                
+                // Show providers
+                showProviders(selectedCategory);
+                goToStep(2);
+            });
+        });
+        
+        function showProviders(category) {
+            const grid = document.getElementById('providerGrid');
+            grid.innerHTML = '';
+            
+            providers[category].forEach(provider => {
+                const card = document.createElement('div');
+                card.className = 'provider-card';
+                card.dataset.providerId = provider.id;
+                card.innerHTML = `<div class="provider-name">${provider.name}</div>`;
+                card.addEventListener('click', () => {
+                    document.querySelectorAll('.provider-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    selectedProvider = provider;
+                    goToStep(3);
+                });
+                grid.appendChild(card);
+            });
+            
+            // Add custom option for other
+            if (category === 'other' || category === 'subscription') {
+                const customInput = document.createElement('div');
+                customInput.innerHTML = `
+                    <div class="form-group" style="margin-top: 1rem;">
+                        <label for="customProvider">Nome do fornecedor</label>
+                        <input type="text" id="customProvider" placeholder="Ex: Empresa XYZ">
+                    </div>
+                    <div class="form-group">
+                        <label for="customAddress">Morada do fornecedor</label>
+                        <input type="text" id="customAddress" placeholder="Ex: Rua ABC, 123, Lisboa">
+                    </div>
+                    <button class="btn btn-primary" onclick="setCustomProvider()" style="margin-top: 1rem;">Continuar →</button>
+                `;
+                grid.innerHTML = '';
+                grid.appendChild(customInput);
+            }
+        }
+        
+        function setCustomProvider() {
+            const name = document.getElementById('customProvider').value;
+            const address = document.getElementById('customAddress').value;
+            if (name) {
+                selectedProvider = { id: 'custom', name, address };
+                goToStep(3);
+            }
+        }
+        
+        function goToStep(stepNum) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById(`step${stepNum}`).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function generateLetter() {
+            const name = document.getElementById('name').value || '[NOME]';
+            const nif = document.getElementById('nif').value || '[NIF]';
+            const address = document.getElementById('address').value || '[MORADA]';
+            const postalCode = document.getElementById('postalCode').value || '[CÓDIGO POSTAL]';
+            const clientNumber = document.getElementById('clientNumber').value;
+            const contractNumber = document.getElementById('contractNumber').value;
+            const reasonKey = document.getElementById('reason').value;
+            const reason = reasonKey ? reasonTexts[reasonKey] : '';
+            
+            const today = new Date();
+            const dateStr = today.toLocaleDateString('pt-PT', { day: 'numeric', month: 'long', year: 'numeric' });
+            
+            let references = '';
+            if (clientNumber) references += `<br>N.º de Cliente: ${clientNumber}`;
+            if (contractNumber) references += `<br>N.º de Contrato: ${contractNumber}`;
+            
+            let reasonText = reason ? `<br><br>O motivo desta decisão prende-se ${reason}.` : '';
+            
+            const letter = `
+                <div class="header">
+                    <strong>${name}</strong><br>
+                    ${address}<br>
+                    ${postalCode}<br>
+                    NIF: ${nif}<br><br>
+                    ${dateStr}
+                </div>
+                
+                <p>
+                    <strong>Exmos. Senhores</strong><br>
+                    ${selectedProvider.name}<br>
+                    ${selectedProvider.address || '[Morada do fornecedor]'}
+                </p>
+                
+                <p class="subject">ASSUNTO: Rescisão de Contrato de Prestação de Serviços${references}</p>
+                
+                <p>
+                    Eu, ${name}, titular do Número de Identificação Fiscal ${nif}, venho por este meio comunicar a V. Exas. a minha intenção de <strong>rescindir o contrato</strong> de prestação de serviços que mantenho com a vossa empresa, com efeitos a partir da data de recepção da presente comunicação ou, caso exista período de pré-aviso contratualmente previsto, no termo desse período.
+                </p>
+                
+                <p>
+                    Solicito a confirmação, por escrito, da data efectiva de cessação do contrato, bem como a emissão da factura final relativa aos serviços prestados até essa data.${reasonText}
+                </p>
+                
+                <p>
+                    Mais informo que devem cessar quaisquer débitos directos ou cobranças automáticas associadas a este contrato a partir da data de cessação.
+                </p>
+                
+                <p>
+                    Agradeço a confirmação da recepção desta carta e o envio de documentação comprovativa do cancelamento para a morada acima indicada.
+                </p>
+                
+                <div class="signature">
+                    <p>Sem outro assunto de momento, subscrevo-me com os melhores cumprimentos,</p>
+                    <br><br><br>
+                    <p>_____________________________<br>${name}</p>
+                </div>
+            `;
+            
+            document.getElementById('letterPreview').innerHTML = letter;
+            goToStep(4);
+        }
+        
+        function copyLetter() {
+            const letterText = document.getElementById('letterPreview').innerText;
+            navigator.clipboard.writeText(letterText).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2000);
+            });
+        }
+        
+        function downloadLetter() {
+            const letterContent = document.getElementById('letterPreview').innerHTML;
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Carta de Cancelamento</title>
+                    <style>
+                        body { 
+                            font-family: 'Times New Roman', Times, serif; 
+                            font-size: 12pt;
+                            line-height: 1.6;
+                            padding: 2cm;
+                            max-width: 21cm;
+                            margin: 0 auto;
+                        }
+                        .header { text-align: right; margin-bottom: 2cm; }
+                        .subject { font-weight: bold; margin: 1.5cm 0; }
+                        .signature { margin-top: 2cm; }
+                        @media print {
+                            body { padding: 0; }
+                        }
+                    </style>
+                </head>
+                <body>${letterContent}</body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+        }
+    </script>
+</body>
+</html>
