@@ -613,7 +613,7 @@
 
         async function loadData() {
             try {
-                const response = await fetch('side-hustles.json');
+                const response = await fetch('side-hustles.json?v=' + Date.now());
                 const data = await response.json();
                 const weights = data.weights;
                 
