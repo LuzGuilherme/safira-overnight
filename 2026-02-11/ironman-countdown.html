@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ironman 2026 — Countdown</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #48dbfb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.25rem;
+        }
+
+        .subtitle {
+            color: #a1a1aa;
+            font-size: 1rem;
+        }
+
+        /* Countdown */
+        .countdown-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            color: #a1a1aa;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: linear-gradient(135deg, rgba(255,107,107,0.2) 0%, rgba(72,219,251,0.2) 100%);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            min-width: 80px;
+        }
+
+        .countdown-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .countdown-unit {
+            font-size: 0.75rem;
+            color: #a1a1aa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Stats Grid */
+        .stats-section {
+            margin: 2rem 0;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-card.swim { border-top: 3px solid #48dbfb; }
+        .stat-card.bike { border-top: 3px solid #feca57; }
+        .stat-card.run { border-top: 3px solid #ff6b6b; }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #a1a1aa;
+            margin-top: 0.25rem;
+        }
+
+        .stat-target {
+            font-size: 0.75rem;
+            color: #52525b;
+            margin-top: 0.5rem;
+        }
+
+        /* Progress Section */
+        .progress-section {
+            margin: 2rem 0;
+        }
+
+        .progress-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 1s ease;
+        }
+
+        .progress-fill.swim { background: linear-gradient(90deg, #48dbfb, #0abde3); }
+        .progress-fill.bike { background: linear-gradient(90deg, #feca57, #ff9f43); }
+        .progress-fill.run { background: linear-gradient(90deg, #ff6b6b, #ee5a5a); }
+
+        /* Highlight */
+        .highlight-section {
+            background: linear-gradient(135deg, rgba(255,107,107,0.15) 0%, rgba(254,202,87,0.15) 100%);
+            border: 1px solid rgba(255,107,107,0.3);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .highlight-emoji {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .highlight-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #feca57;
+        }
+
+        .highlight-subtitle {
+            font-size: 0.85rem;
+            color: #a1a1aa;
+        }
+
+        /* Quote */
+        .quote-section {
+            text-align: center;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .quote {
+            font-size: 1.25rem;
+            font-style: italic;
+            color: #d4d4d8;
+            margin-bottom: 0.5rem;
+        }
+
+        .quote-author {
+            font-size: 0.9rem;
+            color: #71717a;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: #52525b;
+            font-size: 0.85rem;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .countdown-item {
+                min-width: 70px;
+                padding: 0.75rem 1rem;
+            }
+
+            .countdown-value {
+                font-size: 2rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🏊‍♂️🚴‍♂️🏃‍♂️</div>
+            <h1>IRONMAN 2026</h1>
+            <p class="subtitle">3.8km Swim • 180km Bike • 42.2km Run</p>
+        </header>
+
+        <section class="countdown-section">
+            <p class="countdown-label">Tempo até ao Race Day</p>
+            <div class="countdown" id="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-value" id="days">---</div>
+                    <div class="countdown-unit">Dias</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="hours">--</div>
+                    <div class="countdown-unit">Horas</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="minutes">--</div>
+                    <div class="countdown-unit">Min</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="seconds">--</div>
+                    <div class="countdown-unit">Seg</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-section">
+            <h2 class="section-title">📊 Fevereiro 2026</h2>
+            <div class="stats-grid">
+                <div class="stat-card swim">
+                    <div class="stat-icon">🏊‍♂️</div>
+                    <div class="stat-value">5.8 km</div>
+                    <div class="stat-label">Natação</div>
+                    <div class="stat-target">Meta: 15 km</div>
+                </div>
+                <div class="stat-card bike">
+                    <div class="stat-icon">🚴‍♂️</div>
+                    <div class="stat-value">126 km</div>
+                    <div class="stat-label">Ciclismo</div>
+                    <div class="stat-target">Meta: 300 km</div>
+                </div>
+                <div class="stat-card run">
+                    <div class="stat-icon">🏃‍♂️</div>
+                    <div class="stat-value">51 km</div>
+                    <div class="stat-label">Corrida</div>
+                    <div class="stat-target">Meta: 120 km</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="progress-section">
+            <h2 class="section-title">📈 Progresso Mensal</h2>
+            
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span>🏊‍♂️ Natação</span>
+                    <span>5.8 / 15 km (39%)</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill swim" style="width: 39%"></div>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span>🚴‍♂️ Ciclismo</span>
+                    <span>126 / 300 km (42%)</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill bike" style="width: 42%"></div>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span>🏃‍♂️ Corrida</span>
+                    <span>51 / 120 km (43%)</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill run" style="width: 43%"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="highlight-section">
+            <div class="highlight-emoji">🏆</div>
+            <div class="highlight-title">Destaque da Semana</div>
+            <div class="highlight-value">Morning Trail Run</div>
+            <div class="highlight-subtitle">19.6 km • 944m D+ • Serra de Monchique</div>
+        </section>
+
+        <section class="quote-section">
+            <p class="quote" id="quote">"Anything is possible. You can be told you have a 90% chance or a 50% chance or a 1% chance, but you have to believe."</p>
+            <p class="quote-author" id="quote-author">— Chrissie Wellington, 4x Ironman World Champion</p>
+        </section>
+
+        <footer>
+            <p>Criado pela Safira ✨ | Dados: Strava</p>
+            <p>Última actualização: <span id="lastUpdate"></span></p>
+        </footer>
+    </div>
+
+    <script>
+        // Ironman date (placeholder: 4 Outubro 2026)
+        const ironmanDate = new Date('2026-10-04T07:00:00');
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = ironmanDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('days').textContent = '🎉';
+                document.getElementById('hours').textContent = 'RACE';
+                document.getElementById('minutes').textContent = 'DAY';
+                document.getElementById('seconds').textContent = '!';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        // Quotes rotation
+        const quotes = [
+            { text: "Anything is possible. You can be told you have a 90% chance or a 50% chance or a 1% chance, but you have to believe.", author: "Chrissie Wellington, 4x Ironman World Champion" },
+            { text: "Pain is temporary. Quitting lasts forever.", author: "Lance Armstrong" },
+            { text: "The body achieves what the mind believes.", author: "Unknown" },
+            { text: "Suffer the pain of discipline or suffer the pain of regret.", author: "Unknown" },
+            { text: "Today I will do what others won't, so tomorrow I can do what others can't.", author: "Jerry Rice" },
+            { text: "You don't have to be great to start, but you have to start to be great.", author: "Zig Ziglar" },
+            { text: "The harder you work, the luckier you get.", author: "Gary Player" },
+            { text: "Dream big, work hard, stay focused.", author: "Unknown" }
+        ];
+
+        function rotateQuote() {
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('quote').textContent = `"${randomQuote.text}"`;
+            document.getElementById('quote-author').textContent = `— ${randomQuote.author}`;
+        }
+
+        // Last update
+        document.getElementById('lastUpdate').textContent = new Date().toLocaleString('pt-PT', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+
+        // Initialize
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        
+        // Rotate quote every 30 seconds
+        setInterval(rotateQuote, 30000);
+    </script>
+</body>
+</html>
