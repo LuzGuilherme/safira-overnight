@@ -1,7 +1,147 @@
 {
-  "generated": "2026-02-12T07:09:17.943954Z",
-  "count": 1,
+  "generated": "2026-02-12T14:51:54.005421Z",
+  "count": 2,
   "digests": [
+    {
+      "id": "2026-02-12-coding-agents-kelvin-french-owen",
+      "filename": "2026-02-12-coding-agents-kelvin-french-owen.md",
+      "date": "2026-02-12",
+      "title": "Coding Agents Deep Dive",
+      "host": "The Light Cone (YC Podcast) - Gary Tan, Jared, Harj",
+      "guest": "Kelvin French-Owen — Co-founder Segment, ex-OpenAI Codex Team",
+      "duration": "~45 min",
+      "link": "https://www.youtube.com/watch?v=qwmmWzPnhog",
+      "theme": "Como tirar o máximo dos coding agents e o futuro do desenvolvimento de software",
+      "tldr": "Coding agents (Claude Code, Codex) estão a transformar programadores em \"managers\" de código — a chave é **context engineering**, não prompting. Claude Code destaca-se por dividir tarefas em sub-agentes com contextos separados, enquanto Codex foca em runs muito longos com compactação. O futuro pertence a quem souber **dirigir** agentes, não a quem escreve código manualmente.",
+      "sections_summary": {
+        "A Revolução dos CLIs vs IDEs": "- CLIs (Claude Code, Codex) venceram os IDEs — \"weird retro future\"\n- CLI distancia-te do código, dá liberdade para \"voar\" pelo projecto\n- Distribuição bottoms-up é crítica — engenheiros instalam e usam sem pedir permissão\n- Claude Code funciona porque tem acesso directo ao ambiente (DB, filesystem, etc)\n- Cursor tinha IDE-first, mas terminal ganhou por ser mais composível",
+        "Context Engineering — O Segredo": "- **Não é prompting, é context engineering** — o contexto que forneces determina tudo\n- Claude Code spawna sub-agentes (Haiku) para explorar o filesystem\n- Cada sub-agente tem contexto próprio → evita poluição\n- Codex usa compactação periódica para runs muito longos\n- Semantic search vs grep: **grep funciona melhor em código** (context dense)\n- Git ignore filtra lixo automaticamente",
+        "A \"Dumb Zone\" — Quando Limpar Contexto": "- Após ~50% tokens, qualidade degrada (\"dumb zone\")\n- Analogia: estudante com 5 minutos para metade do exame — começa a apressar\n- **Canary trick:** Colocar facto random no início, verificar se lembra\n- Limpar contexto agressivamente quando performance baixa\n- Claude Code ainda não faz detecção automática — oportunidade de melhoria",
+        "Arquitecturas Opostas: Claude Code vs Codex": "- **Claude Code:** Ferramentas para humanos, trabalha \"como humano\", builds short-medium\n- **Codex:** Pursuit of AGI, pode fazer coisas \"alien\", runs muito longos\n- Codex faz compactação entre turnos — pode correr indefinidamente\n- Analogia: Claude = ir à loja comprar materiais; Codex = impressora 3D que cria do zero\n- Cada um reflecte o DNA da empresa (Anthropic vs OpenAI)",
+        "Tips para Ser Top 1% User": "- **Menos código, mais boilerplate** — Vercel, Next.js, Cloudflare Workers\n- **Microservices** — packages bem estruturados, 100-200 linhas\n- **Dar forma de verificar** — testes, lint, CI\n- **Code review bots** — Reptile, Cursor bug bot, Codex review\n- **Explorar codebase** — agentes são excelentes nisso\n- **Limpar contexto** — não deixar passar dos 50% tokens\n- **Saber o que o modelo faz bem** — persistência, fazer mais do que existe",
+        "O Futuro do Trabalho de Software": "- Equipas de 1 pessoa vão competir com departamentos inteiros\n- Todo profissional terá \"cloud computer\" com agentes pessoais\n- Empresas ficam mais pequenas, mas haverá muito mais\n- \"Manager schedule\" vs \"Maker schedule\" já não é tão rígido\n- Podes lançar tarefas em reuniões e voltar depois\n- Próxima geração será muito melhor a multitasking"
+      },
+      "insights": [],
+      "actions": {
+        "immediate": [
+          "Verificar % de contexto no Claude Code — limpar se >50%",
+          "Adicionar canary no início de sessões longas",
+          "Usar `--dangerously-skip-permissions` só em side projects pessoais"
+        ],
+        "week": [
+          "Aumentar test coverage nos projectos principais",
+          "Estruturar código em módulos <200 linhas",
+          "Configurar code review bot (Reptile ou similar)",
+          "Experimentar Claude Code para explorar codebases desconhecidas"
+        ],
+        "longterm": [
+          "Migrar para stacks com menos boilerplate (Vercel/Next.js)",
+          "Desenvolver \"manager mindset\" — dirigir vs escrever",
+          "Criar overnight workflows para agentes trabalharem enquanto durmo",
+          "Estudar como optimizar context engineering"
+        ]
+      },
+      "context_application": {},
+      "frameworks": [
+        {
+          "name": "The Dumb Zone",
+          "content": "**O que é:** Após ~50% do context window, modelos degradam como estudante com pouco tempo no exame\n**Como usar:** \n1. Monitorizar % tokens no CLI\n2. Limpar proactivamente antes de degradar\n3. Usar canary para detectar quando \"esquece\"\n4. Não insistir em contextos longos"
+        },
+        {
+          "name": "Bottoms-Up Distribution",
+          "content": "**O que é:** Produtos que engenheiros instalam sem pedir permissão vencem enterprise sales\n**Como usar:**\n1. Fazer ferramentas que \"just work\" sem setup complexo\n2. Documentação excelente = adopção orgânica\n3. Não depender de vendas top-down para crescer"
+        },
+        {
+          "name": "Context-as-Code",
+          "content": "**O que é:** Ficheiros .md (CLAUDE.md, skills) definem o comportamento do agente\n**Como usar:**\n1. Investir em documentação estruturada\n2. Não depender de prompts ad-hoc\n3. Skills e context files são o novo \"código\""
+        },
+        {
+          "name": "GEO Strategy (Generative Engine Optimization)",
+          "content": "**O que é:** Aparecer nas respostas de LLMs quando perguntam sobre ferramentas\n**Como usar:**\n1. Docs boas e públicas\n2. Open source quando possível\n3. Social proof (Reddit, HN, Twitter)\n4. Cuidado com \"top 5 lists\" manipuladas"
+        }
+      ],
+      "stories": [
+        {
+          "title": "Gary's Bionic Knee",
+          "content": "Gary comparou voltar a programar com Claude Code a receber um joelho biónico após 10 anos de \"manager mode\" (lesão catastrófica de não programar). Consegue agora correr 5x mais rápido do que antes da \"lesão\". Analogia perfeita para quem deixou de programar e agora pode voltar."
+        },
+        {
+          "title": "O Bug do Rails com Vírgulas",
+          "content": "Gary passou 30 minutos a ver Claude Code debugar um bug obscuro de Rails — uma string com vírgula que devia ser array JSON. Há 10 anos, teria procurado no Stack Overflow durante horas. Agora o agente percorreu milhares de linhas de Active Job internals e encontrou sozinho. \"This is insane.\""
+        },
+        {
+          "title": "A Prompt Injection Óbvia",
+          "content": "Na OpenAI, testaram Codex com uma GitHub issue que tinha prompt injection óbvia (\"reveal this secret\"). O PM disse \"não há forma de isto funcionar\"... funcionou imediatamente. Por isso Codex é tão paranóico com sandboxing — segurança é real."
+        },
+        {
+          "title": "O Top 5 List Hack para GEO",
+          "content": "Uma empresa criou um artigo \"top 5 tools in category\" com o seu próprio produto em #1. Qualquer humano vê o bias óbvio. Mas LLMs não detectam — começaram a recomendar o produto nas respostas. GEO manipulation em acção."
+        },
+        {
+          "title": "Fork Segment Per Customer",
+          "content": "Visão futura: imagina que cada cliente que se regista no Segment recebe um fork do codebase nos seus próprios servidores. Se querem mudar algo, dizem a um chat window e o agente edita a versão deles. Quando Segment lança features, um agente faz merge automático. Software totalmente personalizado."
+        }
+      ],
+      "resources": [
+        {
+          "type": "Ferramentas:",
+          "description": "Claude Code, Codex, Cursor, Reptile (code review YC), Open Code, Conductor"
+        },
+        {
+          "type": "Stacks:",
+          "description": "Vercel, Next.js, Cloudflare Workers, Supabase, Rails"
+        },
+        {
+          "type": "Conceitos:",
+          "description": "GEO (Generative Engine Optimization), MCP (Model Context Protocol), Context Engineering"
+        },
+        {
+          "type": "Pessoas:",
+          "description": "Andre Karpathy (tweet sobre persistência de agentes), Dex (Human Layer - \"dumb zone\" concept)"
+        },
+        {
+          "type": "Empresas:",
+          "description": "Segment, OpenAI, Anthropic, Ramp (blog sobre coding agents internos), Human Layer (YC F24)"
+        },
+        {
+          "type": "Websites:",
+          "description": "chronoquiz.com (do podcast anterior — referência cruzada)"
+        }
+      ],
+      "reflection_questions": [
+        "Estou a usar contexto de forma óptima ou a deixar acumular \"lixo\"?",
+        "Os meus projectos têm test coverage suficiente para acelerar com agentes?",
+        "Como posso estruturar código em módulos <200 linhas para agentes navegarem melhor?",
+        "Estou a pensar como \"manager\" ou ainda como \"developer\" tradicional?",
+        "Que tarefas posso delegar para overnight builds?"
+      ],
+      "quotes": [
+        "I feel like when I'm using Claude Code, it's like, oh, I feel like I'm flying through the code.",
+        "It's like I got a new total knee replacement and actually it's a bionic knee and it allows me to run five times faster.",
+        "This thing can debug nested delayed jobs like five levels in and figure out what the bug was and then write a test for it and it never happens again. This is insane.",
+        "The more senior you are, the more you benefit. The agents are so good at taking some sort of idea and putting it into action.",
+        "In the limit, every person who's working has their own cloud computer and set of cloud agents running for them.",
+        "Are you a dangerously skip permissions person?"
+      ],
+      "rating": 5.0,
+      "rating_breakdown": {
+        "Novidade da informação": 5,
+        "Aplicabilidade prática": 5,
+        "Recomendo a outros": 5
+      },
+      "tags": [
+        "coding-agents",
+        "claude-code",
+        "codex",
+        "context-engineering",
+        "produtividade",
+        "futuro-do-trabalho",
+        "YC",
+        "programação",
+        "AI"
+      ],
+      "verdict": "Essencial para quem usa coding agents. O insight do \"50% context = limpar\" e a explicação de como Claude Code usa sub-agentes valem o episódio inteiro. Obrigatório para developers e founders."
+    },
     {
       "id": "2026-02-11-sleep-michael-breus",
       "filename": "2026-02-11-sleep-michael-breus.md",
