@@ -31,50 +31,34 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
-        .gradient-bg {
-            background: linear-gradient(135deg, #0c4a6e 0%, #1e3a5f 50%, #0f172a 100%);
-        }
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-        }
-        .tag {
-            transition: all 0.2s ease;
-        }
-        .tag:hover {
-            transform: scale(1.05);
-        }
-        .insight-card {
-            border-left: 3px solid #0ea5e9;
-        }
-        .quote-card {
-            border-left: 3px solid #f59e0b;
-        }
-        .action-checkbox:checked + span {
-            text-decoration: line-through;
-            opacity: 0.6;
-        }
-        .fade-in {
-            animation: fadeIn 0.3s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .gradient-bg { background: linear-gradient(135deg, #0c4a6e 0%, #1e3a5f 50%, #0f172a 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3); }
+        .insight-card { border-left: 3px solid #0ea5e9; }
+        .quote-card { border-left: 3px solid #f59e0b; }
+        .context-card { border-left: 3px solid #10b981; }
+        .framework-card { border-left: 3px solid #8b5cf6; }
+        .story-card { border-left: 3px solid #ec4899; }
+        .action-checkbox:checked + span { text-decoration: line-through; opacity: 0.6; }
+        .section-toggle { transition: transform 0.2s ease; }
+        .section-toggle.open { transform: rotate(180deg); }
+        .collapsible-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .collapsible-content.open { max-height: 5000px; }
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #1e293b; }
         ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        .markdown-content ul { list-style-type: disc; margin-left: 1.5rem; }
+        .markdown-content li { margin-bottom: 0.5rem; }
+        .markdown-content strong { color: #38bdf8; }
     </style>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen">
     <!-- Header -->
     <header class="gradient-bg border-b border-slate-700/50 sticky top-0 z-50 backdrop-blur-sm">
         <div class="max-w-7xl mx-auto px-4 py-4">
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between flex-wrap gap-4">
                 <div class="flex items-center gap-3">
                     <span class="text-3xl">🎧</span>
                     <div>
@@ -83,347 +67,311 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
-                    <div class="relative">
-                        <input type="text" id="searchInput" placeholder="Pesquisar..." 
-                               class="bg-slate-800/80 border border-slate-600 rounded-lg px-4 py-2 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-safira-500 w-64">
-                        <svg class="absolute left-3 top-2.5 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                        </svg>
-                    </div>
-                    <div id="stats" class="text-sm text-slate-400">
-                        <span id="digestCount">0</span> digests
-                    </div>
+                    <input type="text" id="searchInput" placeholder="Pesquisar..." 
+                           class="bg-slate-800/80 border border-slate-600 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-safira-500 w-48 md:w-64">
+                    <span id="digestCount" class="text-sm text-slate-400">0 digests</span>
                 </div>
             </div>
         </div>
     </header>
 
     <main class="max-w-7xl mx-auto px-4 py-8">
-        <!-- Filters -->
-        <div class="flex flex-wrap gap-2 mb-8" id="tagFilters">
-            <button class="tag-filter active px-3 py-1.5 rounded-full text-sm font-medium bg-safira-600 text-white" data-tag="all">
-                Todos
-            </button>
-        </div>
-
+        <!-- Tag Filters -->
+        <div class="flex flex-wrap gap-2 mb-8" id="tagFilters"></div>
+        
         <!-- Digest List -->
-        <div id="digestList" class="space-y-6">
-            <!-- Digests will be inserted here -->
-        </div>
-
+        <div id="digestList" class="space-y-8"></div>
+        
         <!-- Empty State -->
         <div id="emptyState" class="hidden text-center py-20">
             <span class="text-6xl mb-4 block">🎧</span>
             <h2 class="text-2xl font-bold text-slate-300 mb-2">Nenhum digest encontrado</h2>
-            <p class="text-slate-500">Os podcasts analisados aparecerão aqui.</p>
         </div>
     </main>
 
-    <!-- Detail Modal -->
-    <div id="detailModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden overflow-y-auto">
-        <div class="min-h-screen px-4 py-8 flex items-start justify-center">
-            <div class="bg-slate-800 rounded-2xl max-w-4xl w-full shadow-2xl fade-in" id="modalContent">
-                <!-- Content inserted by JS -->
-            </div>
-        </div>
-    </div>
-
     <script>
-        // Data
-        let digestsData = {"generated":"2026-02-12T02:00:57.044388Z","count":1,"digests":[{"id":"2026-02-11-sleep-michael-breus","filename":"2026-02-11-sleep-michael-breus.md","date":"2026-02-11","title":"The Sleep Doctor: This Is Destroying Your Sleep & Relationship","host":"Steven Bartlett (Diary of a CEO)","guest":"Dr. Michael Breus — Sleep Specialist, PhD, 26 anos de prática","duration":"~2h 15min","link":"https://www.youtube.com/watch?v=pXlMKzcZlwM","tldr":"O sono é a base de tudo — performance, relações, criatividade, e prevenção de doenças como Alzheimer. Cada pessoa tem um chronotype genético (Lion/Bear/Wolf/Dolphin) que determina os melhores horários para cada actividade. Sleep apnea afecta 1 em 7 adultos, 80-90% não sabem que têm, e é tão comum como diabetes.","insights":[{"insight":"Café só 90min depois de acordar","why":"Cortisol já está alto; café depois = maior boost"},{"insight":"Sleep apnea = Alzheimer risk +45%","why":"Não entra em fase 4 onde cérebro limpa proteínas"},{"insight":"Álcool destrói sono profundo","why":"Mesmo 1-2 copos; parar 3h antes de dormir"},{"insight":"Melhor hora de cada actividade depende do chronotype","why":"Podes optimizar trabalho, treino, sexo, café"},{"insight":"Cookie antes de dormir = heart rate alto 3h","why":"Açúcar + digestão mantém corpo acordado"},{"insight":"Técnica 4-7-8 funciona em 20 ciclos","why":"Baixa batimento cardíaco abaixo de 60bpm"},{"insight":"Pillows: nariz alinhado com esterno","why":"Desalinhamento = dor = não entra em deep sleep"},{"insight":"Dreams resolvem problemas","why":"\"Sleep on it\" é literalmente terapia gratuita"}],"actions":{"immediate":["Fazer quiz em chronoquiz.com para descobrir chronotype","Definir alarme para acordar à mesma hora amanhã (e manter 7 dias)","Remover snacks açucarados do quarto"],"week":["Experimentar café só depois de 90min acordado (5 dias)","Tentar técnica 4-7-8 antes de dormir (3 noites)","Verificar temperatura do quarto (baixar se >20°C)","Parar álcool 3h antes de deitar (se aplicável)"],"longterm":["Considerar teste de sleep apnea (especialmente se ressonas)","Criar rotina nocturna: 20min tarefas + 20min higiene + 20min relaxamento","Avaliar pillow actual (nariz alinhado com esterno?)","Fazer banana tea ritual (magnésio natural)"]},"quotes":["When you change someone's sleep, you change their life.","You can't force your brain to sleep. In the history of time, nobody has ever been able to force their brain to sleep.","Dreams are emotional metabolism — you're working through your emotional states from the daytime.","Right is wrong — don't sleep on your right side, sleep on your left.","Sleep is recovery. If you want to lead a nice, prosperous life, you want to sleep."],"rating":5,"tags":["sono","chronotype","sleep-apnea","melatonina","performance","recovery","saúde","produtividade","biohacking","circadian-rhythm"],"sections":{}}]};
-        
+        // Load data from JSON file
+        let digestsData = null;
         let activeTag = 'all';
         let searchQuery = '';
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
+        async function loadData() {
+            try {
+                const response = await fetch('digests.json');
+                digestsData = await response.json();
+                init();
+            } catch (e) {
+                console.error('Failed to load digests.json', e);
+            }
+        }
+
+        function init() {
             renderTagFilters();
             renderDigests();
-            updateStats();
-            setupEventListeners();
-        });
+            document.getElementById('digestCount').textContent = `${digestsData.count} digest${digestsData.count !== 1 ? 's' : ''}`;
+            document.getElementById('searchInput').addEventListener('input', e => {
+                searchQuery = e.target.value.toLowerCase();
+                renderDigests();
+            });
+        }
 
         function renderTagFilters() {
             const container = document.getElementById('tagFilters');
             const allTags = new Set();
+            digestsData.digests.forEach(d => d.tags?.forEach(t => allTags.add(t)));
             
-            digestsData.digests.forEach(d => {
-                d.tags.forEach(t => allTags.add(t));
+            let html = `<button onclick="filterByTag('all')" class="tag-btn px-3 py-1.5 rounded-full text-sm font-medium ${activeTag === 'all' ? 'bg-safira-600 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'}">Todos</button>`;
+            allTags.forEach(tag => {
+                html += `<button onclick="filterByTag('${tag}')" class="tag-btn px-3 py-1.5 rounded-full text-sm font-medium ${activeTag === tag ? 'bg-safira-600 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'}">#${tag}</button>`;
             });
+            container.innerHTML = html;
+        }
 
-            const sortedTags = Array.from(allTags).sort();
-            
-            sortedTags.forEach(tag => {
-                const btn = document.createElement('button');
-                btn.className = 'tag-filter px-3 py-1.5 rounded-full text-sm font-medium bg-slate-700 text-slate-300 hover:bg-slate-600';
-                btn.dataset.tag = tag;
-                btn.textContent = `#${tag}`;
-                container.appendChild(btn);
-            });
+        function filterByTag(tag) {
+            activeTag = tag;
+            renderTagFilters();
+            renderDigests();
+        }
+
+        function parseMarkdown(text) {
+            if (!text) return '';
+            return text
+                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n- /g, '</li><li>')
+                .replace(/^- /, '<li>')
+                .replace(/\n(\d+)\. /g, '</li><li>')
+                .replace(/\n/g, '<br>');
         }
 
         function renderDigests() {
             const container = document.getElementById('digestList');
-            const emptyState = document.getElementById('emptyState');
-            
             const filtered = digestsData.digests.filter(d => {
-                const matchesTag = activeTag === 'all' || d.tags.includes(activeTag);
-                const matchesSearch = searchQuery === '' || 
-                    d.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    d.guest.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    d.tldr.toLowerCase().includes(searchQuery.toLowerCase());
+                const matchesTag = activeTag === 'all' || d.tags?.includes(activeTag);
+                const matchesSearch = !searchQuery || 
+                    d.title?.toLowerCase().includes(searchQuery) ||
+                    d.guest?.toLowerCase().includes(searchQuery) ||
+                    d.tldr?.toLowerCase().includes(searchQuery);
                 return matchesTag && matchesSearch;
             });
 
             if (filtered.length === 0) {
                 container.innerHTML = '';
-                emptyState.classList.remove('hidden');
+                document.getElementById('emptyState').classList.remove('hidden');
                 return;
             }
+            document.getElementById('emptyState').classList.add('hidden');
 
-            emptyState.classList.add('hidden');
             container.innerHTML = filtered.map(d => renderDigestCard(d)).join('');
         }
 
-        function renderDigestCard(digest) {
-            const stars = '⭐'.repeat(digest.rating);
-            const date = new Date(digest.date).toLocaleDateString('pt-PT', { 
-                day: 'numeric', month: 'short', year: 'numeric' 
-            });
+        function renderDigestCard(d) {
+            const ratingStars = '⭐'.repeat(Math.round(d.rating || 0));
+            const sectionsHtml = renderSections(d);
+            const insightsHtml = renderInsights(d);
+            const actionsHtml = renderActions(d);
+            const contextHtml = renderContext(d);
+            const frameworksHtml = renderFrameworks(d);
+            const storiesHtml = renderStories(d);
+            const resourcesHtml = renderResources(d);
+            const questionsHtml = renderQuestions(d);
+            const quotesHtml = renderQuotes(d);
 
             return `
-                <div class="card-hover bg-slate-800/80 rounded-xl border border-slate-700/50 overflow-hidden cursor-pointer" 
-                     onclick="openDetail('${digest.id}')">
-                    <div class="p-6">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="flex-1">
-                                <div class="flex items-center gap-2 text-sm text-slate-400 mb-2">
-                                    <span>${date}</span>
-                                    <span>•</span>
-                                    <span>${digest.duration}</span>
-                                    <span>•</span>
-                                    <span>${stars}</span>
-                                </div>
-                                <h2 class="text-xl font-bold text-white mb-1">${digest.title}</h2>
-                                <p class="text-safira-400 text-sm">${digest.guest}</p>
-                                <p class="text-slate-500 text-xs">${digest.host}</p>
+            <article class="bg-slate-800 rounded-2xl overflow-hidden card-hover fade-in">
+                <!-- Header -->
+                <div class="p-6 border-b border-slate-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex-1">
+                            <h2 class="text-xl font-bold text-white mb-2">${d.title}</h2>
+                            <div class="flex flex-wrap gap-4 text-sm text-slate-400">
+                                <span>🎙️ ${d.host}</span>
+                                <span>👤 ${d.guest}</span>
+                                <span>⏱️ ${d.duration}</span>
+                                <span>📅 ${d.date}</span>
                             </div>
-                            <a href="${digest.link}" target="_blank" 
-                               class="text-red-500 hover:text-red-400 p-2" 
-                               onclick="event.stopPropagation()">
-                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                                </svg>
-                            </a>
                         </div>
-                        
-                        <p class="text-slate-300 text-sm mb-4 line-clamp-3">${digest.tldr}</p>
-                        
-                        <div class="flex flex-wrap gap-2">
-                            ${digest.tags.slice(0, 5).map(t => `
-                                <span class="tag px-2 py-1 bg-slate-700/50 text-slate-400 text-xs rounded-full">#${t}</span>
-                            `).join('')}
-                            ${digest.tags.length > 5 ? `<span class="text-slate-500 text-xs">+${digest.tags.length - 5}</span>` : ''}
+                        <div class="text-right">
+                            <div class="text-lg">${ratingStars}</div>
+                            <a href="${d.link}" target="_blank" class="text-safira-400 hover:text-safira-300 text-sm">▶ Ver Episódio</a>
                         </div>
-                    </div>
-                    
-                    <div class="bg-slate-700/30 px-6 py-3 flex items-center justify-between text-sm">
-                        <span class="text-slate-400">
-                            💡 ${digest.insights.length} insights • ✅ ${
-                                digest.actions.immediate.length + 
-                                digest.actions.week.length + 
-                                digest.actions.longterm.length
-                            } acções
-                        </span>
-                        <span class="text-safira-400 font-medium">Ver detalhes →</span>
-                    </div>
-                </div>
-            `;
-        }
-
-        function openDetail(id) {
-            const digest = digestsData.digests.find(d => d.id === id);
-            if (!digest) return;
-
-            const modal = document.getElementById('detailModal');
-            const content = document.getElementById('modalContent');
-            
-            content.innerHTML = `
-                <div class="sticky top-0 bg-slate-800 border-b border-slate-700 px-6 py-4 flex items-center justify-between rounded-t-2xl">
-                    <h2 class="text-xl font-bold text-white truncate flex-1 mr-4">${digest.title}</h2>
-                    <button onclick="closeDetail()" class="text-slate-400 hover:text-white p-2">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                        </svg>
-                    </button>
-                </div>
-                
-                <div class="p-6 space-y-8">
-                    <!-- Meta -->
-                    <div class="flex flex-wrap items-center gap-4 text-sm text-slate-400">
-                        <span>📅 ${digest.date}</span>
-                        <span>⏱️ ${digest.duration}</span>
-                        <span>${'⭐'.repeat(digest.rating)}</span>
-                        <a href="${digest.link}" target="_blank" class="text-red-500 hover:text-red-400 flex items-center gap-1">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                            </svg>
-                            Ver no YouTube
-                        </a>
-                    </div>
-                    
-                    <!-- Guest -->
-                    <div class="bg-safira-900/30 border border-safira-700/30 rounded-xl p-4">
-                        <p class="text-safira-300 font-medium">${digest.guest}</p>
-                        <p class="text-slate-500 text-sm">${digest.host}</p>
                     </div>
                     
                     <!-- TL;DR -->
-                    <div>
-                        <h3 class="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                            🎯 TL;DR
-                        </h3>
-                        <p class="text-slate-300 leading-relaxed">${digest.tldr}</p>
+                    <div class="bg-slate-700/50 rounded-xl p-4">
+                        <h3 class="text-sm font-semibold text-safira-400 mb-2">🎯 TL;DR</h3>
+                        <p class="text-slate-200">${d.tldr}</p>
                     </div>
-                    
-                    <!-- Insights -->
-                    <div>
-                        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                            💡 Top Insights
-                        </h3>
-                        <div class="space-y-3">
-                            ${digest.insights.map((i, idx) => `
-                                <div class="insight-card bg-slate-700/30 rounded-lg p-4 pl-5">
-                                    <p class="text-white font-medium">${idx + 1}. ${i.insight}</p>
-                                    <p class="text-slate-400 text-sm mt-1">${i.why}</p>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                    
-                    <!-- Actions -->
-                    <div>
-                        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                            ✅ Acções Práticas
-                        </h3>
-                        
-                        ${digest.actions.immediate.length > 0 ? `
-                            <div class="mb-4">
-                                <h4 class="text-sm font-medium text-amber-400 mb-2">🔥 Fazer Hoje</h4>
-                                <div class="space-y-2">
-                                    ${digest.actions.immediate.map(a => `
-                                        <label class="flex items-start gap-3 cursor-pointer group">
-                                            <input type="checkbox" class="action-checkbox mt-1 rounded border-slate-600 bg-slate-700 text-safira-500 focus:ring-safira-500">
-                                            <span class="text-slate-300 group-hover:text-white transition-colors">${a}</span>
-                                        </label>
-                                    `).join('')}
-                                </div>
-                            </div>
-                        ` : ''}
-                        
-                        ${digest.actions.week.length > 0 ? `
-                            <div class="mb-4">
-                                <h4 class="text-sm font-medium text-blue-400 mb-2">📅 Esta Semana</h4>
-                                <div class="space-y-2">
-                                    ${digest.actions.week.map(a => `
-                                        <label class="flex items-start gap-3 cursor-pointer group">
-                                            <input type="checkbox" class="action-checkbox mt-1 rounded border-slate-600 bg-slate-700 text-safira-500 focus:ring-safira-500">
-                                            <span class="text-slate-300 group-hover:text-white transition-colors">${a}</span>
-                                        </label>
-                                    `).join('')}
-                                </div>
-                            </div>
-                        ` : ''}
-                        
-                        ${digest.actions.longterm.length > 0 ? `
-                            <div>
-                                <h4 class="text-sm font-medium text-green-400 mb-2">🎯 Longo Prazo</h4>
-                                <div class="space-y-2">
-                                    ${digest.actions.longterm.map(a => `
-                                        <label class="flex items-start gap-3 cursor-pointer group">
-                                            <input type="checkbox" class="action-checkbox mt-1 rounded border-slate-600 bg-slate-700 text-safira-500 focus:ring-safira-500">
-                                            <span class="text-slate-300 group-hover:text-white transition-colors">${a}</span>
-                                        </label>
-                                    `).join('')}
-                                </div>
-                            </div>
-                        ` : ''}
-                    </div>
-                    
-                    <!-- Quotes -->
-                    ${digest.quotes.length > 0 ? `
-                        <div>
-                            <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                                💬 Quotes Memoráveis
-                            </h3>
-                            <div class="space-y-3">
-                                ${digest.quotes.map(q => `
-                                    <div class="quote-card bg-slate-700/30 rounded-lg p-4 pl-5">
-                                        <p class="text-slate-300 italic">"${q}"</p>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    ` : ''}
-                    
+
                     <!-- Tags -->
-                    <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-700">
-                        ${digest.tags.map(t => `
-                            <span class="tag px-3 py-1 bg-slate-700/50 text-slate-400 text-sm rounded-full">#${t}</span>
-                        `).join('')}
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        ${(d.tags || []).map(t => `<span class="px-2 py-1 bg-slate-700 rounded-full text-xs text-slate-300">#${t}</span>`).join('')}
                     </div>
                 </div>
-            `;
-            
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
+
+                <!-- Collapsible Sections -->
+                <div class="divide-y divide-slate-700">
+                    ${sectionsHtml}
+                    ${insightsHtml}
+                    ${actionsHtml}
+                    ${contextHtml}
+                    ${frameworksHtml}
+                    ${storiesHtml}
+                    ${resourcesHtml}
+                    ${questionsHtml}
+                    ${quotesHtml}
+                </div>
+
+                <!-- Rating Breakdown -->
+                ${d.rating_breakdown && Object.keys(d.rating_breakdown).length > 0 ? `
+                <div class="p-6 bg-slate-850 border-t border-slate-700">
+                    <h3 class="text-sm font-semibold text-slate-400 mb-3">📊 Rating Detalhado</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        ${Object.entries(d.rating_breakdown).map(([k,v]) => `
+                            <div class="text-center">
+                                <div class="text-lg">${'⭐'.repeat(v)}</div>
+                                <div class="text-xs text-slate-500">${k}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    ${d.verdict ? `<p class="mt-4 text-sm text-slate-300 italic">"${d.verdict}"</p>` : ''}
+                </div>
+                ` : ''}
+            </article>`;
         }
 
-        function closeDetail() {
-            document.getElementById('detailModal').classList.add('hidden');
-            document.body.style.overflow = '';
+        function renderCollapsibleSection(id, icon, title, content, defaultOpen = false) {
+            if (!content) return '';
+            return `
+            <div class="section">
+                <button onclick="toggleSection('${id}')" class="w-full p-4 flex items-center justify-between hover:bg-slate-700/30 transition-colors">
+                    <span class="font-semibold text-slate-200">${icon} ${title}</span>
+                    <svg id="toggle-${id}" class="w-5 h-5 text-slate-400 section-toggle ${defaultOpen ? 'open' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+                <div id="content-${id}" class="collapsible-content ${defaultOpen ? 'open' : ''} px-4 pb-4">
+                    ${content}
+                </div>
+            </div>`;
         }
 
-        function updateStats() {
-            document.getElementById('digestCount').textContent = digestsData.digests.length;
+        function renderSections(d) {
+            if (!d.sections_summary || Object.keys(d.sections_summary).length === 0) return '';
+            const content = Object.entries(d.sections_summary).map(([title, text]) => `
+                <div class="mb-4 last:mb-0">
+                    <h4 class="font-medium text-safira-400 mb-2">${title}</h4>
+                    <div class="text-sm text-slate-300 markdown-content">${parseMarkdown(text)}</div>
+                </div>
+            `).join('');
+            return renderCollapsibleSection(`sections-${d.id}`, '📚', 'Resumo por Secções', content);
         }
 
-        function setupEventListeners() {
-            // Search
-            document.getElementById('searchInput').addEventListener('input', (e) => {
-                searchQuery = e.target.value;
-                renderDigests();
-            });
-
-            // Tag filters
-            document.getElementById('tagFilters').addEventListener('click', (e) => {
-                if (e.target.classList.contains('tag-filter')) {
-                    document.querySelectorAll('.tag-filter').forEach(btn => {
-                        btn.classList.remove('bg-safira-600', 'text-white');
-                        btn.classList.add('bg-slate-700', 'text-slate-300');
-                    });
-                    e.target.classList.remove('bg-slate-700', 'text-slate-300');
-                    e.target.classList.add('bg-safira-600', 'text-white');
-                    
-                    activeTag = e.target.dataset.tag;
-                    renderDigests();
-                }
-            });
-
-            // Modal close on backdrop click
-            document.getElementById('detailModal').addEventListener('click', (e) => {
-                if (e.target.id === 'detailModal') {
-                    closeDetail();
-                }
-            });
-
-            // Escape key to close modal
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    closeDetail();
-                }
-            });
+        function renderInsights(d) {
+            if (!d.insights || d.insights.length === 0) return '';
+            const content = d.insights.map((ins, i) => `
+                <div class="insight-card bg-slate-700/30 rounded-lg p-3 mb-2 last:mb-0">
+                    <div class="font-medium text-white">${i+1}. ${ins.insight}</div>
+                    <div class="text-sm text-slate-400 mt-1">↳ ${ins.why}</div>
+                </div>
+            `).join('');
+            return renderCollapsibleSection(`insights-${d.id}`, '💡', `Top Insights (${d.insights.length})`, content, true);
         }
+
+        function renderActions(d) {
+            if (!d.actions) return '';
+            const sections = [];
+            if (d.actions.immediate?.length) {
+                sections.push(`<div class="mb-4"><h4 class="text-sm font-medium text-green-400 mb-2">⚡ Fazer Hoje</h4>
+                    ${d.actions.immediate.map((a,i) => `<label class="flex items-start gap-2 mb-2 cursor-pointer"><input type="checkbox" class="action-checkbox mt-1" id="imm-${d.id}-${i}"><span class="text-sm text-slate-300">${a}</span></label>`).join('')}</div>`);
+            }
+            if (d.actions.week?.length) {
+                sections.push(`<div class="mb-4"><h4 class="text-sm font-medium text-yellow-400 mb-2">📅 Esta Semana</h4>
+                    ${d.actions.week.map((a,i) => `<label class="flex items-start gap-2 mb-2 cursor-pointer"><input type="checkbox" class="action-checkbox mt-1" id="wk-${d.id}-${i}"><span class="text-sm text-slate-300">${a}</span></label>`).join('')}</div>`);
+            }
+            if (d.actions.longterm?.length) {
+                sections.push(`<div><h4 class="text-sm font-medium text-blue-400 mb-2">🎯 Longo Prazo</h4>
+                    ${d.actions.longterm.map((a,i) => `<label class="flex items-start gap-2 mb-2 cursor-pointer"><input type="checkbox" class="action-checkbox mt-1" id="lt-${d.id}-${i}"><span class="text-sm text-slate-300">${a}</span></label>`).join('')}</div>`);
+            }
+            if (sections.length === 0) return '';
+            return renderCollapsibleSection(`actions-${d.id}`, '🛠️', 'Acções Práticas', sections.join(''), true);
+        }
+
+        function renderContext(d) {
+            if (!d.context_application || Object.keys(d.context_application).length === 0) return '';
+            const content = Object.entries(d.context_application).map(([title, text]) => `
+                <div class="context-card bg-slate-700/30 rounded-lg p-3 mb-3 last:mb-0">
+                    <h4 class="font-medium text-emerald-400 mb-2">${title}</h4>
+                    <div class="text-sm text-slate-300 markdown-content">${parseMarkdown(text)}</div>
+                </div>
+            `).join('');
+            return renderCollapsibleSection(`context-${d.id}`, '🎯', 'Aplicação ao Teu Contexto', content, true);
+        }
+
+        function renderFrameworks(d) {
+            if (!d.frameworks || d.frameworks.length === 0) return '';
+            const content = d.frameworks.map(f => `
+                <div class="framework-card bg-slate-700/30 rounded-lg p-3 mb-3 last:mb-0">
+                    <h4 class="font-medium text-purple-400 mb-2">${f.name}</h4>
+                    <div class="text-sm text-slate-300 markdown-content">${parseMarkdown(f.content)}</div>
+                </div>
+            `).join('');
+            return renderCollapsibleSection(`frameworks-${d.id}`, '🧠', 'Frameworks & Modelos Mentais', content);
+        }
+
+        function renderStories(d) {
+            if (!d.stories || d.stories.length === 0) return '';
+            const content = d.stories.map(s => `
+                <div class="story-card bg-slate-700/30 rounded-lg p-3 mb-3 last:mb-0">
+                    <h4 class="font-medium text-pink-400 mb-2">${s.title}</h4>
+                    <div class="text-sm text-slate-300">${parseMarkdown(s.content)}</div>
+                </div>
+            `).join('');
+            return renderCollapsibleSection(`stories-${d.id}`, '📖', 'Histórias & Exemplos', content);
+        }
+
+        function renderResources(d) {
+            if (!d.resources || d.resources.length === 0) return '';
+            const content = `<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                ${d.resources.map(r => `
+                    <div class="bg-slate-700/30 rounded-lg p-3 text-sm">
+                        <span class="text-safira-400 font-medium">${r.type}:</span>
+                        <span class="text-slate-300 ml-1">${r.description}</span>
+                    </div>
+                `).join('')}
+            </div>`;
+            return renderCollapsibleSection(`resources-${d.id}`, '🔗', 'Recursos Mencionados', content);
+        }
+
+        function renderQuestions(d) {
+            if (!d.reflection_questions || d.reflection_questions.length === 0) return '';
+            const content = d.reflection_questions.map((q, i) => `
+                <div class="flex items-start gap-3 mb-3 last:mb-0">
+                    <span class="bg-safira-600 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0">${i+1}</span>
+                    <span class="text-slate-300">${q}</span>
+                </div>
+            `).join('');
+            return renderCollapsibleSection(`questions-${d.id}`, '❓', 'Perguntas para Reflexão', content);
+        }
+
+        function renderQuotes(d) {
+            if (!d.quotes || d.quotes.length === 0) return '';
+            const content = d.quotes.map(q => `
+                <div class="quote-card bg-slate-700/30 rounded-lg p-3 mb-2 last:mb-0">
+                    <p class="text-slate-200 italic">"${q}"</p>
+                </div>
+            `).join('');
+            return renderCollapsibleSection(`quotes-${d.id}`, '💬', 'Quotes Memoráveis', content);
+        }
+
+        function toggleSection(id) {
+            const content = document.getElementById(`content-${id}`);
+            const toggle = document.getElementById(`toggle-${id}`);
+            content.classList.toggle('open');
+            toggle.classList.toggle('open');
+        }
+
+        // Load on start
+        loadData();
     </script>
 </body>
 </html>

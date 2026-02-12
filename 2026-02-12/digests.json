@@ -1,5 +1,5 @@
 {
-  "generated": "2026-02-12T02:00:57.044388Z",
+  "generated": "2026-02-12T07:09:17.943954Z",
   "count": 1,
   "digests": [
     {
@@ -11,7 +11,18 @@
       "guest": "Dr. Michael Breus — Sleep Specialist, PhD, 26 anos de prática",
       "duration": "~2h 15min",
       "link": "https://www.youtube.com/watch?v=pXlMKzcZlwM",
+      "theme": "A ciência do sono, chronotypes, e como optimizar performance através do sono",
       "tldr": "O sono é a base de tudo — performance, relações, criatividade, e prevenção de doenças como Alzheimer. Cada pessoa tem um chronotype genético (Lion/Bear/Wolf/Dolphin) que determina os melhores horários para cada actividade. Sleep apnea afecta 1 em 7 adultos, 80-90% não sabem que têm, e é tão comum como diabetes.",
+      "sections_summary": {
+        "Os Dois Sistemas do Sono": "- **Sleep Drive** (adenosina): quanto mais acordado, mais sono acumulas\n- **Sleep Rhythm** (circadiano): relógio biológico de ~24h controlado pela luz\n- Ambos precisam estar \"on point\" para dormires bem\n- Cafeína bloqueia adenosina (são quase idênticas molecularmente)\n- **Nap-a-Latte:** café rápido + 25min sesta = 4h de energia",
+        "Chronotypes — O Teu Código Genético de Sono": "- **Lion (10-15%):** Acordam 5-6h, pico 9:30-11:30, exaustos às 21h\n- **Bear (50-55%):** Maioria da população, horários \"normais\", pico 11-14h\n- **Wolf (15-20%):** Criativos, risk-takers, pico tarde/noite, odeiam manhãs\n- **Dolphin (10%):** Sono leve, alta inteligência, tendência para ansiedade\n- Chronotype muda com idade: bebé=Lion → adolescente=Wolf → adulto=fixo → 50s=volta a Lion",
+        "Sleep Apnea — A Epidemia Silenciosa": "- **936 milhões a 1 bilião** de pessoas no mundo têm\n- 80-90% não estão diagnosticadas\n- Sintomas: ressonar, acordar a engasgar, dores de cabeça matinais, mood swings\n- Ligação directa com Alzheimer (não entra em sono profundo para limpar cérebro)\n- Tratamentos: CPAP, oral appliances, cirurgia, brevemente pílulas",
+        "Melatonina — Os Mitos": "- É HORMONA, não suplemento inofensivo\n- Interage com antidepressivos (SSRI), contraceptivos, medicação diabetes/tensão\n- Dose correcta: 0.5-1.5mg (não 10-20mg das gomas!)\n- Overdose = pesadelos/sonhos vívidos\n- NÃO dar a crianças (excepção: autismo)\n- Usar apenas para: jet lag, shift work, deficiência (>50 anos)",
+        "Acordar a Meio da Noite — Protocolo": "1. **Não ir ao WC** (se não for urgente) — deitar de costas 25s primeiro\n2. **Não ver o telemóvel** — cálculo mental = ansiedade\n3. **Técnica 4-7-8:** Inspirar 4s, segurar 7s, expirar 8s (20 ciclos)\n4. **Ficar positivo** — \"o meu corpo vai adormecer naturalmente\"\n5. Se ansiedade aumentar → sair da cama, ler noutro sítio",
+        "Temperatura e Ambiente": "- Batimento cardíaco <60bpm para adormecer\n- Quarto FRIO é essencial (corpo precisa arrefecer)\n- 5 sentidos: luz baixa, silêncio, temperatura, aromas (lavanda), pillows correctos\n- Garrafa de água congelada em meias = AC improvisado",
+        "Sono e Relações": "- Não discutir antes de dormir (aumenta batimento cardíaco)\n- Dormir separado não arruína relação — \"vacation on weekends\"\n- Melhor hora para sexo: MANHÃ (hormonas altas, melatonina baixa)\n- Casais com chronotypes diferentes: encontrar overlap",
+        "Dreams como Terapia": "- Sonhos são \"metabolismo emocional\" — processar emoções do dia\n- Nightmare therapy: escrever sonho, mudar o final, reler antes de dormir\n- Em 7-10 dias consegues mudar pesadelos recorrentes\n- \"Sleep on it\" funciona — cérebro resolve problemas durante sonhos"
+      },
       "insights": [
         {
           "insight": "Café só 90min depois de acordar",
@@ -65,6 +76,85 @@
           "Fazer banana tea ritual (magnésio natural)"
         ]
       },
+      "context_application": {
+        "Como Atleta de Endurance (Ironman)": "- **Chronotype afecta timing de treino óptimo** — se és Wolf, treinos de manhã podem ser sub-óptimos\n- **Recovery = sono profundo** — sem fase 4, músculos não recuperam\n- **Nap-a-Latte** perfeito para dias de treino longo (café + 25min sesta antes)\n- **Sleep apnea é comum em atletas** — considerar teste se acordas cansado\n- **Não treinar tarde demais** — aumenta temperatura corporal, dificulta sono",
+        "Como Empreendedor/Side Hustles": "- **Peak work window depende do chronotype** — agenda tarefas cognitivas para esse período\n- **\"Sleep on it\" para decisões** — literalmente funciona, cérebro processa durante sonhos\n- **Não fazer calls/reuniões fora do teu peak** — se és Wolf, nada às 8h da manhã\n- **Evitar trabalhar na cama** — associação cama=ansiedade arruina sono",
+        "Saúde & Bem-estar": "- **Prioridade #1:** acordar consistente 7 dias/semana\n- **Hidratação:** 15-20oz água nas primeiras 1.5h (antes do café)\n- **Suplementos:** só se deficiente (fazer análises) — magnésio e vit D são os principais\n- **Álcool:** se beberes, parar 3h antes + água entre copos",
+        "Produtividade & Trabalho": "- **Newsletter Algarve:** escrever durante peak window do teu chronotype\n- **Decisões difíceis:** não tomar à noite, esperar pelo dia seguinte\n- **Reuniões importantes:** agendar para o teu período de pico"
+      },
+      "frameworks": [
+        {
+          "name": "Chronotype Optimization",
+          "content": "**O que é:** Alinhar actividades com o teu ritmo biológico genético\n**Como usar:** \n1. Descobrir chronotype (quiz)\n2. Mapear peak windows para trabalho cognitivo\n3. Agendar exercício, refeições, sono de acordo\n4. Respeitar o ritmo mesmo aos fins-de-semana"
+        },
+        {
+          "name": "Sleep Drive vs Sleep Rhythm",
+          "content": "**O que é:** Dois sistemas independentes que controlam o sono\n**Como usar:**\n- Drive = pressão de sono (mais tempo acordado = mais pressão)\n- Rhythm = timing (quando o corpo quer dormir)\n- Problemas de sono = um dos dois está off\n- Consistência de wake time fixa o rhythm"
+        },
+        {
+          "name": "Heart Rate Threshold",
+          "content": "**O que é:** Precisas de <60bpm para adormecer\n**Como usar:**\n- Tudo que aumenta HR dificulta sono (discussões, exercício, comida, temperatura)\n- Técnicas que baixam HR ajudam (4-7-8, meditação, quarto frio)\n- Tracking de HR pode diagnosticar problemas"
+        }
+      ],
+      "stories": [
+        {
+          "title": "O Cookie do Steven Bartlett",
+          "content": "Comeu um cookie antes de dormir, HR ficou a 75-80bpm durante 3h, acordou destruído. Demonstra como açúcar/digestão afectam sono."
+        },
+        {
+          "title": "Astronautas no ISS",
+          "content": "Tinham 12 nascer/pôr-do-sol por dia, ritmo circadiano destruído. Levou à criação do TimeShifter app para jet lag."
+        },
+        {
+          "title": "Lewis Hamilton e Jet Lag",
+          "content": "F1 = país diferente cada 3 semanas. Usam algoritmo de luz para ajustar ritmo. Prova que jet lag é \"math problem\" resolúvel."
+        },
+        {
+          "title": "A Paciente com Trauma",
+          "content": "Nightmare therapy: sonhava ser perseguida na selva. Através de terapia, descobriu leão chamado \"Jack\" = tio que a salvou. Mudou final do sonho → pesadelos pararam."
+        }
+      ],
+      "resources": [
+        {
+          "type": "Quiz:",
+          "description": "chronoquiz.com — descobrir o teu chronotype"
+        },
+        {
+          "type": "App:",
+          "description": "TimeShifter — resolver jet lag com algoritmo de luz"
+        },
+        {
+          "type": "Dispositivo:",
+          "description": "Muse headband — meditação com feedback de brainwaves"
+        },
+        {
+          "type": "Dispositivo:",
+          "description": "NextSense earbuds — monitorizam sono e enviam frequências"
+        },
+        {
+          "type": "Produto:",
+          "description": "Orion Sleep System — topper com controlo de temperatura"
+        },
+        {
+          "type": "Produto:",
+          "description": "Coop pillow — pillow ajustável com látex triturado"
+        },
+        {
+          "type": "Livro:",
+          "description": "\"The Power of When\" — Dr. Michael Breus"
+        },
+        {
+          "type": "Livro:",
+          "description": "\"Sleep, Drink, Breathe\" — Dr. Michael Breus"
+        }
+      ],
+      "reflection_questions": [
+        "Qual é o meu chronotype e estou a respeitar o meu ritmo natural?",
+        "Acordo à mesma hora todos os dias ou o fim-de-semana destrói o meu ritmo?",
+        "Tenho sintomas de sleep apnea que estou a ignorar?",
+        "A que horas bebo o primeiro café e isso está a prejudicar-me?",
+        "Uso álcool como \"ajuda\" para dormir? (spoiler: está a piorar)"
+      ],
       "quotes": [
         "When you change someone's sleep, you change their life.",
         "You can't force your brain to sleep. In the history of time, nobody has ever been able to force their brain to sleep.",
@@ -72,7 +162,12 @@
         "Right is wrong — don't sleep on your right side, sleep on your left.",
         "Sleep is recovery. If you want to lead a nice, prosperous life, you want to sleep."
       ],
-      "rating": 5,
+      "rating": 5.0,
+      "rating_breakdown": {
+        "Novidade da informação": 5,
+        "Aplicabilidade prática": 5,
+        "Recomendo a outros": 5
+      },
       "tags": [
         "sono",
         "chronotype",
@@ -85,7 +180,7 @@
         "biohacking",
         "circadian-rhythm"
       ],
-      "sections": {}
+      "verdict": "Episódio obrigatório para qualquer pessoa que queira optimizar performance. Cheio de acções práticas, desmistifica melatonina, e a parte sobre chronotypes é game-changing para produtividade."
     }
   ]
 }
