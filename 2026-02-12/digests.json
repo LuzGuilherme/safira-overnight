@@ -1,0 +1,91 @@
+{
+  "generated": "2026-02-12T02:00:57.044388Z",
+  "count": 1,
+  "digests": [
+    {
+      "id": "2026-02-11-sleep-michael-breus",
+      "filename": "2026-02-11-sleep-michael-breus.md",
+      "date": "2026-02-11",
+      "title": "The Sleep Doctor: This Is Destroying Your Sleep & Relationship",
+      "host": "Steven Bartlett (Diary of a CEO)",
+      "guest": "Dr. Michael Breus — Sleep Specialist, PhD, 26 anos de prática",
+      "duration": "~2h 15min",
+      "link": "https://www.youtube.com/watch?v=pXlMKzcZlwM",
+      "tldr": "O sono é a base de tudo — performance, relações, criatividade, e prevenção de doenças como Alzheimer. Cada pessoa tem um chronotype genético (Lion/Bear/Wolf/Dolphin) que determina os melhores horários para cada actividade. Sleep apnea afecta 1 em 7 adultos, 80-90% não sabem que têm, e é tão comum como diabetes.",
+      "insights": [
+        {
+          "insight": "Café só 90min depois de acordar",
+          "why": "Cortisol já está alto; café depois = maior boost"
+        },
+        {
+          "insight": "Sleep apnea = Alzheimer risk +45%",
+          "why": "Não entra em fase 4 onde cérebro limpa proteínas"
+        },
+        {
+          "insight": "Álcool destrói sono profundo",
+          "why": "Mesmo 1-2 copos; parar 3h antes de dormir"
+        },
+        {
+          "insight": "Melhor hora de cada actividade depende do chronotype",
+          "why": "Podes optimizar trabalho, treino, sexo, café"
+        },
+        {
+          "insight": "Cookie antes de dormir = heart rate alto 3h",
+          "why": "Açúcar + digestão mantém corpo acordado"
+        },
+        {
+          "insight": "Técnica 4-7-8 funciona em 20 ciclos",
+          "why": "Baixa batimento cardíaco abaixo de 60bpm"
+        },
+        {
+          "insight": "Pillows: nariz alinhado com esterno",
+          "why": "Desalinhamento = dor = não entra em deep sleep"
+        },
+        {
+          "insight": "Dreams resolvem problemas",
+          "why": "\"Sleep on it\" é literalmente terapia gratuita"
+        }
+      ],
+      "actions": {
+        "immediate": [
+          "Fazer quiz em chronoquiz.com para descobrir chronotype",
+          "Definir alarme para acordar à mesma hora amanhã (e manter 7 dias)",
+          "Remover snacks açucarados do quarto"
+        ],
+        "week": [
+          "Experimentar café só depois de 90min acordado (5 dias)",
+          "Tentar técnica 4-7-8 antes de dormir (3 noites)",
+          "Verificar temperatura do quarto (baixar se >20°C)",
+          "Parar álcool 3h antes de deitar (se aplicável)"
+        ],
+        "longterm": [
+          "Considerar teste de sleep apnea (especialmente se ressonas)",
+          "Criar rotina nocturna: 20min tarefas + 20min higiene + 20min relaxamento",
+          "Avaliar pillow actual (nariz alinhado com esterno?)",
+          "Fazer banana tea ritual (magnésio natural)"
+        ]
+      },
+      "quotes": [
+        "When you change someone's sleep, you change their life.",
+        "You can't force your brain to sleep. In the history of time, nobody has ever been able to force their brain to sleep.",
+        "Dreams are emotional metabolism — you're working through your emotional states from the daytime.",
+        "Right is wrong — don't sleep on your right side, sleep on your left.",
+        "Sleep is recovery. If you want to lead a nice, prosperous life, you want to sleep."
+      ],
+      "rating": 5,
+      "tags": [
+        "sono",
+        "chronotype",
+        "sleep-apnea",
+        "melatonina",
+        "performance",
+        "recovery",
+        "saúde",
+        "produtividade",
+        "biohacking",
+        "circadian-rhythm"
+      ],
+      "sections": {}
+    }
+  ]
+}
