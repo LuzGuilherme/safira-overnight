@@ -12,16 +12,9 @@
                 extend: {
                     colors: {
                         safira: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            200: '#bae6fd',
-                            300: '#7dd3fc',
-                            400: '#38bdf8',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            800: '#075985',
-                            900: '#0c4a6e',
+                            50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc',
+                            400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1',
+                            800: '#075985', 900: '#0c4a6e',
                         }
                     }
                 }
@@ -33,54 +26,51 @@
         body { font-family: 'Inter', sans-serif; }
         .gradient-bg { background: linear-gradient(135deg, #0c4a6e 0%, #1e3a5f 50%, #0f172a 100%); }
         .card-hover { transition: all 0.3s ease; }
-        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3); }
-        .insight-card { border-left: 3px solid #0ea5e9; }
-        .quote-card { border-left: 3px solid #f59e0b; }
-        .context-card { border-left: 3px solid #10b981; }
-        .framework-card { border-left: 3px solid #8b5cf6; }
-        .story-card { border-left: 3px solid #ec4899; }
-        .action-checkbox:checked + span { text-decoration: line-through; opacity: 0.6; }
-        .section-toggle { transition: transform 0.2s ease; }
-        .section-toggle.open { transform: rotate(180deg); }
-        .collapsible-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
-        .collapsible-content.open { max-height: 5000px; }
-        .fade-in { animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -10px rgba(14, 165, 233, 0.2); }
+        .modal-open { overflow: hidden; }
+        .insight-border { border-left: 3px solid #0ea5e9; }
+        .context-border { border-left: 3px solid #10b981; }
+        .framework-border { border-left: 3px solid #8b5cf6; }
+        .story-border { border-left: 3px solid #ec4899; }
+        .quote-border { border-left: 3px solid #f59e0b; }
+        .action-checkbox:checked + span { text-decoration: line-through; opacity: 0.5; }
+        .fade-in { animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .markdown-content ul { list-style-type: disc; margin-left: 1.25rem; }
+        .markdown-content li { margin-bottom: 0.25rem; }
+        .markdown-content strong { color: #38bdf8; font-weight: 600; }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #1e293b; }
         ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
-        .markdown-content ul { list-style-type: disc; margin-left: 1.5rem; }
-        .markdown-content li { margin-bottom: 0.5rem; }
-        .markdown-content strong { color: #38bdf8; }
     </style>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen">
-    <!-- Header (não sticky em mobile) -->
-    <header class="gradient-bg border-b border-slate-700/50 md:sticky md:top-0 z-50 backdrop-blur-sm">
-        <div class="max-w-7xl mx-auto px-4 py-4">
+    <!-- Header -->
+    <header class="gradient-bg border-b border-slate-700/50">
+        <div class="max-w-6xl mx-auto px-4 py-6">
             <div class="flex items-center justify-between flex-wrap gap-4">
                 <div class="flex items-center gap-3">
-                    <span class="text-3xl">🎧</span>
+                    <span class="text-4xl">🎧</span>
                     <div>
-                        <h1 class="text-xl font-bold text-white">Podcast Digests</h1>
+                        <h1 class="text-2xl font-bold text-white">Podcast Digests</h1>
                         <p class="text-sm text-slate-400">Conhecimento condensado pela Safira ✨</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
                     <input type="text" id="searchInput" placeholder="Pesquisar..." 
-                           class="bg-slate-800/80 border border-slate-600 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-safira-500 w-48 md:w-64">
-                    <span id="digestCount" class="text-sm text-slate-400">0 digests</span>
+                           class="bg-slate-800/80 border border-slate-600 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-safira-500 w-48">
+                    <span id="digestCount" class="text-sm text-slate-400 hidden md:block">0 digests</span>
                 </div>
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 py-8">
+    <main class="max-w-6xl mx-auto px-4 py-8">
         <!-- Tag Filters -->
         <div class="flex flex-wrap gap-2 mb-8" id="tagFilters"></div>
         
-        <!-- Digest List -->
-        <div id="digestList" class="space-y-8"></div>
+        <!-- Podcast Cards Grid -->
+        <div id="digestGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         
         <!-- Empty State -->
         <div id="emptyState" class="hidden text-center py-20">
@@ -89,8 +79,16 @@
         </div>
     </main>
 
+    <!-- Detail Modal -->
+    <div id="detailModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden overflow-y-auto">
+        <div class="min-h-screen px-4 py-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-slate-800 rounded-2xl shadow-2xl fade-in" id="modalContent"></div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Load data from JSON file
         let digestsData = null;
         let activeTag = 'all';
         let searchQuery = '';
@@ -107,11 +105,11 @@
 
         function init() {
             renderTagFilters();
-            renderDigests();
+            renderDigestGrid();
             document.getElementById('digestCount').textContent = `${digestsData.count} digest${digestsData.count !== 1 ? 's' : ''}`;
             document.getElementById('searchInput').addEventListener('input', e => {
                 searchQuery = e.target.value.toLowerCase();
-                renderDigests();
+                renderDigestGrid();
             });
         }
 
@@ -120,9 +118,9 @@
             const allTags = new Set();
             digestsData.digests.forEach(d => d.tags?.forEach(t => allTags.add(t)));
             
-            let html = `<button onclick="filterByTag('all')" class="tag-btn px-3 py-1.5 rounded-full text-sm font-medium ${activeTag === 'all' ? 'bg-safira-600 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'}">Todos</button>`;
-            allTags.forEach(tag => {
-                html += `<button onclick="filterByTag('${tag}')" class="tag-btn px-3 py-1.5 rounded-full text-sm font-medium ${activeTag === tag ? 'bg-safira-600 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'}">#${tag}</button>`;
+            let html = `<button onclick="filterByTag('all')" class="px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${activeTag === 'all' ? 'bg-safira-600 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'}">Todos</button>`;
+            [...allTags].slice(0, 8).forEach(tag => {
+                html += `<button onclick="filterByTag('${tag}')" class="px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${activeTag === tag ? 'bg-safira-600 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'}">#${tag}</button>`;
             });
             container.innerHTML = html;
         }
@@ -130,27 +128,16 @@
         function filterByTag(tag) {
             activeTag = tag;
             renderTagFilters();
-            renderDigests();
+            renderDigestGrid();
         }
 
-        function parseMarkdown(text) {
-            if (!text) return '';
-            return text
-                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-                .replace(/\n- /g, '</li><li>')
-                .replace(/^- /, '<li>')
-                .replace(/\n(\d+)\. /g, '</li><li>')
-                .replace(/\n/g, '<br>');
-        }
-
-        function renderDigests() {
-            const container = document.getElementById('digestList');
+        function renderDigestGrid() {
+            const container = document.getElementById('digestGrid');
             const filtered = digestsData.digests.filter(d => {
                 const matchesTag = activeTag === 'all' || d.tags?.includes(activeTag);
                 const matchesSearch = !searchQuery || 
                     d.title?.toLowerCase().includes(searchQuery) ||
-                    d.guest?.toLowerCase().includes(searchQuery) ||
-                    d.tldr?.toLowerCase().includes(searchQuery);
+                    d.guest?.toLowerCase().includes(searchQuery);
                 return matchesTag && matchesSearch;
             });
 
@@ -160,217 +147,352 @@
                 return;
             }
             document.getElementById('emptyState').classList.add('hidden');
-
-            container.innerHTML = filtered.map(d => renderDigestCard(d)).join('');
+            container.innerHTML = filtered.map(d => renderCard(d)).join('');
         }
 
-        function renderDigestCard(d) {
-            const ratingStars = '⭐'.repeat(Math.round(d.rating || 0));
-            const sectionsHtml = renderSections(d);
-            const insightsHtml = renderInsights(d);
-            const actionsHtml = renderActions(d);
-            const contextHtml = renderContext(d);
-            const frameworksHtml = renderFrameworks(d);
-            const storiesHtml = renderStories(d);
-            const resourcesHtml = renderResources(d);
-            const questionsHtml = renderQuestions(d);
-            const quotesHtml = renderQuotes(d);
-
+        function renderCard(d) {
+            const stars = '⭐'.repeat(Math.round(d.rating || 0));
+            const topInsights = (d.insights || []).slice(0, 3);
+            
             return `
-            <article class="bg-slate-800 rounded-2xl overflow-hidden card-hover fade-in">
-                <!-- Header -->
-                <div class="p-6 border-b border-slate-700">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex-1">
-                            <h2 class="text-xl font-bold text-white mb-2">${d.title}</h2>
-                            <div class="flex flex-wrap gap-4 text-sm text-slate-400">
-                                <span>🎙️ ${d.host}</span>
-                                <span>👤 ${d.guest}</span>
+            <article class="bg-slate-800 rounded-xl overflow-hidden card-hover cursor-pointer" onclick="openModal('${d.id}')">
+                <div class="p-5">
+                    <!-- Header -->
+                    <div class="flex justify-between items-start mb-3">
+                        <h2 class="text-lg font-bold text-white leading-tight pr-2">${d.title}</h2>
+                        <span class="text-sm flex-shrink-0">${stars}</span>
+                    </div>
+                    
+                    <!-- Meta -->
+                    <div class="text-xs text-slate-400 mb-3 space-y-1">
+                        <div>🎙️ ${d.host}</div>
+                        <div>👤 ${d.guest?.split('—')[0] || d.guest}</div>
+                        <div class="flex gap-3">
+                            <span>⏱️ ${d.duration}</span>
+                            <span>📅 ${d.date}</span>
+                        </div>
+                    </div>
+                    
+                    <!-- TL;DR Preview -->
+                    <p class="text-sm text-slate-300 mb-4 line-clamp-3">${d.tldr}</p>
+                    
+                    <!-- Top Insights Preview -->
+                    ${topInsights.length > 0 ? `
+                    <div class="mb-4">
+                        <div class="text-xs font-semibold text-safira-400 mb-2">💡 Top Insights</div>
+                        ${topInsights.map(ins => `
+                            <div class="text-xs text-slate-400 mb-1 truncate">• ${ins.insight}</div>
+                        `).join('')}
+                    </div>
+                    ` : ''}
+                    
+                    <!-- Tags -->
+                    <div class="flex flex-wrap gap-1 mb-4">
+                        ${(d.tags || []).slice(0, 4).map(t => `<span class="px-2 py-0.5 bg-slate-700 rounded text-xs text-slate-400">#${t}</span>`).join('')}
+                        ${(d.tags || []).length > 4 ? `<span class="text-xs text-slate-500">+${d.tags.length - 4}</span>` : ''}
+                    </div>
+                    
+                    <!-- CTA -->
+                    <button class="w-full py-2 bg-safira-600 hover:bg-safira-500 text-white text-sm font-medium rounded-lg transition-colors">
+                        Ver Detalhes Completos →
+                    </button>
+                </div>
+            </article>`;
+        }
+
+        function openModal(id) {
+            const d = digestsData.digests.find(x => x.id === id);
+            if (!d) return;
+            
+            document.body.classList.add('modal-open');
+            const modal = document.getElementById('detailModal');
+            const content = document.getElementById('modalContent');
+            
+            content.innerHTML = renderModalContent(d);
+            modal.classList.remove('hidden');
+            
+            modal.onclick = (e) => {
+                if (e.target === modal) closeModal();
+            };
+        }
+
+        function closeModal() {
+            document.body.classList.remove('modal-open');
+            document.getElementById('detailModal').classList.add('hidden');
+        }
+
+        function parseMarkdown(text) {
+            if (!text) return '';
+            return text
+                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n- /g, '<li>')
+                .replace(/^- /, '<li>')
+                .replace(/\n(\d+)\. /g, '<li>')
+                .replace(/\n/g, '<br>');
+        }
+
+        function renderModalContent(d) {
+            const stars = '⭐'.repeat(Math.round(d.rating || 0));
+            
+            return `
+            <!-- Modal Header -->
+            <div class="gradient-bg p-6 rounded-t-2xl">
+                <div class="flex justify-between items-start">
+                    <div class="flex-1 pr-4">
+                        <h2 class="text-2xl font-bold text-white mb-2">${d.title}</h2>
+                        <div class="text-sm text-slate-300 space-y-1">
+                            <div>🎙️ ${d.host}</div>
+                            <div>👤 ${d.guest}</div>
+                            <div class="flex gap-4">
                                 <span>⏱️ ${d.duration}</span>
                                 <span>📅 ${d.date}</span>
                             </div>
                         </div>
-                        <div class="text-right">
-                            <div class="text-lg">${ratingStars}</div>
-                            <a href="${d.link}" target="_blank" class="text-safira-400 hover:text-safira-300 text-sm">▶ Ver Episódio</a>
-                        </div>
                     </div>
-                    
-                    <!-- TL;DR -->
-                    <div class="bg-slate-700/50 rounded-xl p-4">
-                        <h3 class="text-sm font-semibold text-safira-400 mb-2">🎯 TL;DR</h3>
-                        <p class="text-slate-200">${d.tldr}</p>
-                    </div>
-
-                    <!-- Tags -->
-                    <div class="flex flex-wrap gap-2 mt-4">
-                        ${(d.tags || []).map(t => `<span class="px-2 py-1 bg-slate-700 rounded-full text-xs text-slate-300">#${t}</span>`).join('')}
+                    <div class="text-right">
+                        <div class="text-xl mb-2">${stars}</div>
+                        <a href="${d.link}" target="_blank" class="inline-block px-4 py-2 bg-red-600 hover:bg-red-500 text-white text-sm font-medium rounded-lg transition-colors">
+                            ▶ Ver Episódio
+                        </a>
                     </div>
                 </div>
-
-                <!-- Collapsible Sections -->
-                <div class="divide-y divide-slate-700">
-                    ${sectionsHtml}
-                    ${insightsHtml}
-                    ${actionsHtml}
-                    ${contextHtml}
-                    ${frameworksHtml}
-                    ${storiesHtml}
-                    ${resourcesHtml}
-                    ${questionsHtml}
-                    ${quotesHtml}
+                <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-2xl">&times;</button>
+            </div>
+            
+            <div class="p-6 space-y-6">
+                <!-- TL;DR -->
+                <section class="bg-slate-700/50 rounded-xl p-4">
+                    <h3 class="text-sm font-bold text-safira-400 mb-2">🎯 TL;DR</h3>
+                    <p class="text-slate-200">${d.tldr}</p>
+                </section>
+                
+                <!-- Tags -->
+                <div class="flex flex-wrap gap-2">
+                    ${(d.tags || []).map(t => `<span class="px-3 py-1 bg-slate-700 rounded-full text-sm text-slate-300">#${t}</span>`).join('')}
                 </div>
-
-                <!-- Rating Breakdown -->
-                ${d.rating_breakdown && Object.keys(d.rating_breakdown).length > 0 ? `
-                <div class="p-6 bg-slate-850 border-t border-slate-700">
-                    <h3 class="text-sm font-semibold text-slate-400 mb-3">📊 Rating Detalhado</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        ${Object.entries(d.rating_breakdown).map(([k,v]) => `
-                            <div class="text-center">
-                                <div class="text-lg">${'⭐'.repeat(v)}</div>
-                                <div class="text-xs text-slate-500">${k}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                    ${d.verdict ? `<p class="mt-4 text-sm text-slate-300 italic">"${d.verdict}"</p>` : ''}
-                </div>
-                ` : ''}
-            </article>`;
-        }
-
-        function renderCollapsibleSection(id, icon, title, content, defaultOpen = false) {
-            if (!content) return '';
-            return `
-            <div class="section">
-                <button onclick="toggleSection('${id}')" class="w-full p-4 flex items-center justify-between hover:bg-slate-700/30 transition-colors">
-                    <span class="font-semibold text-slate-200">${icon} ${title}</span>
-                    <svg id="toggle-${id}" class="w-5 h-5 text-slate-400 section-toggle ${defaultOpen ? 'open' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                    </svg>
+                
+                ${renderSection('📚', 'Resumo por Secções', d.sections_summary, 'sections')}
+                ${renderInsightsSection(d.insights)}
+                ${renderActionsSection(d.actions)}
+                ${renderContextSection(d.context_application)}
+                ${renderFrameworksSection(d.frameworks)}
+                ${renderStoriesSection(d.stories)}
+                ${renderResourcesSection(d.resources)}
+                ${renderQuestionsSection(d.reflection_questions)}
+                ${renderQuotesSection(d.quotes)}
+                ${renderRatingBreakdown(d.rating_breakdown, d.verdict)}
+            </div>
+            
+            <!-- Footer -->
+            <div class="p-4 border-t border-slate-700 flex justify-between items-center">
+                <a href="${d.link}" target="_blank" class="text-safira-400 hover:text-safira-300 text-sm">
+                    ▶ Ver episódio completo no YouTube
+                </a>
+                <button onclick="closeModal()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white text-sm rounded-lg transition-colors">
+                    Fechar
                 </button>
-                <div id="content-${id}" class="collapsible-content ${defaultOpen ? 'open' : ''} px-4 pb-4">
-                    ${content}
-                </div>
             </div>`;
         }
 
-        function renderSections(d) {
-            if (!d.sections_summary || Object.keys(d.sections_summary).length === 0) return '';
-            const content = Object.entries(d.sections_summary).map(([title, text]) => `
+        function renderSection(icon, title, data, type) {
+            if (!data || Object.keys(data).length === 0) return '';
+            
+            let content = '';
+            for (const [subtitle, text] of Object.entries(data)) {
+                content += `
                 <div class="mb-4 last:mb-0">
-                    <h4 class="font-medium text-safira-400 mb-2">${title}</h4>
+                    <h4 class="font-semibold text-safira-300 mb-2">${subtitle}</h4>
                     <div class="text-sm text-slate-300 markdown-content">${parseMarkdown(text)}</div>
-                </div>
-            `).join('');
-            return renderCollapsibleSection(`sections-${d.id}`, '📚', 'Resumo por Secções', content);
-        }
-
-        function renderInsights(d) {
-            if (!d.insights || d.insights.length === 0) return '';
-            const content = d.insights.map((ins, i) => `
-                <div class="insight-card bg-slate-700/30 rounded-lg p-3 mb-2 last:mb-0">
-                    <div class="font-medium text-white">${i+1}. ${ins.insight}</div>
-                    <div class="text-sm text-slate-400 mt-1">↳ ${ins.why}</div>
-                </div>
-            `).join('');
-            return renderCollapsibleSection(`insights-${d.id}`, '💡', `Top Insights (${d.insights.length})`, content, true);
-        }
-
-        function renderActions(d) {
-            if (!d.actions) return '';
-            const sections = [];
-            if (d.actions.immediate?.length) {
-                sections.push(`<div class="mb-4"><h4 class="text-sm font-medium text-green-400 mb-2">⚡ Fazer Hoje</h4>
-                    ${d.actions.immediate.map((a,i) => `<label class="flex items-start gap-2 mb-2 cursor-pointer"><input type="checkbox" class="action-checkbox mt-1" id="imm-${d.id}-${i}"><span class="text-sm text-slate-300">${a}</span></label>`).join('')}</div>`);
+                </div>`;
             }
-            if (d.actions.week?.length) {
-                sections.push(`<div class="mb-4"><h4 class="text-sm font-medium text-yellow-400 mb-2">📅 Esta Semana</h4>
-                    ${d.actions.week.map((a,i) => `<label class="flex items-start gap-2 mb-2 cursor-pointer"><input type="checkbox" class="action-checkbox mt-1" id="wk-${d.id}-${i}"><span class="text-sm text-slate-300">${a}</span></label>`).join('')}</div>`);
-            }
-            if (d.actions.longterm?.length) {
-                sections.push(`<div><h4 class="text-sm font-medium text-blue-400 mb-2">🎯 Longo Prazo</h4>
-                    ${d.actions.longterm.map((a,i) => `<label class="flex items-start gap-2 mb-2 cursor-pointer"><input type="checkbox" class="action-checkbox mt-1" id="lt-${d.id}-${i}"><span class="text-sm text-slate-300">${a}</span></label>`).join('')}</div>`);
-            }
-            if (sections.length === 0) return '';
-            return renderCollapsibleSection(`actions-${d.id}`, '🛠️', 'Acções Práticas', sections.join(''), true);
+            
+            return `
+            <section>
+                <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">${icon} ${title}</h3>
+                <div class="bg-slate-700/30 rounded-xl p-4">${content}</div>
+            </section>`;
         }
 
-        function renderContext(d) {
-            if (!d.context_application || Object.keys(d.context_application).length === 0) return '';
-            const content = Object.entries(d.context_application).map(([title, text]) => `
-                <div class="context-card bg-slate-700/30 rounded-lg p-3 mb-3 last:mb-0">
-                    <h4 class="font-medium text-emerald-400 mb-2">${title}</h4>
-                    <div class="text-sm text-slate-300 markdown-content">${parseMarkdown(text)}</div>
+        function renderInsightsSection(insights) {
+            if (!insights || insights.length === 0) return '';
+            return `
+            <section>
+                <h3 class="text-lg font-bold text-white mb-4">💡 Top Insights (${insights.length})</h3>
+                <div class="space-y-3">
+                    ${insights.map((ins, i) => `
+                    <div class="insight-border bg-slate-700/30 rounded-lg p-4">
+                        <div class="font-semibold text-white">${i+1}. ${ins.insight}</div>
+                        <div class="text-sm text-slate-400 mt-1">↳ ${ins.why}</div>
+                    </div>
+                    `).join('')}
                 </div>
-            `).join('');
-            return renderCollapsibleSection(`context-${d.id}`, '🎯', 'Aplicação ao Teu Contexto', content, true);
+            </section>`;
         }
 
-        function renderFrameworks(d) {
-            if (!d.frameworks || d.frameworks.length === 0) return '';
-            const content = d.frameworks.map(f => `
-                <div class="framework-card bg-slate-700/30 rounded-lg p-3 mb-3 last:mb-0">
-                    <h4 class="font-medium text-purple-400 mb-2">${f.name}</h4>
-                    <div class="text-sm text-slate-300 markdown-content">${parseMarkdown(f.content)}</div>
+        function renderActionsSection(actions) {
+            if (!actions) return '';
+            const hasActions = actions.immediate?.length || actions.week?.length || actions.longterm?.length;
+            if (!hasActions) return '';
+            
+            return `
+            <section>
+                <h3 class="text-lg font-bold text-white mb-4">🛠️ Acções Práticas</h3>
+                <div class="grid md:grid-cols-3 gap-4">
+                    ${actions.immediate?.length ? `
+                    <div class="bg-green-900/20 border border-green-800/30 rounded-xl p-4">
+                        <h4 class="font-semibold text-green-400 mb-3">⚡ Fazer Hoje</h4>
+                        ${actions.immediate.map((a, i) => `
+                        <label class="flex items-start gap-2 mb-2 cursor-pointer text-sm">
+                            <input type="checkbox" class="action-checkbox mt-0.5">
+                            <span class="text-slate-300">${a}</span>
+                        </label>
+                        `).join('')}
+                    </div>` : ''}
+                    
+                    ${actions.week?.length ? `
+                    <div class="bg-yellow-900/20 border border-yellow-800/30 rounded-xl p-4">
+                        <h4 class="font-semibold text-yellow-400 mb-3">📅 Esta Semana</h4>
+                        ${actions.week.map((a, i) => `
+                        <label class="flex items-start gap-2 mb-2 cursor-pointer text-sm">
+                            <input type="checkbox" class="action-checkbox mt-0.5">
+                            <span class="text-slate-300">${a}</span>
+                        </label>
+                        `).join('')}
+                    </div>` : ''}
+                    
+                    ${actions.longterm?.length ? `
+                    <div class="bg-blue-900/20 border border-blue-800/30 rounded-xl p-4">
+                        <h4 class="font-semibold text-blue-400 mb-3">🎯 Longo Prazo</h4>
+                        ${actions.longterm.map((a, i) => `
+                        <label class="flex items-start gap-2 mb-2 cursor-pointer text-sm">
+                            <input type="checkbox" class="action-checkbox mt-0.5">
+                            <span class="text-slate-300">${a}</span>
+                        </label>
+                        `).join('')}
+                    </div>` : ''}
                 </div>
-            `).join('');
-            return renderCollapsibleSection(`frameworks-${d.id}`, '🧠', 'Frameworks & Modelos Mentais', content);
+            </section>`;
         }
 
-        function renderStories(d) {
-            if (!d.stories || d.stories.length === 0) return '';
-            const content = d.stories.map(s => `
-                <div class="story-card bg-slate-700/30 rounded-lg p-3 mb-3 last:mb-0">
-                    <h4 class="font-medium text-pink-400 mb-2">${s.title}</h4>
-                    <div class="text-sm text-slate-300">${parseMarkdown(s.content)}</div>
+        function renderContextSection(context) {
+            if (!context || Object.keys(context).length === 0) return '';
+            return `
+            <section>
+                <h3 class="text-lg font-bold text-white mb-4">🎯 Aplicação ao Teu Contexto</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    ${Object.entries(context).map(([title, text]) => `
+                    <div class="context-border bg-slate-700/30 rounded-lg p-4">
+                        <h4 class="font-semibold text-emerald-400 mb-2">${title}</h4>
+                        <div class="text-sm text-slate-300 markdown-content">${parseMarkdown(text)}</div>
+                    </div>
+                    `).join('')}
                 </div>
-            `).join('');
-            return renderCollapsibleSection(`stories-${d.id}`, '📖', 'Histórias & Exemplos', content);
+            </section>`;
         }
 
-        function renderResources(d) {
-            if (!d.resources || d.resources.length === 0) return '';
-            const content = `<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                ${d.resources.map(r => `
+        function renderFrameworksSection(frameworks) {
+            if (!frameworks || frameworks.length === 0) return '';
+            return `
+            <section>
+                <h3 class="text-lg font-bold text-white mb-4">🧠 Frameworks & Modelos Mentais</h3>
+                <div class="space-y-4">
+                    ${frameworks.map(f => `
+                    <div class="framework-border bg-slate-700/30 rounded-lg p-4">
+                        <h4 class="font-semibold text-purple-400 mb-2">${f.name}</h4>
+                        <div class="text-sm text-slate-300 markdown-content">${parseMarkdown(f.content)}</div>
+                    </div>
+                    `).join('')}
+                </div>
+            </section>`;
+        }
+
+        function renderStoriesSection(stories) {
+            if (!stories || stories.length === 0) return '';
+            return `
+            <section>
+                <h3 class="text-lg font-bold text-white mb-4">📖 Histórias & Exemplos</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    ${stories.map(s => `
+                    <div class="story-border bg-slate-700/30 rounded-lg p-4">
+                        <h4 class="font-semibold text-pink-400 mb-2">${s.title}</h4>
+                        <div class="text-sm text-slate-300">${parseMarkdown(s.content)}</div>
+                    </div>
+                    `).join('')}
+                </div>
+            </section>`;
+        }
+
+        function renderResourcesSection(resources) {
+            if (!resources || resources.length === 0) return '';
+            return `
+            <section>
+                <h3 class="text-lg font-bold text-white mb-4">🔗 Recursos Mencionados</h3>
+                <div class="grid md:grid-cols-2 gap-3">
+                    ${resources.map(r => `
                     <div class="bg-slate-700/30 rounded-lg p-3 text-sm">
                         <span class="text-safira-400 font-medium">${r.type}:</span>
                         <span class="text-slate-300 ml-1">${r.description}</span>
                     </div>
-                `).join('')}
-            </div>`;
-            return renderCollapsibleSection(`resources-${d.id}`, '🔗', 'Recursos Mencionados', content);
-        }
-
-        function renderQuestions(d) {
-            if (!d.reflection_questions || d.reflection_questions.length === 0) return '';
-            const content = d.reflection_questions.map((q, i) => `
-                <div class="flex items-start gap-3 mb-3 last:mb-0">
-                    <span class="bg-safira-600 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0">${i+1}</span>
-                    <span class="text-slate-300">${q}</span>
+                    `).join('')}
                 </div>
-            `).join('');
-            return renderCollapsibleSection(`questions-${d.id}`, '❓', 'Perguntas para Reflexão', content);
+            </section>`;
         }
 
-        function renderQuotes(d) {
-            if (!d.quotes || d.quotes.length === 0) return '';
-            const content = d.quotes.map(q => `
-                <div class="quote-card bg-slate-700/30 rounded-lg p-3 mb-2 last:mb-0">
-                    <p class="text-slate-200 italic">"${q}"</p>
+        function renderQuestionsSection(questions) {
+            if (!questions || questions.length === 0) return '';
+            return `
+            <section>
+                <h3 class="text-lg font-bold text-white mb-4">❓ Perguntas para Reflexão</h3>
+                <div class="bg-slate-700/30 rounded-xl p-4 space-y-3">
+                    ${questions.map((q, i) => `
+                    <div class="flex items-start gap-3">
+                        <span class="bg-safira-600 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0">${i+1}</span>
+                        <span class="text-slate-300">${q}</span>
+                    </div>
+                    `).join('')}
                 </div>
-            `).join('');
-            return renderCollapsibleSection(`quotes-${d.id}`, '💬', 'Quotes Memoráveis', content);
+            </section>`;
         }
 
-        function toggleSection(id) {
-            const content = document.getElementById(`content-${id}`);
-            const toggle = document.getElementById(`toggle-${id}`);
-            content.classList.toggle('open');
-            toggle.classList.toggle('open');
+        function renderQuotesSection(quotes) {
+            if (!quotes || quotes.length === 0) return '';
+            return `
+            <section>
+                <h3 class="text-lg font-bold text-white mb-4">💬 Quotes Memoráveis</h3>
+                <div class="space-y-3">
+                    ${quotes.map(q => `
+                    <div class="quote-border bg-slate-700/30 rounded-lg p-4">
+                        <p class="text-slate-200 italic">"${q}"</p>
+                    </div>
+                    `).join('')}
+                </div>
+            </section>`;
         }
 
-        // Load on start
+        function renderRatingBreakdown(breakdown, verdict) {
+            if (!breakdown || Object.keys(breakdown).length === 0) return '';
+            return `
+            <section>
+                <h3 class="text-lg font-bold text-white mb-4">📊 Rating Detalhado</h3>
+                <div class="bg-slate-700/30 rounded-xl p-4">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                        ${Object.entries(breakdown).map(([k, v]) => `
+                        <div class="text-center">
+                            <div class="text-lg">${'⭐'.repeat(v)}</div>
+                            <div class="text-xs text-slate-400">${k}</div>
+                        </div>
+                        `).join('')}
+                    </div>
+                    ${verdict ? `<p class="text-sm text-slate-300 italic border-t border-slate-600 pt-4">"${verdict}"</p>` : ''}
+                </div>
+            </section>`;
+        }
+
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
         loadData();
     </script>
 </body>
