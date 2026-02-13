@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cold Outreach Generator | Agências de Marketing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0f0f0f;
+            --bg-card: #1a1a1a;
+            --bg-input: #252525;
+            --accent: #6366f1;
+            --accent-hover: #818cf8;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --border: #333;
+            --success: #22c55e;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent), #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-input);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        .output-section {
+            margin-top: 1.5rem;
+        }
+
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .output-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .output-box {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            min-height: 200px;
+            white-space: pre-wrap;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .output-box.whatsapp {
+            min-height: 100px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tab {
+            padding: 0.5rem 1rem;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .tab:hover:not(.active) {
+            background: var(--border);
+        }
+
+        .copied {
+            color: var(--success);
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .copied.show {
+            opacity: 1;
+        }
+
+        .tips {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .tips h3 {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tips ul {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            padding-left: 1.25rem;
+        }
+
+        .tips li {
+            margin-bottom: 0.25rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background: var(--accent);
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✉️ Cold Outreach Generator</h1>
+            <p class="subtitle">Emails personalizados para prospeção de clientes</p>
+        </header>
+
+        <div class="main-grid">
+            <!-- Input Form -->
+            <div class="card">
+                <h2 class="card-title">📋 Dados do Prospect</h2>
+                
+                <div class="form-group">
+                    <label for="businessName">Nome do Negócio *</label>
+                    <input type="text" id="businessName" placeholder="Ex: Café Central, Auto Repair Lisboa">
+                </div>
+
+                <div class="form-group">
+                    <label for="contactName">Nome do Contacto (opcional)</label>
+                    <input type="text" id="contactName" placeholder="Ex: João, Ana">
+                </div>
+
+                <div class="form-group">
+                    <label for="industry">Indústria *</label>
+                    <select id="industry">
+                        <option value="">Seleccionar...</option>
+                        <option value="restaurante">Restauração</option>
+                        <option value="imobiliaria">Imobiliária</option>
+                        <option value="ginasio">Ginásio / Fitness</option>
+                        <option value="barbearia">Barbearia / Cabeleireiro</option>
+                        <option value="tatuagem">Estúdio de Tatuagem</option>
+                        <option value="oficina">Oficina Auto</option>
+                        <option value="turismo">Turismo / Alojamento</option>
+                        <option value="fotografo">Fotógrafo</option>
+                        <option value="seguros">Seguros</option>
+                        <option value="ecommerce">E-commerce</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="problem">Problema Detectado *</label>
+                    <select id="problem">
+                        <option value="">Seleccionar...</option>
+                        <option value="no-ads">Não tem anúncios pagos (Facebook/Google)</option>
+                        <option value="bad-website">Website desactualizado ou lento</option>
+                        <option value="no-social">Pouca presença em redes sociais</option>
+                        <option value="competitor">Concorrência a ganhar mercado</option>
+                        <option value="no-reviews">Poucas reviews online</option>
+                        <option value="general">Oportunidade geral de crescimento</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tone">Tom da Mensagem</label>
+                    <select id="tone">
+                        <option value="professional">Profissional</option>
+                        <option value="casual">Casual / Directo</option>
+                        <option value="curious">Curioso / Consultivo</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="senderName">O Teu Nome</label>
+                    <input type="text" id="senderName" placeholder="Ex: Guilherme" value="Guilherme">
+                </div>
+
+                <div class="form-group">
+                    <label for="customNote">Nota Personalizada (opcional)</label>
+                    <textarea id="customNote" placeholder="Ex: Vi o vosso post no Instagram sobre..."></textarea>
+                </div>
+
+                <button class="btn btn-primary" onclick="generateOutreach()">
+                    ⚡ Gerar Mensagem
+                </button>
+            </div>
+
+            <!-- Output -->
+            <div class="card">
+                <h2 class="card-title">📤 Resultado</h2>
+
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('email')">📧 Email</div>
+                    <div class="tab" onclick="switchTab('whatsapp')">💬 WhatsApp</div>
+                    <div class="tab" onclick="switchTab('dm')">📱 DM</div>
+                </div>
+
+                <div class="output-section" id="emailOutput">
+                    <div class="output-header">
+                        <span class="output-label">Assunto:</span>
+                        <div>
+                            <span class="copied" id="subjectCopied">✓ Copiado!</span>
+                            <button class="btn btn-secondary" onclick="copyText('subjectBox')">Copiar</button>
+                        </div>
+                    </div>
+                    <div class="output-box" id="subjectBox" style="min-height: auto; margin-bottom: 1rem;">
+                        Preencha os dados e clique em "Gerar Mensagem"
+                    </div>
+
+                    <div class="output-header">
+                        <span class="output-label">Corpo do Email:</span>
+                        <div>
+                            <span class="copied" id="emailCopied">✓ Copiado!</span>
+                            <button class="btn btn-secondary" onclick="copyText('emailBox')">Copiar</button>
+                        </div>
+                    </div>
+                    <div class="output-box" id="emailBox">
+                        O email aparecerá aqui...
+                    </div>
+                </div>
+
+                <div class="output-section" id="whatsappOutput" style="display: none;">
+                    <div class="output-header">
+                        <span class="output-label">Mensagem WhatsApp:</span>
+                        <div>
+                            <span class="copied" id="whatsappCopied">✓ Copiado!</span>
+                            <button class="btn btn-secondary" onclick="copyText('whatsappBox')">Copiar</button>
+                        </div>
+                    </div>
+                    <div class="output-box whatsapp" id="whatsappBox">
+                        A mensagem WhatsApp aparecerá aqui...
+                    </div>
+                </div>
+
+                <div class="output-section" id="dmOutput" style="display: none;">
+                    <div class="output-header">
+                        <span class="output-label">DM (Instagram/LinkedIn):</span>
+                        <div>
+                            <span class="copied" id="dmCopied">✓ Copiado!</span>
+                            <button class="btn btn-secondary" onclick="copyText('dmBox')">Copiar</button>
+                        </div>
+                    </div>
+                    <div class="output-box whatsapp" id="dmBox">
+                        A DM aparecerá aqui...
+                    </div>
+                </div>
+
+                <div class="tips">
+                    <h3>💡 Dicas para Melhores Resultados</h3>
+                    <ul>
+                        <li>Personaliza sempre com um detalhe específico do negócio</li>
+                        <li>Envia entre 9h-11h ou 14h-16h (melhores taxas de abertura)</li>
+                        <li>Follow-up após 3-4 dias se não houver resposta</li>
+                        <li>WhatsApp funciona melhor para negócios locais</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>🌙 Construído pela Safira numa noite de Fevereiro 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        // Email templates by problem type
+        const templates = {
+            'no-ads': {
+                subjects: [
+                    'Pergunta rápida sobre {business}',
+                    'Ideia para aumentar clientes em {business}',
+                    '{business} - oportunidade de crescimento?'
+                ],
+                emails: {
+                    professional: `{greeting}
+
+Sou o {sender}, especialista em marketing digital para {industry}.
+
+Ao pesquisar negócios de {industry} na zona, reparei que {business} ainda não está a usar anúncios pagos (Facebook/Google Ads).
+
+Isto chamou-me a atenção porque a vossa concorrência já está a investir nestes canais, o que significa que estão a captar clientes que poderiam ser vossos.
+
+{customNote}
+
+Tenho ajudado negócios semelhantes a conseguir mais clientes com campanhas focadas em resultados — sem contratos longos, apenas resultados medidos.
+
+Teriam disponibilidade para uma conversa de 15 minutos esta semana? Posso mostrar exactamente o que a concorrência está a fazer e como se podem posicionar.
+
+Cumprimentos,
+{sender}`,
+                    casual: `{greeting}
+
+Encontrei {business} enquanto pesquisava negócios de {industry} na zona — adorei o que vi!
+
+Uma coisa que reparei: vocês não estão a fazer anúncios online (Facebook/Google). A vossa concorrência está, e honestamente, acho que vocês teriam melhores resultados.
+
+{customNote}
+
+Ajudo negócios como o vosso a aparecer para mais clientes certos, sem complicações.
+
+Faz sentido trocarmos 2 dedos de conversa? Prometo não demorar.
+
+{sender}`,
+                    curious: `{greeting}
+
+Pergunta rápida: já alguma vez consideraram usar Facebook Ads ou Google Ads para {business}?
+
+Pergunto porque ao analisar o mercado de {industry} na vossa zona, vi que a concorrência está a investir bastante em anúncios online — e vocês parecem ter um negócio com potencial para competir.
+
+{customNote}
+
+Estou curioso: é uma decisão estratégica não investir em ads, ou simplesmente nunca foi uma prioridade?
+
+De qualquer forma, se quiserem trocar ideias sobre isto, fico disponível.
+
+{sender}`
+                },
+                whatsapp: `Olá! 👋
+
+Sou o {sender}, trabalho em marketing digital.
+
+Encontrei {business} ao pesquisar negócios de {industry} e reparei que não estão a usar anúncios online.
+
+Pergunta honesta: é intencional ou simplesmente nunca exploraram?
+
+Pergunto porque tenho ajudado negócios semelhantes a conseguir mais clientes desta forma. Se tiverem 5 min para trocar ideias, fico disponível! 🙂`,
+                dm: `Olá! 👋 Vi o perfil de {business} e adorei. Uma pergunta: já consideraram usar anúncios pagos para chegar a mais clientes? Trabalho em marketing digital e tenho algumas ideias que podiam ajudar. Posso partilhar?`
+            },
+            'bad-website': {
+                subjects: [
+                    'Feedback sobre o website de {business}',
+                    'Dica rápida para {business}',
+                    '{business} - está a perder clientes online?'
+                ],
+                emails: {
+                    professional: `{greeting}
+
+O meu nome é {sender} e trabalho em marketing digital para {industry}.
+
+Visitei o website de {business} e queria partilhar uma observação: o site tem bastante potencial, mas há alguns aspectos técnicos que podem estar a afastar clientes (velocidade de carregamento, versão mobile, etc.).
+
+{customNote}
+
+Hoje em dia, 60% das pessoas abandonam um site se demorar mais de 3 segundos a carregar. Pequenas melhorias podem ter grande impacto nas conversões.
+
+Se tiverem interesse, posso fazer uma análise rápida (gratuita) e mostrar exactamente o que está a afectar a performance.
+
+Disponível para uma conversa curta?
+
+Cumprimentos,
+{sender}`,
+                    casual: `{greeting}
+
+Passei pelo website de {business} e tenho que ser honesto: tem potencial, mas está a deixar dinheiro na mesa.
+
+Coisas como velocidade, versão mobile, e alguns detalhes técnicos podem estar a fazer clientes desistir antes de vos contactarem.
+
+{customNote}
+
+Não é nada de complicado de resolver — às vezes pequenos ajustes fazem grande diferença.
+
+Querem que vos mostre onde podem melhorar? Sem compromisso.
+
+{sender}`,
+                    curious: `{greeting}
+
+Pergunta: têm noção de quantas pessoas visitam o website de {business} vs. quantas realmente vos contactam?
+
+Visitei o vosso site e, sendo honesto, vi alguns pontos que podem estar a criar fricção — especialmente em mobile.
+
+{customNote}
+
+Fico curioso se já mediram isto ou se é algo que gostariam de explorar.
+
+{sender}`
+                },
+                whatsapp: `Olá! 👋
+
+Sou o {sender}, de marketing digital.
+
+Visitei o website de {business} e notei alguns pontos que podem estar a afastar potenciais clientes (velocidade, mobile, etc.).
+
+Posso partilhar o que encontrei? São coisas simples de melhorar! 🙂`,
+                dm: `Olá! 👋 Passei pelo vosso site e tenho algumas sugestões que podiam ajudar a converter mais visitantes em clientes. Posso partilhar?`
+            },
+            'no-social': {
+                subjects: [
+                    '{business} nas redes sociais?',
+                    'Ideia para a presença online de {business}',
+                    'Os vossos concorrentes estão a fazer isto...'
+                ],
+                emails: {
+                    professional: `{greeting}
+
+Sou o {sender}, especialista em marketing digital para {industry}.
+
+Ao analisar a presença online de negócios de {industry} na zona, reparei que {business} tem uma presença bastante discreta nas redes sociais.
+
+{customNote}
+
+Num mercado onde os clientes pesquisam online antes de decidir, ter uma presença activa e estratégica pode fazer grande diferença — especialmente em {industry}.
+
+Tenho ajudado negócios semelhantes a usar as redes de forma prática (sem precisar de estar sempre a postar) para gerar mais clientes.
+
+Faz sentido conversarmos sobre como isto poderia funcionar para {business}?
+
+Cumprimentos,
+{sender}`,
+                    casual: `{greeting}
+
+Vi que {business} está um pouco quieto nas redes sociais — pergunta honesta: é intencional ou simplesmente não há tempo?
+
+{customNote}
+
+A razão por que pergunto: muitos negócios de {industry} estão a conseguir clientes novos através das redes, mas sem aquela pressão de "postar todos os dias".
+
+Há formas mais inteligentes de fazer isto funcionar. Se quiserem trocar ideias, estou disponível.
+
+{sender}`,
+                    curious: `{greeting}
+
+Curiosidade: {business} não investe muito em redes sociais por estratégia ou por falta de tempo?
+
+Pergunto sem julgamento — sei que nem toda a gente precisa de estar sempre online. Mas no caso de {industry}, tenho visto bons resultados quando feito da forma certa.
+
+{customNote}
+
+Se for algo que alguma vez consideraram, fico disponível para conversar.
+
+{sender}`
+                },
+                whatsapp: `Olá! 👋
+
+{sender} aqui, de marketing digital.
+
+Reparei que {business} está um pouco quieto nas redes sociais. Percebo que dá trabalho, mas há formas de fazer isto funcionar sem ocupar muito tempo.
+
+Interessa trocar ideias sobre como alguns negócios de {industry} estão a fazer? 🙂`,
+                dm: `Olá! 👋 Reparei que o vosso perfil tem potencial para muito mais engagement. Trabalho em marketing digital e tenho algumas ideias que podiam ajudar. Interessa?`
+            },
+            'competitor': {
+                subjects: [
+                    'A vossa concorrência está a fazer algo interessante...',
+                    'Análise de mercado - {business}',
+                    '{business} vs. concorrência online'
+                ],
+                emails: {
+                    professional: `{greeting}
+
+Sou o {sender}, especialista em marketing digital para {industry}.
+
+Fiz uma análise rápida do mercado de {industry} na vossa zona e descobri algo interessante: alguns dos vossos concorrentes estão a investir significativamente em marketing digital (anúncios, redes sociais, SEO).
+
+{customNote}
+
+Isto não significa que estejam a ganhar automaticamente, mas significa que estão a captar a atenção dos clientes que pesquisam online — clientes que também poderiam ser vossos.
+
+Faz sentido partilhar convosco o que encontrei? Pode ser útil para entender como se posicionar.
+
+Cumprimentos,
+{sender}`,
+                    casual: `{greeting}
+
+Vou ser directo: estive a olhar para o mercado de {industry} na vossa zona e vi que alguns concorrentes de {business} estão a investir forte em marketing online.
+
+{customNote}
+
+Não digo isto para assustar — digo porque há oportunidade de vocês fazerem melhor do que eles, se souberem onde apostar.
+
+Querem que vos mostre o que encontrei? Pode dar ideias.
+
+{sender}`,
+                    curious: `{greeting}
+
+Pergunta: têm noção do que a vossa concorrência está a fazer online?
+
+Estive a analisar o mercado de {industry} e reparei que alguns dos vossos concorrentes estão bastante activos em anúncios e redes sociais.
+
+{customNote}
+
+Fico curioso se isto é algo que acompanham ou se preferem focar noutras estratégias.
+
+{sender}`
+                },
+                whatsapp: `Olá! 👋
+
+Sou o {sender}, de marketing digital.
+
+Análise rápida: estive a ver o mercado de {industry} na vossa zona e a concorrência de {business} está a investir bastante em marketing online.
+
+Interessa saber o que estão a fazer e como podem posicionar-se? 🙂`,
+                dm: `Olá! 👋 Reparei que alguns concorrentes vossos estão muito activos online. Tenho algumas ideias de como se podem destacar — interessa?`
+            },
+            'no-reviews': {
+                subjects: [
+                    'Dica rápida sobre reputação online - {business}',
+                    '{business} merece mais reviews',
+                    'Como conseguir mais avaliações 5 estrelas'
+                ],
+                emails: {
+                    professional: `{greeting}
+
+Sou o {sender}, especialista em marketing digital para {industry}.
+
+Ao pesquisar {business}, reparei que têm poucas reviews online (Google, Facebook, etc.). Isto é mais importante do que parece: 87% das pessoas consultam reviews antes de escolher um negócio.
+
+{customNote}
+
+A boa notícia é que conseguir mais (e melhores) reviews é mais simples do que parece — com as estratégias certas.
+
+Tenho ajudado negócios de {industry} a aumentar significativamente a quantidade de avaliações positivas de forma orgânica.
+
+Faz sentido partilhar algumas ideias com vocês?
+
+Cumprimentos,
+{sender}`,
+                    casual: `{greeting}
+
+Vi que {business} tem poucas reviews online — e isso pode estar a custar-vos clientes.
+
+A sério: a maioria das pessoas hoje em dia vai ao Google ver reviews antes de escolher. Poucos reviews = desconfiança.
+
+{customNote}
+
+Mas há formas fáceis de pedir reviews aos clientes satisfeitos sem ser chato. Posso partilhar algumas ideias que funcionam bem em {industry}.
+
+Interessa?
+
+{sender}`,
+                    curious: `{greeting}
+
+Pergunta rápida: costumam pedir reviews aos vossos clientes em {business}?
+
+Pergunto porque reparei que têm poucas avaliações online, e sei que muitos negócios simplesmente não têm um processo para isto.
+
+{customNote}
+
+Se for algo que gostariam de melhorar, tenho algumas ideias simples que funcionam bem.
+
+{sender}`
+                },
+                whatsapp: `Olá! 👋
+
+{sender} aqui, de marketing digital.
+
+Notei que {business} tem poucas reviews no Google. Sabia que 87% das pessoas verificam reviews antes de escolher?
+
+Tenho algumas dicas simples para conseguir mais avaliações. Interessa? 🙂`,
+                dm: `Olá! 👋 Vi que têm poucas reviews online — posso partilhar algumas dicas para conseguir mais avaliações 5 estrelas? É mais simples do que parece!`
+            },
+            'general': {
+                subjects: [
+                    'Ideia para {business}',
+                    'Oportunidade de crescimento - {business}',
+                    'Podemos ajudar {business} a crescer?'
+                ],
+                emails: {
+                    professional: `{greeting}
+
+Sou o {sender}, especialista em marketing digital para {industry}.
+
+Encontrei {business} ao pesquisar negócios de {industry} na zona e fiquei com curiosidade: como é que actualmente atraem novos clientes?
+
+{customNote}
+
+Tenho trabalhado com vários negócios semelhantes ao vosso a implementar estratégias de marketing digital que geram resultados mensuráveis — mais visibilidade, mais contactos, mais clientes.
+
+Se tiverem interesse em explorar novas formas de crescer, terei todo o gosto em partilhar algumas ideias.
+
+Disponível para uma conversa curta?
+
+Cumprimentos,
+{sender}`,
+                    casual: `{greeting}
+
+Encontrei {business} enquanto pesquisava negócios de {industry} e pensei em mandar mensagem.
+
+Pergunta directa: estão satisfeitos com a forma como atraem novos clientes ou acham que há espaço para mais?
+
+{customNote}
+
+Trabalho em marketing digital e tenho ajudado negócios como o vosso a chegar a mais pessoas certas. Se quiserem trocar ideias, estou por aqui.
+
+{sender}`,
+                    curious: `{greeting}
+
+Curiosidade sobre {business}: como é que actualmente chegam aos vossos clientes? É tudo boca-a-boca ou usam outros canais?
+
+Pergunto porque trabalho em marketing digital para {industry} e estou sempre curioso sobre o que funciona em diferentes negócios.
+
+{customNote}
+
+Se alguma vez quiserem explorar novas formas de crescer, fico disponível para conversar.
+
+{sender}`
+                },
+                whatsapp: `Olá! 👋
+
+Sou o {sender}, de marketing digital.
+
+Encontrei {business} e fiquei curioso: como é que actualmente atraem novos clientes?
+
+Trabalho com negócios de {industry} e tenho algumas ideias que podiam ajudar. Interessa trocar 2 minutos de conversa? 🙂`,
+                dm: `Olá! 👋 Encontrei o vosso perfil e gostei! Trabalho em marketing digital e tenho algumas ideias que podiam ajudar {business} a chegar a mais clientes. Posso partilhar?`
+            }
+        };
+
+        const industryNames = {
+            'restaurante': 'restauração',
+            'imobiliaria': 'imobiliárias',
+            'ginasio': 'ginásios',
+            'barbearia': 'barbearias',
+            'tatuagem': 'tatuagem',
+            'oficina': 'oficinas auto',
+            'turismo': 'turismo',
+            'fotografo': 'fotografia',
+            'seguros': 'seguros',
+            'ecommerce': 'e-commerce',
+            'outro': 'negócios locais'
+        };
+
+        let currentTab = 'email';
+        let generatedContent = {
+            subject: '',
+            email: '',
+            whatsapp: '',
+            dm: ''
+        };
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`.tab:nth-child(${tab === 'email' ? 1 : tab === 'whatsapp' ? 2 : 3})`).classList.add('active');
+            
+            document.getElementById('emailOutput').style.display = tab === 'email' ? 'block' : 'none';
+            document.getElementById('whatsappOutput').style.display = tab === 'whatsapp' ? 'block' : 'none';
+            document.getElementById('dmOutput').style.display = tab === 'dm' ? 'block' : 'none';
+            
+            currentTab = tab;
+        }
+
+        function generateOutreach() {
+            const businessName = document.getElementById('businessName').value.trim();
+            const contactName = document.getElementById('contactName').value.trim();
+            const industry = document.getElementById('industry').value;
+            const problem = document.getElementById('problem').value;
+            const tone = document.getElementById('tone').value;
+            const senderName = document.getElementById('senderName').value.trim() || 'Guilherme';
+            const customNote = document.getElementById('customNote').value.trim();
+
+            if (!businessName || !industry || !problem) {
+                alert('Por favor preenche os campos obrigatórios: Nome do Negócio, Indústria e Problema.');
+                return;
+            }
+
+            const template = templates[problem];
+            const industryName = industryNames[industry];
+            
+            // Build greeting
+            const greeting = contactName ? `Olá ${contactName},` : 'Olá,';
+            
+            // Build custom note section
+            const customNoteText = customNote ? `\n${customNote}\n` : '';
+
+            // Pick random subject
+            const subject = template.subjects[Math.floor(Math.random() * template.subjects.length)]
+                .replace(/{business}/g, businessName);
+
+            // Generate email
+            const email = template.emails[tone]
+                .replace(/{greeting}/g, greeting)
+                .replace(/{business}/g, businessName)
+                .replace(/{industry}/g, industryName)
+                .replace(/{sender}/g, senderName)
+                .replace(/{customNote}/g, customNoteText);
+
+            // Generate WhatsApp
+            const whatsapp = template.whatsapp
+                .replace(/{business}/g, businessName)
+                .replace(/{industry}/g, industryName)
+                .replace(/{sender}/g, senderName);
+
+            // Generate DM
+            const dm = template.dm
+                .replace(/{business}/g, businessName)
+                .replace(/{industry}/g, industryName)
+                .replace(/{sender}/g, senderName);
+
+            // Store and display
+            generatedContent = { subject, email, whatsapp, dm };
+            
+            document.getElementById('subjectBox').textContent = subject;
+            document.getElementById('emailBox').textContent = email;
+            document.getElementById('whatsappBox').textContent = whatsapp;
+            document.getElementById('dmBox').textContent = dm;
+        }
+
+        function copyText(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                // Show copied feedback
+                const copiedEl = document.getElementById(elementId.replace('Box', 'Copied'));
+                if (copiedEl) {
+                    copiedEl.classList.add('show');
+                    setTimeout(() => copiedEl.classList.remove('show'), 2000);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
