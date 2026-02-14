@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-14T05:33:35Z",
+  "lastUpdated": "2026-02-14T23:18:02Z",
   "scoringVersion": "2.0",
   "weights": {
     "market": 0.15,
@@ -514,6 +514,25 @@
       "detailsFile": null,
       "detailsContent": "---\ntitle: Open-Source Affiliate Platform\ncreated: 2026-02-07\ntags:\n  - micro-saas\n  - open-source\n  - affiliate\n  - privacy\nstatus: idea\nscore: 8\n---\n\n# Open-Source Affiliate Platform\n\n> Plataforma de affiliate marketing self-hosted que não requer acesso ao Stripe.\n\n## O Problema\n\n- Ferramentas de afiliados (PartnerStack, Rewardful, etc.) exigem **conexão ao Stripe**\n- Isso dá acesso a: receita, emails de clientes, histórico de transações\n- Founders não estão confortáveis a partilhar dados financeiros sensíveis\n- Afiliados não confiam na lógica de atribuição (black box)\n\n> **Fonte:** Simon Horberg (5 OS SaaS ideas 2026) - pain point pessoal ao lançar programa de afiliados\n\n## A Solução\n\nPlataforma open-source self-hosted:\n1. **Tracking de clicks e conversões** sem acesso ao Stripe\n2. **Código público** - afiliados podem inspecionar lógica de atribuição\n3. **Dados ficam no teu servidor** - zero third-party access\n\n## Modelo de Negócio (3 camadas)\n\n1. **Free Community Edition** - open-source, qualquer pessoa pode usar\n2. **Pro Lifetime License** - features avançadas (multi-team, analytics) por taxa única\n3. **Done-for-you Service** - Merchant of Record para payouts de afiliados (compliance fiscal)\n\n## Por Que Pode Funcionar\n\n| Factor | Avaliação |\n|--------|-----------|\n| Dor real? | ✅ Privacidade de dados financeiros |\n| Mercado | 🟢 Qualquer SaaS com programa de afiliados |\n| Concorrência | 🟡 Existem tools mas não open-source |\n| Distribuição | 🟢 Dev community, Product Hunt |\n| Dificuldade | 🟡 Média (tracking, dashboard, integrations) |\n\n## Diferencial\n\n- **Privacidade** - Sem conexão Stripe obrigatória\n- **Transparência** - Código aberto = confiança dos afiliados\n- **Self-hosted** - Controlo total dos dados\n\n## Validação\n\n- [ ] Pesquisar alternativas open-source existentes\n- [ ] Postar em r/SaaS sobre pain point\n- [ ] Validar interesse com indie hackers\n\n## Referências\n\n- Video: [5 OS SaaS ideas to launch in 2026](https://www.youtube.com/watch?v=H9YVvRkZnCo)\n\n---\n\n*Identificada em: 2026-02-07 · YouTube Research*\n",
       "score": 5.0
+    },
+    {
+      "id": "automation-template-store",
+      "name": "Automation Template Store",
+      "emoji": "💡",
+      "problem": "Pesquisa de templates n8n/Make (2026-02-14) revelou:",
+      "market": 1,
+      "demand": 5,
+      "effort": 5,
+      "skills": 8,
+      "revenue": 5,
+      "interest": 5,
+      "competitors": [],
+      "notes": "",
+      "source": "obsidian",
+      "dateAdded": "2026-02-14",
+      "detailsFile": null,
+      "detailsContent": "---\ntitle: Automation Template Store\ncreated: 2026-02-14\ntags:\n  - idea\n  - side-hustle\n  - automation\n  - n8n\n  - make\nstatus: exploring\npotential: 7\neffort: 5\nskills: 8\nscore: 7.3\nproblem: \"Templates gratuitos de n8n/Make são mal documentados e difíceis de customizar\"\nsolution: \"Loja de templates premium com documentação detalhada e vídeo walkthrough\"\nmarket: \"Marketers, agências, solopreneurs que usam automação\"\n---\n\n# Automation Template Store\n\n## Origem da Ideia\nPesquisa de templates n8n/Make (2026-02-14) revelou:\n- n8n: 8,300+ templates (maioria sem documentação)\n- Make: 10,000+ templates\n- Dificuldade em encontrar e customizar templates\n\n## Problem\nOs templates gratuitos de automação têm problemas:\n- Documentação mínima ou inexistente\n- Sem vídeo explicativo\n- Difícil de adaptar ao caso específico\n- Qualidade inconsistente\n- Sem suporte\n\n## Solution\n**Loja de templates premium** com:\n- 📹 Vídeo walkthrough de cada template (5-10 min)\n- 📝 Documentação detalhada de customização\n- 🎯 Templates para casos de uso específicos\n- 💬 Suporte via Discord/email\n- 🔄 Updates quando as APIs mudam\n\n## Market\n- **Primário:** Agências de marketing que usam automação\n- **Secundário:** Freelancers e solopreneurs\n- **Terciário:** PMEs a automatizar processos\n\n## Business Model\n| Modelo | Preço | Notas |\n|--------|-------|-------|\n| Template individual | €19-49 | Depende da complexidade |\n| Bundle (5 templates) | €79 | Desconto de volume |\n| Subscrição mensal | €29/mês | Acesso a todos + novos |\n\n## Competitive Advantage\n1. **Qualidade > Quantidade** — 20-30 templates excelentes vs milhares medíocres\n2. **Vídeo em português** — mercado lusófono subservido\n3. **LinkedIn como canal** — demos geram conteúdo E vendem templates\n4. **Experiência PPC** — templates únicos para agências de ads\n\n## Templates Iniciais (MVP)\n1. **Lead Gen Machine** — Google Maps → enriquecimento → CRM\n2. **Zoom → Tarefas** — Resumo AI + criação automática de tasks\n3. **Relatório Semanal** — Dados ads → PDF → email ao cliente\n4. **Competitor Monitor** — Ad Library → alertas\n5. **Social Media Auto-Post** — Notion/Sheets → redes sociais\n\n## Go-to-Market\n1. **Semana 1-2:** Criar 3-5 templates premium\n2. **Semana 3:** Lançar no Gumroad/LemonSqueezy\n3. **Contínuo:** Post LinkedIn com demo → link para compra\n4. **Escalar:** Affiliate com n8n/Make, guest posts\n\n## Synergies\n- [[AI-Client-Reporting-Tool]] — pode virar template\n- [[B2B-Client-Onboarding-Portal]] — já existe template similar\n- Posts LinkedIn sobre automação → vendas de templates\n\n## Riscos\n- ⚠️ Tempo para criar templates de qualidade\n- ⚠️ APIs mudam, templates quebram\n- ⚠️ Competição com templates gratuitos\n\n## Mitigação\n- Focar em documentação/suporte como diferencial\n- Criar templates para integrações estáveis\n- Subscrição inclui updates\n\n## Next Steps\n- [ ] Criar primeiro template (Lead Gen Machine)\n- [ ] Gravar vídeo demo para LinkedIn\n- [ ] Setup Gumroad/LemonSqueezy\n- [ ] Publicar post com demo + link\n\n## Score Calculation\n- Potential: 7 (mercado médio, ticket baixo mas recorrente)\n- Effort: 5 (requer criação contínua de conteúdo)\n- Skills: 8 (alinha com PPC + automação)\n- **Score: (7×2 + 8×1.5 - 5) / 3 = 7.3**\n\n## References\n- [n8n Workflows](https://n8n.io/workflows/)\n- [Make Templates](https://www.make.com/en/templates)\n- Pesquisa side-hustles 2026-02-14\n",
+      "score": 4.85
     }
   ]
 }
