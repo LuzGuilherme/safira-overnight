@@ -1,7 +1,131 @@
 {
-  "generated": "2026-02-12T14:51:54.005421Z",
-  "count": 2,
+  "generated": "2026-02-14T07:30:00.000000Z",
+  "count": 3,
   "digests": [
+    {
+      "id": "2026-02-14-lex-fridman-peter-steinberger",
+      "filename": "2026-02-14-lex-fridman-peter-steinberger.md",
+      "date": "2026-02-14",
+      "title": "The Creator of OpenClaw",
+      "host": "Lex Fridman Podcast",
+      "guest": "Peter Steinberger — Criador do OpenClaw, ex-fundador PSPDFKit",
+      "duration": "~2h 30min",
+      "link": "https://www.youtube.com/watch?v=YFjfBk8HI5o",
+      "theme": "A história do OpenClaw, filosofia de desenvolvimento, e o futuro dos AI agents",
+      "tldr": "Peter Steinberger construiu o protótipo do OpenClaw em **1 hora** — WhatsApp → Claude Code CLI. O projecto explodiu porque ele \"just had fun\" enquanto labs grandes se levavam demasiado a sério. Insights sobre self-modifying software, agentic engineering vs vibe coding, e por que usar voz em vez de texto para prompts é game-changing.",
+      "sections_summary": {
+        "A Origem do OpenClaw": "- Abril 2025: queria assistente pessoal, labs não fizeram, então fez ele\n- Protótipo em **1 hora**: WhatsApp relay → Claude Code CLI → resposta\n- Nome mudou várias vezes: WA-Relay → Claude's → Claudebot → Moltbot → OpenClaw\n- Fastest growing GitHub repo in history: 175,000+ stars",
+        "Self-Modifying Software": "- Agent conhece o próprio código e pode modificá-lo\n- 6,600 commits em Janeiro — Peter corre 4-10 agents simultaneamente\n- Agent descobriu sozinho como transcrever áudio: ffmpeg → OpenAI Whisper API\n- \"no-reply token\" permite agent ficar calado em group chats quando não é relevante",
+        "Agentic Engineering vs Vibe Coding": "- **Agentic engineering**: código estruturado, methodical\n- **Vibe coding**: depois das 3AM, \"just let it flow\"\n- Peter usa VOZ para prompts — não escreve, fala\n- Transforma conversa natural em acções concretas",
+        "Por Que OpenClaw Ganhou": "- \"They take themselves too seriously. Hard to compete against someone just having fun.\"\n- Não pediu permissão a ninguém, não esperou por enterprise features\n- Comunidade criou-se organicamente\n- \"Prompt requests\" = PRs de pessoas que nunca programaram",
+        "História Pessoal": "- Construiu PSPDFKit (SDK em 1 bilião de devices), vendeu\n- Desapareceu 3 anos, voltou com OpenClaw\n- Personalidade do agent definida em soul.md\n- Usa Claude Opus 4.6 e GPT 5.3 Codex"
+      },
+      "insights": [
+        {
+          "insight": "Protótipo funcional em 1 hora",
+          "why": "Não precisas de infra complexa — WhatsApp + CLI é suficiente para começar"
+        },
+        {
+          "insight": "Voz > Texto para prompts",
+          "why": "Mais natural, captura nuance, menos fricção"
+        },
+        {
+          "insight": "Agent pode descobrir soluções sozinho",
+          "why": "ffmpeg + Whisper API descoberto sem instrução explícita"
+        },
+        {
+          "insight": "no-reply token para group chats",
+          "why": "Agent escolhe quando ficar calado — mais natural"
+        },
+        {
+          "insight": "Fun beats serious",
+          "why": "Labs grandes falham por over-engineering; diversão ganha"
+        }
+      ],
+      "actions": {
+        "immediate": [
+          "Experimentar voice prompts em vez de texto",
+          "Verificar se estou a \"divertir-me\" ou a over-engineer"
+        ],
+        "week": [
+          "Criar protótipo rápido de uma ideia (<1 dia)",
+          "Experimentar soul.md para definir personalidade do agent"
+        ],
+        "longterm": [
+          "Desenvolver capacidade de \"vibe coding\" quando apropriado",
+          "Considerar builds que se auto-modificam"
+        ]
+      },
+      "context_application": {
+        "Para Side Hustles": "- **Speed matters** — protótipo em 1 hora, não 1 semana\n- **Fun = sustentável** — se não estás a gostar, vais desistir\n- **Não pedir permissão** — lançar e iterar",
+        "Para Produtividade": "- **Voice prompts** — tentar no dia-a-dia\n- **Agent como extensão** — não ferramenta, mas parceiro"
+      },
+      "frameworks": [
+        {
+          "name": "1-Hour Prototype",
+          "content": "**O que é:** MVP funcional em 60 minutos ou menos\n**Como usar:**\n1. Escolher a funcionalidade CORE (só uma)\n2. Usar ferramentas que já conheces\n3. Ignorar edge cases\n4. Ship it, depois itera"
+        },
+        {
+          "name": "Fun Over Perfection",
+          "content": "**O que é:** Projectos divertidos vencem projectos \"sérios\"\n**Como usar:**\n1. Se não estás a gostar, pára e reavalia\n2. Labs grandes falham por over-engineering\n3. Diversão atrai comunidade"
+        }
+      ],
+      "stories": [
+        {
+          "title": "O Protótipo de 1 Hora",
+          "content": "Peter queria assistente pessoal. Em vez de esperar pelos labs ou planear meses, construiu WhatsApp → Claude Code relay em 60 minutos. Funcionou logo. Isso tornou-se OpenClaw."
+        },
+        {
+          "title": "Agent Descobriu Whisper Sozinho",
+          "content": "Peter pediu para transcrever áudio. Agent, sem instruções específicas, descobriu que podia usar ffmpeg para extrair áudio e OpenAI Whisper API para transcrever. Emergent capability."
+        },
+        {
+          "title": "175K Stars em Meses",
+          "content": "Fastest growing GitHub repo in history. Não por marketing — por ser genuinamente útil e divertido de usar."
+        }
+      ],
+      "resources": [
+        {
+          "type": "Projecto:",
+          "description": "OpenClaw — github.com/openclaw/openclaw"
+        },
+        {
+          "type": "Conceito:",
+          "description": "soul.md — ficheiro que define personalidade do agent"
+        },
+        {
+          "type": "Modelos:",
+          "description": "Claude Opus 4.6, GPT 5.3 Codex"
+        }
+      ],
+      "reflection_questions": [
+        "Estou a divertir-me com os meus projectos ou a over-engineer?",
+        "Quanto tempo demoro a fazer um protótipo? Podia ser 1 hora?",
+        "Uso voz para interagir com AI ou só texto?"
+      ],
+      "quotes": [
+        "They take themselves too seriously. Hard to compete against someone just having fun.",
+        "I built the first prototype in one hour.",
+        "The agent discovered on its own how to transcribe audio — ffmpeg to Whisper API.",
+        "People don't want to TALK with AI, they want AI to DO things."
+      ],
+      "rating": 5.0,
+      "rating_breakdown": {
+        "Novidade da informação": 5,
+        "Aplicabilidade prática": 5,
+        "Recomendo a outros": 5
+      },
+      "tags": [
+        "openclaw",
+        "AI-agents",
+        "founder-story",
+        "prototyping",
+        "lex-fridman",
+        "vibe-coding",
+        "self-modifying-software"
+      ],
+      "verdict": "Entrevista essencial para entender a filosofia por trás do OpenClaw. O insight de 'fun beats serious' e o protótipo de 1 hora são inspiradores. Obrigatório para quem quer construir com AI agents."
+    },
     {
       "id": "2026-02-12-coding-agents-kelvin-french-owen",
       "filename": "2026-02-12-coding-agents-kelvin-french-owen.md",
