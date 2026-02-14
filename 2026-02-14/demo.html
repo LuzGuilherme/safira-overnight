@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo AI Support | Loja Exemplo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .chat-container {
+            width: 100%;
+            max-width: 420px;
+            height: 600px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .chat-header .avatar {
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+        
+        .chat-header .info h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .chat-header .info p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .chat-header .status {
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            margin-left: auto;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: #f8f9fa;
+        }
+        
+        .message {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            line-height: 1.4;
+            font-size: 14px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .message.bot {
+            background: white;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .message.user {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .typing {
+            display: flex;
+            gap: 4px;
+            padding: 12px 16px;
+            background: white;
+            border-radius: 18px;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .typing span {
+            width: 8px;
+            height: 8px;
+            background: #ccc;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing span:nth-child(2) { animation-delay: 0.2s; }
+        .typing span:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-6px); }
+        }
+        
+        .chat-input {
+            padding: 16px;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 24px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        .chat-input input:focus {
+            border-color: #667eea;
+        }
+        
+        .chat-input button {
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            transition: transform 0.2s;
+        }
+        
+        .chat-input button:hover {
+            transform: scale(1.05);
+        }
+        
+        .quick-replies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 0 20px 15px;
+            background: #f8f9fa;
+        }
+        
+        .quick-reply {
+            padding: 8px 14px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 16px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .quick-reply:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .demo-badge {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="avatar">🤖</div>
+            <div class="info">
+                <h3>Assistente Virtual</h3>
+                <p>Loja Exemplo • Suporte 24/7</p>
+            </div>
+            <div class="status"></div>
+        </div>
+        
+        <div class="chat-messages" id="messages">
+            <!-- Messages will appear here -->
+        </div>
+        
+        <div class="quick-replies" id="quickReplies">
+            <span class="quick-reply" onclick="sendMessage('Qual o prazo de entrega?')">📦 Prazo de entrega</span>
+            <span class="quick-reply" onclick="sendMessage('Como faço uma devolução?')">↩️ Devoluções</span>
+            <span class="quick-reply" onclick="sendMessage('Quais os métodos de pagamento?')">💳 Pagamentos</span>
+            <span class="quick-reply" onclick="sendMessage('O meu pedido está atrasado')">⏰ Pedido atrasado</span>
+        </div>
+        
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Escreva a sua mensagem..." onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+    
+    <div class="demo-badge">🎯 Demo AI Support</div>
+
+    <script>
+        const faq = {
+            // Entregas
+            'prazo': 'As entregas são feitas em **2-5 dias úteis** para Portugal Continental. Para as ilhas, o prazo é de 5-8 dias úteis. Encomendas acima de 50€ têm portes grátis! 📦',
+            'entrega': 'As entregas são feitas em **2-5 dias úteis** para Portugal Continental. Para as ilhas, o prazo é de 5-8 dias úteis. Encomendas acima de 50€ têm portes grátis! 📦',
+            'portes': 'Os portes de envio custam **3,99€** para encomendas até 50€. Acima desse valor, o envio é **gratuito**! 🎉',
+            'tracking': 'Assim que o seu pedido for expedido, receberá um email com o **código de tracking**. Pode acompanhar a entrega no site dos CTT ou na transportadora indicada.',
+            'atrasado': 'Lamento o atraso! Pode verificar o estado do seu pedido na sua área de cliente. Se precisar de ajuda, indique-me o **número da encomenda** que verifico o que se passa. 🔍',
+            
+            // Devoluções
+            'devolução': 'Tem **30 dias** para devolver qualquer artigo! Basta aceder à sua área de cliente, selecionar o pedido e clicar em "Solicitar devolução". Enviamos uma etiqueta pré-paga para o seu email. ↩️',
+            'devolver': 'Tem **30 dias** para devolver qualquer artigo! Basta aceder à sua área de cliente, selecionar o pedido e clicar em "Solicitar devolução". Enviamos uma etiqueta pré-paga para o seu email. ↩️',
+            'reembolso': 'O reembolso é processado em **5-7 dias úteis** após recebermos o artigo. Será creditado no mesmo método de pagamento utilizado na compra. 💰',
+            'troca': 'Para trocar um artigo, primeiro faça a devolução e depois realize uma nova encomenda. O reembolso é processado rapidamente! Se tiver dúvidas sobre tamanhos, posso ajudar. 👕',
+            
+            // Pagamentos
+            'pagamento': 'Aceitamos **Multibanco, MB Way, cartão de crédito/débito (Visa, Mastercard), PayPal** e transferência bancária. Todos os pagamentos são seguros e encriptados! 🔒',
+            'pagar': 'Aceitamos **Multibanco, MB Way, cartão de crédito/débito (Visa, Mastercard), PayPal** e transferência bancária. Todos os pagamentos são seguros e encriptados! 🔒',
+            'mbway': 'Sim, aceitamos **MB Way**! No checkout, selecione essa opção e introduza o seu número de telemóvel. Receberá a notificação na app para confirmar. 📱',
+            'prestações': 'Oferecemos pagamento em **3x sem juros** para compras acima de 100€ através do nosso parceiro. Basta selecionar essa opção no checkout!',
+            'fatura': 'A fatura é enviada automaticamente por email após a compra. Pode também descarregá-la na sua área de cliente, secção "Os meus pedidos".',
+            
+            // Stock e Produtos
+            'stock': 'Se um produto está "esgotado", pode clicar em "Avisar-me" para receber uma notificação quando voltar a estar disponível! 🔔',
+            'tamanho': 'Na página de cada produto encontra a nossa **tabela de tamanhos** detalhada. Se tiver dúvidas entre dois tamanhos, recomendamos escolher o maior. Pode sempre trocar gratuitamente!',
+            'garantia': 'Todos os nossos produtos têm **garantia de 2 anos** contra defeitos de fabrico. Se encontrar algum problema, contacte-nos que resolvemos rapidamente! ✅',
+            
+            // Conta e Geral
+            'password': 'Para recuperar a password, clique em "Esqueci-me da password" no login. Receberá um email com link para criar uma nova password. 🔑',
+            'conta': 'Pode criar conta durante o checkout ou na página de registo. Ter conta permite acompanhar pedidos, guardar moradas e acumular pontos! ⭐',
+            'desconto': 'Subscreva a nossa newsletter e receba **10% de desconto** na primeira compra! Também partilhamos promoções exclusivas nas redes sociais. 🎁',
+            'contacto': 'Pode contactar-nos por email (suporte@lojaexemplo.pt), telefone (21 000 0000 - dias úteis 9h-18h), ou através deste chat! Respondo 24/7. 💬',
+            
+            // Fallbacks simpáticos
+            'olá': 'Olá! 👋 Bem-vindo ao suporte da Loja Exemplo! Como posso ajudar? Pode perguntar sobre entregas, devoluções, pagamentos, ou qualquer outra dúvida!',
+            'ola': 'Olá! 👋 Bem-vindo ao suporte da Loja Exemplo! Como posso ajudar? Pode perguntar sobre entregas, devoluções, pagamentos, ou qualquer outra dúvida!',
+            'bom dia': 'Bom dia! ☀️ Como posso ajudar hoje?',
+            'boa tarde': 'Boa tarde! Como posso ajudar?',
+            'boa noite': 'Boa noite! 🌙 Estou aqui para ajudar, mesmo fora de horas!',
+            'obrigado': 'De nada! 😊 Se tiver mais alguma dúvida, é só perguntar. Boas compras!',
+            'obrigada': 'De nada! 😊 Se tiver mais alguma dúvida, é só perguntar. Boas compras!',
+            'ajuda': 'Claro que ajudo! Posso responder a dúvidas sobre:\n\n📦 **Entregas** - prazos, portes, tracking\n↩️ **Devoluções** - como devolver, reembolsos\n💳 **Pagamentos** - métodos aceites\n👕 **Produtos** - tamanhos, stock, garantias\n\nO que precisa saber?'
+        };
+
+        const fallbackResponses = [
+            'Não tenho a certeza se entendi. Pode reformular a pergunta? Ou escolha uma das opções rápidas acima! 😊',
+            'Essa pergunta é mais específica - recomendo contactar a nossa equipa por email (suporte@lojaexemplo.pt) para uma resposta personalizada. Posso ajudar com outra coisa?',
+            'Hmm, não encontrei informação sobre isso. Posso ajudar com entregas, devoluções, pagamentos ou produtos. O que prefere saber?'
+        ];
+
+        function findAnswer(message) {
+            const lowerMessage = message.toLowerCase()
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // Remove accents for matching
+            
+            for (const [key, value] of Object.entries(faq)) {
+                if (lowerMessage.includes(key)) {
+                    return value;
+                }
+            }
+            
+            // Fallback
+            return fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
+        }
+
+        function formatMessage(text) {
+            return text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n/g, '<br>');
+        }
+
+        function addMessage(text, isUser = false) {
+            const messagesDiv = document.getElementById('messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+            messageDiv.innerHTML = formatMessage(text);
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function showTyping() {
+            const messagesDiv = document.getElementById('messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = '<span></span><span></span><span></span>';
+            messagesDiv.appendChild(typingDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function hideTyping() {
+            const typing = document.getElementById('typingIndicator');
+            if (typing) typing.remove();
+        }
+
+        function sendMessage(predefinedMessage = null) {
+            const input = document.getElementById('userInput');
+            const message = predefinedMessage || input.value.trim();
+            
+            if (!message) return;
+            
+            addMessage(message, true);
+            input.value = '';
+            
+            // Show typing indicator
+            showTyping();
+            
+            // Simulate response delay (800-1500ms)
+            const delay = 800 + Math.random() * 700;
+            
+            setTimeout(() => {
+                hideTyping();
+                const answer = findAnswer(message);
+                addMessage(answer);
+            }, delay);
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Welcome message on load
+        window.onload = function() {
+            setTimeout(() => {
+                addMessage('Olá! 👋 Sou o assistente virtual da **Loja Exemplo**. Estou disponível 24/7 para ajudar!\n\nPode perguntar sobre entregas, devoluções, pagamentos, ou usar os botões rápidos abaixo. Como posso ajudar?');
+            }, 500);
+        };
+    </script>
+</body>
+</html>
