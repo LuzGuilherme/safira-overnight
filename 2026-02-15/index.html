@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation Post Generator | LinkedIn</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0b;
+            --bg-secondary: #141416;
+            --bg-tertiary: #1c1c1f;
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent: #f59e0b;
+            --accent-dim: #b45309;
+            --border: #27272a;
+            --success: #22c55e;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-display);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            padding: 24px 32px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-weight: 600;
+            font-size: 18px;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-text span {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .badge {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+        }
+
+        /* Main Layout */
+        .main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: calc(100vh - 89px);
+        }
+
+        @media (max-width: 1024px) {
+            .main {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Left Panel - Form */
+        .panel-form {
+            padding: 40px;
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+        }
+
+        @media (max-width: 1024px) {
+            .panel-form {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .form-hint {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            font-family: var(--font-display);
+            font-size: 15px;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        /* Hook Style Selector */
+        .hook-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .hook-option {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .hook-option:hover {
+            border-color: var(--text-muted);
+        }
+
+        .hook-option.active {
+            border-color: var(--accent);
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        .hook-option input {
+            display: none;
+        }
+
+        .hook-emoji {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .hook-name {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* Right Panel - Preview */
+        .panel-preview {
+            background: var(--bg-secondary);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dim);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        .btn.copied {
+            background: var(--success);
+        }
+
+        /* LinkedIn Preview */
+        .linkedin-preview {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .linkedin-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .linkedin-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #0077b5, #00a0dc);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .linkedin-meta {
+            flex: 1;
+        }
+
+        .linkedin-name {
+            font-weight: 600;
+            color: #000;
+            font-size: 14px;
+        }
+
+        .linkedin-title {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .linkedin-time {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .linkedin-content {
+            color: #000;
+            font-size: 14px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .linkedin-content p {
+            margin-bottom: 12px;
+        }
+
+        .linkedin-footer {
+            margin-top: 20px;
+            padding-top: 12px;
+            border-top: 1px solid #e5e5e5;
+            display: flex;
+            justify-content: space-around;
+            color: #666;
+            font-size: 13px;
+        }
+
+        .linkedin-action {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .linkedin-action:hover {
+            color: #0077b5;
+        }
+
+        /* Character Counter */
+        .char-counter {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 24px;
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+
+        .char-count {
+            font-family: var(--font-mono);
+            font-size: 14px;
+        }
+
+        .char-count.warning {
+            color: #ef4444;
+        }
+
+        .char-count.good {
+            color: var(--success);
+        }
+
+        /* Tips Section */
+        .tips {
+            margin-top: 32px;
+            padding: 20px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .tips-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--accent);
+        }
+
+        .tips-list {
+            list-style: none;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .tips-list li {
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .tips-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--text-muted);
+        }
+
+        /* Empty State */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 40px;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 16px 32px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">⚡</div>
+            <div class="logo-text">AutoPost <span>Generator</span></div>
+        </div>
+        <div class="badge">v1.0 • LinkedIn</div>
+    </header>
+
+    <main class="main">
+        <section class="panel-form">
+            <div class="section-title">Descreve a tua automação</div>
+            
+            <div class="form-group">
+                <label class="form-label">O Problema</label>
+                <p class="form-hint">Qual era a dor antes da automação? O que era chato, demorado ou caro?</p>
+                <textarea class="form-textarea" id="problem" placeholder="Ex: Perdia 2 horas por semana a compilar relatórios de 6 plataformas diferentes para enviar aos clientes..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">A Solução</label>
+                <p class="form-hint">O que construíste? Como funciona em poucas palavras?</p>
+                <textarea class="form-textarea" id="solution" placeholder="Ex: Um dashboard que puxa dados automaticamente e gera o relatório em PDF com um clique..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">O Resultado</label>
+                <p class="form-hint">Números concretos: tempo poupado, dinheiro ganho, processos eliminados</p>
+                <input class="form-input" type="text" id="result" placeholder="Ex: Agora demoro 5 minutos em vez de 2 horas. Poupança de 8h/mês.">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Estilo do Hook</label>
+                <p class="form-hint">Como queres começar o post?</p>
+                <div class="hook-options">
+                    <label class="hook-option active" data-hook="problema">
+                        <input type="radio" name="hook" value="problema" checked>
+                        <div class="hook-emoji">🎯</div>
+                        <div class="hook-name">Problema</div>
+                    </label>
+                    <label class="hook-option" data-hook="provocacao">
+                        <input type="radio" name="hook" value="provocacao">
+                        <div class="hook-emoji">💭</div>
+                        <div class="hook-name">Provocação</div>
+                    </label>
+                    <label class="hook-option" data-hook="resultado">
+                        <input type="radio" name="hook" value="resultado">
+                        <div class="hook-emoji">📈</div>
+                        <div class="hook-name">Resultado</div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="tips">
+                <div class="tips-title">💡 Dicas para o Vídeo Demo</div>
+                <ul class="tips-list">
+                    <li>Grava 30-60 segundos máximo</li>
+                    <li>Mostra o problema ANTES da solução</li>
+                    <li>Usa zoom/highlight nas partes importantes</li>
+                    <li>Termina com o resultado visível</li>
+                    <li>Loom ou QuickTime funcionam bem</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="panel-preview">
+            <div class="preview-header">
+                <div class="section-title">Preview do Post</div>
+                <div class="preview-actions">
+                    <button class="btn btn-secondary" id="resetBtn">↺ Reset</button>
+                    <button class="btn btn-primary" id="copyBtn">📋 Copiar Texto</button>
+                </div>
+            </div>
+
+            <div class="linkedin-preview" id="previewContainer">
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon">✍️</div>
+                    <p>Preenche os campos à esquerda<br>para gerar o teu post</p>
+                </div>
+                <div id="previewContent" style="display: none;">
+                    <div class="linkedin-header">
+                        <div class="linkedin-avatar">GL</div>
+                        <div class="linkedin-meta">
+                            <div class="linkedin-name">Guilherme Luz</div>
+                            <div class="linkedin-title">PPC Manager & Automation Specialist</div>
+                            <div class="linkedin-time">Agora • 🌐</div>
+                        </div>
+                    </div>
+                    <div class="linkedin-content" id="postText"></div>
+                    <div class="linkedin-footer">
+                        <span class="linkedin-action">👍 Gostei</span>
+                        <span class="linkedin-action">💬 Comentar</span>
+                        <span class="linkedin-action">🔁 Partilhar</span>
+                        <span class="linkedin-action">📤 Enviar</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="char-counter">
+                <span>Caracteres:</span>
+                <span class="char-count" id="charCount">0 / 3000</span>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        Feito com ⚡ por <a href="https://github.com/LuzGuilherme" target="_blank">Safira</a> • Overnight Build 2026-02-15
+    </footer>
+
+    <script>
+        // Elements
+        const problemInput = document.getElementById('problem');
+        const solutionInput = document.getElementById('solution');
+        const resultInput = document.getElementById('result');
+        const hookOptions = document.querySelectorAll('.hook-option');
+        const postText = document.getElementById('postText');
+        const previewContent = document.getElementById('previewContent');
+        const emptyState = document.getElementById('emptyState');
+        const charCount = document.getElementById('charCount');
+        const copyBtn = document.getElementById('copyBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        let selectedHook = 'problema';
+
+        // Hook templates
+        const hookTemplates = {
+            problema: (problem, solution, result) => {
+                const lines = problem.split('.').filter(s => s.trim());
+                const firstLine = lines[0]?.trim() || problem;
+                return `${firstLine}.
+
+Mas há um problema.
+
+${problem}
+
+Foi exactamente isto que me levou a construir uma solução.
+
+${solution}
+
+${result}
+
+Não é magia. É organização.
+
+E quando tens esta visão clara, as decisões deixam de ser palpites.
+
+Passam a ser escolhas informadas.`;
+            },
+            
+            provocacao: (problem, solution, result) => {
+                return `Quantas horas perdes por semana em tarefas repetitivas?
+
+Eu perdia muitas.
+
+${problem}
+
+Decidi automatizar.
+
+${solution}
+
+O resultado?
+
+${result}
+
+Às vezes, automatizar não é sobre tecnologia.
+
+É sobre deixar de repetir processos que não fazem sentido.`;
+            },
+            
+            resultado: (problem, solution, result) => {
+                return `${result}
+
+Parece impossível?
+
+Não é.
+
+Antes:
+${problem}
+
+Agora:
+${solution}
+
+O tempo que poupo?
+
+Invisto em trabalho que realmente importa.
+
+A experiência melhora.
+E posso focar-me no que realmente interessa.`;
+            }
+        };
+
+        // Update preview
+        function updatePreview() {
+            const problem = problemInput.value.trim();
+            const solution = solutionInput.value.trim();
+            const result = resultInput.value.trim();
+
+            if (!problem && !solution && !result) {
+                emptyState.style.display = 'flex';
+                previewContent.style.display = 'none';
+                charCount.textContent = '0 / 3000';
+                charCount.className = 'char-count';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            previewContent.style.display = 'block';
+
+            const template = hookTemplates[selectedHook];
+            const text = template(
+                problem || '[Descreve o problema...]',
+                solution || '[Descreve a solução...]',
+                result || '[Descreve o resultado...]'
+            );
+
+            postText.textContent = text;
+
+            // Update char count
+            const count = text.length;
+            charCount.textContent = `${count} / 3000`;
+            
+            if (count > 3000) {
+                charCount.className = 'char-count warning';
+            } else if (count > 500) {
+                charCount.className = 'char-count good';
+            } else {
+                charCount.className = 'char-count';
+            }
+        }
+
+        // Hook selection
+        hookOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                hookOptions.forEach(o => o.classList.remove('active'));
+                option.classList.add('active');
+                selectedHook = option.dataset.hook;
+                updatePreview();
+            });
+        });
+
+        // Input listeners
+        [problemInput, solutionInput, resultInput].forEach(input => {
+            input.addEventListener('input', updatePreview);
+        });
+
+        // Copy button
+        copyBtn.addEventListener('click', async () => {
+            const text = postText.textContent;
+            if (!text) return;
+
+            try {
+                await navigator.clipboard.writeText(text);
+                copyBtn.textContent = '✓ Copiado!';
+                copyBtn.classList.add('copied');
+                
+                setTimeout(() => {
+                    copyBtn.textContent = '📋 Copiar Texto';
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+            }
+        });
+
+        // Reset button
+        resetBtn.addEventListener('click', () => {
+            problemInput.value = '';
+            solutionInput.value = '';
+            resultInput.value = '';
+            hookOptions[0].click();
+            updatePreview();
+        });
+
+        // Initial state
+        updatePreview();
+    </script>
+</body>
+</html>
