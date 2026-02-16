@@ -1,6 +1,6 @@
 {
-  "generated": "2026-02-14T07:30:00.000000Z",
-  "count": 3,
+  "generated": "2026-02-16T08:15:00.000000Z",
+  "count": 4,
   "digests": [
     {
       "id": "2026-02-14-lex-fridman-peter-steinberger",
@@ -445,6 +445,83 @@
         "circadian-rhythm"
       ],
       "verdict": "Episódio obrigatório para qualquer pessoa que queira optimizar performance. Cheio de acções práticas, desmistifica melatonina, e a parte sobre chronotypes é game-changing para produtividade."
+    },
+    {
+      "id": "2026-02-16-angie-asche-sports-nutrition",
+      "filename": "2026-02-16-angie-asche-sports-nutrition.md",
+      "date": "2026-02-16",
+      "title": "Sports Nutrition: Underfueling, Timing & Performance",
+      "host": "Podcast Desconhecido",
+      "guest": "Angie Asche — Sports Dietitian, ELEAT Nutrition",
+      "duration": "~45min",
+      "link": "https://www.youtube.com/watch?v=wd6dkj6p3lM",
+      "theme": "Nutrição desportiva, underfueling em atletas, timing de nutrientes, e saúde metabólica a longo prazo",
+      "tldr": "Underfueling é mais comum que overeating em atletas de alta performance — tanto homens como mulheres. O timing dos nutrientes é TÃO importante como a quantidade total. Atletas que comem 4000 calorias mas nas horas erradas continuam underfueled. Fiber é o nutriente mais subestimado. Creatina é non-negotiable.",
+      "sections_summary": {
+        "Underfueling em Atletas": "- Mais comum em high performers do que comer demais\n- Acontece em HOMENS também, não só mulheres\n- Podes manter peso e ainda estar underfueled\n- Sintomas: fadiga, maior perceived exertion, lesões\n- Jogadores MLB/NHL que queriam ficar <10% body fat e performance sofreu",
+        "Performance vs Estética": "- Mito: mais magro = mais rápido\n- Realidade: atletas que cortam demais ficam com pior performance\n- Ambos atletas mencionados lesionaram-se na época\n- Cortam carbs E gorduras, só proteína fica bem",
+        "Timing de Nutrientes": "- Podes comer 4000 calorias/dia mas continuar underfueled\n- Se comes a maioria DEPOIS do treino/jogo, não aproveitas\n- Foco: carbs + proteína PRÉ, DURANTE e PÓS treino\n- Este ajuste sozinho muda performance, recovery e sono",
+        "Jejum Intermitente": "- Pode funcionar para CEOs/executivos (peso, clareza mental)\n- NÃO recomendado para atletas de alta performance\n- Janela demasiado curta para meter 4800 calorias\n- Para mulheres, >12h de jejum tem menos benefícios",
+        "Ciclo Vicioso do Baseball": "- Não come de manhã → café às 13h → snack leve → cafeína pré-jogo às 18h\n- Jogo às 19h com estômago leve → ice cream às 23h → videojogos até às 3h\n- Sono mau → acorda cansado → ciclo repete\n- Alimentação tardia alta em gordura piora o sono",
+        "Testes de Microbioma": "- Marketing ultrapassou a ciência\n- Angie não usa nem recomenda\n- Resultados são sempre: \"precisa mais fibra e probiótico\"\n- Podias ver isso analisando dieta ou análises de sangue",
+        "Saúde Metabólica Longo Prazo": "- 2024: previsão de 1 bilião pessoas com disfunção metabólica\n- Solução: movimento + menos tempo em ecrãs + whole foods\n- Desafio: corta tempo de social media para metade\n- Usa esse tempo para meal prep",
+        "Fibra e Creatina": "- Fibra é o nutriente mais subestimado\n- Proteína tem hype, fibra não\n- Creatina é **non-negotiable** no stack\n- Fibra de refrigerantes prebióticos ≠ comer framboesas",
+        "Treino de Força": "- Músculos são esponjas para glucose\n- Especialmente importante para mulheres na perimenopausa\n- Não precisas de correr maratonas\n- Kettlebells em casa + caminhadas = suficiente"
+      },
+      "insights": [
+        {
+          "insight": "Timing > Quantidade Total",
+          "why": "4000 calorias nas horas certas > 4000 calorias concentradas à noite"
+        },
+        {
+          "insight": "Jejum intermitente não é para atletas",
+          "why": "Impossível meter calorias suficientes em janela curta + timing pré/pós treino"
+        },
+        {
+          "insight": "Screen time challenge",
+          "why": "Corta social media para metade, usa esse tempo para meal prep"
+        },
+        {
+          "insight": "Creatina é non-negotiable",
+          "why": "Benefícios comprovados, sem desvantagens para atletas"
+        }
+      ],
+      "actions": [
+        {
+          "action": "Verificar timing de refeições vs treinos",
+          "context": "Estás a comer carbs+proteína PRÉ e PÓS treino?"
+        },
+        {
+          "action": "Calcular intake de fibra diário",
+          "context": "Meta: 25-35g/dia de whole foods, não suplementos"
+        },
+        {
+          "action": "Screen time audit",
+          "context": "Ver tempo em social media, cortar metade para meal prep"
+        },
+        {
+          "action": "Adicionar creatina ao stack se não tens",
+          "context": "5g/dia, consistente, sem necessidade de loading"
+        }
+      ],
+      "quotes": [
+        {
+          "quote": "You can actually still be underfueled even if you're maintaining or gaining weight. It's really just a matter of nutrient timing.",
+          "context": "Sobre como underfueling não é só sobre calorias totais"
+        },
+        {
+          "quote": "If we can at least get the timing spot on, you'll see a world of a difference with performance, with recovery, with sleep, all of it.",
+          "context": "Impacto do timing correto"
+        },
+        {
+          "quote": "You can't use time as the excuse when you've had 3 hours on TikTok.",
+          "context": "Sobre a desculpa de não ter tempo para cozinhar"
+        },
+        {
+          "quote": "Creatine? Non-negotiable. Definitely love creatine.",
+          "context": "Sobre suplementação essencial"
+        }
+      ]
     }
   ]
 }
