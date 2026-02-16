@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-02-09T10:00:16.358002",
-  "total_invoices": 23,
-  "total_spent": 989.62,
-  "avg_per_visit": 43.03,
+  "generated_at": "2026-02-16T10:00:14.920166",
+  "total_invoices": 25,
+  "total_spent": 1143.56,
+  "avg_per_visit": 45.74,
   "current_month": {
     "month": "2026-02",
-    "total": 111.27,
-    "visits": 2,
-    "change_pct": -70.1
+    "total": 265.21,
+    "visits": 4,
+    "change_pct": -28.6
   },
   "monthly_data": [
     {
@@ -37,17 +37,21 @@
     },
     {
       "month": "2026-02",
-      "total": 111.27,
-      "visits": 2
+      "total": 265.21,
+      "visits": 4
     }
   ],
   "top_products": [
     {
       "name": "(C) FORMA RETANGULAR METAL",
       "count": 1
+    },
+    {
+      "name": "(A) IOG MYT CNT EQ NAT LIG",
+      "count": 1
     }
   ],
   "categories": {
-    "outros": 37.64
+    "outros": 145.89
   }
 }

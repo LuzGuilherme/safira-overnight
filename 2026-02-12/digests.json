@@ -452,7 +452,7 @@
       "date": "2026-02-16",
       "title": "Sports Nutrition: Underfueling, Timing & Performance",
       "host": "Podcast Desconhecido",
-      "guest": "Angie Asche — Sports Dietitian, ELEAT Nutrition",
+      "guest": "Angie Asche — Sports Dietitian, ELEAT Nutrition, ex-nadadora e dançarina",
       "duration": "~45min",
       "link": "https://www.youtube.com/watch?v=wd6dkj6p3lM",
       "theme": "Nutrição desportiva, underfueling em atletas, timing de nutrientes, e saúde metabólica a longo prazo",
@@ -474,54 +474,128 @@
           "why": "4000 calorias nas horas certas > 4000 calorias concentradas à noite"
         },
         {
+          "insight": "Underfueling não é só calorias a menos",
+          "why": "Podes manter ou ganhar peso e ainda estar underfueled se comes nas horas erradas"
+        },
+        {
           "insight": "Jejum intermitente não é para atletas",
           "why": "Impossível meter calorias suficientes em janela curta + timing pré/pós treino"
         },
         {
-          "insight": "Screen time challenge",
-          "why": "Corta social media para metade, usa esse tempo para meal prep"
+          "insight": "Fibra é o nutriente esquecido",
+          "why": "Proteína tem todo o hype, mas fibra impacta gut health, saciedade, e metabolismo"
         },
         {
           "insight": "Creatina é non-negotiable",
-          "why": "Benefícios comprovados, sem desvantagens para atletas"
+          "why": "Benefícios comprovados para performance, cognição, e recovery"
         }
       ],
-      "actions": [
+      "actions": {
+        "immediate": [
+          "Verificar se estou a comer carbs+proteína ANTES dos treinos",
+          "Calcular intake de fibra de hoje (meta: 25-35g)",
+          "Ver screen time de ontem — quanto foi em social media?"
+        ],
+        "week": [
+          "Fazer screen time audit completo da semana",
+          "Adicionar creatina ao stack se ainda não tenho (5g/dia)",
+          "Planear refeições pré e pós-treino para a semana toda",
+          "Substituir 30min de social media por meal prep"
+        ],
+        "longterm": [
+          "Estabelecer rotina de nutrient timing alinhada com treinos",
+          "Aumentar fibra gradualmente (evitar GI distress)",
+          "Criar sistema de meal prep semanal sustentável",
+          "Eliminar ciclo vicioso de alimentação tardia + sono mau"
+        ]
+      },
+      "context_application": {
+        "Para Ironman Training": "- **Timing crítico** — treinos longos exigem fueling antes, durante e depois\n- **Evitar underfueling** — volume alto = necessidades calóricas muito altas\n- **Fibra com cuidado** — não exagerar antes de treinos longos (GI issues)",
+        "Para Produtividade": "- **Screen time → Meal prep** — trade-off directo e mensurável\n- **Sono melhor** — não comer tarde nem high-fat antes de dormir\n- **Energia estável** — timing correcto evita crashes"
+      },
+      "frameworks": [
         {
-          "action": "Verificar timing de refeições vs treinos",
-          "context": "Estás a comer carbs+proteína PRÉ e PÓS treino?"
+          "name": "Nutrient Timing Window",
+          "content": "**O que é:** Comer os nutrientes certos nas alturas certas — PRÉ, DURANTE, PÓS treino\n**Como usar:**\n1. PRÉ (2-3h antes): Carbs complexos + proteína moderada\n2. DURANTE (>60min): Carbs simples (géis, bebida isotónica)\n3. PÓS (30-60min): Proteína + carbs para recovery\n4. Ajustar quantidades ao volume do treino"
         },
         {
-          "action": "Calcular intake de fibra diário",
-          "context": "Meta: 25-35g/dia de whole foods, não suplementos"
+          "name": "Screen Time Trade",
+          "content": "**O que é:** Cada minuto de social media pode ser meal prep\n**Como usar:**\n1. Ver screen time semanal de social media\n2. Cortar para metade\n3. Usar tempo libertado para preparar refeições\n4. Não usar \"falta de tempo\" como desculpa"
         },
         {
-          "action": "Screen time audit",
-          "context": "Ver tempo em social media, cortar metade para meal prep"
-        },
-        {
-          "action": "Adicionar creatina ao stack se não tens",
-          "context": "5g/dia, consistente, sem necessidade de loading"
+          "name": "Underfueling Check",
+          "content": "**O que é:** Sintomas que indicam que não estás a comer suficiente ou nas horas certas\n**Sinais:**\n- Perceived exertion mais alta (mesmos treinos parecem mais difíceis)\n- Fadiga persistente\n- Lesões frequentes\n- Sono mau\n- Irritabilidade\n**Nota:** Podes ter estes sintomas mesmo mantendo peso"
         }
+      ],
+      "stories": [
+        {
+          "title": "Os Atletas MLB/NHL que Queriam <10% Body Fat",
+          "content": "Angie trabalhou com um jogador de hockey e um pitcher de baseball que queriam ficar abaixo de 10% de gordura corporal — puramente por estética, não performance. Ambos cortaram carbs e gorduras drasticamente, mantendo só proteína. Resultado: pior época das suas carreiras, ambos lesionaram-se. A obsessão com ser \"lean\" custou-lhes performance real."
+        },
+        {
+          "title": "O Ciclo Vicioso do Baseball Player",
+          "content": "Padrão típico: não come de manhã, primeiro café/snack às 13h, cafeína pré-jogo às 18h, jogo às 19h com estômago leve, ice cream e videojogos até às 3h da manhã. Resultado: sono horrível, acorda exausto, repete. A alimentação tardia e high-fat perpetua o ciclo."
+        },
+        {
+          "title": "O Screen Time Challenge",
+          "content": "Angie desafia: vai ver o teu screen time de social media. Se são 3 horas no TikTok, não podes usar \"falta de tempo\" como desculpa para não cozinhar. Corta metade e usa 30 minutos para fazer 5 yogurt parfaits que duram a semana toda."
+        }
+      ],
+      "resources": [
+        {
+          "type": "Pessoa:",
+          "description": "Angie Asche — @eleatnutrition no Instagram, sports dietitian para atletas pro e CEOs"
+        },
+        {
+          "type": "Conceito:",
+          "description": "Nutrient Timing — quando comes é tão importante como o quê comes"
+        },
+        {
+          "type": "Suplemento:",
+          "description": "Creatina — \"non-negotiable\" no stack de qualquer atleta"
+        },
+        {
+          "type": "Referência:",
+          "description": "Stacy Sims — pesquisa sobre diferenças fisiológicas em mulheres atletas"
+        },
+        {
+          "type": "App:",
+          "description": "Center — plataforma de treinos em casa que Angie recomenda"
+        }
+      ],
+      "reflection_questions": [
+        "Estou a comer o suficiente ANTES dos treinos ou vou em jejum?",
+        "Quantas gramas de fibra como por dia? Sei sequer?",
+        "O meu sono é afectado por comer tarde?",
+        "Uso \"falta de tempo\" como desculpa enquanto passo horas em social media?",
+        "Estou a perseguir estética à custa de performance?"
       ],
       "quotes": [
-        {
-          "quote": "You can actually still be underfueled even if you're maintaining or gaining weight. It's really just a matter of nutrient timing.",
-          "context": "Sobre como underfueling não é só sobre calorias totais"
-        },
-        {
-          "quote": "If we can at least get the timing spot on, you'll see a world of a difference with performance, with recovery, with sleep, all of it.",
-          "context": "Impacto do timing correto"
-        },
-        {
-          "quote": "You can't use time as the excuse when you've had 3 hours on TikTok.",
-          "context": "Sobre a desculpa de não ter tempo para cozinhar"
-        },
-        {
-          "quote": "Creatine? Non-negotiable. Definitely love creatine.",
-          "context": "Sobre suplementação essencial"
-        }
-      ]
+        "You can actually still be underfueled even if you're maintaining or gaining weight. It's really just a matter of nutrient timing.",
+        "If we can at least get the timing spot on, you'll see a world of a difference with performance, with recovery, with sleep, all of it.",
+        "You can't use time as the excuse when you've had 3 hours on TikTok.",
+        "Creatine? Non-negotiable. Definitely love creatine.",
+        "Fiber just doesn't get enough air time.",
+        "Your muscles are sponges for glucose."
+      ],
+      "rating": 4.5,
+      "rating_breakdown": {
+        "Novidade da informação": 4,
+        "Aplicabilidade prática": 5,
+        "Recomendo a outros": 5
+      },
+      "tags": [
+        "nutrition",
+        "sports-performance",
+        "underfueling",
+        "nutrient-timing",
+        "fiber",
+        "creatine",
+        "sleep",
+        "recovery",
+        "ironman-training"
+      ],
+      "verdict": "Podcast muito prático para atletas de endurance. O insight principal — timing > quantidade total — é actionable imediatamente. Especialmente relevante para preparação de Ironman. Bom reminder sobre fibra e creatina como fundamentais."
     }
   ]
 }
