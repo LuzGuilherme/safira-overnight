@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strava Card Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --border: #2a2a2a;
+            --text: #ffffff;
+            --text-muted: #888888;
+            --accent: #FC4C02;
+            --accent-dim: rgba(252, 76, 2, 0.15);
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 span {
+            color: var(--accent);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Form Styles */
+        .controls {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+        }
+
+        .control-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        input, select {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.75rem;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Template Selector */
+        .templates {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .template-btn {
+            flex: 1;
+            padding: 0.75rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.2s;
+        }
+
+        .template-btn:hover {
+            border-color: var(--text-muted);
+        }
+
+        .template-btn.active {
+            background: var(--accent-dim);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Format Selector */
+        .formats {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .format-btn {
+            flex: 1;
+            padding: 0.5rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.7rem;
+            transition: all 0.2s;
+        }
+
+        .format-btn.active {
+            background: var(--accent-dim);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Download Button */
+        .download-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent);
+            border: none;
+            color: white;
+            font-family: inherit;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: opacity 0.2s;
+        }
+
+        .download-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Preview Area */
+        .preview-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .preview-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .card-wrapper {
+            background: repeating-linear-gradient(
+                45deg,
+                #1a1a1a,
+                #1a1a1a 10px,
+                #151515 10px,
+                #151515 20px
+            );
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Card Styles - DARK */
+        .card {
+            background: #0a0a0a;
+            color: white;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card.story {
+            width: 360px;
+            height: 640px;
+        }
+
+        .card.square {
+            width: 400px;
+            height: 400px;
+        }
+
+        .card.wide {
+            width: 480px;
+            height: 270px;
+        }
+
+        .card-inner {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .activity-icon {
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .activity-type {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+        }
+
+        .card-stats {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .stat {
+            text-align: left;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+
+        .stat-unit {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-left: 0.25rem;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .date {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .branding {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #444;
+        }
+
+        .branding svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--accent);
+        }
+
+        /* LIGHT Template */
+        .card.light {
+            background: #fafafa;
+            color: #0a0a0a;
+        }
+
+        .card.light .card-accent {
+            background: #0a0a0a;
+        }
+
+        .card.light .activity-icon {
+            border-color: #0a0a0a;
+        }
+
+        .card.light .stat-label {
+            color: #888;
+        }
+
+        .card.light .stat-unit {
+            color: #666;
+        }
+
+        .card.light .date {
+            color: #888;
+        }
+
+        .card.light .branding {
+            color: #bbb;
+        }
+
+        .card.light .branding svg {
+            fill: #0a0a0a;
+        }
+
+        /* MINIMAL Template */
+        .card.minimal {
+            background: transparent;
+            border: 2px solid white;
+        }
+
+        .card.minimal .card-accent {
+            display: none;
+        }
+
+        .card.minimal .stat-value {
+            font-size: 3rem;
+        }
+
+        /* Background Pattern */
+        .card-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Strava <span>Card</span> Generator</h1>
+            <p class="subtitle">Cria cards bonitos das tuas actividades para partilhar</p>
+        </header>
+
+        <div class="main-grid">
+            <div class="controls">
+                <div class="control-group">
+                    <label>Tipo de Actividade</label>
+                    <select id="activityType">
+                        <option value="run">🏃 Corrida</option>
+                        <option value="trail">🏔️ Trail Run</option>
+                        <option value="bike">🚴 Ciclismo</option>
+                        <option value="swim">🏊 Natação</option>
+                        <option value="triathlon">🏆 Triathlon</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>Distância</label>
+                    <div class="input-row">
+                        <input type="number" id="distance" value="16.26" step="0.01" placeholder="0.00">
+                        <select id="distanceUnit">
+                            <option value="km">km</option>
+                            <option value="m">metros</option>
+                            <option value="mi">milhas</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Desnível Positivo</label>
+                    <div class="input-row">
+                        <input type="number" id="elevation" value="648" placeholder="0">
+                        <select id="elevationUnit">
+                            <option value="m">metros</option>
+                            <option value="ft">feet</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Tempo</label>
+                    <div class="input-row">
+                        <input type="number" id="hours" value="1" min="0" placeholder="0">
+                        <input type="number" id="minutes" value="52" min="0" max="59" placeholder="0">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Data</label>
+                    <input type="date" id="activityDate" value="2026-02-15">
+                </div>
+
+                <div class="control-group">
+                    <label>Template</label>
+                    <div class="templates">
+                        <button class="template-btn active" data-template="dark">Dark</button>
+                        <button class="template-btn" data-template="light">Light</button>
+                        <button class="template-btn" data-template="minimal">Minimal</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Formato</label>
+                    <div class="formats">
+                        <button class="format-btn active" data-format="story">Story (9:16)</button>
+                        <button class="format-btn" data-format="square">Square (1:1)</button>
+                        <button class="format-btn" data-format="wide">Wide (16:9)</button>
+                    </div>
+                </div>
+
+                <button class="download-btn" onclick="downloadCard()">
+                    Download PNG
+                </button>
+            </div>
+
+            <div class="preview-area">
+                <div class="preview-label">Preview</div>
+                <div class="card-wrapper">
+                    <div class="card story" id="card">
+                        <div class="card-bg"></div>
+                        <div class="card-accent"></div>
+                        <div class="card-inner">
+                            <div class="card-header">
+                                <div class="activity-icon" id="activityIcon">🏔️</div>
+                                <span class="activity-type" id="activityLabel">Trail Run</span>
+                            </div>
+
+                            <div class="card-stats">
+                                <div class="stat">
+                                    <div class="stat-label">Distância</div>
+                                    <div class="stat-value">
+                                        <span id="distanceDisplay">16.26</span>
+                                        <span class="stat-unit" id="distanceUnitDisplay">km</span>
+                                    </div>
+                                </div>
+
+                                <div class="stat">
+                                    <div class="stat-label">Desnível</div>
+                                    <div class="stat-value">
+                                        <span id="elevationDisplay">648</span>
+                                        <span class="stat-unit" id="elevationUnitDisplay">m</span>
+                                    </div>
+                                </div>
+
+                                <div class="stat">
+                                    <div class="stat-label">Tempo</div>
+                                    <div class="stat-value" id="timeDisplay">1h 52m</div>
+                                </div>
+                            </div>
+
+                            <div class="card-footer">
+                                <span class="date" id="dateDisplay">15 Fevereiro 2026</span>
+                                <div class="branding">
+                                    <svg viewBox="0 0 24 24"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            Feito por <a href="#">Safira</a> 🌙 enquanto o Guilherme dormia
+        </footer>
+    </div>
+
+    <script>
+        const activityIcons = {
+            run: '🏃',
+            trail: '🏔️',
+            bike: '🚴',
+            swim: '🏊',
+            triathlon: '🏆'
+        };
+
+        const activityLabels = {
+            run: 'Corrida',
+            trail: 'Trail Run',
+            bike: 'Ciclismo',
+            swim: 'Natação',
+            triathlon: 'Triathlon'
+        };
+
+        const months = [
+            'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+            'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+        ];
+
+        function updateCard() {
+            const type = document.getElementById('activityType').value;
+            const distance = document.getElementById('distance').value;
+            const distanceUnit = document.getElementById('distanceUnit').value;
+            const elevation = document.getElementById('elevation').value;
+            const elevationUnit = document.getElementById('elevationUnit').value;
+            const hours = document.getElementById('hours').value;
+            const minutes = document.getElementById('minutes').value;
+            const dateStr = document.getElementById('activityDate').value;
+
+            document.getElementById('activityIcon').textContent = activityIcons[type];
+            document.getElementById('activityLabel').textContent = activityLabels[type];
+            document.getElementById('distanceDisplay').textContent = distance;
+            document.getElementById('distanceUnitDisplay').textContent = distanceUnit;
+            document.getElementById('elevationDisplay').textContent = elevation;
+            document.getElementById('elevationUnitDisplay').textContent = elevationUnit;
+
+            const h = parseInt(hours) || 0;
+            const m = parseInt(minutes) || 0;
+            let timeStr = '';
+            if (h > 0) timeStr += h + 'h ';
+            if (m > 0) timeStr += m + 'm';
+            document.getElementById('timeDisplay').textContent = timeStr || '0m';
+
+            if (dateStr) {
+                const date = new Date(dateStr);
+                const day = date.getDate();
+                const month = months[date.getMonth()];
+                const year = date.getFullYear();
+                document.getElementById('dateDisplay').textContent = `${day} ${month} ${year}`;
+            }
+        }
+
+        // Template buttons
+        document.querySelectorAll('.template-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.template-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const card = document.getElementById('card');
+                card.classList.remove('dark', 'light', 'minimal');
+                card.classList.add(this.dataset.template);
+            });
+        });
+
+        // Format buttons
+        document.querySelectorAll('.format-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const card = document.getElementById('card');
+                card.classList.remove('story', 'square', 'wide');
+                card.classList.add(this.dataset.format);
+            });
+        });
+
+        // Live updates
+        document.querySelectorAll('input, select').forEach(el => {
+            el.addEventListener('input', updateCard);
+            el.addEventListener('change', updateCard);
+        });
+
+        // Download
+        async function downloadCard() {
+            const card = document.getElementById('card');
+            const canvas = await html2canvas(card, {
+                backgroundColor: null,
+                scale: 2
+            });
+            
+            const link = document.createElement('a');
+            link.download = 'strava-card.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Initialize
+        updateCard();
+    </script>
+</body>
+</html>
