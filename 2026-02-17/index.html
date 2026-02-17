@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent ROI Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #050505;
+            --bg-secondary: #0d0d0d;
+            --bg-tertiary: #141414;
+            --border: #262626;
+            --text-primary: #fafafa;
+            --text-secondary: #a3a3a3;
+            --text-muted: #525252;
+            --accent: #10b981;
+            --accent-dim: #059669;
+            --accent-glow: rgba(16, 185, 129, 0.15);
+            --warning: #f59e0b;
+            --human: #ef4444;
+            --ai: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: var(--accent-glow);
+            border: 1px solid var(--accent-dim);
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+        }
+
+        h1 span {
+            color: var(--accent);
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 16px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Sections */
+        .section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            height: 48px;
+            padding: 0 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 15px;
+            transition: all 0.2s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .input-suffix {
+            position: relative;
+        }
+
+        .input-suffix input {
+            padding-right: 60px;
+        }
+
+        .input-suffix span {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+        }
+
+        /* Results Section */
+        .results {
+            grid-column: 1 / -1;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .metric {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .metric:hover {
+            border-color: var(--accent-dim);
+        }
+
+        .metric-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .metric-value.positive {
+            color: var(--accent);
+        }
+
+        .metric-value.warning {
+            color: var(--warning);
+        }
+
+        .metric-subtext {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Comparison Table */
+        .comparison {
+            margin-top: 32px;
+        }
+
+        .comparison-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: 6px 6px 0 0;
+            border: 1px solid var(--border);
+            border-bottom: none;
+        }
+
+        .comparison-header span {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .comparison-header span:first-child {
+            text-align: left;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-top: none;
+            transition: background 0.2s;
+        }
+
+        .comparison-row:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .comparison-row:last-child {
+            border-radius: 0 0 6px 6px;
+        }
+
+        .comparison-row span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .comparison-row span:first-child {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text-secondary);
+            text-align: left;
+        }
+
+        .human-value {
+            color: var(--human);
+        }
+
+        .ai-value {
+            color: var(--ai);
+        }
+
+        /* ROI Timeline */
+        .timeline {
+            margin-top: 32px;
+            padding: 24px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .timeline-title {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .timeline-bar {
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .timeline-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--human), var(--warning), var(--accent));
+            border-radius: 4px;
+            transition: width 0.5s ease-out;
+        }
+
+        .timeline-markers {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+        }
+
+        .timeline-markers span {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* CTA */
+        .cta {
+            margin-top: 32px;
+            text-align: center;
+            padding: 24px;
+            background: var(--accent-glow);
+            border: 1px solid var(--accent-dim);
+            border-radius: 6px;
+        }
+
+        .cta p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 6px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--accent-dim);
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section, .results {
+            animation: fadeIn 0.4s ease-out backwards;
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .results { animation-delay: 0.3s; }
+
+        /* Hidden initially */
+        .results {
+            display: none;
+        }
+
+        .results.visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="badge">Free Calculator</div>
+            <h1>AI Agent <span>ROI</span> Calculator</h1>
+            <p class="subtitle">Estimate the return on investment of replacing manual tasks with an AI agent</p>
+        </header>
+
+        <div class="grid">
+            <!-- Current Costs Section -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">👤</div>
+                    <h2 class="section-title">Current Process</h2>
+                </div>
+
+                <div class="form-group">
+                    <label for="taskType">Type of Task</label>
+                    <select id="taskType">
+                        <option value="support">Customer Support</option>
+                        <option value="data">Data Entry / Processing</option>
+                        <option value="research">Research & Analysis</option>
+                        <option value="content">Content Creation</option>
+                        <option value="scheduling">Scheduling & Admin</option>
+                        <option value="sales">Sales Outreach</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="monthlyVolume">Monthly Volume</label>
+                    <div class="input-suffix">
+                        <input type="number" id="monthlyVolume" placeholder="500" min="1">
+                        <span>tasks</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="timePerTask">Average Time per Task</label>
+                    <div class="input-suffix">
+                        <input type="number" id="timePerTask" placeholder="15" min="1">
+                        <span>min</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="hourlyCost">Hourly Cost (Human)</label>
+                    <div class="input-suffix">
+                        <input type="number" id="hourlyCost" placeholder="25" min="1">
+                        <span>€/hr</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Agent Costs Section -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">🤖</div>
+                    <h2 class="section-title">AI Agent Setup</h2>
+                </div>
+
+                <div class="form-group">
+                    <label for="setupCost">One-time Setup Cost</label>
+                    <div class="input-suffix">
+                        <input type="number" id="setupCost" placeholder="2000" min="0">
+                        <span>€</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="monthlyCost">Monthly AI Cost</label>
+                    <div class="input-suffix">
+                        <input type="number" id="monthlyCost" placeholder="200" min="0">
+                        <span>€/mo</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="automationRate">Estimated Automation Rate</label>
+                    <div class="input-suffix">
+                        <input type="number" id="automationRate" placeholder="80" min="1" max="100">
+                        <span>%</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="aiTimeReduction">Time Reduction per Task</label>
+                    <div class="input-suffix">
+                        <input type="number" id="aiTimeReduction" placeholder="90" min="1" max="100">
+                        <span>%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="section results" id="results">
+                <div class="section-header">
+                    <div class="section-icon">📊</div>
+                    <h2 class="section-title">ROI Analysis</h2>
+                </div>
+
+                <div class="results-grid">
+                    <div class="metric">
+                        <div class="metric-label">Monthly Savings</div>
+                        <div class="metric-value positive" id="monthlySavings">€0</div>
+                        <div class="metric-subtext">after AI costs</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Annual Savings</div>
+                        <div class="metric-value positive" id="annualSavings">€0</div>
+                        <div class="metric-subtext">first year (net)</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Payback Period</div>
+                        <div class="metric-value" id="paybackPeriod">0</div>
+                        <div class="metric-subtext">months</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-label">Hours Saved</div>
+                        <div class="metric-value positive" id="hoursSaved">0</div>
+                        <div class="metric-subtext">per month</div>
+                    </div>
+                </div>
+
+                <!-- Comparison Table -->
+                <div class="comparison">
+                    <div class="comparison-header">
+                        <span>Metric</span>
+                        <span>👤 Human</span>
+                        <span>🤖 AI Agent</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span>Monthly Cost</span>
+                        <span class="human-value" id="humanMonthlyCost">€0</span>
+                        <span class="ai-value" id="aiMonthlyCost">€0</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span>Time per Task</span>
+                        <span class="human-value" id="humanTimePerTask">0 min</span>
+                        <span class="ai-value" id="aiTimePerTask">0 min</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span>Monthly Hours</span>
+                        <span class="human-value" id="humanMonthlyHours">0h</span>
+                        <span class="ai-value" id="aiMonthlyHours">0h</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span>24/7 Availability</span>
+                        <span class="human-value">No</span>
+                        <span class="ai-value">Yes</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span>Scalability</span>
+                        <span class="human-value">Linear</span>
+                        <span class="ai-value">Instant</span>
+                    </div>
+                </div>
+
+                <!-- ROI Timeline -->
+                <div class="timeline">
+                    <div class="timeline-header">
+                        <span class="timeline-title">12-Month ROI Timeline</span>
+                        <span id="roiPercent" style="color: var(--accent); font-family: 'JetBrains Mono'; font-weight: 600;">0%</span>
+                    </div>
+                    <div class="timeline-bar">
+                        <div class="timeline-progress" id="timelineProgress" style="width: 0%"></div>
+                    </div>
+                    <div class="timeline-markers">
+                        <span>Month 0</span>
+                        <span id="breakEvenMarker">Break-even</span>
+                        <span>Month 12</span>
+                    </div>
+                </div>
+
+                <!-- CTA -->
+                <div class="cta">
+                    <p>Ready to automate? Share this analysis or get started with implementation.</p>
+                    <button class="btn" onclick="shareResults()">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/>
+                        </svg>
+                        Copy Results
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            Built by <a href="https://github.com/LuzGuilherme" target="_blank">Safira</a> · Overnight Build 2026-02-17
+        </footer>
+    </div>
+
+    <script>
+        // Get all input elements
+        const inputs = document.querySelectorAll('input, select');
+        const resultsSection = document.getElementById('results');
+
+        // Add event listeners
+        inputs.forEach(input => {
+            input.addEventListener('input', calculateROI);
+        });
+
+        // Set default values
+        document.getElementById('monthlyVolume').value = 500;
+        document.getElementById('timePerTask').value = 15;
+        document.getElementById('hourlyCost').value = 25;
+        document.getElementById('setupCost').value = 2000;
+        document.getElementById('monthlyCost').value = 200;
+        document.getElementById('automationRate').value = 80;
+        document.getElementById('aiTimeReduction').value = 90;
+
+        // Calculate on load
+        calculateROI();
+
+        function calculateROI() {
+            // Get values
+            const monthlyVolume = parseFloat(document.getElementById('monthlyVolume').value) || 0;
+            const timePerTask = parseFloat(document.getElementById('timePerTask').value) || 0;
+            const hourlyCost = parseFloat(document.getElementById('hourlyCost').value) || 0;
+            const setupCost = parseFloat(document.getElementById('setupCost').value) || 0;
+            const aiMonthlyCost = parseFloat(document.getElementById('monthlyCost').value) || 0;
+            const automationRate = (parseFloat(document.getElementById('automationRate').value) || 0) / 100;
+            const aiTimeReduction = (parseFloat(document.getElementById('aiTimeReduction').value) || 0) / 100;
+
+            // Validate inputs
+            if (monthlyVolume <= 0 || timePerTask <= 0 || hourlyCost <= 0) {
+                resultsSection.classList.remove('visible');
+                return;
+            }
+
+            // Show results
+            resultsSection.classList.add('visible');
+
+            // Calculate human costs
+            const humanMonthlyHours = (monthlyVolume * timePerTask) / 60;
+            const humanMonthlyCost = humanMonthlyHours * hourlyCost;
+
+            // Calculate AI-assisted process
+            const automatedTasks = monthlyVolume * automationRate;
+            const manualTasks = monthlyVolume - automatedTasks;
+            const aiTimePerTask = timePerTask * (1 - aiTimeReduction);
+            const aiHoursForAutomated = (automatedTasks * aiTimePerTask) / 60;
+            const humanHoursRemaining = (manualTasks * timePerTask) / 60;
+            const totalAiMonthlyHours = aiHoursForAutomated + humanHoursRemaining;
+            const humanCostWithAi = (humanHoursRemaining * hourlyCost);
+            const totalAiMonthlyCost = humanCostWithAi + aiMonthlyCost;
+
+            // Calculate savings
+            const monthlySavings = humanMonthlyCost - totalAiMonthlyCost;
+            const annualSavings = (monthlySavings * 12) - setupCost;
+            const hoursSaved = humanMonthlyHours - totalAiMonthlyHours;
+
+            // Calculate payback period
+            let paybackMonths = 0;
+            if (monthlySavings > 0) {
+                paybackMonths = Math.ceil(setupCost / monthlySavings);
+            } else {
+                paybackMonths = Infinity;
+            }
+
+            // Calculate ROI percentage (12 month)
+            const totalInvestment = setupCost + (aiMonthlyCost * 12);
+            const totalSavings = monthlySavings * 12;
+            const roiPercent = totalInvestment > 0 ? ((totalSavings - totalInvestment) / totalInvestment) * 100 : 0;
+
+            // Update UI
+            document.getElementById('monthlySavings').textContent = formatCurrency(monthlySavings);
+            document.getElementById('monthlySavings').className = 'metric-value ' + (monthlySavings > 0 ? 'positive' : 'warning');
+            
+            document.getElementById('annualSavings').textContent = formatCurrency(annualSavings);
+            document.getElementById('annualSavings').className = 'metric-value ' + (annualSavings > 0 ? 'positive' : 'warning');
+            
+            document.getElementById('paybackPeriod').textContent = paybackMonths === Infinity ? '∞' : paybackMonths;
+            document.getElementById('paybackPeriod').className = 'metric-value ' + (paybackMonths <= 6 ? 'positive' : paybackMonths <= 12 ? '' : 'warning');
+            
+            document.getElementById('hoursSaved').textContent = Math.round(hoursSaved);
+            document.getElementById('hoursSaved').className = 'metric-value ' + (hoursSaved > 0 ? 'positive' : 'warning');
+
+            // Update comparison table
+            document.getElementById('humanMonthlyCost').textContent = formatCurrency(humanMonthlyCost);
+            document.getElementById('aiMonthlyCost').textContent = formatCurrency(totalAiMonthlyCost);
+            document.getElementById('humanTimePerTask').textContent = timePerTask + ' min';
+            document.getElementById('aiTimePerTask').textContent = Math.round(aiTimePerTask * 10) / 10 + ' min';
+            document.getElementById('humanMonthlyHours').textContent = Math.round(humanMonthlyHours) + 'h';
+            document.getElementById('aiMonthlyHours').textContent = Math.round(totalAiMonthlyHours) + 'h';
+
+            // Update timeline
+            const timelineProgress = Math.min(100, Math.max(0, roiPercent + 50));
+            document.getElementById('timelineProgress').style.width = timelineProgress + '%';
+            document.getElementById('roiPercent').textContent = (roiPercent > 0 ? '+' : '') + Math.round(roiPercent) + '%';
+            document.getElementById('breakEvenMarker').textContent = paybackMonths === Infinity ? 'No break-even' : 'Month ' + paybackMonths;
+        }
+
+        function formatCurrency(value) {
+            const absValue = Math.abs(value);
+            const formatted = absValue >= 1000 
+                ? '€' + (absValue / 1000).toFixed(1) + 'k'
+                : '€' + Math.round(absValue);
+            return value < 0 ? '-' + formatted : formatted;
+        }
+
+        function shareResults() {
+            const monthlyVolume = document.getElementById('monthlyVolume').value;
+            const monthlySavings = document.getElementById('monthlySavings').textContent;
+            const annualSavings = document.getElementById('annualSavings').textContent;
+            const paybackPeriod = document.getElementById('paybackPeriod').textContent;
+            const hoursSaved = document.getElementById('hoursSaved').textContent;
+
+            const text = `🤖 AI Agent ROI Analysis
+
+📊 Monthly Tasks: ${monthlyVolume}
+💰 Monthly Savings: ${monthlySavings}
+📈 Annual Savings: ${annualSavings}
+⏱️ Payback Period: ${paybackPeriod} months
+🕐 Hours Saved/Month: ${hoursSaved}h
+
+Calculate your ROI: ${window.location.href}`;
+
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.querySelector('.btn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✓ Copied!';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
