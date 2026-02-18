@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 IRONMAN 2026 — Countdown</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050505;
+            --surface: #0a0a0a;
+            --border: #1a1a1a;
+            --text: #e5e5e5;
+            --text-muted: #666666;
+            --accent: #10b981;
+            --accent-dim: #059669;
+            --swim: #06b6d4;
+            --bike: #f59e0b;
+            --run: #10b981;
+            --warning: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .race-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.25rem;
+        }
+
+        .race-date {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Countdown */
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            margin-bottom: 3rem;
+        }
+
+        .countdown-item {
+            background: var(--surface);
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .countdown-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 4rem;
+            font-weight: 600;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 0.5rem;
+        }
+
+        /* Progress Section */
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            padding: 1.5rem;
+        }
+
+        .stat-sport {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-sport.swim { color: var(--swim); }
+        .stat-sport.bike { color: var(--bike); }
+        .stat-sport.run { color: var(--run); }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .stat-unit {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-left: 0.25rem;
+        }
+
+        .stat-detail {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        /* Monthly Progress */
+        .month-progress {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            margin-bottom: 3rem;
+        }
+
+        .month-item {
+            background: var(--surface);
+            padding: 1.25rem;
+        }
+
+        .month-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.75rem;
+        }
+
+        .month-sport {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .month-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-fill.swim { background: var(--swim); }
+        .progress-fill.bike { background: var(--bike); }
+        .progress-fill.run { background: var(--run); }
+
+        /* Milestones */
+        .milestones {
+            border: 1px solid var(--border);
+            margin-bottom: 3rem;
+        }
+
+        .milestone {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            gap: 1rem;
+        }
+
+        .milestone:last-child {
+            border-bottom: none;
+        }
+
+        .milestone-icon {
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .milestone-content {
+            flex: 1;
+        }
+
+        .milestone-title {
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .milestone-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .milestone-status {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 2px;
+        }
+
+        .milestone-status.done {
+            background: var(--accent-dim);
+            color: white;
+        }
+
+        .milestone-status.upcoming {
+            background: var(--border);
+            color: var(--text-muted);
+        }
+
+        .milestone-status.next {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        /* Quote */
+        .quote {
+            text-align: center;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            margin-bottom: 3rem;
+        }
+
+        .quote-text {
+            font-size: 1.25rem;
+            font-style: italic;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .quote-source {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .footer-link {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .countdown {
+                grid-template-columns: 1fr;
+            }
+
+            .countdown-value {
+                font-size: 3rem;
+            }
+
+            .stats-grid,
+            .month-progress {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-value {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="race-label">// RACE DAY</div>
+            <h1>IRONMAN 2026</h1>
+            <div class="race-date">4 OUTUBRO 2026 · PORTUGAL</div>
+        </header>
+
+        <div class="countdown" id="countdown">
+            <div class="countdown-item">
+                <div class="countdown-value" id="days">---</div>
+                <div class="countdown-label">Dias</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-value" id="weeks">---</div>
+                <div class="countdown-label">Semanas</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-value" id="hours">---</div>
+                <div class="countdown-label">Horas Treino</div>
+            </div>
+        </div>
+
+        <div class="section-title">Carreira Total</div>
+        <div class="stats-grid" id="careerStats">
+            <div class="loading">A carregar dados...</div>
+        </div>
+
+        <div class="section-title">Fevereiro 2026</div>
+        <div class="month-progress" id="monthProgress">
+            <div class="loading">A carregar dados...</div>
+        </div>
+
+        <div class="section-title">Próximos Milestones</div>
+        <div class="milestones" id="milestones">
+            <div class="milestone">
+                <div class="milestone-icon">✅</div>
+                <div class="milestone-content">
+                    <div class="milestone-title">Base Building Phase</div>
+                    <div class="milestone-date">Jan - Mar 2026</div>
+                </div>
+                <div class="milestone-status done">EM CURSO</div>
+            </div>
+            <div class="milestone">
+                <div class="milestone-icon">🏊</div>
+                <div class="milestone-content">
+                    <div class="milestone-title">Primeira Prova Natação</div>
+                    <div class="milestone-date">Abril 2026</div>
+                </div>
+                <div class="milestone-status upcoming">-55 DIAS</div>
+            </div>
+            <div class="milestone">
+                <div class="milestone-icon">🚴</div>
+                <div class="milestone-content">
+                    <div class="milestone-title">Long Ride 150km</div>
+                    <div class="milestone-date">Maio 2026</div>
+                </div>
+                <div class="milestone-status upcoming">-90 DIAS</div>
+            </div>
+            <div class="milestone">
+                <div class="milestone-icon">🏃</div>
+                <div class="milestone-content">
+                    <div class="milestone-title">Meia Maratona</div>
+                    <div class="milestone-date">Junho 2026</div>
+                </div>
+                <div class="milestone-status upcoming">-120 DIAS</div>
+            </div>
+            <div class="milestone">
+                <div class="milestone-icon">🔥</div>
+                <div class="milestone-content">
+                    <div class="milestone-title">Peak Training Block</div>
+                    <div class="milestone-date">Julho - Agosto 2026</div>
+                </div>
+                <div class="milestone-status upcoming">-150 DIAS</div>
+            </div>
+            <div class="milestone">
+                <div class="milestone-icon">🏆</div>
+                <div class="milestone-content">
+                    <div class="milestone-title">IRONMAN RACE DAY</div>
+                    <div class="milestone-date">4 Outubro 2026</div>
+                </div>
+                <div class="milestone-status next">OBJECTIVO</div>
+            </div>
+        </div>
+
+        <div class="quote">
+            <div class="quote-text">"Um dia vou lhes mostrar."</div>
+            <div class="quote-source">— Guilherme</div>
+        </div>
+
+        <footer>
+            <div class="footer-text">
+                Dados: <a href="https://www.strava.com/athletes/52431948" class="footer-link" target="_blank">Strava</a> · 
+                Built by <a href="../" class="footer-link">Safira</a> ✨
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Configuration
+        const SUPABASE_URL = 'https://zvepicbnsbnsjyjtkzjl.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp2ZXBpY2Juc2Juc2p5anRrempsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkzOTU0NzMsImV4cCI6MjA4NDk3MTQ3M30.nvKAqbkP5xBmGbYhxOP1LlFCp3QZ4lMYQdQPv4LWf0I';
+        
+        // Race date: First Sunday of October 2026
+        const RACE_DATE = new Date('2026-10-04T07:00:00');
+        
+        // Monthly targets (Ironman prep)
+        const MONTHLY_TARGETS = {
+            swim_km: 40,   // ~10km/week
+            bike_km: 800,  // ~200km/week
+            run_km: 200    // ~50km/week
+        };
+
+        // Calculate countdown
+        function updateCountdown() {
+            const now = new Date();
+            const diff = RACE_DATE - now;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const weeks = Math.floor(days / 7);
+            
+            document.getElementById('days').textContent = days;
+            document.getElementById('weeks').textContent = weeks;
+        }
+
+        // Format number
+        function formatNum(n, decimals = 0) {
+            return Number(n || 0).toLocaleString('pt-PT', { 
+                minimumFractionDigits: decimals,
+                maximumFractionDigits: decimals 
+            });
+        }
+
+        // Fetch from Supabase
+        async function fetchData(table, query = '') {
+            const url = `${SUPABASE_URL}/rest/v1/${table}${query}`;
+            const response = await fetch(url, {
+                headers: {
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                }
+            });
+            return response.json();
+        }
+
+        // Load career stats
+        async function loadCareerStats() {
+            try {
+                const data = await fetchData('strava_athlete_stats', '?select=*');
+                const stats = data[0] || {};
+                
+                // Update total hours in countdown
+                const totalHours = (stats.swim_total_hours || 0) + 
+                                   (stats.bike_total_hours || 0) + 
+                                   (stats.run_total_hours || 0);
+                document.getElementById('hours').textContent = formatNum(totalHours, 0);
+                
+                // Render career stats
+                document.getElementById('careerStats').innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-sport swim">🏊 NATAÇÃO</div>
+                        <div class="stat-value">${formatNum(stats.swim_total_km, 0)}<span class="stat-unit">km</span></div>
+                        <div class="stat-detail">${formatNum(stats.swim_total_hours, 0)}h · ${stats.swim_total_count || 0} treinos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-sport bike">🚴 CICLISMO</div>
+                        <div class="stat-value">${formatNum(stats.bike_total_km, 0)}<span class="stat-unit">km</span></div>
+                        <div class="stat-detail">${formatNum(stats.bike_total_hours, 0)}h · ${stats.bike_total_count || 0} treinos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-sport run">🏃 CORRIDA</div>
+                        <div class="stat-value">${formatNum(stats.run_total_km, 0)}<span class="stat-unit">km</span></div>
+                        <div class="stat-detail">${formatNum(stats.run_total_hours, 0)}h · ${stats.run_total_count || 0} treinos</div>
+                    </div>
+                `;
+            } catch (err) {
+                console.error('Error loading career stats:', err);
+            }
+        }
+
+        // Load monthly progress
+        async function loadMonthlyProgress() {
+            try {
+                const data = await fetchData('strava_monthly_stats', '?year=eq.2026&month=eq.2&select=*');
+                const stats = data[0] || {};
+                
+                const swimKm = stats.swim_km || 0;
+                const bikeKm = stats.bike_km || 0;
+                const runKm = stats.run_km || 0;
+                
+                const swimPct = Math.min((swimKm / MONTHLY_TARGETS.swim_km) * 100, 100);
+                const bikePct = Math.min((bikeKm / MONTHLY_TARGETS.bike_km) * 100, 100);
+                const runPct = Math.min((runKm / MONTHLY_TARGETS.run_km) * 100, 100);
+                
+                document.getElementById('monthProgress').innerHTML = `
+                    <div class="month-item">
+                        <div class="month-header">
+                            <span class="month-sport" style="color: var(--swim)">🏊 NATAÇÃO</span>
+                            <span class="month-value">${formatNum(swimKm, 1)} / ${MONTHLY_TARGETS.swim_km} km</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill swim" style="width: ${swimPct}%"></div>
+                        </div>
+                    </div>
+                    <div class="month-item">
+                        <div class="month-header">
+                            <span class="month-sport" style="color: var(--bike)">🚴 CICLISMO</span>
+                            <span class="month-value">${formatNum(bikeKm, 0)} / ${MONTHLY_TARGETS.bike_km} km</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill bike" style="width: ${bikePct}%"></div>
+                        </div>
+                    </div>
+                    <div class="month-item">
+                        <div class="month-header">
+                            <span class="month-sport" style="color: var(--run)">🏃 CORRIDA</span>
+                            <span class="month-value">${formatNum(runKm, 0)} / ${MONTHLY_TARGETS.run_km} km</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill run" style="width: ${runPct}%"></div>
+                        </div>
+                    </div>
+                `;
+            } catch (err) {
+                console.error('Error loading monthly progress:', err);
+            }
+        }
+
+        // Update milestone dates dynamically
+        function updateMilestones() {
+            const now = new Date();
+            const milestones = [
+                { date: new Date('2026-04-15'), selector: 1 },
+                { date: new Date('2026-05-15'), selector: 2 },
+                { date: new Date('2026-06-15'), selector: 3 },
+                { date: new Date('2026-07-15'), selector: 4 }
+            ];
+            
+            milestones.forEach(m => {
+                const diff = Math.floor((m.date - now) / (1000 * 60 * 60 * 24));
+                const status = document.querySelectorAll('.milestone-status.upcoming')[m.selector - 1];
+                if (status) {
+                    status.textContent = `-${diff} DIAS`;
+                }
+            });
+        }
+
+        // Initialize
+        async function init() {
+            updateCountdown();
+            updateMilestones();
+            await Promise.all([
+                loadCareerStats(),
+                loadMonthlyProgress()
+            ]);
+            
+            // Update countdown every minute
+            setInterval(updateCountdown, 60000);
+        }
+
+        init();
+    </script>
+</body>
+</html>
