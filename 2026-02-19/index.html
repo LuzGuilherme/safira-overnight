@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReportAI — Relatórios de Marketing em Segundos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --accent: #22c55e;
+            --accent-dim: #16a34a;
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --border: #27272a;
+            --border-accent: #22c55e33;
+            --red: #ef4444;
+            --yellow: #eab308;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            padding: 8rem 4rem 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content h1 span {
+            color: var(--accent);
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 2.5rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat {
+            text-align: left;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dim);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Hero Preview */
+        .hero-preview {
+            position: relative;
+        }
+
+        .preview-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .preview-card::before {
+            content: 'PREVIEW';
+            position: absolute;
+            top: -12px;
+            left: 2rem;
+            background: var(--accent);
+            color: var(--bg-primary);
+            padding: 0.25rem 0.75rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .preview-title {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .preview-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .preview-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .metric-card {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        .metric-card.negative {
+            border-color: var(--red);
+        }
+
+        .metric-card.warning {
+            border-color: var(--yellow);
+        }
+
+        .metric-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .metric-change {
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+        }
+
+        .metric-change.positive { color: var(--accent); }
+        .metric-change.negative { color: var(--red); }
+
+        .preview-insight {
+            background: var(--bg-tertiary);
+            border-left: 3px solid var(--accent);
+            padding: 1rem;
+        }
+
+        .preview-insight-label {
+            font-size: 0.7rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .preview-insight-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Pain Points */
+        .pain-points {
+            padding: 6rem 4rem;
+            background: var(--bg-secondary);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pain-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .pain-number {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--border);
+            line-height: 1;
+        }
+
+        .pain-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .pain-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .pain-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .pain-time {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--red);
+        }
+
+        /* Demo Section */
+        .demo-section {
+            padding: 6rem 4rem;
+        }
+
+        .demo-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .demo-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .demo-tab {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1rem;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .demo-tab.active {
+            color: var(--accent);
+        }
+
+        .demo-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .demo-panel {
+            display: none;
+        }
+
+        .demo-panel.active {
+            display: block;
+        }
+
+        /* Input Form */
+        .input-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .input-group.full-width {
+            grid-column: span 2;
+        }
+
+        .input-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .input-field {
+            padding: 0.875rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            transition: border-color 0.2s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .input-field::placeholder {
+            color: var(--text-muted);
+        }
+
+        .generate-btn {
+            grid-column: span 2;
+            padding: 1.25rem;
+            background: var(--accent);
+            border: none;
+            color: var(--bg-primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.2s;
+        }
+
+        .generate-btn:hover {
+            background: var(--accent-dim);
+        }
+
+        /* Generated Report */
+        .generated-report {
+            display: none;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 2rem;
+        }
+
+        .generated-report.visible {
+            display: block;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .report-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .report-period {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .report-kpis {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .kpi-card {
+            background: var(--bg-tertiary);
+            padding: 1.25rem;
+            text-align: center;
+            border-top: 3px solid var(--accent);
+        }
+
+        .kpi-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .kpi-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+
+        .kpi-change {
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+        }
+
+        .report-insights {
+            margin-top: 2rem;
+        }
+
+        .insight-card {
+            background: var(--bg-tertiary);
+            border-left: 3px solid var(--accent);
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .insight-title {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .insight-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .report-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-cta {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .waitlist-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .waitlist-input {
+            flex: 1;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .footer-note {
+            margin-top: 3rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 6rem 2rem 3rem;
+                gap: 3rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .pain-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .input-form {
+                grid-template-columns: 1fr;
+            }
+
+            .input-group.full-width {
+                grid-column: span 1;
+            }
+
+            .generate-btn {
+                grid-column: span 1;
+            }
+
+            .report-kpis {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .waitlist-form {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">⚡ ReportAI</div>
+        <div class="nav-links">
+            <a href="#problema">Problema</a>
+            <a href="#demo">Demo</a>
+            <a href="#waitlist">Waitlist</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Relatórios de clientes em <span>6 segundos</span>, não 6 horas</h1>
+            <p>AI que transforma dados de Google Ads e Meta em relatórios profissionais com insights automáticos. Feito para agencies e freelancers de marketing.</p>
+            
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-value">6h</div>
+                    <div class="stat-label">Poupadas/Mês</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">85%</div>
+                    <div class="stat-label">Menos Trabalho</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">€29</div>
+                    <div class="stat-label">/Mês</div>
+                </div>
+            </div>
+
+            <div class="cta-group">
+                <button class="btn btn-primary" onclick="scrollToDemo()">Ver Demo →</button>
+                <button class="btn btn-secondary" onclick="scrollToWaitlist()">Entrar na Waitlist</button>
+            </div>
+        </div>
+
+        <div class="hero-preview">
+            <div class="preview-card">
+                <div class="preview-header">
+                    <span class="preview-title">Relatório Mensal — Cliente XYZ</span>
+                    <span class="preview-date mono">Fev 2026</span>
+                </div>
+                <div class="preview-metrics">
+                    <div class="metric-card">
+                        <div class="metric-label">ROAS</div>
+                        <div class="metric-value mono">4.2x</div>
+                        <div class="metric-change positive">↑ 18% vs mês anterior</div>
+                    </div>
+                    <div class="metric-card warning">
+                        <div class="metric-label">CPA</div>
+                        <div class="metric-value mono">€12.40</div>
+                        <div class="metric-change negative">↑ 8% acima target</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Conversões</div>
+                        <div class="metric-value mono">847</div>
+                        <div class="metric-change positive">↑ 23% vs mês anterior</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Spend</div>
+                        <div class="metric-value mono">€10.5k</div>
+                        <div class="metric-change">— dentro budget</div>
+                    </div>
+                </div>
+                <div class="preview-insight">
+                    <div class="preview-insight-label">💡 AI Insight</div>
+                    <div class="preview-insight-text">O CPA aumentou devido ao aumento de competição em "móveis de escritório". Recomendação: testar audiências lookalike 1% em vez de 3%.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pain-points" id="problema">
+        <div class="section-header">
+            <div class="section-label">O Problema</div>
+            <h2 class="section-title">Porque é que ainda fazes relatórios à mão?</h2>
+        </div>
+
+        <div class="pain-grid">
+            <div class="pain-card">
+                <div class="pain-number">01</div>
+                <div class="pain-icon">⏱️</div>
+                <h3 class="pain-title">Horas perdidas</h3>
+                <p class="pain-desc">Extrair dados do Google Ads, colar em Sheets, fazer gráficos, escrever insights... Por cada cliente. Todo. O. Mês.</p>
+                <div class="pain-time">~4-8h por cliente/mês</div>
+            </div>
+
+            <div class="pain-card">
+                <div class="pain-number">02</div>
+                <div class="pain-icon">💸</div>
+                <h3 class="pain-title">Tools caras</h3>
+                <p class="pain-desc">DashThis, AgencyAnalytics — €100-500/mês. Para um freelancer ou micro-agência, não faz sentido.</p>
+                <div class="pain-time">€1,200-6,000/ano</div>
+            </div>
+
+            <div class="pain-card">
+                <div class="pain-number">03</div>
+                <div class="pain-icon">🤖</div>
+                <h3 class="pain-title">Insights manuais</h3>
+                <p class="pain-desc">Nenhuma tool escreve os insights por ti. Ainda tens de olhar para os números e explicar o que significam.</p>
+                <div class="pain-time">Trabalho não-escalável</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="demo-section" id="demo">
+        <div class="section-header">
+            <div class="section-label">Demo Interactiva</div>
+            <h2 class="section-title">Experimenta agora</h2>
+        </div>
+
+        <div class="demo-container">
+            <div class="demo-tabs">
+                <button class="demo-tab active" data-tab="input">1. Input</button>
+                <button class="demo-tab" data-tab="report">2. Relatório</button>
+            </div>
+
+            <div class="demo-panel active" id="input-panel">
+                <div class="input-form">
+                    <div class="input-group">
+                        <label class="input-label">Nome do Cliente</label>
+                        <input type="text" class="input-field" id="clientName" placeholder="Ex: Loja ABC">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Período</label>
+                        <input type="text" class="input-field" id="period" placeholder="Ex: Fevereiro 2026">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Spend Total (€)</label>
+                        <input type="number" class="input-field" id="spend" placeholder="10000">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Receita Gerada (€)</label>
+                        <input type="number" class="input-field" id="revenue" placeholder="42000">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Conversões</label>
+                        <input type="number" class="input-field" id="conversions" placeholder="850">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Cliques</label>
+                        <input type="number" class="input-field" id="clicks" placeholder="15000">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Impressões</label>
+                        <input type="number" class="input-field" id="impressions" placeholder="500000">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Sector/Indústria</label>
+                        <input type="text" class="input-field" id="industry" placeholder="Ex: E-commerce Moda">
+                    </div>
+                    <button class="generate-btn" onclick="generateReport()">⚡ Gerar Relatório com AI</button>
+                </div>
+            </div>
+
+            <div class="demo-panel" id="report-panel">
+                <div class="generated-report visible" id="generatedReport">
+                    <div class="report-header">
+                        <div>
+                            <h3 class="report-title" id="reportTitle">Relatório Mensal</h3>
+                            <p class="report-period mono" id="reportPeriod">Fevereiro 2026</p>
+                        </div>
+                        <div class="btn btn-secondary" onclick="window.print()">📄 Export PDF</div>
+                    </div>
+
+                    <div class="report-kpis">
+                        <div class="kpi-card">
+                            <div class="kpi-label">ROAS</div>
+                            <div class="kpi-value mono" id="kpiRoas">4.2x</div>
+                            <div class="kpi-change positive" id="kpiRoasChange">↑ Excelente</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">CPA</div>
+                            <div class="kpi-value mono" id="kpiCpa">€11.76</div>
+                            <div class="kpi-change" id="kpiCpaChange">Dentro target</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">CTR</div>
+                            <div class="kpi-value mono" id="kpiCtr">3.0%</div>
+                            <div class="kpi-change positive" id="kpiCtrChange">↑ Acima média</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Conv. Rate</div>
+                            <div class="kpi-value mono" id="kpiCr">5.67%</div>
+                            <div class="kpi-change positive" id="kpiCrChange">↑ Forte</div>
+                        </div>
+                    </div>
+
+                    <div class="report-insights" id="reportInsights">
+                        <div class="insight-card">
+                            <div class="insight-title">💡 Performance Geral</div>
+                            <div class="insight-text" id="insightGeneral">Com um ROAS de 4.2x, a campanha está a performar acima das expectativas do mercado (média 2-3x). O investimento de €10,000 gerou €42,000 em receita.</div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-title">🎯 Oportunidade</div>
+                            <div class="insight-text" id="insightOpportunity">O CTR de 3.0% indica bom engagement. Recomendação: aumentar budget em 20% nos anúncios com CTR >4% para maximizar conversões.</div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-title">⚠️ A Monitorizar</div>
+                            <div class="insight-text" id="insightWatch">CPA estável mas próximo do limite. Monitorizar nas próximas 2 semanas e considerar testes A/B em criativos para reduzir custo.</div>
+                        </div>
+                    </div>
+
+                    <div class="report-actions">
+                        <button class="btn btn-primary" onclick="resetDemo()">← Voltar a Input</button>
+                        <button class="btn btn-secondary">📧 Enviar a Cliente</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="waitlist">
+        <div class="footer-cta">
+            <h2 class="footer-title">Entra na lista de espera</h2>
+            <p class="footer-text">Sê dos primeiros a experimentar quando lançarmos. Early adopters terão 50% desconto para sempre.</p>
+            
+            <form class="waitlist-form" onsubmit="handleWaitlist(event)">
+                <input type="email" class="waitlist-input" placeholder="o-teu@email.com" required>
+                <button type="submit" class="btn btn-primary">Entrar na Waitlist</button>
+            </form>
+
+            <p class="footer-note">✨ Feito com carinho por Safira • Um projecto overnight</p>
+        </div>
+    </footer>
+
+    <script>
+        // Demo functionality
+        function scrollToDemo() {
+            document.getElementById('demo').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToWaitlist() {
+            document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Tab switching
+        document.querySelectorAll('.demo-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.demo-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.demo-panel').forEach(p => p.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab + '-panel').classList.add('active');
+            });
+        });
+
+        function generateReport() {
+            const clientName = document.getElementById('clientName').value || 'Cliente Demo';
+            const period = document.getElementById('period').value || 'Fevereiro 2026';
+            const spend = parseFloat(document.getElementById('spend').value) || 10000;
+            const revenue = parseFloat(document.getElementById('revenue').value) || 42000;
+            const conversions = parseInt(document.getElementById('conversions').value) || 850;
+            const clicks = parseInt(document.getElementById('clicks').value) || 15000;
+            const impressions = parseInt(document.getElementById('impressions').value) || 500000;
+            const industry = document.getElementById('industry').value || 'E-commerce';
+
+            // Calculate metrics
+            const roas = (revenue / spend).toFixed(1);
+            const cpa = (spend / conversions).toFixed(2);
+            const ctr = ((clicks / impressions) * 100).toFixed(2);
+            const cr = ((conversions / clicks) * 100).toFixed(2);
+
+            // Update report
+            document.getElementById('reportTitle').textContent = `Relatório — ${clientName}`;
+            document.getElementById('reportPeriod').textContent = period;
+            document.getElementById('kpiRoas').textContent = `${roas}x`;
+            document.getElementById('kpiCpa').textContent = `€${cpa}`;
+            document.getElementById('kpiCtr').textContent = `${ctr}%`;
+            document.getElementById('kpiCr').textContent = `${cr}%`;
+
+            // Dynamic insights based on metrics
+            let roasClass = roas >= 3 ? 'positive' : (roas >= 2 ? '' : 'negative');
+            let roasText = roas >= 4 ? '↑ Excelente' : (roas >= 3 ? '↑ Bom' : (roas >= 2 ? '→ OK' : '↓ Abaixo target'));
+            document.getElementById('kpiRoasChange').textContent = roasText;
+            document.getElementById('kpiRoasChange').className = 'kpi-change ' + roasClass;
+
+            let ctrClass = ctr >= 2 ? 'positive' : '';
+            let ctrText = ctr >= 3 ? '↑ Acima média' : (ctr >= 2 ? '→ Na média' : '↓ Abaixo média');
+            document.getElementById('kpiCtrChange').textContent = ctrText;
+            document.getElementById('kpiCtrChange').className = 'kpi-change ' + ctrClass;
+
+            // Generate insights
+            document.getElementById('insightGeneral').textContent = 
+                `Com um ROAS de ${roas}x, a campanha ${roas >= 3 ? 'está a performar bem' : 'precisa de optimização'}. O investimento de €${spend.toLocaleString()} gerou €${revenue.toLocaleString()} em receita no sector de ${industry}.`;
+            
+            document.getElementById('insightOpportunity').textContent = 
+                ctr >= 2 
+                    ? `O CTR de ${ctr}% indica bom engagement. Recomendação: escalar budget em anúncios top-performing para maximizar conversões.`
+                    : `O CTR de ${ctr}% está abaixo do ideal. Recomendação: testar novos criativos e headlines para melhorar engagement.`;
+
+            document.getElementById('insightWatch').textContent = 
+                roas >= 3
+                    ? `Performance sólida. Monitorizar CPA (€${cpa}) nas próximas semanas e ajustar se ultrapassar €${(cpa * 1.2).toFixed(0)}.`
+                    : `ROAS abaixo do target. Priorizar: 1) Rever audiências, 2) Testar criativos, 3) Ajustar bidding strategy.`;
+
+            // Switch to report tab
+            document.querySelectorAll('.demo-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.demo-panel').forEach(p => p.classList.remove('active'));
+            document.querySelector('[data-tab="report"]').classList.add('active');
+            document.getElementById('report-panel').classList.add('active');
+        }
+
+        function resetDemo() {
+            document.querySelectorAll('.demo-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.demo-panel').forEach(p => p.classList.remove('active'));
+            document.querySelector('[data-tab="input"]').classList.add('active');
+            document.getElementById('input-panel').classList.add('active');
+        }
+
+        function handleWaitlist(e) {
+            e.preventDefault();
+            const email = e.target.querySelector('input').value;
+            alert(`Obrigado! ${email} foi adicionado à waitlist.`);
+            e.target.querySelector('input').value = '';
+        }
+    </script>
+</body>
+</html>
