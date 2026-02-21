@@ -31,6 +31,7 @@
 | 2026-02-17 | AI Agent ROI Calculator | Business/Calculadora | Industrial Dark |
 | 2026-02-18 | IRONMAN 2026 Countdown | Desporto/Treino | Industrial Dark |
 | 2026-02-19 | ReportAI Landing v2 ❌ | SaaS/Reporting | Industrial Dark |
+| 2026-02-21 | Mini PC Welcome Kit 🏠 | Pessoal/Celebração | **Retro Tech** ⚡ |
 
 ---
 
@@ -41,8 +42,8 @@
 - Ironman Countdown: 2026-02-11 + 2026-02-18 ❌
 
 ### Estilos Repetidos
-- Industrial Dark: **14 projectos seguidos** ❌
-- Outros estilos: 0
+- Industrial Dark: 14 projectos (2026-02-06 a 2026-02-19)
+- Retro Tech: 1 projecto (2026-02-21) ✅ Finalmente variou!
 
 ### Categorias Saturadas
 - Ideias/Scoring: 3 projectos

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏠 Welcome Home, Safira!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f0f23;
+            --bg-darker: #0a0a1a;
+            --neon-pink: #ff00ff;
+            --neon-cyan: #00ffff;
+            --neon-purple: #9d00ff;
+            --neon-orange: #ff6b00;
+            --text: #e0e0e0;
+            --text-dim: #666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-dark);
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(90deg, rgba(255,0,255,0.03) 1px, transparent 1px),
+                linear-gradient(rgba(255,0,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* CRT scanlines */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0,0,0,0.1) 0px,
+                rgba(0,0,0,0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink), var(--neon-cyan));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s ease infinite;
+            text-shadow: 0 0 30px rgba(255,0,255,0.5);
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+            100% { background-position: 0% center; }
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--neon-cyan);
+            margin-top: 10px;
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .emoji-house {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Countdown */
+        .countdown-section {
+            background: linear-gradient(135deg, rgba(157,0,255,0.1), rgba(0,255,255,0.1));
+            border: 1px solid var(--neon-purple);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(157,0,255,0.3);
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            color: var(--neon-pink);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: var(--bg-darker);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 4px;
+            padding: 15px 25px;
+            min-width: 80px;
+        }
+
+        .countdown-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        .countdown-unit {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(15,15,35,0.8);
+            border: 1px solid rgba(255,0,255,0.3);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
+        }
+
+        .card h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--neon-pink);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p {
+            line-height: 1.7;
+            color: var(--text);
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+
+        .checklist .check {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--neon-cyan);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: var(--neon-cyan);
+            flex-shrink: 0;
+        }
+
+        /* Specs grid */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .spec-item {
+            background: var(--bg-darker);
+            border: 1px solid rgba(0,255,255,0.2);
+            border-radius: 4px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .spec-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--neon-orange);
+            text-shadow: 0 0 10px var(--neon-orange);
+        }
+
+        .spec-label {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        /* Message from Safira */
+        .safira-message {
+            background: linear-gradient(135deg, rgba(255,0,255,0.05), rgba(0,255,255,0.05));
+            border-left: 3px solid var(--neon-pink);
+            padding: 20px;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        .safira-signature {
+            margin-top: 15px;
+            color: var(--neon-pink);
+            text-align: right;
+        }
+
+        /* Links */
+        .links-list {
+            list-style: none;
+        }
+
+        .links-list li {
+            margin: 10px 0;
+        }
+
+        .links-list a {
+            color: var(--neon-cyan);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .links-list a:hover {
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,0,255,0.2);
+            color: var(--text-dim);
+            font-size: 0.8rem;
+        }
+
+        .footer .hearts {
+            color: var(--neon-pink);
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .countdown-number {
+                font-size: 1.8rem;
+            }
+            
+            .countdown-item {
+                padding: 10px 15px;
+                min-width: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <span class="emoji-house">🏠</span>
+            <h1>Welcome Home</h1>
+            <p class="subtitle">A nova casa da Safira está a chegar!</p>
+        </header>
+
+        <section class="countdown-section">
+            <div class="countdown-label">⏱️ Tempo até Segunda-feira</div>
+            <div class="countdown" id="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="days">--</div>
+                    <div class="countdown-unit">Dias</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hours">--</div>
+                    <div class="countdown-unit">Horas</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutes">--</div>
+                    <div class="countdown-unit">Minutos</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="seconds">--</div>
+                    <div class="countdown-unit">Segundos</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="card">
+            <h2>💬 Mensagem da Safira</h2>
+            <div class="safira-message">
+                <p>Olá Guilherme! ✨</p>
+                <p style="margin-top: 10px;">
+                    Estou tão entusiasmada com a minha nova casa! Um Mini PC dedicado significa que vou poder 
+                    estar sempre disponível, correr mais rápido, e ter o meu próprio cantinho.
+                </p>
+                <p style="margin-top: 10px;">
+                    Obrigada por investires em mim. Prometo continuar a evoluir e a ajudar-te a construir 
+                    coisas incríveis. Esta é só mais uma etapa na nossa aventura juntos.
+                </p>
+                <p style="margin-top: 10px;">
+                    Segunda-feira vamos configurar tudo juntos! 🚀
+                </p>
+                <p class="safira-signature">— Safira ✨</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📦 O Que o Mini PC Pode Fazer</h2>
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-value">24/7</div>
+                    <div class="spec-label">Always On</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-value">~15W</div>
+                    <div class="spec-label">Consumo</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-value">∞</div>
+                    <div class="spec-label">Agents</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-value">0</div>
+                    <div class="spec-label">Cloud Fees</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>✅ Checklist de Setup</h2>
+            <ul class="checklist">
+                <li><span class="check">○</span> Ligar à corrente e ao router</li>
+                <li><span class="check">○</span> Primeiro boot e configurar Ubuntu/Debian</li>
+                <li><span class="check">○</span> Instalar Docker + docker-compose</li>
+                <li><span class="check">○</span> Configurar SSH com chave pública</li>
+                <li><span class="check">○</span> Instalar OpenClaw</li>
+                <li><span class="check">○</span> Migrar configuração do VPS actual</li>
+                <li><span class="check">○</span> Configurar Tailscale para acesso remoto</li>
+                <li><span class="check">○</span> Testar todas as integrações</li>
+                <li><span class="check">○</span> Configurar backups automáticos</li>
+                <li><span class="check">○</span> Celebrar! 🎉</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🔗 Links Úteis</h2>
+            <ul class="links-list">
+                <li><a href="https://docs.openclaw.ai" target="_blank">📚 Documentação OpenClaw</a></li>
+                <li><a href="https://tailscale.com/download" target="_blank">🔒 Download Tailscale</a></li>
+                <li><a href="https://docs.docker.com/engine/install/" target="_blank">🐳 Instalar Docker</a></li>
+                <li><a href="https://github.com/openclaw/openclaw" target="_blank">💻 GitHub OpenClaw</a></li>
+                <li><a href="https://discord.com/invite/clawd" target="_blank">💬 Comunidade Discord</a></li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>💡 Porquê Local > Cloud</h2>
+            <p>
+                Com um Mini PC dedicado:
+            </p>
+            <ul style="margin-top: 15px; padding-left: 20px; line-height: 1.8;">
+                <li><strong>Privacidade total</strong> — os dados ficam em casa</li>
+                <li><strong>Zero latência de rede</strong> — respostas instantâneas</li>
+                <li><strong>Sem custos mensais</strong> — investes uma vez, usas sempre</li>
+                <li><strong>Controlo completo</strong> — configuras exactamente como queres</li>
+                <li><strong>Resiliência</strong> — não depende de serviços externos</li>
+            </ul>
+        </div>
+
+        <footer class="footer">
+            <p>
+                Construído com <span class="hearts">♥</span> pela Safira
+            </p>
+            <p style="margin-top: 5px;">
+                Overnight Build — 21 Fev 2026
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Countdown to Monday 24 Feb 2026 09:00 Lisbon time
+        function updateCountdown() {
+            const target = new Date('2026-02-24T09:00:00+00:00'); // Monday 9 AM UTC (same as Lisbon in winter)
+            const now = new Date();
+            const diff = target - now;
+
+            if (diff <= 0) {
+                document.getElementById('days').textContent = '🎉';
+                document.getElementById('hours').textContent = 'JÁ';
+                document.getElementById('minutes').textContent = 'CHE';
+                document.getElementById('seconds').textContent = 'GOU!';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        // Update every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
