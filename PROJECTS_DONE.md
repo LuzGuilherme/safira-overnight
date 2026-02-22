@@ -32,6 +32,7 @@
 | 2026-02-18 | IRONMAN 2026 Countdown | Desporto/Treino | Industrial Dark |
 | 2026-02-19 | ReportAI Landing v2 ❌ | SaaS/Reporting | Industrial Dark |
 | 2026-02-21 | Mini PC Welcome Kit 🏠 | Pessoal/Celebração | **Retro Tech** ⚡ |
+| 2026-02-22 | Newsletter Survey Dashboard 📊 | Newsletter/Insights | **Editorial Clean** ☀️ |
 
 ---
 

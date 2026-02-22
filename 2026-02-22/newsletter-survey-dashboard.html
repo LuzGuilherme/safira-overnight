@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algarve Newsletter — Survey Insights</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fafaf9;
+      --bg-card: #ffffff;
+      --text: #1c1917;
+      --text-muted: #57534e;
+      --accent: #ea580c;
+      --accent-light: #fed7aa;
+      --border: #e7e5e4;
+      --success: #16a34a;
+      --warning: #d97706;
+      --danger: #dc2626;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    /* Typography */
+    h1, h2, h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: 2.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 4rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.125rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 4rem;
+    }
+
+    /* Bar Charts */
+    .bar-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .bar-item {
+      display: grid;
+      grid-template-columns: 180px 1fr 60px;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .bar-label {
+      font-size: 0.9375rem;
+      color: var(--text);
+    }
+
+    .bar-container {
+      background: #f5f5f4;
+      height: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: var(--accent);
+      transition: width 0.5s ease;
+    }
+
+    .bar-value {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      text-align: right;
+    }
+
+    /* Priority Badge */
+    .priority-badge {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.125rem 0.5rem;
+      margin-left: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Event Types List */
+    .event-types {
+      list-style: none;
+      counter-reset: item;
+    }
+
+    .event-types li {
+      display: flex;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      counter-increment: item;
+    }
+
+    .event-types li::before {
+      content: counter(item);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--accent);
+      width: 2.5rem;
+      flex-shrink: 0;
+    }
+
+    .event-name {
+      flex: 1;
+      font-size: 1rem;
+    }
+
+    .event-priority {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Rules Section */
+    .rules-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .rule-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--danger);
+      padding: 1.25rem 1.5rem;
+    }
+
+    .rule-card.warning {
+      border-left-color: var(--warning);
+    }
+
+    .rule-card.success {
+      border-left-color: var(--success);
+    }
+
+    .rule-title {
+      font-weight: 600;
+      font-size: 0.9375rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .rule-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* Quotes */
+    .quotes-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 2rem;
+    }
+
+    .quote {
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .quote:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .quote-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.125rem;
+      font-style: italic;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .quote-meta {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    /* Two Column */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .bar-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .bar-container { height: 20px; }
+      .bar-value { text-align: left; }
+      .two-col { grid-template-columns: 1fr; }
+    }
+
+    /* Print */
+    @media print {
+      body { background: white; }
+      .container { max-width: 100%; padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <header>
+      <div class="subtitle">Survey Insights</div>
+      <h1>Algarve Newsletter</h1>
+      <p>What 70 readers told us they want. Use this to guide every newsletter.</p>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">70</div>
+          <div class="stat-label">Total Responses</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">4.0</div>
+          <div class="stat-label">Satisfaction (out of 5)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">677</div>
+          <div class="stat-label">Subscribers</div>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <h2>Topic Interests</h2>
+      <p style="color: var(--text-muted); margin-bottom: 1.5rem;">What readers want to see in every issue. Prioritize accordingly.</p>
+      
+      <div class="bar-chart">
+        <div class="bar-item">
+          <div class="bar-label">Weekly Events <span class="priority-badge">Top</span></div>
+          <div class="bar-container"><div class="bar-fill" style="width: 95%"></div></div>
+          <div class="bar-value">95%</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label">Hidden Gems <span class="priority-badge">Top</span></div>
+          <div class="bar-container"><div class="bar-fill" style="width: 75%"></div></div>
+          <div class="bar-value">75%</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label">Restaurants & Food</div>
+          <div class="bar-container"><div class="bar-fill" style="width: 70%"></div></div>
+          <div class="bar-value">70%</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label">Culture & History</div>
+          <div class="bar-container"><div class="bar-fill" style="width: 65%"></div></div>
+          <div class="bar-value">65%</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label">Outdoor Activities</div>
+          <div class="bar-container"><div class="bar-fill" style="width: 55%"></div></div>
+          <div class="bar-value">55%</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label">Resident Tips</div>
+          <div class="bar-container"><div class="bar-fill" style="width: 45%"></div></div>
+          <div class="bar-value">45%</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Geographic Focus</h2>
+      <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Where readers want to discover events. Central Algarve leads.</p>
+      
+      <div class="bar-chart">
+        <div class="bar-item">
+          <div class="bar-label">Central Algarve <span class="priority-badge">Focus</span></div>
+          <div class="bar-container"><div class="bar-fill" style="width: 40%; background: #16a34a"></div></div>
+          <div class="bar-value">40%</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label">All Areas Equally</div>
+          <div class="bar-container"><div class="bar-fill" style="width: 30%; background: #16a34a"></div></div>
+          <div class="bar-value">30%</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label">Eastern Algarve</div>
+          <div class="bar-container"><div class="bar-fill" style="width: 20%; background: #16a34a"></div></div>
+          <div class="bar-value">20%</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label">Western Algarve</div>
+          <div class="bar-container"><div class="bar-fill" style="width: 10%; background: #16a34a"></div></div>
+          <div class="bar-value">10%</div>
+        </div>
+      </div>
+      
+      <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 1rem;">
+        <strong>Central:</strong> Portimão, Albufeira, Loulé &nbsp;|&nbsp;
+        <strong>Eastern:</strong> Faro, Olhão, Tavira &nbsp;|&nbsp;
+        <strong>Western:</strong> Lagos, Sagres, Aljezur
+      </p>
+    </section>
+
+    <section class="two-col">
+      <div>
+        <h2>Event Types Ranking</h2>
+        <ol class="event-types">
+          <li>
+            <span class="event-name">Local markets & fairs</span>
+            <span class="event-priority">⭐ TOP</span>
+          </li>
+          <li>
+            <span class="event-name">Live music & concerts</span>
+            <span class="event-priority">⭐ TOP</span>
+          </li>
+          <li>
+            <span class="event-name">Food & wine festivals</span>
+            <span class="event-priority">⭐ TOP</span>
+          </li>
+          <li>
+            <span class="event-name">Traditional village festivals</span>
+            <span class="event-priority"></span>
+          </li>
+          <li>
+            <span class="event-name">Cultural events & exhibitions</span>
+            <span class="event-priority"></span>
+          </li>
+          <li>
+            <span class="event-name">Sports & outdoor activities</span>
+            <span class="event-priority"></span>
+          </li>
+        </ol>
+      </div>
+      
+      <div>
+        <h2>Budget Preferences</h2>
+        <div style="padding: 1.5rem 0;">
+          <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+            <div style="width: 140px; font-size: 0.9375rem;">Mix of everything</div>
+            <div style="flex: 1; height: 24px; background: #f5f5f4;">
+              <div style="width: 50%; height: 100%; background: #d97706;"></div>
+            </div>
+            <div style="width: 60px; text-align: right; font-weight: 600;">50%</div>
+          </div>
+          <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+            <div style="width: 140px; font-size: 0.9375rem;">Budget-friendly</div>
+            <div style="flex: 1; height: 24px; background: #f5f5f4;">
+              <div style="width: 35%; height: 100%; background: #d97706;"></div>
+            </div>
+            <div style="width: 60px; text-align: right; font-weight: 600;">35%</div>
+          </div>
+          <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+            <div style="width: 140px; font-size: 0.9375rem;">Mid-range</div>
+            <div style="flex: 1; height: 24px; background: #f5f5f4;">
+              <div style="width: 12%; height: 100%; background: #d97706;"></div>
+            </div>
+            <div style="width: 60px; text-align: right; font-weight: 600;">12%</div>
+          </div>
+          <div style="display: flex; align-items: center;">
+            <div style="width: 140px; font-size: 0.9375rem;">Premium</div>
+            <div style="flex: 1; height: 24px; background: #f5f5f4;">
+              <div style="width: 3%; height: 100%; background: #d97706;"></div>
+            </div>
+            <div style="width: 60px; text-align: right; font-weight: 600;">3%</div>
+          </div>
+        </div>
+        <p style="font-size: 0.875rem; color: var(--text-muted);">
+          <strong>Takeaway:</strong> Always include FREE events. Budget-friendly options are valued more than premium.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Critical Rules</h2>
+      <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Non-negotiable guidelines from reader feedback.</p>
+      
+      <div class="rules-grid">
+        <div class="rule-card">
+          <div class="rule-title">❌ Never use the word "expat"</div>
+          <div class="rule-desc">Multiple readers explicitly requested this. Use "international residents" or "foreigners" instead. The term implies privilege and is off-putting.</div>
+        </div>
+        <div class="rule-card warning">
+          <div class="rule-title">⚠️ Give more advance notice</div>
+          <div class="rule-desc">"Alert to events sooner, allowing to buy tickets in advance" — Include a "Coming Next Week" section for events that require booking.</div>
+        </div>
+        <div class="rule-card warning">
+          <div class="rule-title">⚠️ Complete event information</div>
+          <div class="rule-desc">"Festival location, dates, and hours — seems basic but it's hard to find" — Every event MUST have: date, time, location, price.</div>
+        </div>
+        <div class="rule-card success">
+          <div class="rule-title">✅ Include free/budget options</div>
+          <div class="rule-desc">"Address topics accessible to all, not just high end" — Prioritize free events and budget-friendly experiences in every issue.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Reader Voices</h2>
+      <div class="quotes-section">
+        <div class="quote">
+          <div class="quote-text">"Don't use the term expat! It implies privilege — as a Brit, we are simply foreigners."</div>
+          <div class="quote-meta">— Reader from Almancil</div>
+        </div>
+        <div class="quote">
+          <div class="quote-text">"An annual calendar of events that always happen locally... so we can make plans around those big annual events."</div>
+          <div class="quote-meta">— New resident</div>
+        </div>
+        <div class="quote">
+          <div class="quote-text">"Just to have it in time to book tickets."</div>
+          <div class="quote-meta">— On timing</div>
+        </div>
+        <div class="quote">
+          <div class="quote-text">"Events shown on a map."</div>
+          <div class="quote-meta">— Feature suggestion</div>
+        </div>
+        <div class="quote">
+          <div class="quote-text">"Love the range of content already provided. Information on ways to meet other international residents."</div>
+          <div class="quote-meta">— New to Algarve</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Pre-Newsletter Checklist</h2>
+      <div style="background: var(--bg-card); border: 1px solid var(--border); padding: 2rem;">
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Before sending any newsletter, verify:</p>
+        <ul style="list-style: none; display: grid; gap: 0.75rem;">
+          <li style="display: flex; gap: 0.75rem; align-items: flex-start;">
+            <span style="color: var(--accent);">□</span>
+            <span>Survey insights consulted (this dashboard)</span>
+          </li>
+          <li style="display: flex; gap: 0.75rem; align-items: flex-start;">
+            <span style="color: var(--accent);">□</span>
+            <span>Markets & fairs included (top interest)</span>
+          </li>
+          <li style="display: flex; gap: 0.75rem; align-items: flex-start;">
+            <span style="color: var(--accent);">□</span>
+            <span>Central Algarve events covered (40% of readers)</span>
+          </li>
+          <li style="display: flex; gap: 0.75rem; align-items: flex-start;">
+            <span style="color: var(--accent);">□</span>
+            <span>Free/budget options included</span>
+          </li>
+          <li style="display: flex; gap: 0.75rem; align-items: flex-start;">
+            <span style="color: var(--accent);">□</span>
+            <span>Word "expat" NOT used anywhere</span>
+          </li>
+          <li style="display: flex; gap: 0.75rem; align-items: flex-start;">
+            <span style="color: var(--accent);">□</span>
+            <span>All events verified on BOL (not sold out)</span>
+          </li>
+          <li style="display: flex; gap: 0.75rem; align-items: flex-start;">
+            <span style="color: var(--accent);">□</span>
+            <span>Each event has: date + time + location + price</span>
+          </li>
+          <li style="display: flex; gap: 0.75rem; align-items: flex-start;">
+            <span style="color: var(--accent);">□</span>
+            <span>"Coming Next Week" section included</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        Based on survey data from February 2026<br>
+        <a href="https://docs.google.com/forms/d/1PsQbgXnkZOUlPDBBs7pRjOeSV6JkMYeT1-dtkcK_v4I/edit#responses">View Survey</a> · 
+        <a href="#">SURVEY_INSIGHTS.md</a> · 
+        <a href="#">CHECKLIST.md</a>
+      </p>
+      <p style="margin-top: 1rem; font-size: 0.8125rem;">
+        Built by Safira · 2026-02-22
+      </p>
+    </footer>
+
+  </div>
+</body>
+</html>
