@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Value Calculator | Quanto Vale Cada Cliente?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --gray-100: #f5f5f5;
+            --gray-200: #e5e5e5;
+            --gray-400: #a3a3a3;
+            --gray-600: #525252;
+            --accent: #0066ff;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: var(--gray-600);
+            margin-bottom: 64px;
+            max-width: 600px;
+        }
+
+        h2 {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gray-400);
+            margin-bottom: 24px;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+            .container {
+                padding: 48px 20px;
+            }
+        }
+
+        /* Input Section */
+        .input-section {
+            border-right: 1px solid var(--gray-200);
+            padding-right: 80px;
+        }
+
+        @media (max-width: 768px) {
+            .input-section {
+                border-right: none;
+                border-bottom: 1px solid var(--gray-200);
+                padding-right: 0;
+                padding-bottom: 48px;
+            }
+        }
+
+        .input-group {
+            margin-bottom: 32px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .input-group .hint {
+            font-size: 12px;
+            color: var(--gray-400);
+            margin-top: 4px;
+        }
+
+        .input-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-row .prefix,
+        .input-row .suffix {
+            font-size: 16px;
+            color: var(--gray-400);
+        }
+
+        input[type="number"],
+        input[type="range"] {
+            font-family: inherit;
+            font-size: 24px;
+            font-weight: 600;
+            border: none;
+            border-bottom: 2px solid var(--black);
+            background: transparent;
+            padding: 8px 0;
+            width: 120px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="number"]:focus {
+            border-color: var(--accent);
+        }
+
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+
+        /* Range Slider */
+        .slider-container {
+            margin-top: 8px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 2px;
+            border: none;
+            -webkit-appearance: none;
+            background: var(--gray-200);
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: var(--black);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .slider-value {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        /* Output Section */
+        .output-section {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .metric {
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .metric:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: var(--gray-600);
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            transition: all 0.3s ease;
+        }
+
+        .metric-value.highlight {
+            color: var(--accent);
+        }
+
+        .metric-note {
+            font-size: 12px;
+            color: var(--gray-400);
+            margin-top: 8px;
+        }
+
+        /* Insight Box */
+        .insight-box {
+            background: var(--gray-100);
+            padding: 24px;
+            margin-top: 40px;
+        }
+
+        .insight-box p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .insight-box strong {
+            font-weight: 600;
+        }
+
+        /* Scenario Section */
+        .scenario-section {
+            margin-top: 80px;
+            padding-top: 80px;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .scenario-header {
+            margin-bottom: 40px;
+        }
+
+        .scenario-header h2 {
+            margin-bottom: 8px;
+        }
+
+        .scenario-subtitle {
+            color: var(--gray-600);
+            font-size: 16px;
+        }
+
+        .scenarios-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .scenarios-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .scenario-card {
+            padding: 24px;
+            border: 1px solid var(--gray-200);
+            transition: all 0.2s;
+        }
+
+        .scenario-card:hover {
+            border-color: var(--black);
+        }
+
+        .scenario-card.best {
+            border-color: var(--accent);
+            background: rgba(0, 102, 255, 0.02);
+        }
+
+        .scenario-name {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .scenario-clv {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .scenario-details {
+            font-size: 12px;
+            color: var(--gray-600);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid var(--gray-200);
+            font-size: 12px;
+            color: var(--gray-400);
+        }
+
+        footer a {
+            color: var(--black);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Client Value Calculator</h1>
+            <p class="subtitle">Descobre quanto vale realmente cada cliente do teu negócio — e quanto podes gastar para adquirir novos.</p>
+        </header>
+
+        <div class="grid">
+            <div class="input-section">
+                <h2>O Teu Negócio</h2>
+
+                <div class="input-group">
+                    <label>Preço médio por serviço</label>
+                    <div class="input-row">
+                        <span class="prefix">€</span>
+                        <input type="number" id="avgPrice" value="80" min="1" max="10000">
+                    </div>
+                    <p class="hint">Quanto cobras em média por serviço?</p>
+                </div>
+
+                <div class="input-group">
+                    <label>Custo por serviço</label>
+                    <div class="input-row">
+                        <span class="prefix">€</span>
+                        <input type="number" id="costPerService" value="20" min="0" max="10000">
+                    </div>
+                    <p class="hint">Materiais, produtos, tempo (se aplicável)</p>
+                </div>
+
+                <div class="input-group">
+                    <label>Visitas por ano (por cliente)</label>
+                    <div class="slider-value" id="visitsDisplay">4</div>
+                    <div class="slider-container">
+                        <input type="range" id="visitsPerYear" min="1" max="24" value="4">
+                    </div>
+                    <p class="hint">Quantas vezes um cliente típico volta por ano?</p>
+                </div>
+
+                <div class="input-group">
+                    <label>Anos de retenção</label>
+                    <div class="slider-value" id="retentionDisplay">3</div>
+                    <div class="slider-container">
+                        <input type="range" id="retentionYears" min="1" max="10" value="3">
+                    </div>
+                    <p class="hint">Quanto tempo um cliente continua a voltar?</p>
+                </div>
+
+                <div class="input-group">
+                    <label>Taxa de referral</label>
+                    <div class="slider-value" id="referralDisplay">20%</div>
+                    <div class="slider-container">
+                        <input type="range" id="referralRate" min="0" max="100" value="20">
+                    </div>
+                    <p class="hint">% de clientes que trazem novos clientes</p>
+                </div>
+            </div>
+
+            <div class="output-section">
+                <h2>O Valor de Cada Cliente</h2>
+
+                <div class="metric">
+                    <p class="metric-label">Receita Total por Cliente</p>
+                    <p class="metric-value" id="totalRevenue">€960</p>
+                    <p class="metric-note">Receita gerada ao longo da relação</p>
+                </div>
+
+                <div class="metric">
+                    <p class="metric-label">Customer Lifetime Value (CLV)</p>
+                    <p class="metric-value highlight" id="clv">€720</p>
+                    <p class="metric-note">Lucro real de cada cliente</p>
+                </div>
+
+                <div class="metric">
+                    <p class="metric-label">Custo Máximo de Aquisição</p>
+                    <p class="metric-value" id="maxCac">€216</p>
+                    <p class="metric-note">Podes gastar até este valor em ads por cliente</p>
+                </div>
+
+                <div class="metric">
+                    <p class="metric-label">Break-even ROAS</p>
+                    <p class="metric-value" id="breakEvenRoas">1.33x</p>
+                    <p class="metric-note">ROAS mínimo para não perder dinheiro</p>
+                </div>
+
+                <div class="insight-box">
+                    <p id="insight">Com um CLV de <strong>€720</strong>, podes investir até <strong>€216</strong> para adquirir cada novo cliente e ainda ter lucro. Se cada cliente trouxer mais 20% de novos clientes, o valor real sobe para <strong>€864</strong>.</p>
+                </div>
+            </div>
+        </div>
+
+        <section class="scenario-section">
+            <div class="scenario-header">
+                <h2>Cenários</h2>
+                <p class="scenario-subtitle">E se conseguires melhorar a retenção ou os referrals?</p>
+            </div>
+
+            <div class="scenarios-grid">
+                <div class="scenario-card" id="scenarioBase">
+                    <p class="scenario-name">Actual</p>
+                    <p class="scenario-clv" id="scenarioBaseCLV">€720</p>
+                    <p class="scenario-details">Com os valores actuais</p>
+                </div>
+
+                <div class="scenario-card" id="scenarioBetter">
+                    <p class="scenario-name">+1 Ano Retenção</p>
+                    <p class="scenario-clv" id="scenarioBetterCLV">€960</p>
+                    <p class="scenario-details">Se clientes ficarem mais 1 ano</p>
+                </div>
+
+                <div class="scenario-card best" id="scenarioBest">
+                    <p class="scenario-name">+Referrals (+10%)</p>
+                    <p class="scenario-clv" id="scenarioBestCLV">€1,008</p>
+                    <p class="scenario-details">Se mais clientes recomendarem</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Ferramenta criada por <a href="https://github.com/LuzGuilherme/safira-overnight" target="_blank">Safira</a> · 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        // Elements
+        const avgPriceInput = document.getElementById('avgPrice');
+        const costPerServiceInput = document.getElementById('costPerService');
+        const visitsPerYearInput = document.getElementById('visitsPerYear');
+        const retentionYearsInput = document.getElementById('retentionYears');
+        const referralRateInput = document.getElementById('referralRate');
+
+        const visitsDisplay = document.getElementById('visitsDisplay');
+        const retentionDisplay = document.getElementById('retentionDisplay');
+        const referralDisplay = document.getElementById('referralDisplay');
+
+        const totalRevenueEl = document.getElementById('totalRevenue');
+        const clvEl = document.getElementById('clv');
+        const maxCacEl = document.getElementById('maxCac');
+        const breakEvenRoasEl = document.getElementById('breakEvenRoas');
+        const insightEl = document.getElementById('insight');
+
+        const scenarioBaseCLV = document.getElementById('scenarioBaseCLV');
+        const scenarioBetterCLV = document.getElementById('scenarioBetterCLV');
+        const scenarioBestCLV = document.getElementById('scenarioBestCLV');
+
+        // Calculate CLV
+        function calculateCLV(price, cost, visits, years, referralRate) {
+            const margin = price - cost;
+            const baseCLV = margin * visits * years;
+            const withReferrals = baseCLV * (1 + (referralRate / 100));
+            return withReferrals;
+        }
+
+        // Format currency
+        function formatCurrency(value) {
+            return '€' + Math.round(value).toLocaleString('pt-PT');
+        }
+
+        // Update all outputs
+        function updateCalculations() {
+            const price = parseFloat(avgPriceInput.value) || 0;
+            const cost = parseFloat(costPerServiceInput.value) || 0;
+            const visits = parseInt(visitsPerYearInput.value) || 1;
+            const years = parseInt(retentionYearsInput.value) || 1;
+            const referralRate = parseInt(referralRateInput.value) || 0;
+
+            // Update slider displays
+            visitsDisplay.textContent = visits;
+            retentionDisplay.textContent = years;
+            referralDisplay.textContent = referralRate + '%';
+
+            // Calculate metrics
+            const totalRevenue = price * visits * years;
+            const margin = price - cost;
+            const baseCLV = margin * visits * years;
+            const clv = calculateCLV(price, cost, visits, years, referralRate);
+            const maxCac = clv * 0.3; // 30% margin target
+            const breakEvenRoas = price > cost ? (price / (price - cost)) : 0;
+
+            // Update displays with animation
+            animateValue(totalRevenueEl, formatCurrency(totalRevenue));
+            animateValue(clvEl, formatCurrency(clv));
+            animateValue(maxCacEl, formatCurrency(maxCac));
+            animateValue(breakEvenRoasEl, breakEvenRoas.toFixed(2) + 'x');
+
+            // Update insight
+            insightEl.innerHTML = `Com um CLV de <strong>${formatCurrency(clv)}</strong>, podes investir até <strong>${formatCurrency(maxCac)}</strong> para adquirir cada novo cliente e ainda ter lucro.${referralRate > 0 ? ` Se cada cliente trouxer mais ${referralRate}% de novos clientes, o valor total aumenta significativamente.` : ''}`;
+
+            // Update scenarios
+            const scenarioBase = clv;
+            const scenarioBetter = calculateCLV(price, cost, visits, years + 1, referralRate);
+            const scenarioBest = calculateCLV(price, cost, visits, years, Math.min(referralRate + 10, 100));
+
+            animateValue(scenarioBaseCLV, formatCurrency(scenarioBase));
+            animateValue(scenarioBetterCLV, formatCurrency(scenarioBetter));
+            animateValue(scenarioBestCLV, formatCurrency(scenarioBest));
+        }
+
+        // Simple animation for value changes
+        function animateValue(element, newValue) {
+            if (element.textContent !== newValue) {
+                element.style.transform = 'scale(1.02)';
+                element.textContent = newValue;
+                setTimeout(() => {
+                    element.style.transform = 'scale(1)';
+                }, 150);
+            }
+        }
+
+        // Event listeners
+        avgPriceInput.addEventListener('input', updateCalculations);
+        costPerServiceInput.addEventListener('input', updateCalculations);
+        visitsPerYearInput.addEventListener('input', updateCalculations);
+        retentionYearsInput.addEventListener('input', updateCalculations);
+        referralRateInput.addEventListener('input', updateCalculations);
+
+        // Initial calculation
+        updateCalculations();
+    </script>
+</body>
+</html>

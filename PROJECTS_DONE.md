@@ -78,3 +78,4 @@
 ## 📚 Referência Rápida de Estilos
 
 Ver `/root/clawd/data/STYLE_LIBRARY.md` para detalhes completos.
+| 2026-02-23 | Client Value Calculator 🧮 | Business/Calculadora | **Swiss Minimal** 🏛️ |
