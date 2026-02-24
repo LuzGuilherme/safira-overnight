@@ -33,6 +33,8 @@
 | 2026-02-19 | ReportAI Landing v2 ❌ | SaaS/Reporting | Industrial Dark |
 | 2026-02-21 | Mini PC Welcome Kit 🏠 | Pessoal/Celebração | **Retro Tech** ⚡ |
 | 2026-02-22 | Newsletter Survey Dashboard 📊 | Newsletter/Insights | **Editorial Clean** ☀️ |
+| 2026-02-23 | Client Value Calculator 🧮 | Business/Calculadora | **Swiss Minimal** 🏛️ |
+| 2026-02-24 | Testimonial Wall 📰 | Marketing/Social Proof | **Newspaper** 📰 |
 
 ---
 
