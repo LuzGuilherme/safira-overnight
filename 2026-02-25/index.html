@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw Usage Insights</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --surface-2: #21262d;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text-muted: #8b949e;
+            --text-bright: #f0f6fc;
+            --green: #3fb950;
+            --yellow: #d29922;
+            --red: #f85149;
+            --blue: #58a6ff;
+            --purple: #a371f7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 13px;
+            line-height: 1.4;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-bright);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            background: var(--purple);
+            color: white;
+            font-weight: 500;
+        }
+
+        .timestamp {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-bright);
+        }
+
+        .stat-value.green { color: var(--green); }
+        .stat-value.yellow { color: var(--yellow); }
+        .stat-value.red { color: var(--red); }
+
+        .stat-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            margin-bottom: 16px;
+        }
+
+        .section-header {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+            font-size: 12px;
+            color: var(--text-bright);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        th {
+            text-align: left;
+            padding: 8px 12px;
+            background: var(--surface-2);
+            font-weight: 500;
+            color: var(--text-muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 8px 12px;
+            border-top: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        tr:hover {
+            background: var(--surface-2);
+        }
+
+        .mono {
+            font-family: 'SF Mono', 'Consolas', monospace;
+            font-size: 11px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .tag.high { background: rgba(248, 81, 73, 0.2); color: var(--red); }
+        .tag.medium { background: rgba(210, 153, 34, 0.2); color: var(--yellow); }
+        .tag.low { background: rgba(63, 185, 80, 0.2); color: var(--green); }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--surface-2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 800px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .recommendation {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .recommendation:last-child {
+            border-bottom: none;
+        }
+
+        .rec-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .rec-icon.save { background: rgba(63, 185, 80, 0.2); }
+        .rec-icon.warn { background: rgba(210, 153, 34, 0.2); }
+
+        .rec-content {
+            flex: 1;
+        }
+
+        .rec-title {
+            font-weight: 500;
+            color: var(--text-bright);
+            margin-bottom: 2px;
+        }
+
+        .rec-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .rec-impact {
+            font-size: 11px;
+            color: var(--green);
+            font-weight: 500;
+        }
+
+        .chart-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .chart-label {
+            width: 140px;
+            font-size: 11px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chart-fill {
+            height: 14px;
+            border-radius: 2px;
+            min-width: 2px;
+        }
+
+        .chart-value {
+            font-size: 11px;
+            color: var(--text);
+            font-family: monospace;
+            min-width: 50px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        footer a {
+            color: var(--blue);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>
+                📊 OpenClaw Usage Insights
+                <span class="badge">DATA DENSE</span>
+            </h1>
+            <div class="timestamp" id="timestamp">Loading...</div>
+        </header>
+
+        <!-- Summary Stats -->
+        <div class="grid">
+            <div class="stat-card">
+                <div class="stat-label">Active Crons</div>
+                <div class="stat-value" id="activeCrons">--</div>
+                <div class="stat-sub" id="cronSub">sessions/day estimate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Context Size</div>
+                <div class="stat-value" id="contextSize">--</div>
+                <div class="stat-sub">loaded each session</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Est. Daily Tokens</div>
+                <div class="stat-value" id="dailyTokens">--</div>
+                <div class="stat-sub" id="tokenSub">input tokens approx</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Est. Monthly Cost</div>
+                <div class="stat-value" id="monthlyCost">--</div>
+                <div class="stat-sub">at $3/1M input tokens</div>
+            </div>
+        </div>
+
+        <div class="two-col">
+            <!-- Context Files -->
+            <div class="section">
+                <div class="section-header">
+                    📄 Context Files (loaded every session)
+                </div>
+                <div style="padding: 12px;" id="contextChart">
+                    <!-- Chart will be populated -->
+                </div>
+            </div>
+
+            <!-- Recommendations -->
+            <div class="section">
+                <div class="section-header">
+                    💡 Optimization Recommendations
+                </div>
+                <div id="recommendations">
+                    <!-- Recommendations will be populated -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Cron Table -->
+        <div class="section">
+            <div class="section-header">
+                ⏰ Cron Jobs by Token Impact
+                <span style="font-weight: normal; font-size: 11px; color: var(--text-muted);">
+                    sorted by estimated daily token usage
+                </span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cron Name</th>
+                        <th>Schedule</th>
+                        <th>Runs/Day</th>
+                        <th>Prompt Size</th>
+                        <th>Est. Tokens/Day</th>
+                        <th>Impact</th>
+                    </tr>
+                </thead>
+                <tbody id="cronTable">
+                    <!-- Table will be populated -->
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            Built with 💜 by Safira · Overnight Build #28 · 
+            <a href="https://luzguilherme.github.io/safira-overnight/">All Projects</a>
+        </footer>
+    </div>
+
+    <script>
+        // Data will be embedded here
+        const data = {
+            timestamp: "2026-02-25T01:30:00Z",
+            contextFiles: [
+                { name: "MEMORY.md", bytes: 21275, tokens: 5300 },
+                { name: "AGENTS.md", bytes: 12500, tokens: 3100 },
+                { name: "TOOLS.md", bytes: 8200, tokens: 2050 },
+                { name: "TACIT_KNOWLEDGE.md", bytes: 6200, tokens: 1550 },
+                { name: "SOUL.md", bytes: 3500, tokens: 875 },
+                { name: "USER.md", bytes: 2800, tokens: 700 },
+                { name: "HEARTBEAT.md", bytes: 4500, tokens: 1125 },
+                { name: "IDENTITY.md", bytes: 800, tokens: 200 }
+            ],
+            crons: [
+                { name: "morning-briefing", schedule: "0 7 * * *", runsPerDay: 1, promptTokens: 1200, enabled: true },
+                { name: "overnight-build", schedule: "30 1 * * *", runsPerDay: 1, promptTokens: 1500, enabled: true },
+                { name: "nightly-session-consolidation", schedule: "0 2 * * *", runsPerDay: 1, promptTokens: 800, enabled: true },
+                { name: "evening-checkin", schedule: "30 21 * * *", runsPerDay: 1, promptTokens: 600, enabled: true },
+                { name: "side-hustle-research", schedule: "15 23 * * *", runsPerDay: 1, promptTokens: 1000, enabled: true },
+                { name: "safira-status-update", schedule: "0 */3 * * *", runsPerDay: 8, promptTokens: 200, enabled: true },
+                { name: "football-daily-alert", schedule: "0 10 * * *", runsPerDay: 1, promptTokens: 800, enabled: true },
+                { name: "youtube-clawdbot-research", schedule: "0 0 * * 1,3,5", runsPerDay: 0.43, promptTokens: 900, enabled: true },
+                { name: "youtube-sidehustles-research", schedule: "0 0 * * 2,4,6", runsPerDay: 0.43, promptTokens: 900, enabled: true },
+                { name: "podcast-research", schedule: "0 1 * * *", runsPerDay: 1, promptTokens: 1100, enabled: true },
+                { name: "algarve-newsletter-prep", schedule: "0 9 * * 6", runsPerDay: 0.14, promptTokens: 800, enabled: true },
+                { name: "auto-melhoria-nocturna", schedule: "0 1 * * *", runsPerDay: 1, promptTokens: 700, enabled: true },
+                { name: "strava-supabase-sync", schedule: "0 6 * * *", runsPerDay: 1, promptTokens: 200, enabled: true },
+                { name: "process-recipe-ratings", schedule: "0 4 * * *", runsPerDay: 1, promptTokens: 250, enabled: true },
+                { name: "lead-prospector", schedule: "0 11 * * *", runsPerDay: 1, promptTokens: 800, enabled: false },
+                { name: "weekly-review-sunday", schedule: "0 20 * * 0", runsPerDay: 0.14, promptTokens: 500, enabled: true },
+                { name: "getting-to-know-you", schedule: "0 20 */2 * *", runsPerDay: 0.5, promptTokens: 400, enabled: true },
+                { name: "tacit-knowledge-update", schedule: "0 4 * * 0", runsPerDay: 0.14, promptTokens: 600, enabled: true },
+                { name: "security-check-nocturno", schedule: "30 0 * * *", runsPerDay: 1, promptTokens: 400, enabled: true },
+                { name: "email-triage-profissional", schedule: "30 1 * * *", runsPerDay: 1, promptTokens: 350, enabled: true },
+                { name: "cron-health-check", schedule: "30 5 * * *", runsPerDay: 1, promptTokens: 500, enabled: true },
+                { name: "obsidian-sync", schedule: "0 23 * * *", runsPerDay: 1, promptTokens: 400, enabled: true }
+            ],
+            recommendations: [
+                {
+                    icon: "💰",
+                    type: "save",
+                    title: "Reduce safira-status-update frequency",
+                    desc: "Currently runs 8x/day. Consider reducing to 4x/day (every 6h).",
+                    impact: "~6,400 tokens/day saved"
+                },
+                {
+                    icon: "📄",
+                    type: "warn",
+                    title: "MEMORY.md is large (21KB)",
+                    desc: "This file loads every session. Consider archiving old content.",
+                    impact: "~2,000 tokens/session potential savings"
+                },
+                {
+                    icon: "🔄",
+                    type: "save",
+                    title: "Merge similar crons",
+                    desc: "youtube-clawdbot and youtube-sidehustles could share logic.",
+                    impact: "Cleaner system, easier maintenance"
+                },
+                {
+                    icon: "⏰",
+                    type: "save",
+                    title: "Disable inactive crons",
+                    desc: "lead-prospector is disabled - good! Review others periodically.",
+                    impact: "Prevent token waste"
+                }
+            ]
+        };
+
+        // Calculate totals
+        const totalContextTokens = data.contextFiles.reduce((sum, f) => sum + f.tokens, 0);
+        const totalContextBytes = data.contextFiles.reduce((sum, f) => sum + f.bytes, 0);
+
+        // Calculate daily cron tokens (context + prompt for each run)
+        let dailyCronTokens = 0;
+        let activeCount = 0;
+        let dailyRuns = 0;
+
+        data.crons.forEach(cron => {
+            if (cron.enabled) {
+                activeCount++;
+                dailyRuns += cron.runsPerDay;
+                // Each run loads context + specific prompt
+                dailyCronTokens += cron.runsPerDay * (totalContextTokens + cron.promptTokens);
+            }
+        });
+
+        // Estimate heartbeat calls (assume 48/day based on 30min intervals)
+        const heartbeatTokens = 48 * (totalContextTokens + 100);
+
+        // Estimate user conversations (assume 5 turns/day average)
+        const conversationTokens = 5 * (totalContextTokens + 500);
+
+        const totalDailyTokens = dailyCronTokens + heartbeatTokens + conversationTokens;
+        const monthlyTokens = totalDailyTokens * 30;
+        const monthlyCost = (monthlyTokens / 1000000) * 3; // $3 per 1M input tokens
+
+        // Populate UI
+        document.getElementById('timestamp').textContent = 
+            'Updated: ' + new Date(data.timestamp).toLocaleString('pt-PT', { timeZone: 'Europe/Lisbon' });
+
+        document.getElementById('activeCrons').textContent = activeCount;
+        document.getElementById('cronSub').textContent = `~${Math.round(dailyRuns)} executions/day`;
+
+        document.getElementById('contextSize').textContent = 
+            (totalContextBytes / 1024).toFixed(1) + ' KB';
+
+        document.getElementById('dailyTokens').textContent = 
+            (totalDailyTokens / 1000).toFixed(0) + 'K';
+        document.getElementById('tokenSub').textContent = 
+            `crons: ${(dailyCronTokens/1000).toFixed(0)}K · heartbeat: ${(heartbeatTokens/1000).toFixed(0)}K`;
+
+        const costClass = monthlyCost < 10 ? 'green' : monthlyCost < 30 ? 'yellow' : 'red';
+        document.getElementById('monthlyCost').className = 'stat-value ' + costClass;
+        document.getElementById('monthlyCost').textContent = '$' + monthlyCost.toFixed(2);
+
+        // Context chart
+        const maxBytes = Math.max(...data.contextFiles.map(f => f.bytes));
+        const chartHtml = data.contextFiles
+            .sort((a, b) => b.bytes - a.bytes)
+            .map(f => {
+                const pct = (f.bytes / maxBytes) * 100;
+                const color = f.bytes > 15000 ? 'var(--red)' : 
+                              f.bytes > 8000 ? 'var(--yellow)' : 'var(--green)';
+                return `
+                    <div class="chart-bar">
+                        <div class="chart-label" title="${f.name}">${f.name}</div>
+                        <div class="chart-fill" style="width: ${pct}%; background: ${color};"></div>
+                        <div class="chart-value">${(f.bytes/1024).toFixed(1)}KB</div>
+                    </div>
+                `;
+            }).join('');
+        document.getElementById('contextChart').innerHTML = chartHtml;
+
+        // Recommendations
+        const recsHtml = data.recommendations.map(r => `
+            <div class="recommendation">
+                <div class="rec-icon ${r.type}">${r.icon}</div>
+                <div class="rec-content">
+                    <div class="rec-title">${r.title}</div>
+                    <div class="rec-desc">${r.desc}</div>
+                    <div class="rec-impact">${r.impact}</div>
+                </div>
+            </div>
+        `).join('');
+        document.getElementById('recommendations').innerHTML = recsHtml;
+
+        // Cron table
+        const sortedCrons = [...data.crons].sort((a, b) => {
+            const aTokens = a.enabled ? a.runsPerDay * (totalContextTokens + a.promptTokens) : 0;
+            const bTokens = b.enabled ? b.runsPerDay * (totalContextTokens + b.promptTokens) : 0;
+            return bTokens - aTokens;
+        });
+
+        const tableHtml = sortedCrons.map(c => {
+            const dailyTokens = c.enabled ? c.runsPerDay * (totalContextTokens + c.promptTokens) : 0;
+            const impact = dailyTokens > 20000 ? 'high' : dailyTokens > 10000 ? 'medium' : 'low';
+            const statusClass = c.enabled ? '' : 'style="opacity: 0.5;"';
+            
+            return `
+                <tr ${statusClass}>
+                    <td>
+                        <span class="mono">${c.name}</span>
+                        ${!c.enabled ? '<span class="tag" style="background: var(--surface-2); color: var(--text-muted); margin-left: 6px;">disabled</span>' : ''}
+                    </td>
+                    <td class="mono">${c.schedule}</td>
+                    <td>${c.runsPerDay.toFixed(2)}</td>
+                    <td class="mono">${c.promptTokens.toLocaleString()}</td>
+                    <td class="mono">${c.enabled ? Math.round(dailyTokens).toLocaleString() : '-'}</td>
+                    <td><span class="tag ${impact}">${impact}</span></td>
+                </tr>
+            `;
+        }).join('');
+        document.getElementById('cronTable').innerHTML = tableHtml;
+    </script>
+</body>
+</html>

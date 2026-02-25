@@ -35,6 +35,7 @@
 | 2026-02-22 | Newsletter Survey Dashboard 📊 | Newsletter/Insights | **Editorial Clean** ☀️ |
 | 2026-02-23 | Client Value Calculator 🧮 | Business/Calculadora | **Swiss Minimal** 🏛️ |
 | 2026-02-24 | Testimonial Wall 📰 | Marketing/Social Proof | **Newspaper** 📰 |
+| 2026-02-25 | Usage Insights 📊 | Ferramentas/Analytics | **Data Dense** 📊 |
 
 ---
 
