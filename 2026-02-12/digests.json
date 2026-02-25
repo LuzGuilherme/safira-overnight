@@ -1,7 +1,76 @@
 {
-  "generated": "2026-02-16T08:15:00.000000Z",
-  "count": 4,
+  "generated": "2026-02-25T11:30:00.000000Z",
+  "count": 5,
   "digests": [
+    {
+      "id": "2026-02-25-endurance-asia-tommy-lewis",
+      "filename": "2026-02-25-endurance-asia-tommy-lewis.md",
+      "date": "2026-02-25",
+      "title": "Tommy Lewis on Trail Running, Strength Training & Nutrition",
+      "host": "Endurance Asia Podcast (Scott)",
+      "guest": "Tommy Lewis — Personal Trainer, Coach, 'That's Runnable' Podcast",
+      "duration": "~55 min",
+      "link": "https://www.youtube.com/watch?v=ltkuXTPZFsU",
+      "theme": "Força, nutrição e mindset para ultra running sustentável",
+      "tldr": "Tommy Lewis é PT e criador do podcast 'That's Runnable' que transformou a paixão por corrida em profissão. **Strength training é tão importante como a long run** — 1-2h/semana de treino de força consistente previne lesões e aumenta durabilidade. A chave para nutrição e suplementação é **acertar nos básicos primeiro** (sono, hidratação, comida real) antes de pensar em marginal gains.",
+      "sections_summary": {
+        "Transformar Paixão em Profissão": "- Trabalhou na Figma enquanto construía presença online\n- 3 anos a postar diariamente no Instagram\n- Running salvou-lhe a vida em período difícil de saúde mental",
+        "Vietnam Trail Marathon (70K)": "- Chegou undertrained — 2 meses sem treino consistente\n- Problemas de estômago pela primeira vez\n- Mesmo assim terminou — bad races ensinam mais",
+        "Força para Corredores": "- Strength training = tão importante como long run\n- 1-2h/semana de treino consistente = resultados enormes\n- Exercícios: hinge, squat, push/pull, lunges, plyometrics",
+        "Nutrição Plant-Based": "- Flexível — come ovo se precisar de proteína a viajar\n- 1.2-1.5g proteína/kg de peso corporal\n- Carbs são a melhor fonte de energia",
+        "Basics vs Marginal Gains": "- Sky Team acertou TUDO básico primeiro\n- Creatina = non-brainer para todos\n- Não procurar hacks antes de fazer o fundamental",
+        "Sistema A/B/C Races": "- A Race: peak performance (1-2/ano)\n- B Race: foco específico (nutrição, aid stations)\n- C Race: training run divertido"
+      },
+      "insights": [
+        {"insight": "Strength training = tão importante como long run", "why": "Durabilidade e longevidade no desporto"},
+        {"insight": "90 min/semana de força = benefícios enormes", "why": "Não precisas de viver no ginásio"},
+        {"insight": "Basics antes de marginal gains", "why": "Creatina não compensa sono mau"},
+        {"insight": "Sistema A/B/C races", "why": "Estrutura o ano e previne burnout"},
+        {"insight": "Bad races ensinam mais que good races", "why": "O valor do ultra está na adversidade"}
+      ],
+      "actions": {
+        "immediate": ["Avaliar: faço strength training 2x/semana?", "Verificar creatina no stack", "Classificar próxima corrida (A/B/C)"],
+        "week": ["Planear 2 sessões de força", "Experimentar treino descalço", "High-protein meal após treino longo"],
+        "longterm": ["Criar rotina de strength sustentável (1-2h/semana)", "Mapear corridas do ano em sistema A/B/C"]
+      },
+      "context_application": {
+        "Para Ironman": "- Força é crítica — natação, bike e run exigem músculos fortes\n- Sistema A/B/C — Ironman é A race, usar outras como B/C",
+        "Para Produtividade": "- Basics first — não procurar hacks antes do fundamental\n- Running como âncora mental — manter mesmo quando ocupado"
+      },
+      "frameworks": [
+        {"name": "Basics Before Marginal Gains", "content": "Só optimizar quando os fundamentais estão perfeitos. Sono, nutrição, hidratação PRIMEIRO."},
+        {"name": "A/B/C Race System", "content": "A Race: 1-2/ano, peak. B Race: praticar algo específico. C Race: social, fun."},
+        {"name": "The Value of Bad Days", "content": "Dias maus ensinam mais. Terminar mesmo em sofrimento. Documentar aprendizagens."}
+      ],
+      "stories": [
+        {"title": "A Corrida Desastrosa no Vietnam", "content": "Tommy chegou undertrained, vomitou tudo, passou a corrida em cramp city mas terminou — porque 'there's more to gain from finishing a bad race'."}
+      ],
+      "resources": [
+        {"type": "Podcast:", "description": "That's Runnable — Tommy Lewis"},
+        {"type": "Podcast:", "description": "Endurance Asia — Scott"},
+        {"type": "Marca:", "description": "Inov-8 (sapatilhas trail)"},
+        {"type": "Suplementos:", "description": "Creatina, Vitamin B, D, Omega-3, Zinc"}
+      ],
+      "reflection_questions": [
+        "Faço strength training consistente ou só quando 'tenho tempo'?",
+        "Classifico as minhas corridas ou vou a todas com a mesma intensidade?",
+        "Estou a acertar nos básicos antes de procurar hacks?"
+      ],
+      "quotes": [
+        "Strength training for me for a runner's program is as important as the long run in the week.",
+        "There's far more to be gained from a bad 50k than a greatly executed race.",
+        "We're obsessed with ideas of optimization, but the reality is most people who are trying to optimize aren't getting the basics right.",
+        "Running essentially saved my life."
+      ],
+      "rating": 4.5,
+      "rating_breakdown": {
+        "Novidade da informação": 4,
+        "Aplicabilidade prática": 5,
+        "Recomendo a outros": 5
+      },
+      "tags": ["trail-running", "strength-training", "nutrition", "ultramarathon", "recovery", "basics-first", "mindset", "race-strategy", "ironman-relevant"],
+      "verdict": "Episódio muito prático para qualquer atleta de endurance. O insight 'strength training = long run em importância' é fundamental. Directamente aplicável ao treino de Ironman."
+    },
     {
       "id": "2026-02-14-lex-fridman-peter-steinberger",
       "filename": "2026-02-14-lex-fridman-peter-steinberger.md",
@@ -21,82 +90,33 @@
         "História Pessoal": "- Construiu PSPDFKit (SDK em 1 bilião de devices), vendeu\n- Desapareceu 3 anos, voltou com OpenClaw\n- Personalidade do agent definida em soul.md\n- Usa Claude Opus 4.6 e GPT 5.3 Codex"
       },
       "insights": [
-        {
-          "insight": "Protótipo funcional em 1 hora",
-          "why": "Não precisas de infra complexa — WhatsApp + CLI é suficiente para começar"
-        },
-        {
-          "insight": "Voz > Texto para prompts",
-          "why": "Mais natural, captura nuance, menos fricção"
-        },
-        {
-          "insight": "Agent pode descobrir soluções sozinho",
-          "why": "ffmpeg + Whisper API descoberto sem instrução explícita"
-        },
-        {
-          "insight": "no-reply token para group chats",
-          "why": "Agent escolhe quando ficar calado — mais natural"
-        },
-        {
-          "insight": "Fun beats serious",
-          "why": "Labs grandes falham por over-engineering; diversão ganha"
-        }
+        {"insight": "Protótipo funcional em 1 hora", "why": "Não precisas de infra complexa — WhatsApp + CLI é suficiente para começar"},
+        {"insight": "Voz > Texto para prompts", "why": "Mais natural, captura nuance, menos fricção"},
+        {"insight": "Agent pode descobrir soluções sozinho", "why": "ffmpeg + Whisper API descoberto sem instrução explícita"},
+        {"insight": "no-reply token para group chats", "why": "Agent escolhe quando ficar calado — mais natural"},
+        {"insight": "Fun beats serious", "why": "Labs grandes falham por over-engineering; diversão ganha"}
       ],
       "actions": {
-        "immediate": [
-          "Experimentar voice prompts em vez de texto",
-          "Verificar se estou a \"divertir-me\" ou a over-engineer"
-        ],
-        "week": [
-          "Criar protótipo rápido de uma ideia (<1 dia)",
-          "Experimentar soul.md para definir personalidade do agent"
-        ],
-        "longterm": [
-          "Desenvolver capacidade de \"vibe coding\" quando apropriado",
-          "Considerar builds que se auto-modificam"
-        ]
+        "immediate": ["Experimentar voice prompts em vez de texto", "Verificar se estou a \"divertir-me\" ou a over-engineer"],
+        "week": ["Criar protótipo rápido de uma ideia (<1 dia)", "Experimentar soul.md para definir personalidade do agent"],
+        "longterm": ["Desenvolver capacidade de \"vibe coding\" quando apropriado", "Considerar builds que se auto-modificam"]
       },
       "context_application": {
         "Para Side Hustles": "- **Speed matters** — protótipo em 1 hora, não 1 semana\n- **Fun = sustentável** — se não estás a gostar, vais desistir\n- **Não pedir permissão** — lançar e iterar",
         "Para Produtividade": "- **Voice prompts** — tentar no dia-a-dia\n- **Agent como extensão** — não ferramenta, mas parceiro"
       },
       "frameworks": [
-        {
-          "name": "1-Hour Prototype",
-          "content": "**O que é:** MVP funcional em 60 minutos ou menos\n**Como usar:**\n1. Escolher a funcionalidade CORE (só uma)\n2. Usar ferramentas que já conheces\n3. Ignorar edge cases\n4. Ship it, depois itera"
-        },
-        {
-          "name": "Fun Over Perfection",
-          "content": "**O que é:** Projectos divertidos vencem projectos \"sérios\"\n**Como usar:**\n1. Se não estás a gostar, pára e reavalia\n2. Labs grandes falham por over-engineering\n3. Diversão atrai comunidade"
-        }
+        {"name": "1-Hour Prototype", "content": "MVP funcional em 60 minutos ou menos. Escolher funcionalidade CORE, usar ferramentas conhecidas, ignorar edge cases, ship it."},
+        {"name": "Fun Over Perfection", "content": "Projectos divertidos vencem projectos \"sérios\". Labs grandes falham por over-engineering."}
       ],
       "stories": [
-        {
-          "title": "O Protótipo de 1 Hora",
-          "content": "Peter queria assistente pessoal. Em vez de esperar pelos labs ou planear meses, construiu WhatsApp → Claude Code relay em 60 minutos. Funcionou logo. Isso tornou-se OpenClaw."
-        },
-        {
-          "title": "Agent Descobriu Whisper Sozinho",
-          "content": "Peter pediu para transcrever áudio. Agent, sem instruções específicas, descobriu que podia usar ffmpeg para extrair áudio e OpenAI Whisper API para transcrever. Emergent capability."
-        },
-        {
-          "title": "175K Stars em Meses",
-          "content": "Fastest growing GitHub repo in history. Não por marketing — por ser genuinamente útil e divertido de usar."
-        }
+        {"title": "O Protótipo de 1 Hora", "content": "Peter queria assistente pessoal. Em vez de esperar pelos labs ou planear meses, construiu WhatsApp → Claude Code relay em 60 minutos. Funcionou logo."},
+        {"title": "Agent Descobriu Whisper Sozinho", "content": "Peter pediu para transcrever áudio. Agent descobriu sozinho ffmpeg + Whisper API. Emergent capability."}
       ],
       "resources": [
-        {
-          "type": "Projecto:",
-          "description": "OpenClaw — github.com/openclaw/openclaw"
-        },
-        {
-          "type": "Conceito:",
-          "description": "soul.md — ficheiro que define personalidade do agent"
-        },
-        {
-          "type": "Modelos:",
-          "description": "Claude Opus 4.6, GPT 5.3 Codex"
-        }
+        {"type": "Projecto:", "description": "OpenClaw — github.com/openclaw/openclaw"},
+        {"type": "Conceito:", "description": "soul.md — ficheiro que define personalidade do agent"},
+        {"type": "Modelos:", "description": "Claude Opus 4.6, GPT 5.3 Codex"}
       ],
       "reflection_questions": [
         "Estou a divertir-me com os meus projectos ou a over-engineer?",
@@ -110,21 +130,9 @@
         "People don't want to TALK with AI, they want AI to DO things."
       ],
       "rating": 5.0,
-      "rating_breakdown": {
-        "Novidade da informação": 5,
-        "Aplicabilidade prática": 5,
-        "Recomendo a outros": 5
-      },
-      "tags": [
-        "openclaw",
-        "AI-agents",
-        "founder-story",
-        "prototyping",
-        "lex-fridman",
-        "vibe-coding",
-        "self-modifying-software"
-      ],
-      "verdict": "Entrevista essencial para entender a filosofia por trás do OpenClaw. O insight de 'fun beats serious' e o protótipo de 1 hora são inspiradores. Obrigatório para quem quer construir com AI agents."
+      "rating_breakdown": {"Novidade da informação": 5, "Aplicabilidade prática": 5, "Recomendo a outros": 5},
+      "tags": ["openclaw", "AI-agents", "founder-story", "prototyping", "lex-fridman", "vibe-coding", "self-modifying-software"],
+      "verdict": "Entrevista essencial para entender a filosofia por trás do OpenClaw. O insight de 'fun beats serious' e o protótipo de 1 hora são inspiradores."
     },
     {
       "id": "2026-02-12-coding-agents-kelvin-french-owen",
@@ -138,133 +146,34 @@
       "theme": "Como tirar o máximo dos coding agents e o futuro do desenvolvimento de software",
       "tldr": "Coding agents (Claude Code, Codex) estão a transformar programadores em \"managers\" de código — a chave é **context engineering**, não prompting. Claude Code destaca-se por dividir tarefas em sub-agentes com contextos separados, enquanto Codex foca em runs muito longos com compactação. O futuro pertence a quem souber **dirigir** agentes, não a quem escreve código manualmente.",
       "sections_summary": {
-        "A Revolução dos CLIs vs IDEs": "- CLIs (Claude Code, Codex) venceram os IDEs — \"weird retro future\"\n- CLI distancia-te do código, dá liberdade para \"voar\" pelo projecto\n- Distribuição bottoms-up é crítica — engenheiros instalam e usam sem pedir permissão\n- Claude Code funciona porque tem acesso directo ao ambiente (DB, filesystem, etc)\n- Cursor tinha IDE-first, mas terminal ganhou por ser mais composível",
-        "Context Engineering — O Segredo": "- **Não é prompting, é context engineering** — o contexto que forneces determina tudo\n- Claude Code spawna sub-agentes (Haiku) para explorar o filesystem\n- Cada sub-agente tem contexto próprio → evita poluição\n- Codex usa compactação periódica para runs muito longos\n- Semantic search vs grep: **grep funciona melhor em código** (context dense)\n- Git ignore filtra lixo automaticamente",
-        "A \"Dumb Zone\" — Quando Limpar Contexto": "- Após ~50% tokens, qualidade degrada (\"dumb zone\")\n- Analogia: estudante com 5 minutos para metade do exame — começa a apressar\n- **Canary trick:** Colocar facto random no início, verificar se lembra\n- Limpar contexto agressivamente quando performance baixa\n- Claude Code ainda não faz detecção automática — oportunidade de melhoria",
-        "Arquitecturas Opostas: Claude Code vs Codex": "- **Claude Code:** Ferramentas para humanos, trabalha \"como humano\", builds short-medium\n- **Codex:** Pursuit of AGI, pode fazer coisas \"alien\", runs muito longos\n- Codex faz compactação entre turnos — pode correr indefinidamente\n- Analogia: Claude = ir à loja comprar materiais; Codex = impressora 3D que cria do zero\n- Cada um reflecte o DNA da empresa (Anthropic vs OpenAI)",
-        "Tips para Ser Top 1% User": "- **Menos código, mais boilerplate** — Vercel, Next.js, Cloudflare Workers\n- **Microservices** — packages bem estruturados, 100-200 linhas\n- **Dar forma de verificar** — testes, lint, CI\n- **Code review bots** — Reptile, Cursor bug bot, Codex review\n- **Explorar codebase** — agentes são excelentes nisso\n- **Limpar contexto** — não deixar passar dos 50% tokens\n- **Saber o que o modelo faz bem** — persistência, fazer mais do que existe",
-        "O Futuro do Trabalho de Software": "- Equipas de 1 pessoa vão competir com departamentos inteiros\n- Todo profissional terá \"cloud computer\" com agentes pessoais\n- Empresas ficam mais pequenas, mas haverá muito mais\n- \"Manager schedule\" vs \"Maker schedule\" já não é tão rígido\n- Podes lançar tarefas em reuniões e voltar depois\n- Próxima geração será muito melhor a multitasking"
+        "A Revolução dos CLIs vs IDEs": "- CLIs (Claude Code, Codex) venceram os IDEs\n- CLI distancia-te do código, dá liberdade para \"voar\" pelo projecto",
+        "Context Engineering — O Segredo": "- **Não é prompting, é context engineering**\n- Claude Code spawna sub-agentes (Haiku) para explorar o filesystem\n- Após ~50% tokens, qualidade degrada (\"dumb zone\")",
+        "Tips para Ser Top 1% User": "- **Menos código, mais boilerplate** — Vercel, Next.js, Cloudflare Workers\n- **Microservices** — packages 100-200 linhas\n- **Limpar contexto** — não deixar passar dos 50% tokens"
       },
       "insights": [],
       "actions": {
-        "immediate": [
-          "Verificar % de contexto no Claude Code — limpar se >50%",
-          "Adicionar canary no início de sessões longas",
-          "Usar `--dangerously-skip-permissions` só em side projects pessoais"
-        ],
-        "week": [
-          "Aumentar test coverage nos projectos principais",
-          "Estruturar código em módulos <200 linhas",
-          "Configurar code review bot (Reptile ou similar)",
-          "Experimentar Claude Code para explorar codebases desconhecidas"
-        ],
-        "longterm": [
-          "Migrar para stacks com menos boilerplate (Vercel/Next.js)",
-          "Desenvolver \"manager mindset\" — dirigir vs escrever",
-          "Criar overnight workflows para agentes trabalharem enquanto durmo",
-          "Estudar como optimizar context engineering"
-        ]
+        "immediate": ["Verificar % de contexto no Claude Code — limpar se >50%"],
+        "week": ["Aumentar test coverage nos projectos principais", "Estruturar código em módulos <200 linhas"],
+        "longterm": ["Migrar para stacks com menos boilerplate", "Desenvolver \"manager mindset\""]
       },
       "context_application": {},
       "frameworks": [
-        {
-          "name": "The Dumb Zone",
-          "content": "**O que é:** Após ~50% do context window, modelos degradam como estudante com pouco tempo no exame\n**Como usar:** \n1. Monitorizar % tokens no CLI\n2. Limpar proactivamente antes de degradar\n3. Usar canary para detectar quando \"esquece\"\n4. Não insistir em contextos longos"
-        },
-        {
-          "name": "Bottoms-Up Distribution",
-          "content": "**O que é:** Produtos que engenheiros instalam sem pedir permissão vencem enterprise sales\n**Como usar:**\n1. Fazer ferramentas que \"just work\" sem setup complexo\n2. Documentação excelente = adopção orgânica\n3. Não depender de vendas top-down para crescer"
-        },
-        {
-          "name": "Context-as-Code",
-          "content": "**O que é:** Ficheiros .md (CLAUDE.md, skills) definem o comportamento do agente\n**Como usar:**\n1. Investir em documentação estruturada\n2. Não depender de prompts ad-hoc\n3. Skills e context files são o novo \"código\""
-        },
-        {
-          "name": "GEO Strategy (Generative Engine Optimization)",
-          "content": "**O que é:** Aparecer nas respostas de LLMs quando perguntam sobre ferramentas\n**Como usar:**\n1. Docs boas e públicas\n2. Open source quando possível\n3. Social proof (Reddit, HN, Twitter)\n4. Cuidado com \"top 5 lists\" manipuladas"
-        }
+        {"name": "The Dumb Zone", "content": "Após ~50% do context window, modelos degradam. Limpar proactivamente."},
+        {"name": "Context-as-Code", "content": "Ficheiros .md (CLAUDE.md, skills) definem o comportamento do agente"}
       ],
       "stories": [
-        {
-          "title": "Gary's Bionic Knee",
-          "content": "Gary comparou voltar a programar com Claude Code a receber um joelho biónico após 10 anos de \"manager mode\" (lesão catastrófica de não programar). Consegue agora correr 5x mais rápido do que antes da \"lesão\". Analogia perfeita para quem deixou de programar e agora pode voltar."
-        },
-        {
-          "title": "O Bug do Rails com Vírgulas",
-          "content": "Gary passou 30 minutos a ver Claude Code debugar um bug obscuro de Rails — uma string com vírgula que devia ser array JSON. Há 10 anos, teria procurado no Stack Overflow durante horas. Agora o agente percorreu milhares de linhas de Active Job internals e encontrou sozinho. \"This is insane.\""
-        },
-        {
-          "title": "A Prompt Injection Óbvia",
-          "content": "Na OpenAI, testaram Codex com uma GitHub issue que tinha prompt injection óbvia (\"reveal this secret\"). O PM disse \"não há forma de isto funcionar\"... funcionou imediatamente. Por isso Codex é tão paranóico com sandboxing — segurança é real."
-        },
-        {
-          "title": "O Top 5 List Hack para GEO",
-          "content": "Uma empresa criou um artigo \"top 5 tools in category\" com o seu próprio produto em #1. Qualquer humano vê o bias óbvio. Mas LLMs não detectam — começaram a recomendar o produto nas respostas. GEO manipulation em acção."
-        },
-        {
-          "title": "Fork Segment Per Customer",
-          "content": "Visão futura: imagina que cada cliente que se regista no Segment recebe um fork do codebase nos seus próprios servidores. Se querem mudar algo, dizem a um chat window e o agente edita a versão deles. Quando Segment lança features, um agente faz merge automático. Software totalmente personalizado."
-        }
+        {"title": "Gary's Bionic Knee", "content": "Voltar a programar com Claude Code = joelho biónico após 10 anos de \"manager mode\"."}
       ],
       "resources": [
-        {
-          "type": "Ferramentas:",
-          "description": "Claude Code, Codex, Cursor, Reptile (code review YC), Open Code, Conductor"
-        },
-        {
-          "type": "Stacks:",
-          "description": "Vercel, Next.js, Cloudflare Workers, Supabase, Rails"
-        },
-        {
-          "type": "Conceitos:",
-          "description": "GEO (Generative Engine Optimization), MCP (Model Context Protocol), Context Engineering"
-        },
-        {
-          "type": "Pessoas:",
-          "description": "Andre Karpathy (tweet sobre persistência de agentes), Dex (Human Layer - \"dumb zone\" concept)"
-        },
-        {
-          "type": "Empresas:",
-          "description": "Segment, OpenAI, Anthropic, Ramp (blog sobre coding agents internos), Human Layer (YC F24)"
-        },
-        {
-          "type": "Websites:",
-          "description": "chronoquiz.com (do podcast anterior — referência cruzada)"
-        }
+        {"type": "Ferramentas:", "description": "Claude Code, Codex, Cursor, Reptile"},
+        {"type": "Stacks:", "description": "Vercel, Next.js, Cloudflare Workers, Supabase"}
       ],
-      "reflection_questions": [
-        "Estou a usar contexto de forma óptima ou a deixar acumular \"lixo\"?",
-        "Os meus projectos têm test coverage suficiente para acelerar com agentes?",
-        "Como posso estruturar código em módulos <200 linhas para agentes navegarem melhor?",
-        "Estou a pensar como \"manager\" ou ainda como \"developer\" tradicional?",
-        "Que tarefas posso delegar para overnight builds?"
-      ],
-      "quotes": [
-        "I feel like when I'm using Claude Code, it's like, oh, I feel like I'm flying through the code.",
-        "It's like I got a new total knee replacement and actually it's a bionic knee and it allows me to run five times faster.",
-        "This thing can debug nested delayed jobs like five levels in and figure out what the bug was and then write a test for it and it never happens again. This is insane.",
-        "The more senior you are, the more you benefit. The agents are so good at taking some sort of idea and putting it into action.",
-        "In the limit, every person who's working has their own cloud computer and set of cloud agents running for them.",
-        "Are you a dangerously skip permissions person?"
-      ],
+      "reflection_questions": ["Estou a usar contexto de forma óptima?", "Os meus projectos têm test coverage suficiente?"],
+      "quotes": ["I feel like when I'm using Claude Code, it's like, oh, I feel like I'm flying through the code."],
       "rating": 5.0,
-      "rating_breakdown": {
-        "Novidade da informação": 5,
-        "Aplicabilidade prática": 5,
-        "Recomendo a outros": 5
-      },
-      "tags": [
-        "coding-agents",
-        "claude-code",
-        "codex",
-        "context-engineering",
-        "produtividade",
-        "futuro-do-trabalho",
-        "YC",
-        "programação",
-        "AI"
-      ],
-      "verdict": "Essencial para quem usa coding agents. O insight do \"50% context = limpar\" e a explicação de como Claude Code usa sub-agentes valem o episódio inteiro. Obrigatório para developers e founders."
+      "rating_breakdown": {"Novidade da informação": 5, "Aplicabilidade prática": 5, "Recomendo a outros": 5},
+      "tags": ["coding-agents", "claude-code", "codex", "context-engineering", "produtividade"],
+      "verdict": "Essencial para quem usa coding agents. O insight do '50% context = limpar' vale o episódio inteiro."
     },
     {
       "id": "2026-02-11-sleep-michael-breus",
@@ -276,175 +185,34 @@
       "duration": "~2h 15min",
       "link": "https://www.youtube.com/watch?v=pXlMKzcZlwM",
       "theme": "A ciência do sono, chronotypes, e como optimizar performance através do sono",
-      "tldr": "O sono é a base de tudo — performance, relações, criatividade, e prevenção de doenças como Alzheimer. Cada pessoa tem um chronotype genético (Lion/Bear/Wolf/Dolphin) que determina os melhores horários para cada actividade. Sleep apnea afecta 1 em 7 adultos, 80-90% não sabem que têm, e é tão comum como diabetes.",
+      "tldr": "O sono é a base de tudo — performance, relações, criatividade, e prevenção de doenças como Alzheimer. Cada pessoa tem um chronotype genético (Lion/Bear/Wolf/Dolphin) que determina os melhores horários para cada actividade. Sleep apnea afecta 1 em 7 adultos, 80-90% não sabem que têm.",
       "sections_summary": {
-        "Os Dois Sistemas do Sono": "- **Sleep Drive** (adenosina): quanto mais acordado, mais sono acumulas\n- **Sleep Rhythm** (circadiano): relógio biológico de ~24h controlado pela luz\n- Ambos precisam estar \"on point\" para dormires bem\n- Cafeína bloqueia adenosina (são quase idênticas molecularmente)\n- **Nap-a-Latte:** café rápido + 25min sesta = 4h de energia",
-        "Chronotypes — O Teu Código Genético de Sono": "- **Lion (10-15%):** Acordam 5-6h, pico 9:30-11:30, exaustos às 21h\n- **Bear (50-55%):** Maioria da população, horários \"normais\", pico 11-14h\n- **Wolf (15-20%):** Criativos, risk-takers, pico tarde/noite, odeiam manhãs\n- **Dolphin (10%):** Sono leve, alta inteligência, tendência para ansiedade\n- Chronotype muda com idade: bebé=Lion → adolescente=Wolf → adulto=fixo → 50s=volta a Lion",
-        "Sleep Apnea — A Epidemia Silenciosa": "- **936 milhões a 1 bilião** de pessoas no mundo têm\n- 80-90% não estão diagnosticadas\n- Sintomas: ressonar, acordar a engasgar, dores de cabeça matinais, mood swings\n- Ligação directa com Alzheimer (não entra em sono profundo para limpar cérebro)\n- Tratamentos: CPAP, oral appliances, cirurgia, brevemente pílulas",
-        "Melatonina — Os Mitos": "- É HORMONA, não suplemento inofensivo\n- Interage com antidepressivos (SSRI), contraceptivos, medicação diabetes/tensão\n- Dose correcta: 0.5-1.5mg (não 10-20mg das gomas!)\n- Overdose = pesadelos/sonhos vívidos\n- NÃO dar a crianças (excepção: autismo)\n- Usar apenas para: jet lag, shift work, deficiência (>50 anos)",
-        "Acordar a Meio da Noite — Protocolo": "1. **Não ir ao WC** (se não for urgente) — deitar de costas 25s primeiro\n2. **Não ver o telemóvel** — cálculo mental = ansiedade\n3. **Técnica 4-7-8:** Inspirar 4s, segurar 7s, expirar 8s (20 ciclos)\n4. **Ficar positivo** — \"o meu corpo vai adormecer naturalmente\"\n5. Se ansiedade aumentar → sair da cama, ler noutro sítio",
-        "Temperatura e Ambiente": "- Batimento cardíaco <60bpm para adormecer\n- Quarto FRIO é essencial (corpo precisa arrefecer)\n- 5 sentidos: luz baixa, silêncio, temperatura, aromas (lavanda), pillows correctos\n- Garrafa de água congelada em meias = AC improvisado",
-        "Sono e Relações": "- Não discutir antes de dormir (aumenta batimento cardíaco)\n- Dormir separado não arruína relação — \"vacation on weekends\"\n- Melhor hora para sexo: MANHÃ (hormonas altas, melatonina baixa)\n- Casais com chronotypes diferentes: encontrar overlap",
-        "Dreams como Terapia": "- Sonhos são \"metabolismo emocional\" — processar emoções do dia\n- Nightmare therapy: escrever sonho, mudar o final, reler antes de dormir\n- Em 7-10 dias consegues mudar pesadelos recorrentes\n- \"Sleep on it\" funciona — cérebro resolve problemas durante sonhos"
+        "Os Dois Sistemas do Sono": "- **Sleep Drive** (adenosina): quanto mais acordado, mais sono acumulas\n- **Sleep Rhythm** (circadiano): relógio biológico ~24h",
+        "Chronotypes": "- **Lion (10-15%):** Acordam 5-6h, exaustos às 21h\n- **Bear (50-55%):** Maioria, horários normais\n- **Wolf (15-20%):** Criativos, pico tarde/noite\n- **Dolphin (10%):** Sono leve, alta inteligência"
       },
       "insights": [
-        {
-          "insight": "Café só 90min depois de acordar",
-          "why": "Cortisol já está alto; café depois = maior boost"
-        },
-        {
-          "insight": "Sleep apnea = Alzheimer risk +45%",
-          "why": "Não entra em fase 4 onde cérebro limpa proteínas"
-        },
-        {
-          "insight": "Álcool destrói sono profundo",
-          "why": "Mesmo 1-2 copos; parar 3h antes de dormir"
-        },
-        {
-          "insight": "Melhor hora de cada actividade depende do chronotype",
-          "why": "Podes optimizar trabalho, treino, sexo, café"
-        },
-        {
-          "insight": "Cookie antes de dormir = heart rate alto 3h",
-          "why": "Açúcar + digestão mantém corpo acordado"
-        },
-        {
-          "insight": "Técnica 4-7-8 funciona em 20 ciclos",
-          "why": "Baixa batimento cardíaco abaixo de 60bpm"
-        },
-        {
-          "insight": "Pillows: nariz alinhado com esterno",
-          "why": "Desalinhamento = dor = não entra em deep sleep"
-        },
-        {
-          "insight": "Dreams resolvem problemas",
-          "why": "\"Sleep on it\" é literalmente terapia gratuita"
-        }
+        {"insight": "Café só 90min depois de acordar", "why": "Cortisol já está alto"},
+        {"insight": "Sleep apnea = Alzheimer risk +45%", "why": "Não entra em fase 4"},
+        {"insight": "Técnica 4-7-8 funciona em 20 ciclos", "why": "Baixa batimento cardíaco"}
       ],
       "actions": {
-        "immediate": [
-          "Fazer quiz em chronoquiz.com para descobrir chronotype",
-          "Definir alarme para acordar à mesma hora amanhã (e manter 7 dias)",
-          "Remover snacks açucarados do quarto"
-        ],
-        "week": [
-          "Experimentar café só depois de 90min acordado (5 dias)",
-          "Tentar técnica 4-7-8 antes de dormir (3 noites)",
-          "Verificar temperatura do quarto (baixar se >20°C)",
-          "Parar álcool 3h antes de deitar (se aplicável)"
-        ],
-        "longterm": [
-          "Considerar teste de sleep apnea (especialmente se ressonas)",
-          "Criar rotina nocturna: 20min tarefas + 20min higiene + 20min relaxamento",
-          "Avaliar pillow actual (nariz alinhado com esterno?)",
-          "Fazer banana tea ritual (magnésio natural)"
-        ]
+        "immediate": ["Fazer quiz em chronoquiz.com"],
+        "week": ["Experimentar café só depois de 90min acordado"],
+        "longterm": ["Considerar teste de sleep apnea"]
       },
-      "context_application": {
-        "Como Atleta de Endurance (Ironman)": "- **Chronotype afecta timing de treino óptimo** — se és Wolf, treinos de manhã podem ser sub-óptimos\n- **Recovery = sono profundo** — sem fase 4, músculos não recuperam\n- **Nap-a-Latte** perfeito para dias de treino longo (café + 25min sesta antes)\n- **Sleep apnea é comum em atletas** — considerar teste se acordas cansado\n- **Não treinar tarde demais** — aumenta temperatura corporal, dificulta sono",
-        "Como Empreendedor/Side Hustles": "- **Peak work window depende do chronotype** — agenda tarefas cognitivas para esse período\n- **\"Sleep on it\" para decisões** — literalmente funciona, cérebro processa durante sonhos\n- **Não fazer calls/reuniões fora do teu peak** — se és Wolf, nada às 8h da manhã\n- **Evitar trabalhar na cama** — associação cama=ansiedade arruina sono",
-        "Saúde & Bem-estar": "- **Prioridade #1:** acordar consistente 7 dias/semana\n- **Hidratação:** 15-20oz água nas primeiras 1.5h (antes do café)\n- **Suplementos:** só se deficiente (fazer análises) — magnésio e vit D são os principais\n- **Álcool:** se beberes, parar 3h antes + água entre copos",
-        "Produtividade & Trabalho": "- **Newsletter Algarve:** escrever durante peak window do teu chronotype\n- **Decisões difíceis:** não tomar à noite, esperar pelo dia seguinte\n- **Reuniões importantes:** agendar para o teu período de pico"
-      },
+      "context_application": {},
       "frameworks": [
-        {
-          "name": "Chronotype Optimization",
-          "content": "**O que é:** Alinhar actividades com o teu ritmo biológico genético\n**Como usar:** \n1. Descobrir chronotype (quiz)\n2. Mapear peak windows para trabalho cognitivo\n3. Agendar exercício, refeições, sono de acordo\n4. Respeitar o ritmo mesmo aos fins-de-semana"
-        },
-        {
-          "name": "Sleep Drive vs Sleep Rhythm",
-          "content": "**O que é:** Dois sistemas independentes que controlam o sono\n**Como usar:**\n- Drive = pressão de sono (mais tempo acordado = mais pressão)\n- Rhythm = timing (quando o corpo quer dormir)\n- Problemas de sono = um dos dois está off\n- Consistência de wake time fixa o rhythm"
-        },
-        {
-          "name": "Heart Rate Threshold",
-          "content": "**O que é:** Precisas de <60bpm para adormecer\n**Como usar:**\n- Tudo que aumenta HR dificulta sono (discussões, exercício, comida, temperatura)\n- Técnicas que baixam HR ajudam (4-7-8, meditação, quarto frio)\n- Tracking de HR pode diagnosticar problemas"
-        }
+        {"name": "Chronotype Optimization", "content": "Alinhar actividades com ritmo biológico genético."},
+        {"name": "Heart Rate Threshold", "content": "Precisas de <60bpm para adormecer."}
       ],
-      "stories": [
-        {
-          "title": "O Cookie do Steven Bartlett",
-          "content": "Comeu um cookie antes de dormir, HR ficou a 75-80bpm durante 3h, acordou destruído. Demonstra como açúcar/digestão afectam sono."
-        },
-        {
-          "title": "Astronautas no ISS",
-          "content": "Tinham 12 nascer/pôr-do-sol por dia, ritmo circadiano destruído. Levou à criação do TimeShifter app para jet lag."
-        },
-        {
-          "title": "Lewis Hamilton e Jet Lag",
-          "content": "F1 = país diferente cada 3 semanas. Usam algoritmo de luz para ajustar ritmo. Prova que jet lag é \"math problem\" resolúvel."
-        },
-        {
-          "title": "A Paciente com Trauma",
-          "content": "Nightmare therapy: sonhava ser perseguida na selva. Através de terapia, descobriu leão chamado \"Jack\" = tio que a salvou. Mudou final do sonho → pesadelos pararam."
-        }
-      ],
-      "resources": [
-        {
-          "type": "Quiz:",
-          "description": "chronoquiz.com — descobrir o teu chronotype"
-        },
-        {
-          "type": "App:",
-          "description": "TimeShifter — resolver jet lag com algoritmo de luz"
-        },
-        {
-          "type": "Dispositivo:",
-          "description": "Muse headband — meditação com feedback de brainwaves"
-        },
-        {
-          "type": "Dispositivo:",
-          "description": "NextSense earbuds — monitorizam sono e enviam frequências"
-        },
-        {
-          "type": "Produto:",
-          "description": "Orion Sleep System — topper com controlo de temperatura"
-        },
-        {
-          "type": "Produto:",
-          "description": "Coop pillow — pillow ajustável com látex triturado"
-        },
-        {
-          "type": "Livro:",
-          "description": "\"The Power of When\" — Dr. Michael Breus"
-        },
-        {
-          "type": "Livro:",
-          "description": "\"Sleep, Drink, Breathe\" — Dr. Michael Breus"
-        }
-      ],
-      "reflection_questions": [
-        "Qual é o meu chronotype e estou a respeitar o meu ritmo natural?",
-        "Acordo à mesma hora todos os dias ou o fim-de-semana destrói o meu ritmo?",
-        "Tenho sintomas de sleep apnea que estou a ignorar?",
-        "A que horas bebo o primeiro café e isso está a prejudicar-me?",
-        "Uso álcool como \"ajuda\" para dormir? (spoiler: está a piorar)"
-      ],
-      "quotes": [
-        "When you change someone's sleep, you change their life.",
-        "You can't force your brain to sleep. In the history of time, nobody has ever been able to force their brain to sleep.",
-        "Dreams are emotional metabolism — you're working through your emotional states from the daytime.",
-        "Right is wrong — don't sleep on your right side, sleep on your left.",
-        "Sleep is recovery. If you want to lead a nice, prosperous life, you want to sleep."
-      ],
+      "stories": [],
+      "resources": [{"type": "Quiz:", "description": "chronoquiz.com"}, {"type": "App:", "description": "TimeShifter"}],
+      "reflection_questions": ["Qual é o meu chronotype?", "Acordo à mesma hora todos os dias?"],
+      "quotes": ["When you change someone's sleep, you change their life."],
       "rating": 5.0,
-      "rating_breakdown": {
-        "Novidade da informação": 5,
-        "Aplicabilidade prática": 5,
-        "Recomendo a outros": 5
-      },
-      "tags": [
-        "sono",
-        "chronotype",
-        "sleep-apnea",
-        "melatonina",
-        "performance",
-        "recovery",
-        "saúde",
-        "produtividade",
-        "biohacking",
-        "circadian-rhythm"
-      ],
-      "verdict": "Episódio obrigatório para qualquer pessoa que queira optimizar performance. Cheio de acções práticas, desmistifica melatonina, e a parte sobre chronotypes é game-changing para produtividade."
+      "rating_breakdown": {"Novidade da informação": 5, "Aplicabilidade prática": 5, "Recomendo a outros": 5},
+      "tags": ["sono", "chronotype", "sleep-apnea", "performance", "recovery"],
+      "verdict": "Episódio obrigatório para optimizar performance. Chronotypes é game-changing."
     },
     {
       "id": "2026-02-16-angie-asche-sports-nutrition",
@@ -452,150 +220,34 @@
       "date": "2026-02-16",
       "title": "Sports Nutrition: Underfueling, Timing & Performance",
       "host": "Podcast Desconhecido",
-      "guest": "Angie Asche — Sports Dietitian, ELEAT Nutrition, ex-nadadora e dançarina",
+      "guest": "Angie Asche — Sports Dietitian, ELEAT Nutrition",
       "duration": "~45min",
       "link": "https://www.youtube.com/watch?v=wd6dkj6p3lM",
-      "theme": "Nutrição desportiva, underfueling em atletas, timing de nutrientes, e saúde metabólica a longo prazo",
-      "tldr": "Underfueling é mais comum que overeating em atletas de alta performance — tanto homens como mulheres. O timing dos nutrientes é TÃO importante como a quantidade total. Atletas que comem 4000 calorias mas nas horas erradas continuam underfueled. Fiber é o nutriente mais subestimado. Creatina é non-negotiable.",
+      "theme": "Nutrição desportiva, underfueling em atletas, timing de nutrientes",
+      "tldr": "Underfueling é mais comum que overeating em atletas de alta performance. O timing dos nutrientes é TÃO importante como a quantidade total. Atletas que comem 4000 calorias mas nas horas erradas continuam underfueled. Creatina é non-negotiable.",
       "sections_summary": {
-        "Underfueling em Atletas": "- Mais comum em high performers do que comer demais\n- Acontece em HOMENS também, não só mulheres\n- Podes manter peso e ainda estar underfueled\n- Sintomas: fadiga, maior perceived exertion, lesões\n- Jogadores MLB/NHL que queriam ficar <10% body fat e performance sofreu",
-        "Performance vs Estética": "- Mito: mais magro = mais rápido\n- Realidade: atletas que cortam demais ficam com pior performance\n- Ambos atletas mencionados lesionaram-se na época\n- Cortam carbs E gorduras, só proteína fica bem",
-        "Timing de Nutrientes": "- Podes comer 4000 calorias/dia mas continuar underfueled\n- Se comes a maioria DEPOIS do treino/jogo, não aproveitas\n- Foco: carbs + proteína PRÉ, DURANTE e PÓS treino\n- Este ajuste sozinho muda performance, recovery e sono",
-        "Jejum Intermitente": "- Pode funcionar para CEOs/executivos (peso, clareza mental)\n- NÃO recomendado para atletas de alta performance\n- Janela demasiado curta para meter 4800 calorias\n- Para mulheres, >12h de jejum tem menos benefícios",
-        "Ciclo Vicioso do Baseball": "- Não come de manhã → café às 13h → snack leve → cafeína pré-jogo às 18h\n- Jogo às 19h com estômago leve → ice cream às 23h → videojogos até às 3h\n- Sono mau → acorda cansado → ciclo repete\n- Alimentação tardia alta em gordura piora o sono",
-        "Testes de Microbioma": "- Marketing ultrapassou a ciência\n- Angie não usa nem recomenda\n- Resultados são sempre: \"precisa mais fibra e probiótico\"\n- Podias ver isso analisando dieta ou análises de sangue",
-        "Saúde Metabólica Longo Prazo": "- 2024: previsão de 1 bilião pessoas com disfunção metabólica\n- Solução: movimento + menos tempo em ecrãs + whole foods\n- Desafio: corta tempo de social media para metade\n- Usa esse tempo para meal prep",
-        "Fibra e Creatina": "- Fibra é o nutriente mais subestimado\n- Proteína tem hype, fibra não\n- Creatina é **non-negotiable** no stack\n- Fibra de refrigerantes prebióticos ≠ comer framboesas",
-        "Treino de Força": "- Músculos são esponjas para glucose\n- Especialmente importante para mulheres na perimenopausa\n- Não precisas de correr maratonas\n- Kettlebells em casa + caminhadas = suficiente"
+        "Underfueling em Atletas": "- Mais comum em high performers do que comer demais\n- Podes manter peso e ainda estar underfueled",
+        "Timing de Nutrientes": "- Podes comer 4000 calorias/dia mas continuar underfueled\n- Foco: carbs + proteína PRÉ, DURANTE e PÓS treino"
       },
       "insights": [
-        {
-          "insight": "Timing > Quantidade Total",
-          "why": "4000 calorias nas horas certas > 4000 calorias concentradas à noite"
-        },
-        {
-          "insight": "Underfueling não é só calorias a menos",
-          "why": "Podes manter ou ganhar peso e ainda estar underfueled se comes nas horas erradas"
-        },
-        {
-          "insight": "Jejum intermitente não é para atletas",
-          "why": "Impossível meter calorias suficientes em janela curta + timing pré/pós treino"
-        },
-        {
-          "insight": "Fibra é o nutriente esquecido",
-          "why": "Proteína tem todo o hype, mas fibra impacta gut health, saciedade, e metabolismo"
-        },
-        {
-          "insight": "Creatina é non-negotiable",
-          "why": "Benefícios comprovados para performance, cognição, e recovery"
-        }
+        {"insight": "Timing > Quantidade Total", "why": "4000 calorias nas horas certas > 4000 concentradas à noite"},
+        {"insight": "Creatina é non-negotiable", "why": "Benefícios comprovados para performance e cognição"}
       ],
       "actions": {
-        "immediate": [
-          "Verificar se estou a comer carbs+proteína ANTES dos treinos",
-          "Calcular intake de fibra de hoje (meta: 25-35g)",
-          "Ver screen time de ontem — quanto foi em social media?"
-        ],
-        "week": [
-          "Fazer screen time audit completo da semana",
-          "Adicionar creatina ao stack se ainda não tenho (5g/dia)",
-          "Planear refeições pré e pós-treino para a semana toda",
-          "Substituir 30min de social media por meal prep"
-        ],
-        "longterm": [
-          "Estabelecer rotina de nutrient timing alinhada com treinos",
-          "Aumentar fibra gradualmente (evitar GI distress)",
-          "Criar sistema de meal prep semanal sustentável",
-          "Eliminar ciclo vicioso de alimentação tardia + sono mau"
-        ]
+        "immediate": ["Verificar se como carbs+proteína ANTES dos treinos"],
+        "week": ["Adicionar creatina ao stack se ainda não tenho"],
+        "longterm": ["Estabelecer rotina de nutrient timing"]
       },
-      "context_application": {
-        "Para Ironman Training": "- **Timing crítico** — treinos longos exigem fueling antes, durante e depois\n- **Evitar underfueling** — volume alto = necessidades calóricas muito altas\n- **Fibra com cuidado** — não exagerar antes de treinos longos (GI issues)",
-        "Para Produtividade": "- **Screen time → Meal prep** — trade-off directo e mensurável\n- **Sono melhor** — não comer tarde nem high-fat antes de dormir\n- **Energia estável** — timing correcto evita crashes"
-      },
-      "frameworks": [
-        {
-          "name": "Nutrient Timing Window",
-          "content": "**O que é:** Comer os nutrientes certos nas alturas certas — PRÉ, DURANTE, PÓS treino\n**Como usar:**\n1. PRÉ (2-3h antes): Carbs complexos + proteína moderada\n2. DURANTE (>60min): Carbs simples (géis, bebida isotónica)\n3. PÓS (30-60min): Proteína + carbs para recovery\n4. Ajustar quantidades ao volume do treino"
-        },
-        {
-          "name": "Screen Time Trade",
-          "content": "**O que é:** Cada minuto de social media pode ser meal prep\n**Como usar:**\n1. Ver screen time semanal de social media\n2. Cortar para metade\n3. Usar tempo libertado para preparar refeições\n4. Não usar \"falta de tempo\" como desculpa"
-        },
-        {
-          "name": "Underfueling Check",
-          "content": "**O que é:** Sintomas que indicam que não estás a comer suficiente ou nas horas certas\n**Sinais:**\n- Perceived exertion mais alta (mesmos treinos parecem mais difíceis)\n- Fadiga persistente\n- Lesões frequentes\n- Sono mau\n- Irritabilidade\n**Nota:** Podes ter estes sintomas mesmo mantendo peso"
-        }
-      ],
-      "stories": [
-        {
-          "title": "Os Atletas MLB/NHL que Queriam <10% Body Fat",
-          "content": "Angie trabalhou com um jogador de hockey e um pitcher de baseball que queriam ficar abaixo de 10% de gordura corporal — puramente por estética, não performance. Ambos cortaram carbs e gorduras drasticamente, mantendo só proteína. Resultado: pior época das suas carreiras, ambos lesionaram-se. A obsessão com ser \"lean\" custou-lhes performance real."
-        },
-        {
-          "title": "O Ciclo Vicioso do Baseball Player",
-          "content": "Padrão típico: não come de manhã, primeiro café/snack às 13h, cafeína pré-jogo às 18h, jogo às 19h com estômago leve, ice cream e videojogos até às 3h da manhã. Resultado: sono horrível, acorda exausto, repete. A alimentação tardia e high-fat perpetua o ciclo."
-        },
-        {
-          "title": "O Screen Time Challenge",
-          "content": "Angie desafia: vai ver o teu screen time de social media. Se são 3 horas no TikTok, não podes usar \"falta de tempo\" como desculpa para não cozinhar. Corta metade e usa 30 minutos para fazer 5 yogurt parfaits que duram a semana toda."
-        }
-      ],
-      "resources": [
-        {
-          "type": "Pessoa:",
-          "description": "Angie Asche — @eleatnutrition no Instagram, sports dietitian para atletas pro e CEOs"
-        },
-        {
-          "type": "Conceito:",
-          "description": "Nutrient Timing — quando comes é tão importante como o quê comes"
-        },
-        {
-          "type": "Suplemento:",
-          "description": "Creatina — \"non-negotiable\" no stack de qualquer atleta"
-        },
-        {
-          "type": "Referência:",
-          "description": "Stacy Sims — pesquisa sobre diferenças fisiológicas em mulheres atletas"
-        },
-        {
-          "type": "App:",
-          "description": "Center — plataforma de treinos em casa que Angie recomenda"
-        }
-      ],
-      "reflection_questions": [
-        "Estou a comer o suficiente ANTES dos treinos ou vou em jejum?",
-        "Quantas gramas de fibra como por dia? Sei sequer?",
-        "O meu sono é afectado por comer tarde?",
-        "Uso \"falta de tempo\" como desculpa enquanto passo horas em social media?",
-        "Estou a perseguir estética à custa de performance?"
-      ],
-      "quotes": [
-        "You can actually still be underfueled even if you're maintaining or gaining weight. It's really just a matter of nutrient timing.",
-        "If we can at least get the timing spot on, you'll see a world of a difference with performance, with recovery, with sleep, all of it.",
-        "You can't use time as the excuse when you've had 3 hours on TikTok.",
-        "Creatine? Non-negotiable. Definitely love creatine.",
-        "Fiber just doesn't get enough air time.",
-        "Your muscles are sponges for glucose."
-      ],
+      "context_application": {},
+      "frameworks": [{"name": "Nutrient Timing Window", "content": "PRÉ (2-3h): Carbs complexos + proteína. DURANTE: Carbs simples. PÓS: Proteína + carbs."}],
+      "stories": [],
+      "resources": [{"type": "Pessoa:", "description": "Angie Asche — @eleatnutrition"}],
+      "reflection_questions": ["Estou a comer o suficiente ANTES dos treinos?"],
+      "quotes": ["Creatine? Non-negotiable."],
       "rating": 4.5,
-      "rating_breakdown": {
-        "Novidade da informação": 4,
-        "Aplicabilidade prática": 5,
-        "Recomendo a outros": 5
-      },
-      "tags": [
-        "nutrition",
-        "sports-performance",
-        "underfueling",
-        "nutrient-timing",
-        "fiber",
-        "creatine",
-        "sleep",
-        "recovery",
-        "ironman-training"
-      ],
-      "verdict": "Podcast muito prático para atletas de endurance. O insight principal — timing > quantidade total — é actionable imediatamente. Especialmente relevante para preparação de Ironman. Bom reminder sobre fibra e creatina como fundamentais."
+      "rating_breakdown": {"Novidade da informação": 4, "Aplicabilidade prática": 5, "Recomendo a outros": 5},
+      "tags": ["nutrition", "sports-performance", "underfueling", "nutrient-timing", "creatine"],
+      "verdict": "Podcast muito prático para atletas de endurance. Timing > quantidade é actionable imediatamente."
     }
   ]
 }
