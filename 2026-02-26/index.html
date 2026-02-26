@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kindness Streak 🌱</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f5f3ef;
+            --bg-card: #ffffff;
+            --text: #3d3d3d;
+            --text-muted: #7a7a7a;
+            --green: #5c8d6a;
+            --green-light: #e8f0e8;
+            --green-dark: #3d6b4a;
+            --warm: #d4a574;
+            --warm-light: #f5ebe0;
+            --border: #e5e0d8;
+            --shadow: rgba(60, 60, 60, 0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 30px 0 20px;
+        }
+        
+        .header h1 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--green-dark);
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        
+        /* Streak Card */
+        .streak-card {
+            background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+            border-radius: 24px;
+            padding: 30px;
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 30px rgba(92, 141, 106, 0.3);
+        }
+        
+        .streak-number {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        
+        .streak-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        
+        .streak-message {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* Stats Row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 16px 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        
+        .stat-number {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--green);
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        
+        /* Today's Card */
+        .today-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+        
+        .today-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .today-title {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .today-date {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        .kindness-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            transition: border-color 0.2s;
+        }
+        
+        .kindness-input:focus {
+            outline: none;
+            border-color: var(--green);
+        }
+        
+        .category-buttons {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            background: transparent;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .category-btn:hover {
+            border-color: var(--green);
+        }
+        
+        .category-btn.active {
+            background: var(--green-light);
+            border-color: var(--green);
+            color: var(--green-dark);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--green);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .submit-btn:hover {
+            background: var(--green-dark);
+        }
+        
+        .submit-btn:disabled {
+            background: var(--border);
+            cursor: not-allowed;
+        }
+        
+        /* History */
+        .history-section {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid var(--border);
+        }
+        
+        .history-title {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+        }
+        
+        .history-list {
+            list-style: none;
+        }
+        
+        .history-item {
+            display: flex;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .history-item:last-child {
+            border-bottom: none;
+        }
+        
+        .history-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--green-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .history-content {
+            flex: 1;
+        }
+        
+        .history-text {
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+        
+        .history-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        .history-category {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--warm-light);
+            border-radius: 8px;
+            font-size: 0.75rem;
+            color: var(--warm);
+            margin-left: 6px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-muted);
+        }
+        
+        .empty-state-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Quote */
+        .quote-card {
+            background: var(--warm-light);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .quote-text {
+            font-style: italic;
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .quote-author {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        /* Calendar Mini */
+        .calendar-mini {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+        
+        .cal-day {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            background: var(--bg);
+            color: var(--text-muted);
+        }
+        
+        .cal-day.has-kindness {
+            background: var(--green);
+            color: white;
+        }
+        
+        .cal-day.today {
+            border: 2px solid var(--green);
+        }
+        
+        .cal-day.future {
+            opacity: 0.3;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+        
+        .footer a {
+            color: var(--green);
+            text-decoration: none;
+        }
+        
+        /* Celebration */
+        .celebration {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            z-index: 100;
+            display: none;
+        }
+        
+        .celebration.show {
+            display: block;
+            animation: popIn 0.3s ease;
+        }
+        
+        @keyframes popIn {
+            from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+        
+        .celebration-emoji {
+            font-size: 4rem;
+            margin-bottom: 16px;
+        }
+        
+        .celebration h2 {
+            font-family: 'Quicksand', sans-serif;
+            color: var(--green-dark);
+            margin-bottom: 8px;
+        }
+        
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            z-index: 99;
+            display: none;
+        }
+        
+        .overlay.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🌱 Kindness Streak</h1>
+            <p>Do something bigger than yourself today</p>
+        </header>
+        
+        <div class="streak-card">
+            <div class="streak-number" id="streakNumber">0</div>
+            <div class="streak-label">dias consecutivos</div>
+            <div class="streak-message" id="streakMessage">Começa hoje a tua jornada de bondade</div>
+        </div>
+        
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-number" id="totalActs">0</div>
+                <div class="stat-label">Total de actos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="thisWeek">0</div>
+                <div class="stat-label">Esta semana</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="bestStreak">0</div>
+                <div class="stat-label">Melhor streak</div>
+            </div>
+        </div>
+        
+        <div class="today-card">
+            <div class="today-header">
+                <span class="today-title">Adicionar gesto de hoje</span>
+                <span class="today-date" id="todayDate"></span>
+            </div>
+            
+            <input type="text" class="kindness-input" id="kindnessInput" placeholder="O que fizeste de bom hoje?" maxlength="200">
+            
+            <div class="category-buttons">
+                <button class="category-btn active" data-category="stranger">🚶 Desconhecido</button>
+                <button class="category-btn" data-category="friend">👥 Amigo/Família</button>
+                <button class="category-btn" data-category="community">🏘️ Comunidade</button>
+                <button class="category-btn" data-category="self">🌿 Eu próprio</button>
+            </div>
+            
+            <button class="submit-btn" id="submitBtn">Registar gesto 🌱</button>
+        </div>
+        
+        <div class="history-section">
+            <h2 class="history-title">📜 Histórico recente</h2>
+            <ul class="history-list" id="historyList">
+                <li class="empty-state">
+                    <div class="empty-state-icon">🌱</div>
+                    <p>Ainda não registaste nenhum gesto.</p>
+                    <p>Começa com algo pequeno hoje.</p>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="quote-card">
+            <p class="quote-text" id="quoteText">"Do Something Bigger Than Yourself Today. Then don't tell anybody you did it."</p>
+            <p class="quote-author">— Mark Manson</p>
+        </div>
+        
+        <footer class="footer">
+            <p>Feito com 💚 pela Safira • <a href="#" onclick="clearAllData()">Reset dados</a></p>
+        </footer>
+    </div>
+    
+    <div class="overlay" id="overlay"></div>
+    <div class="celebration" id="celebration">
+        <div class="celebration-emoji">🎉</div>
+        <h2 id="celebrationTitle">Fantástico!</h2>
+        <p id="celebrationText">Mais um gesto de bondade registado.</p>
+        <button class="submit-btn" style="margin-top: 20px; width: auto; padding: 12px 30px;" onclick="closeCelebration()">Continuar</button>
+    </div>
+    
+    <script>
+        // State
+        let state = {
+            acts: [],
+            selectedCategory: 'stranger',
+            currentStreak: 0,
+            bestStreak: 0
+        };
+        
+        // Categories
+        const categories = {
+            stranger: { icon: '🚶', label: 'Desconhecido' },
+            friend: { icon: '👥', label: 'Amigo/Família' },
+            community: { icon: '🏘️', label: 'Comunidade' },
+            self: { icon: '🌿', label: 'Eu próprio' }
+        };
+        
+        // Streak messages
+        const streakMessages = [
+            { min: 0, max: 0, msg: "Começa hoje a tua jornada de bondade" },
+            { min: 1, max: 2, msg: "Bom começo! Cada gesto conta." },
+            { min: 3, max: 6, msg: "Estás a criar um bom hábito! 💪" },
+            { min: 7, max: 13, msg: "Uma semana inteira! Inspirador." },
+            { min: 14, max: 29, msg: "Duas semanas! A bondade é contagiosa." },
+            { min: 30, max: 99, msg: "Um mês! És uma força do bem. 🌟" },
+            { min: 100, max: Infinity, msg: "Lenda. O mundo precisa de mais pessoas como tu." }
+        ];
+        
+        // Quotes
+        const quotes = [
+            { text: "Do Something Bigger Than Yourself Today. Then don't tell anybody you did it.", author: "Mark Manson" },
+            { text: "No act of kindness, no matter how small, is ever wasted.", author: "Aesop" },
+            { text: "Kindness is a language which the deaf can hear and the blind can see.", author: "Mark Twain" },
+            { text: "The best way to find yourself is to lose yourself in the service of others.", author: "Gandhi" },
+            { text: "A single act of kindness throws out roots in all directions.", author: "Amelia Earhart" }
+        ];
+        
+        // Initialize
+        function init() {
+            loadState();
+            updateUI();
+            setupEventListeners();
+            setTodayDate();
+            setRandomQuote();
+        }
+        
+        function loadState() {
+            const saved = localStorage.getItem('kindnessStreak');
+            if (saved) {
+                state = JSON.parse(saved);
+            }
+        }
+        
+        function saveState() {
+            localStorage.setItem('kindnessStreak', JSON.stringify(state));
+        }
+        
+        function setTodayDate() {
+            const today = new Date();
+            const options = { weekday: 'long', day: 'numeric', month: 'short' };
+            document.getElementById('todayDate').textContent = today.toLocaleDateString('pt-PT', options);
+        }
+        
+        function setRandomQuote() {
+            const quote = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('quoteText').textContent = `"${quote.text}"`;
+            document.querySelector('.quote-author').textContent = `— ${quote.author}`;
+        }
+        
+        function setupEventListeners() {
+            // Category buttons
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    state.selectedCategory = btn.dataset.category;
+                });
+            });
+            
+            // Submit button
+            document.getElementById('submitBtn').addEventListener('click', addKindness);
+            
+            // Enter key
+            document.getElementById('kindnessInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') addKindness();
+            });
+        }
+        
+        function addKindness() {
+            const input = document.getElementById('kindnessInput');
+            const text = input.value.trim();
+            
+            if (!text) {
+                input.focus();
+                return;
+            }
+            
+            const today = new Date().toISOString().split('T')[0];
+            
+            // Check if already logged today
+            const todayActs = state.acts.filter(a => a.date === today);
+            
+            const act = {
+                id: Date.now(),
+                text: text,
+                category: state.selectedCategory,
+                date: today,
+                timestamp: new Date().toISOString()
+            };
+            
+            state.acts.unshift(act);
+            calculateStreak();
+            saveState();
+            updateUI();
+            
+            input.value = '';
+            
+            showCelebration(todayActs.length === 0);
+        }
+        
+        function calculateStreak() {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            let streak = 0;
+            let currentDate = new Date(today);
+            
+            // Get unique dates with acts
+            const datesWithActs = [...new Set(state.acts.map(a => a.date))].sort().reverse();
+            
+            for (let i = 0; i < 365; i++) {
+                const dateStr = currentDate.toISOString().split('T')[0];
+                
+                if (datesWithActs.includes(dateStr)) {
+                    streak++;
+                    currentDate.setDate(currentDate.getDate() - 1);
+                } else if (i === 0) {
+                    // Today doesn't have an act yet, that's ok
+                    currentDate.setDate(currentDate.getDate() - 1);
+                } else {
+                    break;
+                }
+            }
+            
+            state.currentStreak = streak;
+            if (streak > state.bestStreak) {
+                state.bestStreak = streak;
+            }
+        }
+        
+        function updateUI() {
+            // Streak
+            document.getElementById('streakNumber').textContent = state.currentStreak;
+            
+            // Streak message
+            const msg = streakMessages.find(m => state.currentStreak >= m.min && state.currentStreak <= m.max);
+            document.getElementById('streakMessage').textContent = msg ? msg.msg : streakMessages[0].msg;
+            
+            // Stats
+            document.getElementById('totalActs').textContent = state.acts.length;
+            document.getElementById('bestStreak').textContent = state.bestStreak;
+            
+            // This week
+            const weekAgo = new Date();
+            weekAgo.setDate(weekAgo.getDate() - 7);
+            const thisWeekActs = state.acts.filter(a => new Date(a.date) >= weekAgo);
+            document.getElementById('thisWeek').textContent = thisWeekActs.length;
+            
+            // History
+            updateHistory();
+        }
+        
+        function updateHistory() {
+            const list = document.getElementById('historyList');
+            
+            if (state.acts.length === 0) {
+                list.innerHTML = `
+                    <li class="empty-state">
+                        <div class="empty-state-icon">🌱</div>
+                        <p>Ainda não registaste nenhum gesto.</p>
+                        <p>Começa com algo pequeno hoje.</p>
+                    </li>
+                `;
+                return;
+            }
+            
+            const recentActs = state.acts.slice(0, 10);
+            
+            list.innerHTML = recentActs.map(act => {
+                const cat = categories[act.category] || categories.stranger;
+                const date = new Date(act.date);
+                const dateStr = date.toLocaleDateString('pt-PT', { day: 'numeric', month: 'short' });
+                
+                return `
+                    <li class="history-item">
+                        <div class="history-icon">${cat.icon}</div>
+                        <div class="history-content">
+                            <div class="history-text">${escapeHtml(act.text)}</div>
+                            <div class="history-meta">
+                                ${dateStr}
+                                <span class="history-category">${cat.label}</span>
+                            </div>
+                        </div>
+                    </li>
+                `;
+            }).join('');
+        }
+        
+        function showCelebration(isFirstToday) {
+            const celebration = document.getElementById('celebration');
+            const overlay = document.getElementById('overlay');
+            
+            if (isFirstToday) {
+                document.getElementById('celebrationTitle').textContent = 'Streak mantida! 🔥';
+                document.getElementById('celebrationText').textContent = `${state.currentStreak} dias consecutivos de bondade!`;
+            } else {
+                document.getElementById('celebrationTitle').textContent = 'Mais um gesto! 🌟';
+                document.getElementById('celebrationText').textContent = 'Cada pequeno gesto faz a diferença.';
+            }
+            
+            celebration.classList.add('show');
+            overlay.classList.add('show');
+        }
+        
+        function closeCelebration() {
+            document.getElementById('celebration').classList.remove('show');
+            document.getElementById('overlay').classList.remove('show');
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function clearAllData() {
+            if (confirm('Tens a certeza que queres apagar todos os dados?')) {
+                localStorage.removeItem('kindnessStreak');
+                state = { acts: [], selectedCategory: 'stranger', currentStreak: 0, bestStreak: 0 };
+                updateUI();
+            }
+        }
+        
+        // Start
+        init();
+    </script>
+</body>
+</html>
