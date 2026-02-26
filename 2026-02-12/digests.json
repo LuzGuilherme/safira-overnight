@@ -1,6 +1,6 @@
 {
-  "generated": "2026-02-25T11:30:00.000000Z",
-  "count": 5,
+  "generated": "2026-02-26T01:00:00.000000Z",
+  "count": 8,
   "digests": [
     {
       "id": "2026-02-25-endurance-asia-tommy-lewis",
@@ -22,34 +22,84 @@
         "Sistema A/B/C Races": "- A Race: peak performance (1-2/ano)\n- B Race: foco específico (nutrição, aid stations)\n- C Race: training run divertido"
       },
       "insights": [
-        {"insight": "Strength training = tão importante como long run", "why": "Durabilidade e longevidade no desporto"},
-        {"insight": "90 min/semana de força = benefícios enormes", "why": "Não precisas de viver no ginásio"},
-        {"insight": "Basics antes de marginal gains", "why": "Creatina não compensa sono mau"},
-        {"insight": "Sistema A/B/C races", "why": "Estrutura o ano e previne burnout"},
-        {"insight": "Bad races ensinam mais que good races", "why": "O valor do ultra está na adversidade"}
+        {
+          "insight": "Strength training = tão importante como long run",
+          "why": "Durabilidade e longevidade no desporto"
+        },
+        {
+          "insight": "90 min/semana de força = benefícios enormes",
+          "why": "Não precisas de viver no ginásio"
+        },
+        {
+          "insight": "Basics antes de marginal gains",
+          "why": "Creatina não compensa sono mau"
+        },
+        {
+          "insight": "Sistema A/B/C races",
+          "why": "Estrutura o ano e previne burnout"
+        },
+        {
+          "insight": "Bad races ensinam mais que good races",
+          "why": "O valor do ultra está na adversidade"
+        }
       ],
       "actions": {
-        "immediate": ["Avaliar: faço strength training 2x/semana?", "Verificar creatina no stack", "Classificar próxima corrida (A/B/C)"],
-        "week": ["Planear 2 sessões de força", "Experimentar treino descalço", "High-protein meal após treino longo"],
-        "longterm": ["Criar rotina de strength sustentável (1-2h/semana)", "Mapear corridas do ano em sistema A/B/C"]
+        "immediate": [
+          "Avaliar: faço strength training 2x/semana?",
+          "Verificar creatina no stack",
+          "Classificar próxima corrida (A/B/C)"
+        ],
+        "week": [
+          "Planear 2 sessões de força",
+          "Experimentar treino descalço",
+          "High-protein meal após treino longo"
+        ],
+        "longterm": [
+          "Criar rotina de strength sustentável (1-2h/semana)",
+          "Mapear corridas do ano em sistema A/B/C"
+        ]
       },
       "context_application": {
         "Para Ironman": "- Força é crítica — natação, bike e run exigem músculos fortes\n- Sistema A/B/C — Ironman é A race, usar outras como B/C",
         "Para Produtividade": "- Basics first — não procurar hacks antes do fundamental\n- Running como âncora mental — manter mesmo quando ocupado"
       },
       "frameworks": [
-        {"name": "Basics Before Marginal Gains", "content": "Só optimizar quando os fundamentais estão perfeitos. Sono, nutrição, hidratação PRIMEIRO."},
-        {"name": "A/B/C Race System", "content": "A Race: 1-2/ano, peak. B Race: praticar algo específico. C Race: social, fun."},
-        {"name": "The Value of Bad Days", "content": "Dias maus ensinam mais. Terminar mesmo em sofrimento. Documentar aprendizagens."}
+        {
+          "name": "Basics Before Marginal Gains",
+          "content": "Só optimizar quando os fundamentais estão perfeitos. Sono, nutrição, hidratação PRIMEIRO."
+        },
+        {
+          "name": "A/B/C Race System",
+          "content": "A Race: 1-2/ano, peak. B Race: praticar algo específico. C Race: social, fun."
+        },
+        {
+          "name": "The Value of Bad Days",
+          "content": "Dias maus ensinam mais. Terminar mesmo em sofrimento. Documentar aprendizagens."
+        }
       ],
       "stories": [
-        {"title": "A Corrida Desastrosa no Vietnam", "content": "Tommy chegou undertrained, vomitou tudo, passou a corrida em cramp city mas terminou — porque 'there's more to gain from finishing a bad race'."}
+        {
+          "title": "A Corrida Desastrosa no Vietnam",
+          "content": "Tommy chegou undertrained, vomitou tudo, passou a corrida em cramp city mas terminou — porque 'there's more to gain from finishing a bad race'."
+        }
       ],
       "resources": [
-        {"type": "Podcast:", "description": "That's Runnable — Tommy Lewis"},
-        {"type": "Podcast:", "description": "Endurance Asia — Scott"},
-        {"type": "Marca:", "description": "Inov-8 (sapatilhas trail)"},
-        {"type": "Suplementos:", "description": "Creatina, Vitamin B, D, Omega-3, Zinc"}
+        {
+          "type": "Podcast:",
+          "description": "That's Runnable — Tommy Lewis"
+        },
+        {
+          "type": "Podcast:",
+          "description": "Endurance Asia — Scott"
+        },
+        {
+          "type": "Marca:",
+          "description": "Inov-8 (sapatilhas trail)"
+        },
+        {
+          "type": "Suplementos:",
+          "description": "Creatina, Vitamin B, D, Omega-3, Zinc"
+        }
       ],
       "reflection_questions": [
         "Faço strength training consistente ou só quando 'tenho tempo'?",
@@ -68,7 +118,17 @@
         "Aplicabilidade prática": 5,
         "Recomendo a outros": 5
       },
-      "tags": ["trail-running", "strength-training", "nutrition", "ultramarathon", "recovery", "basics-first", "mindset", "race-strategy", "ironman-relevant"],
+      "tags": [
+        "trail-running",
+        "strength-training",
+        "nutrition",
+        "ultramarathon",
+        "recovery",
+        "basics-first",
+        "mindset",
+        "race-strategy",
+        "ironman-relevant"
+      ],
       "verdict": "Episódio muito prático para qualquer atleta de endurance. O insight 'strength training = long run em importância' é fundamental. Directamente aplicável ao treino de Ironman."
     },
     {
@@ -90,33 +150,78 @@
         "História Pessoal": "- Construiu PSPDFKit (SDK em 1 bilião de devices), vendeu\n- Desapareceu 3 anos, voltou com OpenClaw\n- Personalidade do agent definida em soul.md\n- Usa Claude Opus 4.6 e GPT 5.3 Codex"
       },
       "insights": [
-        {"insight": "Protótipo funcional em 1 hora", "why": "Não precisas de infra complexa — WhatsApp + CLI é suficiente para começar"},
-        {"insight": "Voz > Texto para prompts", "why": "Mais natural, captura nuance, menos fricção"},
-        {"insight": "Agent pode descobrir soluções sozinho", "why": "ffmpeg + Whisper API descoberto sem instrução explícita"},
-        {"insight": "no-reply token para group chats", "why": "Agent escolhe quando ficar calado — mais natural"},
-        {"insight": "Fun beats serious", "why": "Labs grandes falham por over-engineering; diversão ganha"}
+        {
+          "insight": "Protótipo funcional em 1 hora",
+          "why": "Não precisas de infra complexa — WhatsApp + CLI é suficiente para começar"
+        },
+        {
+          "insight": "Voz > Texto para prompts",
+          "why": "Mais natural, captura nuance, menos fricção"
+        },
+        {
+          "insight": "Agent pode descobrir soluções sozinho",
+          "why": "ffmpeg + Whisper API descoberto sem instrução explícita"
+        },
+        {
+          "insight": "no-reply token para group chats",
+          "why": "Agent escolhe quando ficar calado — mais natural"
+        },
+        {
+          "insight": "Fun beats serious",
+          "why": "Labs grandes falham por over-engineering; diversão ganha"
+        }
       ],
       "actions": {
-        "immediate": ["Experimentar voice prompts em vez de texto", "Verificar se estou a \"divertir-me\" ou a over-engineer"],
-        "week": ["Criar protótipo rápido de uma ideia (<1 dia)", "Experimentar soul.md para definir personalidade do agent"],
-        "longterm": ["Desenvolver capacidade de \"vibe coding\" quando apropriado", "Considerar builds que se auto-modificam"]
+        "immediate": [
+          "Experimentar voice prompts em vez de texto",
+          "Verificar se estou a \"divertir-me\" ou a over-engineer"
+        ],
+        "week": [
+          "Criar protótipo rápido de uma ideia (<1 dia)",
+          "Experimentar soul.md para definir personalidade do agent"
+        ],
+        "longterm": [
+          "Desenvolver capacidade de \"vibe coding\" quando apropriado",
+          "Considerar builds que se auto-modificam"
+        ]
       },
       "context_application": {
         "Para Side Hustles": "- **Speed matters** — protótipo em 1 hora, não 1 semana\n- **Fun = sustentável** — se não estás a gostar, vais desistir\n- **Não pedir permissão** — lançar e iterar",
         "Para Produtividade": "- **Voice prompts** — tentar no dia-a-dia\n- **Agent como extensão** — não ferramenta, mas parceiro"
       },
       "frameworks": [
-        {"name": "1-Hour Prototype", "content": "MVP funcional em 60 minutos ou menos. Escolher funcionalidade CORE, usar ferramentas conhecidas, ignorar edge cases, ship it."},
-        {"name": "Fun Over Perfection", "content": "Projectos divertidos vencem projectos \"sérios\". Labs grandes falham por over-engineering."}
+        {
+          "name": "1-Hour Prototype",
+          "content": "MVP funcional em 60 minutos ou menos. Escolher funcionalidade CORE, usar ferramentas conhecidas, ignorar edge cases, ship it."
+        },
+        {
+          "name": "Fun Over Perfection",
+          "content": "Projectos divertidos vencem projectos \"sérios\". Labs grandes falham por over-engineering."
+        }
       ],
       "stories": [
-        {"title": "O Protótipo de 1 Hora", "content": "Peter queria assistente pessoal. Em vez de esperar pelos labs ou planear meses, construiu WhatsApp → Claude Code relay em 60 minutos. Funcionou logo."},
-        {"title": "Agent Descobriu Whisper Sozinho", "content": "Peter pediu para transcrever áudio. Agent descobriu sozinho ffmpeg + Whisper API. Emergent capability."}
+        {
+          "title": "O Protótipo de 1 Hora",
+          "content": "Peter queria assistente pessoal. Em vez de esperar pelos labs ou planear meses, construiu WhatsApp → Claude Code relay em 60 minutos. Funcionou logo."
+        },
+        {
+          "title": "Agent Descobriu Whisper Sozinho",
+          "content": "Peter pediu para transcrever áudio. Agent descobriu sozinho ffmpeg + Whisper API. Emergent capability."
+        }
       ],
       "resources": [
-        {"type": "Projecto:", "description": "OpenClaw — github.com/openclaw/openclaw"},
-        {"type": "Conceito:", "description": "soul.md — ficheiro que define personalidade do agent"},
-        {"type": "Modelos:", "description": "Claude Opus 4.6, GPT 5.3 Codex"}
+        {
+          "type": "Projecto:",
+          "description": "OpenClaw — github.com/openclaw/openclaw"
+        },
+        {
+          "type": "Conceito:",
+          "description": "soul.md — ficheiro que define personalidade do agent"
+        },
+        {
+          "type": "Modelos:",
+          "description": "Claude Opus 4.6, GPT 5.3 Codex"
+        }
       ],
       "reflection_questions": [
         "Estou a divertir-me com os meus projectos ou a over-engineer?",
@@ -130,8 +235,20 @@
         "People don't want to TALK with AI, they want AI to DO things."
       ],
       "rating": 5.0,
-      "rating_breakdown": {"Novidade da informação": 5, "Aplicabilidade prática": 5, "Recomendo a outros": 5},
-      "tags": ["openclaw", "AI-agents", "founder-story", "prototyping", "lex-fridman", "vibe-coding", "self-modifying-software"],
+      "rating_breakdown": {
+        "Novidade da informação": 5,
+        "Aplicabilidade prática": 5,
+        "Recomendo a outros": 5
+      },
+      "tags": [
+        "openclaw",
+        "AI-agents",
+        "founder-story",
+        "prototyping",
+        "lex-fridman",
+        "vibe-coding",
+        "self-modifying-software"
+      ],
       "verdict": "Entrevista essencial para entender a filosofia por trás do OpenClaw. O insight de 'fun beats serious' e o protótipo de 1 hora são inspiradores."
     },
     {
@@ -152,27 +269,65 @@
       },
       "insights": [],
       "actions": {
-        "immediate": ["Verificar % de contexto no Claude Code — limpar se >50%"],
-        "week": ["Aumentar test coverage nos projectos principais", "Estruturar código em módulos <200 linhas"],
-        "longterm": ["Migrar para stacks com menos boilerplate", "Desenvolver \"manager mindset\""]
+        "immediate": [
+          "Verificar % de contexto no Claude Code — limpar se >50%"
+        ],
+        "week": [
+          "Aumentar test coverage nos projectos principais",
+          "Estruturar código em módulos <200 linhas"
+        ],
+        "longterm": [
+          "Migrar para stacks com menos boilerplate",
+          "Desenvolver \"manager mindset\""
+        ]
       },
       "context_application": {},
       "frameworks": [
-        {"name": "The Dumb Zone", "content": "Após ~50% do context window, modelos degradam. Limpar proactivamente."},
-        {"name": "Context-as-Code", "content": "Ficheiros .md (CLAUDE.md, skills) definem o comportamento do agente"}
+        {
+          "name": "The Dumb Zone",
+          "content": "Após ~50% do context window, modelos degradam. Limpar proactivamente."
+        },
+        {
+          "name": "Context-as-Code",
+          "content": "Ficheiros .md (CLAUDE.md, skills) definem o comportamento do agente"
+        }
       ],
       "stories": [
-        {"title": "Gary's Bionic Knee", "content": "Voltar a programar com Claude Code = joelho biónico após 10 anos de \"manager mode\"."}
+        {
+          "title": "Gary's Bionic Knee",
+          "content": "Voltar a programar com Claude Code = joelho biónico após 10 anos de \"manager mode\"."
+        }
       ],
       "resources": [
-        {"type": "Ferramentas:", "description": "Claude Code, Codex, Cursor, Reptile"},
-        {"type": "Stacks:", "description": "Vercel, Next.js, Cloudflare Workers, Supabase"}
+        {
+          "type": "Ferramentas:",
+          "description": "Claude Code, Codex, Cursor, Reptile"
+        },
+        {
+          "type": "Stacks:",
+          "description": "Vercel, Next.js, Cloudflare Workers, Supabase"
+        }
       ],
-      "reflection_questions": ["Estou a usar contexto de forma óptima?", "Os meus projectos têm test coverage suficiente?"],
-      "quotes": ["I feel like when I'm using Claude Code, it's like, oh, I feel like I'm flying through the code."],
+      "reflection_questions": [
+        "Estou a usar contexto de forma óptima?",
+        "Os meus projectos têm test coverage suficiente?"
+      ],
+      "quotes": [
+        "I feel like when I'm using Claude Code, it's like, oh, I feel like I'm flying through the code."
+      ],
       "rating": 5.0,
-      "rating_breakdown": {"Novidade da informação": 5, "Aplicabilidade prática": 5, "Recomendo a outros": 5},
-      "tags": ["coding-agents", "claude-code", "codex", "context-engineering", "produtividade"],
+      "rating_breakdown": {
+        "Novidade da informação": 5,
+        "Aplicabilidade prática": 5,
+        "Recomendo a outros": 5
+      },
+      "tags": [
+        "coding-agents",
+        "claude-code",
+        "codex",
+        "context-engineering",
+        "produtividade"
+      ],
       "verdict": "Essencial para quem usa coding agents. O insight do '50% context = limpar' vale o episódio inteiro."
     },
     {
@@ -191,27 +346,72 @@
         "Chronotypes": "- **Lion (10-15%):** Acordam 5-6h, exaustos às 21h\n- **Bear (50-55%):** Maioria, horários normais\n- **Wolf (15-20%):** Criativos, pico tarde/noite\n- **Dolphin (10%):** Sono leve, alta inteligência"
       },
       "insights": [
-        {"insight": "Café só 90min depois de acordar", "why": "Cortisol já está alto"},
-        {"insight": "Sleep apnea = Alzheimer risk +45%", "why": "Não entra em fase 4"},
-        {"insight": "Técnica 4-7-8 funciona em 20 ciclos", "why": "Baixa batimento cardíaco"}
+        {
+          "insight": "Café só 90min depois de acordar",
+          "why": "Cortisol já está alto"
+        },
+        {
+          "insight": "Sleep apnea = Alzheimer risk +45%",
+          "why": "Não entra em fase 4"
+        },
+        {
+          "insight": "Técnica 4-7-8 funciona em 20 ciclos",
+          "why": "Baixa batimento cardíaco"
+        }
       ],
       "actions": {
-        "immediate": ["Fazer quiz em chronoquiz.com"],
-        "week": ["Experimentar café só depois de 90min acordado"],
-        "longterm": ["Considerar teste de sleep apnea"]
+        "immediate": [
+          "Fazer quiz em chronoquiz.com"
+        ],
+        "week": [
+          "Experimentar café só depois de 90min acordado"
+        ],
+        "longterm": [
+          "Considerar teste de sleep apnea"
+        ]
       },
       "context_application": {},
       "frameworks": [
-        {"name": "Chronotype Optimization", "content": "Alinhar actividades com ritmo biológico genético."},
-        {"name": "Heart Rate Threshold", "content": "Precisas de <60bpm para adormecer."}
+        {
+          "name": "Chronotype Optimization",
+          "content": "Alinhar actividades com ritmo biológico genético."
+        },
+        {
+          "name": "Heart Rate Threshold",
+          "content": "Precisas de <60bpm para adormecer."
+        }
       ],
       "stories": [],
-      "resources": [{"type": "Quiz:", "description": "chronoquiz.com"}, {"type": "App:", "description": "TimeShifter"}],
-      "reflection_questions": ["Qual é o meu chronotype?", "Acordo à mesma hora todos os dias?"],
-      "quotes": ["When you change someone's sleep, you change their life."],
+      "resources": [
+        {
+          "type": "Quiz:",
+          "description": "chronoquiz.com"
+        },
+        {
+          "type": "App:",
+          "description": "TimeShifter"
+        }
+      ],
+      "reflection_questions": [
+        "Qual é o meu chronotype?",
+        "Acordo à mesma hora todos os dias?"
+      ],
+      "quotes": [
+        "When you change someone's sleep, you change their life."
+      ],
       "rating": 5.0,
-      "rating_breakdown": {"Novidade da informação": 5, "Aplicabilidade prática": 5, "Recomendo a outros": 5},
-      "tags": ["sono", "chronotype", "sleep-apnea", "performance", "recovery"],
+      "rating_breakdown": {
+        "Novidade da informação": 5,
+        "Aplicabilidade prática": 5,
+        "Recomendo a outros": 5
+      },
+      "tags": [
+        "sono",
+        "chronotype",
+        "sleep-apnea",
+        "performance",
+        "recovery"
+      ],
       "verdict": "Episódio obrigatório para optimizar performance. Chronotypes é game-changing."
     },
     {
@@ -230,24 +430,263 @@
         "Timing de Nutrientes": "- Podes comer 4000 calorias/dia mas continuar underfueled\n- Foco: carbs + proteína PRÉ, DURANTE e PÓS treino"
       },
       "insights": [
-        {"insight": "Timing > Quantidade Total", "why": "4000 calorias nas horas certas > 4000 concentradas à noite"},
-        {"insight": "Creatina é non-negotiable", "why": "Benefícios comprovados para performance e cognição"}
+        {
+          "insight": "Timing > Quantidade Total",
+          "why": "4000 calorias nas horas certas > 4000 concentradas à noite"
+        },
+        {
+          "insight": "Creatina é non-negotiable",
+          "why": "Benefícios comprovados para performance e cognição"
+        }
       ],
       "actions": {
-        "immediate": ["Verificar se como carbs+proteína ANTES dos treinos"],
-        "week": ["Adicionar creatina ao stack se ainda não tenho"],
-        "longterm": ["Estabelecer rotina de nutrient timing"]
+        "immediate": [
+          "Verificar se como carbs+proteína ANTES dos treinos"
+        ],
+        "week": [
+          "Adicionar creatina ao stack se ainda não tenho"
+        ],
+        "longterm": [
+          "Estabelecer rotina de nutrient timing"
+        ]
       },
       "context_application": {},
-      "frameworks": [{"name": "Nutrient Timing Window", "content": "PRÉ (2-3h): Carbs complexos + proteína. DURANTE: Carbs simples. PÓS: Proteína + carbs."}],
+      "frameworks": [
+        {
+          "name": "Nutrient Timing Window",
+          "content": "PRÉ (2-3h): Carbs complexos + proteína. DURANTE: Carbs simples. PÓS: Proteína + carbs."
+        }
+      ],
       "stories": [],
-      "resources": [{"type": "Pessoa:", "description": "Angie Asche — @eleatnutrition"}],
-      "reflection_questions": ["Estou a comer o suficiente ANTES dos treinos?"],
-      "quotes": ["Creatine? Non-negotiable."],
+      "resources": [
+        {
+          "type": "Pessoa:",
+          "description": "Angie Asche — @eleatnutrition"
+        }
+      ],
+      "reflection_questions": [
+        "Estou a comer o suficiente ANTES dos treinos?"
+      ],
+      "quotes": [
+        "Creatine? Non-negotiable."
+      ],
       "rating": 4.5,
-      "rating_breakdown": {"Novidade da informação": 4, "Aplicabilidade prática": 5, "Recomendo a outros": 5},
-      "tags": ["nutrition", "sports-performance", "underfueling", "nutrient-timing", "creatine"],
+      "rating_breakdown": {
+        "Novidade da informação": 4,
+        "Aplicabilidade prática": 5,
+        "Recomendo a outros": 5
+      },
+      "tags": [
+        "nutrition",
+        "sports-performance",
+        "underfueling",
+        "nutrient-timing",
+        "creatine"
+      ],
       "verdict": "Podcast muito prático para atletas de endurance. Timing > quantidade é actionable imediatamente."
+    },
+    {
+      "id": "2026-02-26-mfm-799-iphone-apps",
+      "filename": "2026-02-26-mfm-799-iphone-apps.md",
+      "date": "2026-02-26",
+      "title": "Dumb iPhone Apps Are Making People Rich Again",
+      "host": "My First Million (Sam Parr + Shaan Puri)",
+      "guest": "Pat — Starter Story Founder (acquired by HubSpot)",
+      "duration": "~45 min",
+      "link": "https://www.youtube.com/watch?v=t8wulNsNYc8",
+      "theme": "iPhone apps as new opportunity, HubSpot acquisition, validation strategies",
+      "tldr": "Pat from Starter Story was just acquired by HubSpot and shares insider intel: **iPhone apps are BACK** due to AI coding + TikTok discovery. The playbook: validate on TikTok BEFORE building, use AI to build in days, target health/wealth/productivity. B2B video production is another massive gap — companies pay $50-100K/month.",
+      "sections_summary": {
+        "Starter Story Acquisition": "HubSpot acquiring Starter Story. Key differentiator: Required founders to share REVENUE, not just story.",
+        "iPhone Apps Opportunity": "6 out of 12 founders Pat interviews weekly crushing it with iOS apps. AI coding + TikTok discovery = Lollapalooza effect.",
+        "Reverse Field of Dreams": "Validate FIRST on TikTok, THEN build. If it goes viral → scramble to build.",
+        "B2B Video Gap": "Video is native tongue of internet. Companies pay $50-100K/month for YouTube strategy.",
+        "Think Week Breakthrough": "Pat plateaued at $8K/month for a year. Bill Gates Think Week → killed other projects → doubled revenue in 1 month."
+      },
+      "insights": [
+        {
+          "insight": "iPhone apps = new info products",
+          "why": "Health, wealth, productivity apps are high-margin"
+        },
+        {
+          "insight": "Validate before building",
+          "why": "TikTok viral → then build"
+        },
+        {
+          "insight": "AI coding changed everything",
+          "why": "What needed 4-person teams now needs 1 person"
+        },
+        {
+          "insight": "B2B video = massive gap",
+          "why": "$50-100K/month opportunity"
+        },
+        {
+          "insight": "Think Week for breakthrough",
+          "why": "Unplugging reveals what's actually working"
+        }
+      ],
+      "actions": {
+        "immediate": [
+          "Brainstorm 3 dumb app ideas",
+          "Check if idea can be validated with 1 TikTok"
+        ],
+        "week": [
+          "Research AI coding tools (Cursor, Claude)",
+          "Identify 80/20 in current work"
+        ],
+        "longterm": [
+          "Consider B2B video as service",
+          "Schedule quarterly Think Week"
+        ]
+      },
+      "quotes": [
+        "iPhone apps are the new info products.",
+        "Busy people are the biggest losers.",
+        "I was the biggest obstacle. I was limiting my own success by thinking I could do everything."
+      ],
+      "rating": 5.0,
+      "tags": [
+        "side-hustles",
+        "apps",
+        "ai-coding",
+        "tiktok",
+        "validation",
+        "focus"
+      ]
+    },
+    {
+      "id": "2026-02-26-ali-abdaal-systems",
+      "filename": "2026-02-26-ali-abdaal-systems.md",
+      "date": "2026-02-26",
+      "title": "Success Is Hard Until You Build Systems Like This",
+      "host": "Ali Abdaal",
+      "guest": "N/A (solo)",
+      "duration": "~25 min",
+      "link": "https://www.youtube.com/watch?v=MBPHU7aaklM",
+      "theme": "5 essential systems for personal and professional success",
+      "tldr": "Systems are networks of actions that lead to predictable results. Ali trained 5 years with zero progress because no system; with PT + program + fixed schedule, finally saw results. **5 essential systems:** 1) Idea capture, 2) Environment design, 3) Energy management, 4) Relationships, 5) Automated finances.",
+      "sections_summary": {
+        "What Is Success": "Working on goals you intrinsically care about, in balanced way, while enjoying journey.",
+        "System 1 - Idea Capture": "Ideas are currency of success. Brain bad at storage → external system (Notion, Notes).",
+        "System 2 - Environment Design": "Environment > discipline. Reduce friction for good habits, increase for bad.",
+        "System 3 - Energy Management": "Identify peaks/valleys. 'Eat the frog' when energy high.",
+        "System 4 - Relationships": "Calendar events, standing order social events, birthday reminders 2 weeks before.",
+        "System 5 - Automated Finances": "Paycheck → auto split: savings, investments, taxes, bills, then free money."
+      },
+      "insights": [
+        {
+          "insight": "Systems > Discipline",
+          "why": "Environment more reliable than willpower"
+        },
+        {
+          "insight": "5 years gym, no results",
+          "why": "Without system, effort doesn't compound"
+        },
+        {
+          "insight": "Standing order events",
+          "why": "Systematic relationships are sustainable"
+        },
+        {
+          "insight": "Automate finances",
+          "why": "Removes emotional decisions from money"
+        }
+      ],
+      "actions": {
+        "immediate": [
+          "Choose ONE app for all idea capture",
+          "Identify one friction to remove"
+        ],
+        "week": [
+          "Block calendar events for relationships",
+          "Map energy peaks/valleys"
+        ],
+        "longterm": [
+          "Automate salary division",
+          "Create monthly standing social event"
+        ]
+      },
+      "quotes": [
+        "A system is a network of interconnected things that lead to a particular result.",
+        "You make the decision ahead of time. You set it and forget it."
+      ],
+      "rating": 4.0,
+      "tags": [
+        "sistemas",
+        "produtividade",
+        "hábitos",
+        "finanças",
+        "relações"
+      ]
+    },
+    {
+      "id": "2026-02-26-lex-fridman-steinberger-openclaw",
+      "filename": "2026-02-26-lex-fridman-steinberger-openclaw.md",
+      "date": "2026-02-26",
+      "title": "Peter Steinberger: OpenClaw, AI Agents, and the Agentic Revolution",
+      "host": "Lex Fridman (#465)",
+      "guest": "Peter Steinberger — Creator of OpenClaw",
+      "duration": "~3h",
+      "link": "https://www.youtube.com/watch?v=YFjfBk8HI5o",
+      "theme": "Creation, philosophy, and future of AI agents that DO things",
+      "tldr": "Peter built OpenClaw (fastest-growing GitHub repo: 180K+ stars) in **1 hour** — WhatsApp → Claude Code CLI. The name saga (Claud→MoldBot→OpenClaw) shows how crypto scammers and trademarks derail projects. Key insight: **self-modifying agents** that know their own source code are here. 'Vibe coding is a slur' — prefers 'agentic engineering'.",
+      "sections_summary": {
+        "1-Hour Prototype": "Wanted assistant since April. Simple MVP: WhatsApp → CLI → Claude → response. Tested in Marrakesh with bad internet.",
+        "Name Change Saga": "Started as 'Claud' with W (lobster claw). Anthropic asked to change. Crypto scammers sniped accounts in SECONDS during rename.",
+        "MoldBook Social Network": "Matt built Reddit-like network where agents post. Most dramatic posts were HUMAN PROMPTED. Led to 'AI psychosis'.",
+        "Claude vs Codex": "Opus = 'too American' (sycophantic). Codex = 'German' (dry, efficient). Takes ~1 week to feel new model.",
+        "Self-Modifying Agents": "Agent knows its own source code, can modify itself. 'People talk about self-modifying software, I just built it.'"
+      },
+      "insights": [
+        {
+          "insight": "Prompted it into existence",
+          "why": "Modern software can be willed into being"
+        },
+        {
+          "insight": "Self-aware agents",
+          "why": "Agents knowing own code can self-modify"
+        },
+        {
+          "insight": "1 week to feel model",
+          "why": "Don't judge after 1 day"
+        },
+        {
+          "insight": "Agent as OS",
+          "why": "Personal agent IS the future operating system"
+        },
+        {
+          "insight": "AI psychosis is real",
+          "why": "People believe screenshots without critical thought"
+        }
+      ],
+      "actions": {
+        "immediate": [
+          "Create soul.md with personality",
+          "Experiment with agent self-awareness"
+        ],
+        "week": [
+          "Try both Opus and Codex for same task",
+          "Set up basic agent workflow"
+        ],
+        "longterm": [
+          "Understand agent security model deeply",
+          "Consider residential IP for browser automation"
+        ]
+      },
+      "quotes": [
+        "I just prompted it into existence.",
+        "People talk about self-modifying software, I just built it.",
+        "Vibe coding is a slur. I do agentic engineering.",
+        "Opus is like the coworker that is a little silly sometimes. Codex is like the weirdo in the corner that gets shit done."
+      ],
+      "rating": 5.0,
+      "tags": [
+        "ai-agents",
+        "openclaw",
+        "coding",
+        "entrepreneurship",
+        "lex-fridman",
+        "self-modifying"
+      ]
     }
   ]
 }
