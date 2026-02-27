@@ -1,6 +1,6 @@
 {
-  "generated": "2026-02-26T01:00:00.000000Z",
-  "count": 8,
+  "generated": "2026-02-27T01:00:00.000000Z",
+  "count": 12,
   "digests": [
     {
       "id": "2026-02-25-endurance-asia-tommy-lewis",
@@ -686,6 +686,138 @@
         "entrepreneurship",
         "lex-fridman",
         "self-modifying"
+      ]
+    },
+    {
+      "id": "2026-02-27-mfm-one-person-startups",
+      "filename": "2026-02-27-mfm-one-person-startups.md",
+      "date": "2026-02-27",
+      "title": "The Rise of One-Person Startups",
+      "host": "My First Million (Sam Parr + Shaan Puri)",
+      "guest": "Host-led episode",
+      "duration": "~52 min",
+      "link": "https://www.youtube.com/watch?v=XwVUuE9qc2U",
+      "theme": "AI leverage enabling one-person startups",
+      "tldr": "AI + distribution are creating a new wave of one-person startups. Key playbook: validate demand early, build lean, iterate fast with audience feedback.",
+      "sections_summary": {
+        "One-person leverage": "AI and modern tools reduce execution cost massively",
+        "Distribution-first": "Audience and content de-risk product decisions",
+        "Operating model": "Lean systems beat complex org charts early"
+      },
+      "actions": {
+        "immediate": [
+          "Define one specific B2B problem to solve",
+          "Test demand with short-form content"
+        ],
+        "week": [
+          "Run 5 customer conversations",
+          "Ship first lightweight MVP"
+        ],
+        "longterm": [
+          "Build repeatable content→lead→product flywheel"
+        ]
+      },
+      "quotes": [
+        "Distribution first, sophistication later.",
+        "Small and fast beats big and slow."
+      ]
+    },
+    {
+      "id": "2026-02-27-tim-ferriss-ruminative-mind",
+      "filename": "2026-02-27-tim-ferriss-ruminative-mind.md",
+      "date": "2026-02-27",
+      "title": "How to Quiet the Ruminative Mind and Avoid The Traps of Self-Help",
+      "host": "Tim Ferriss Show",
+      "guest": "Tim Ferriss",
+      "duration": "~1h 20min",
+      "link": "https://www.youtube.com/watch?v=qOUnBaeTUOY",
+      "theme": "Escaping rumination and converting reflection into action",
+      "tldr": "Rumination often masquerades as productive thinking. The antidote is practical exposure, timeboxed decisions, and fewer commitments with higher focus.",
+      "sections_summary": {
+        "Rumination trap": "Overthinking becomes procrastination",
+        "Practical protocols": "Timeboxing, journaling, and exposure break loops",
+        "Focus discipline": "Subtraction and boundaries improve attention quality"
+      },
+      "actions": {
+        "immediate": [
+          "Timebox one pending decision to 20 minutes",
+          "Do 10 min thought-dump journaling"
+        ],
+        "week": [
+          "Enforce 1:1 consume-to-execute rule"
+        ],
+        "longterm": [
+          "Run weekly review to maintain focus"
+        ]
+      },
+      "quotes": [
+        "You can study soccer forever and never play.",
+        "Thinking about change is not changing."
+      ]
+    },
+    {
+      "id": "2026-02-27-doac-sugar-jessie-inchauspe",
+      "filename": "2026-02-27-doac-sugar-jessie-inchauspe.md",
+      "date": "2026-02-27",
+      "title": "The Scary New Research On Sugar & How They Made You Addicted To It",
+      "host": "The Diary of a CEO",
+      "guest": "Jessie Inchauspé (Glucose Goddess)",
+      "duration": "~2h",
+      "link": "https://www.youtube.com/watch?v=Xm_PHZXGe-w",
+      "theme": "Glucose regulation, energy stability, and metabolic health",
+      "tldr": "Glucose spikes drive energy crashes and cravings, but simple meal-order and movement habits can reduce instability. Pregnancy nutrition was highlighted as a high-impact metabolic window.",
+      "sections_summary": {
+        "Glucose spikes": "High-sugar meals can trigger crash-craving cycles",
+        "Simple interventions": "Fiber/protein first and post-meal walks reduce peaks",
+        "Pregnancy focus": "Maternal nutrition impacts long-term child health"
+      },
+      "actions": {
+        "immediate": [
+          "Start meals with fiber/protein",
+          "Walk 10-15 min after main meals"
+        ],
+        "week": [
+          "Adjust breakfast for lower glucose spikes"
+        ],
+        "longterm": [
+          "Track energy response to meals for better routines"
+        ]
+      },
+      "quotes": [
+        "With your diet during pregnancy, you are programming your baby's DNA.",
+        "Small glucose hacks can change your whole day."
+      ]
+    },
+    {
+      "id": "2026-02-27-lex-khabib-training",
+      "filename": "2026-02-27-lex-khabib-training.md",
+      "date": "2026-02-27",
+      "title": "Khabib vs Lex: Training with Khabib",
+      "host": "Lex Fridman",
+      "guest": "Khabib Nurmagomedov",
+      "duration": "~18 min",
+      "link": "https://www.youtube.com/watch?v=KGVpKPNUdzA",
+      "theme": "Technique under pressure and disciplined training culture",
+      "tldr": "Short but intense training footage emphasizing pressure, repetition, and discipline. Useful crossover lessons for endurance training and high-performance routines.",
+      "sections_summary": {
+        "Training environment": "Direct coaching and high standards",
+        "Pressure execution": "Technique must hold under fatigue",
+        "Mindset": "Consistency and humility drive long-term growth"
+      },
+      "actions": {
+        "immediate": [
+          "Add one fatigue-technique drill this week"
+        ],
+        "week": [
+          "Request direct feedback after key sessions"
+        ],
+        "longterm": [
+          "Build consistency routines independent of motivation"
+        ]
+      },
+      "quotes": [
+        "Keep pressure.",
+        "Champion mindset is built in training."
       ]
     }
   ]
