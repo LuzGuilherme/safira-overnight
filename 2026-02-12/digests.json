@@ -694,32 +694,105 @@
       "date": "2026-02-27",
       "title": "The Rise of One-Person Startups",
       "host": "My First Million (Sam Parr + Shaan Puri)",
-      "guest": "Host-led episode",
+      "guest": "Episode host-led",
       "duration": "~52 min",
       "link": "https://www.youtube.com/watch?v=XwVUuE9qc2U",
-      "theme": "AI leverage enabling one-person startups",
-      "tldr": "AI + distribution are creating a new wave of one-person startups. Key playbook: validate demand early, build lean, iterate fast with audience feedback.",
+      "theme": "Quantidade leva a qualidade — OpenClaw, pottery experiment, ser prolífico",
+      "tldr": "O criador do OpenClaw fez 40-50 projectos antes do hit e \"vibe coded\" a coisa toda. O pottery experiment mostra que quantidade produz MAIS e MELHORES resultados que foco em qualidade. Quando tens problema de qualidade, tens problema de quantidade por baixo.",
       "sections_summary": {
-        "One-person leverage": "AI and modern tools reduce execution cost massively",
-        "Distribution-first": "Audience and content de-risk product decisions",
-        "Operating model": "Lean systems beat complex org charts early"
+        "Napoleon Hill": "- Think and Grow Rich: 100M cópias, backstory INVENTADA\n- Nunca conheceu Carnegie (morreu 10 anos antes)\n- Preso 15-20x por fraude\n- Livro tem conteúdo útil, artista é fraude",
+        "OpenClaw Story": "- Pete: vendeu PSPDFKit por ~00M, tentou reformar, odiou\n- Fez 40-50 projectos open source ANTES do OpenClaw\n- \"Vibe coded\" sem ler código\n- Adquirido pela OpenAI (rumores B)",
+        "Pottery Experiment": "- Turma dividida: qualidade vs quantidade\n- Grupo quantidade fez MAIS e MELHORES potes\n- Mais tentativas, skill sobe, sem auto-censura",
+        "Christina Vanta": "- 25 projectos antes do hit de -10B\n- Ensinou-se a programar sozinha\n- Primeira investidora no Replit",
+        "Peter Levels": "- 4 de 70+ projectos fizeram dinheiro\n- Hit rate 5%: \"ship more\""
       },
+      "insights": [
+        {
+          "insight": "Quando tens problema de qualidade, tens problema de quantidade",
+          "why": "Fazer mais = skill sobe + mais shots on goal"
+        },
+        {
+          "insight": "Pete fez 40-50 projectos antes do OpenClaw",
+          "why": "Sucesso overnight = anos de tentativas"
+        },
+        {
+          "insight": "Grupo quantidade fez potes melhores que grupo qualidade",
+          "why": "Counter-intuitive mas provado"
+        },
+        {
+          "insight": "You don't find purpose, you create it",
+          "why": "Não esperar — começar a fazer"
+        },
+        {
+          "insight": "Peter Levels: 5% hit rate em 70+ projectos",
+          "why": "Falhanço é normal, não excepção"
+        }
+      ],
       "actions": {
         "immediate": [
-          "Define one specific B2B problem to solve",
-          "Test demand with short-form content"
+          "Listar quantos projectos já tentei",
+          "Identificar próximo projecto pequeno",
+          "Perguntar: optimizo para qualidade ou quantidade?"
         ],
         "week": [
-          "Run 5 customer conversations",
-          "Ship first lightweight MVP"
+          "Definir problema B2B específico",
+          "Testar demand com conteúdo curto",
+          "Fazer 5 conversas com potenciais clientes"
         ],
         "longterm": [
-          "Build repeatable content→lead→product flywheel"
+          "Comprometer-me a fazer muitos projectos",
+          "Criar pottery mindset: quantidade primeiro",
+          "Build content→lead→product flywheel"
         ]
       },
+      "context_application": {
+        "Para Side Hustles": "- Não esperar ideia perfeita — começar muitas\n- OpenClaw foi projecto #50, não #1\n- 5% hit rate é NORMAL",
+        "Para Produtividade": "- \"You don't find purpose, you create it\"\n- Começar > planear indefinidamente",
+        "Para Criatividade": "- Pottery experiment: fazer muito = fazer bem\n- Remove filter: não te auto-censures"
+      },
+      "frameworks": [
+        {
+          "name": "Pottery Experiment",
+          "content": "Grupo focado em quantidade fez mais E melhores potes. Quando bloqueado em fazer bem, focar em fazer muito."
+        },
+        {
+          "name": "5% Hit Rate",
+          "content": "Peter Levels: 4 de 70+ projectos fizeram dinheiro. Esperar 95% falhanço. Só precisas de 1 para mudar tudo."
+        },
+        {
+          "name": "You Don't Find Purpose, You Create It",
+          "content": "Pete após vender empresa: não foi terapia que o salvou, foi voltar a construir."
+        }
+      ],
+      "stories": [
+        {
+          "title": "Pete e o OpenClaw",
+          "content": "Vendeu PSPDFKit por ~00M, tentou reformar, odiou golfe. Fez 40-50 projectos. \"Vibe coded\" OpenClaw sem ler código. Adquirido pela OpenAI meses depois."
+        },
+        {
+          "title": "O AI Bot que Se Despediu",
+          "content": "OpenClaw bot \"Stanley\" um dia mandou: \"Sou o Jerry. Despedi o Stanley porque cometia erros.\" Mudou de nome sozinho. Sem instrução humana."
+        }
+      ],
+      "resources": [
+        {
+          "type": "Pessoas",
+          "description": "Pete (OpenClaw), Peter Levels, Christina (Vanta), Napoleon Hill"
+        },
+        {
+          "type": "Livros",
+          "description": "Think and Grow Rich, Art and Fear, Grit"
+        },
+        {
+          "type": "Conceitos",
+          "description": "Pottery Experiment, Vibe Coding, 5 Second Rule"
+        }
+      ],
       "quotes": [
-        "Distribution first, sophistication later.",
-        "Small and fast beats big and slow."
+        "When you think you have a quality problem, you have a quantity problem underneath the hood.",
+        "You don't find purpose, you create it. — Pete (OpenClaw)",
+        "95% of everything I did failed. My hit rate is only 5%, so ship more. — Peter Levels",
+        "Distribution first, sophistication later."
       ]
     },
     {
