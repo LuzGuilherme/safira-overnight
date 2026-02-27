@@ -728,31 +728,100 @@
       "date": "2026-02-27",
       "title": "How to Quiet the Ruminative Mind and Avoid The Traps of Self-Help",
       "host": "Tim Ferriss Show",
-      "guest": "Tim Ferriss",
+      "guest": "Tim Ferriss — Autor, investidor, podcaster",
       "duration": "~1h 20min",
       "link": "https://www.youtube.com/watch?v=qOUnBaeTUOY",
-      "theme": "Escaping rumination and converting reflection into action",
-      "tldr": "Rumination often masquerades as productive thinking. The antidote is practical exposure, timeboxed decisions, and fewer commitments with higher focus.",
+      "theme": "Escapar da ruminação mental e das armadilhas do self-help",
+      "tldr": "Tim Ferriss está \"melhor do que nunca\" graças a três intervenções: investir em relações reais, TMS acelerado com desciclocerina para OCD/ansiedade, e cetose intermitente. A armadilha do self-help é ficar eternamente a \"polir o eu\" sem jogar o jogo real da vida. A chave é perguntar \"optimizar para quê?\" antes de optimizar.",
       "sections_summary": {
-        "Rumination trap": "Overthinking becomes procrastination",
-        "Practical protocols": "Timeboxing, journaling, and exposure break loops",
-        "Focus discipline": "Subtraction and boundaries improve attention quality"
+        "Estado Mental": "- Sente-se fantástico: mente, corpo, alma\n- Três factores: relações, meditação, TMS acelerado\n- Contrabalanço do self-help: relações reais",
+        "TMS Acelerado": "- Comprime 3 meses em 5 dias\n- Protocolo SAINT: 10 sessões/dia por semana\n- 70-80% remissão de depressão\n- Nova: DCS + 1 dia = resultados ainda melhores",
+        "Armadilha Self-Help": "- Metáfora futebol: estudar sem jogar\n- Polir o eu eternamente\n- Crença: preciso arranjar-me antes de ter relações",
+        "Optimização Cirúrgica": "- \"Optimizar para quê?\"\n- O que fazes > como fazes\n- Poucas coisas precisam de estar certas",
+        "Cetose e Jejum": "- Cetose 2-3x/ano para neuroprotecção\n- Jejum intermitente: janela 8h\n- Resultados dramáticos em sensibilidade insulina"
       },
+      "insights": [
+        {
+          "insight": "A armadilha do self-help: estudar futebol para sempre sem jogar",
+          "why": "Pensar sobre mudança não é mudar"
+        },
+        {
+          "insight": "Relações são o contrabalanço do auto-desenvolvimento",
+          "why": "Isolamento piora ansiedade e depressão"
+        },
+        {
+          "insight": "TMS + DCS em 1 dia = resultados de meses",
+          "why": "Tecnologia acelera cura de saúde mental"
+        },
+        {
+          "insight": "\"Optimizar para quê?\" antes de optimizar",
+          "why": "Podes ser excelente a fazer algo errado"
+        },
+        {
+          "insight": "Poucas coisas precisam de estar certas para vida incrível",
+          "why": "Seinfeld: pesos + meditação resolve quase tudo"
+        }
+      ],
       "actions": {
         "immediate": [
-          "Timebox one pending decision to 20 minutes",
-          "Do 10 min thought-dump journaling"
+          "Fazer Past Year Review: top 5 relações que dão energia",
+          "Bloquear 1 weekend com amigo no calendário",
+          "Experimentar janela alimentação 8h"
         ],
         "week": [
-          "Enforce 1:1 consume-to-execute rule"
+          "Meditar 10 min 2x/dia",
+          "Verificar contra-indicações dos suplementos",
+          "Identificar 1 coisa que estudo sem jogar"
         ],
         "longterm": [
-          "Run weekly review to maintain focus"
+          "Investigar TMS para ansiedade se aplicável",
+          "Criar sistema de dizer não",
+          "Fazer cetose intermitente 2-3x/ano"
         ]
       },
+      "context_application": {
+        "Para Atleta Endurance": "- Jejum intermitente melhora sensibilidade insulina\n- Cetose 2-3x/ano: efeitos neuroprotectivos",
+        "Para Empreendedor": "- Dizer não é crucial quando oportunidades aparecem\n- Relações reais > networking transaccional",
+        "Para Saúde Mental": "- TMS acelerado: opção para OCD/ansiedade\n- Meditar 10 min 2x/dia: minimum effective dose"
+      },
+      "frameworks": [
+        {
+          "name": "Soccer Study Trap",
+          "content": "Estudar futebol, treinar sozinho, querer ser perfeito — mas nunca jogar. Perguntar: estou a estudar ou a jogar?"
+        },
+        {
+          "name": "Energy In vs Energy Out",
+          "content": "Classificar relações por quem te dá energia vs. quem tira. Investir nas que nutrem."
+        },
+        {
+          "name": "Optimize for What?",
+          "content": "Antes de optimizar, interrogar a direcção. Estou a ficar bom a fazer algo que não devia?"
+        }
+      ],
+      "stories": [
+        {
+          "title": "A Virada com TMS + DCS",
+          "content": "Tim tinha 8/10 de sintomas OCD. Fez TMS, nada por 2-3 semanas, depois flip a switch — zero ansiedade. Último recurso: DCS + 1 dia TMS. Funcionou logo no dia seguinte. \"É uma vida diferente.\""
+        }
+      ],
+      "resources": [
+        {
+          "type": "Pessoas",
+          "description": "Nolan Williams (Stanford), Dominic D'Agostino (cetose), Neil Strauss"
+        },
+        {
+          "type": "Hardware TMS",
+          "description": "Brainsway, Mag Venture"
+        },
+        {
+          "type": "Livro",
+          "description": "The No Book (tim.blog/nobook)"
+        }
+      ],
       "quotes": [
-        "You can study soccer forever and never play.",
-        "Thinking about change is not changing."
+        "You can study soccer forever and never play soccer. You're always polishing this self and you never actually fucking play soccer.",
+        "If you lift weights and do TM, it will solve most of your problems. — Jerry Seinfeld",
+        "It's the relationships, stupid."
       ]
     },
     {
@@ -761,63 +830,205 @@
       "date": "2026-02-27",
       "title": "The Scary New Research On Sugar & How They Made You Addicted To It",
       "host": "The Diary of a CEO",
-      "guest": "Jessie Inchauspé (Glucose Goddess)",
+      "guest": "Jessie Inchauspé — Bioquímica, Glucose Goddess",
       "duration": "~2h",
       "link": "https://www.youtube.com/watch?v=Xm_PHZXGe-w",
-      "theme": "Glucose regulation, energy stability, and metabolic health",
-      "tldr": "Glucose spikes drive energy crashes and cravings, but simple meal-order and movement habits can reduce instability. Pregnancy nutrition was highlighted as a high-impact metabolic window.",
+      "theme": "Como a dieta na gravidez programa o DNA do bebé, e glucose hacks para todos",
+      "tldr": "A gravidez não é ser um \"forno\" passivo — a mãe co-cria o bebé através da dieta, programando vulnerabilidades a diabetes e problemas psiquiátricos. 90% das mães não têm colina suficiente (forma cérebro do bebé), e a maioria come 80g açúcar/dia vs. 25g recomendados. Glucose hacks simples aplicam-se a grávidas e todos.",
       "sections_summary": {
-        "Glucose spikes": "High-sugar meals can trigger crash-craving cycles",
-        "Simple interventions": "Fiber/protein first and post-meal walks reduce peaks",
-        "Pregnancy focus": "Maternal nutrition impacts long-term child health"
+        "Glucose e Humor": "- Estudo voodoo doll: glucose instável = mais irritação com cônjuge\n- Crash glucose: alerta biológico de falta de combustível\n- Hangry é real e mensurável",
+        "Mito do Forno": "- \"Bun in the oven\" implica passividade\n- FALSO: dieta programa DNA do bebé (epigenética)\n- Bebé recebe o que há, não o que precisa",
+        "Colina": "- Forma cérebro do bebé (memória, atenção)\n- 90% mães não têm suficiente\n- 4 ovos/dia = 450mg necessários\n- Custo: /semana",
+        "Açúcar na Gravidez": "- UK Sugar Ration: 15% menos diabetes nos bebés\n- Glucose alta → switches epigenéticos para diabetes\n- WHO: 25g/dia, mães comem 80g/dia",
+        "Glucose Hacks": "- Vegetais primeiro (fibra abranda glucose)\n- Movimento 90 min após comer\n- Calf raises no escritório\n- Proteína ao pequeno-almoço"
       },
+      "insights": [
+        {
+          "insight": "90% das mães não têm colina suficiente",
+          "why": "Cérebro do bebé forma-se suboptimamente"
+        },
+        {
+          "insight": "UK Sugar Ration: 15% menos diabetes em bebés",
+          "why": "Açúcar na gravidez programa vulnerabilidades"
+        },
+        {
+          "insight": "Bebé não \"recebe o que precisa\" — recebe o que há",
+          "why": "Mito que corpo providencia automaticamente"
+        },
+        {
+          "insight": "4 ovos/dia = toda a colina necessária",
+          "why": "Hack simples e barato (/semana)"
+        },
+        {
+          "insight": "Exercício 30 min/dia → bebés mais inteligentes",
+          "why": "BDNF passa da mãe para o bebé"
+        }
+      ],
       "actions": {
         "immediate": [
-          "Start meals with fiber/protein",
-          "Walk 10-15 min after main meals"
+          "Começar refeições com vegetais",
+          "Fazer calf raises após refeições doces",
+          "Caminhar 10-15 min após refeições"
         ],
         "week": [
-          "Adjust breakfast for lower glucose spikes"
+          "Pequeno-almoço com mais proteína",
+          "Comprar peixe gordo para 3 refeições",
+          "Testar standing desk após refeições"
         ],
         "longterm": [
-          "Track energy response to meals for better routines"
+          "Se planear gravidez: 4 ovos/dia + omega-3s",
+          "Monitorizar energia vs. refeições",
+          "Criar rotina de movimento pós-refeição"
         ]
       },
+      "context_application": {
+        "Para Atleta Endurance": "- Glucose estável = energia estável\n- Vegetais primeiro nas refeições pré-treino\n- Omega-3s para recuperação",
+        "Para Produtividade": "- Glucose crash = doom scrolling\n- Pequeno-almoço proteico = manhãs focadas\n- Standing desk após almoço = menos crash 15h",
+        "Para Futura Família": "- 4 ovos/dia (colina)\n- 3x peixe gordo/semana (omega-3s)\n- <25g açúcar/dia\n- Zero álcool"
+      },
+      "frameworks": [
+        {
+          "name": "Soil vs Oven",
+          "content": "Mãe não é forno passivo — é solo que co-cria a planta/bebé. Dieta é investimento activo."
+        },
+        {
+          "name": "Protein Leverage Hypothesis",
+          "content": "Corpo mantém fome até obter proteína suficiente. Cravings = provavelmente falta proteína."
+        },
+        {
+          "name": "90-Minute Window",
+          "content": "Glucose spike é máximo ~90 min após comer. Movimento nessa janela absorve glucose."
+        }
+      ],
+      "stories": [
+        {
+          "title": "UK Sugar Ration Experiment",
+          "content": "1940-1953: UK limitou açúcar a 10 cubos/dia. 60,000 pessoas nascidas antes/depois: os da época de racionamento tinham 15% menos diabetes tipo 2."
+        },
+        {
+          "title": "Jessie e Pré-Diabetes aos 25",
+          "content": "Quase desenvolveu pré-diabetes. Perguntou à mãe: \"Sumo laranja + cereais com açúcar todas as manhãs.\" Conexão possível com gravidez."
+        }
+      ],
+      "resources": [
+        {
+          "type": "Estudos",
+          "description": "Cornell (colina e QI), UK Sugar Ration, Melbourne (álcool facial morphing)"
+        },
+        {
+          "type": "Nutrientes",
+          "description": "Colina (ovos), DHA/Omega-3 (peixe gordo), Folato metilado"
+        },
+        {
+          "type": "Livro",
+          "description": "Nine Months That Counts Forever — Jessie Inchauspé"
+        }
+      ],
       "quotes": [
         "With your diet during pregnancy, you are programming your baby's DNA.",
-        "Small glucose hacks can change your whole day."
+        "Your baby doesn't get what he needs. He gets what's there and what you give him.",
+        "90% of moms are not getting enough choline during pregnancy."
       ]
     },
     {
       "id": "2026-02-27-lex-khabib-training",
       "filename": "2026-02-27-lex-khabib-training.md",
       "date": "2026-02-27",
-      "title": "Khabib vs Lex: Training with Khabib",
+      "title": "Training with Khabib",
       "host": "Lex Fridman",
-      "guest": "Khabib Nurmagomedov",
+      "guest": "Khabib Nurmagomedov — Campeão invicto UFC (29-0)",
       "duration": "~18 min",
       "link": "https://www.youtube.com/watch?v=KGVpKPNUdzA",
-      "theme": "Technique under pressure and disciplined training culture",
-      "tldr": "Short but intense training footage emphasizing pressure, repetition, and discipline. Useful crossover lessons for endurance training and high-performance routines.",
+      "theme": "Treino de grappling com um dos maiores lutadores — pressão e mentalidade",
+      "tldr": "Lex Fridman treina com Khabib e experimenta a lendária pressão. A filosofia de Khabib: \"Eu faço-te trabalhar. Tu gastas energia para te levantar. Porque é que eu tenho de forçar?\" Mentalidade campeã é construída no treino: 1h30 non-stop contra 4-5 oponentes.",
       "sections_summary": {
-        "Training environment": "Direct coaching and high standards",
-        "Pressure execution": "Technique must hold under fatigue",
-        "Mindset": "Consistency and humility drive long-term growth"
+        "Experiência da Pressão": "- Faixa preta sente-se faixa branca\n- \"This pressure is fucking insane\"\n- Ali: \"Ele não submete, afoga-te\"",
+        "Filosofia Khabib": "- Stay heavy, stay heavy\n- \"I make you work\"\n- Mentally smash > technically tap\n- Scramble after scramble",
+        "Treino Khabib-Style": "- Sessões 1h30 non-stop\n- 4-5 oponentes rotativos\n- \"How can somebody make me tired?\"\n- Desde 18-19: sempre high-level",
+        "Dan Gable Principle": "- Treinar até querer desistir — nunca lá chegar\n- \"That's why he's the best\""
       },
+      "insights": [
+        {
+          "insight": "\"I don't need to do nothing. You spend energy to get up.\"",
+          "why": "Eficiência máxima: deixar oponente gastar energia"
+        },
+        {
+          "insight": "Mentally smash, not tap — objetivo não é submissão",
+          "why": "Domínio psicológico > técnico"
+        },
+        {
+          "insight": "Treinos 1h30 non-stop com 4-5 oponentes",
+          "why": "Volume + intensidade = base de excelência"
+        },
+        {
+          "insight": "\"How can somebody make me tired?\"",
+          "why": "Mentalidade: impossível cansar"
+        },
+        {
+          "insight": "Desde 18-19: sempre contra high-level",
+          "why": "Crescer com os melhores"
+        }
+      ],
       "actions": {
         "immediate": [
-          "Add one fatigue-technique drill this week"
+          "Adicionar drill fadiga+técnica ao treino",
+          "Perguntar: treino com pessoas melhores que eu?",
+          "Focar em fazer adversário gastar energia"
         ],
         "week": [
-          "Request direct feedback after key sessions"
+          "Aumentar duração de uma sessão",
+          "Pedir feedback directo",
+          "Estudar técnica em câmara lenta"
         ],
         "longterm": [
-          "Build consistency routines independent of motivation"
+          "Construir rotinas independentes de motivação",
+          "Encontrar ambiente de alto nível",
+          "\"Keep going\" como default"
         ]
       },
+      "context_application": {
+        "Para Atleta Endurance": "- Pressão constante como estratégia\n- Treinar até querer parar e continuar\n- \"Como me podem cansar?\" para ultras",
+        "Para Empreendedor": "- Consistência diária mesmo sem motivação\n- Rodear-se de high-level peers\n- Outlast, não outrun"
+      },
+      "frameworks": [
+        {
+          "name": "I Make You Work",
+          "content": "Manter posição e deixar oponente gastar energia a escapar. Às vezes a melhor estratégia é pressão constante."
+        },
+        {
+          "name": "Mentally Smash",
+          "content": "Objectivo não é submissão técnica — é quebrar vontade. Consistência e pressão psicológica vencem."
+        },
+        {
+          "name": "Dan Gable Principle",
+          "content": "Treinar até querer desistir, mas nunca lá chegar. Se encontras limite, ainda tens para onde crescer."
+        }
+      ],
+      "stories": [
+        {
+          "title": "Lex Feels Like White Belt",
+          "content": "Lex é faixa preta BJJ. Contra Khabib: \"I feel like a white belt. I can't do shit.\" Níveis existem dentro de níveis."
+        },
+        {
+          "title": "1h30 Non-Stop",
+          "content": "Khabib: treinos de 1h30 contínuo, 4-5 oponentes rotativos. \"All my life, keep going, keep going.\""
+        }
+      ],
+      "resources": [
+        {
+          "type": "Pessoas",
+          "description": "Khabib, Islam Makhachev, Glover Teixeira, GSP, Dan Gable"
+        },
+        {
+          "type": "Conceitos",
+          "description": "Sambo, Master of Sports International"
+        }
+      ],
       "quotes": [
-        "Keep pressure.",
-        "Champion mindset is built in training."
+        "I don't need to do nothing. You have to spend your energy to get up. Why I have to force?",
+        "Mentally smash. Mentally smash.",
+        "Keep going. All my life, keep going, keep going.",
+        "If you die, you die. — Georges St-Pierre"
       ]
     }
   ]
