@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ship or Sink 🚢 - Stop procrastinating. Launch it.</title>
+    <meta name="description" content="Set a deadline. Share it publicly. Ship your side project or face the shame.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --yellow: #FFE600;
+            --red: #FF0000;
+            --blue: #0066FF;
+            --green: #00FF66;
+            --border: 4px solid var(--black);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: var(--yellow);
+            min-height: 100vh;
+            color: var(--black);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: var(--border);
+        }
+
+        h1 {
+            font-size: clamp(48px, 12vw, 120px);
+            font-weight: 700;
+            line-height: 0.9;
+            text-transform: uppercase;
+            letter-spacing: -4px;
+        }
+
+        h1 span {
+            display: block;
+        }
+
+        .tagline {
+            font-size: 18px;
+            margin-top: 20px;
+            background: var(--black);
+            color: var(--yellow);
+            display: inline-block;
+            padding: 10px 20px;
+            transform: rotate(-2deg);
+        }
+
+        /* Setup Form */
+        .setup-section {
+            background: var(--white);
+            border: var(--border);
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .setup-section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        input[type="text"],
+        input[type="datetime-local"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            font-family: 'Space Mono', monospace;
+            border: 3px solid var(--black);
+            background: var(--white);
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 6px 6px 0 var(--black);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            border: 3px solid var(--black);
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+
+        .btn:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 6px 6px 0 var(--black);
+        }
+
+        .btn:active {
+            transform: translate(0, 0);
+            box-shadow: none;
+        }
+
+        .btn-primary {
+            background: var(--blue);
+            color: var(--white);
+        }
+
+        .btn-danger {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .btn-success {
+            background: var(--green);
+            color: var(--black);
+        }
+
+        /* Countdown Display */
+        .countdown-section {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .project-name {
+            font-size: clamp(24px, 5vw, 48px);
+            background: var(--black);
+            color: var(--yellow);
+            display: inline-block;
+            padding: 10px 30px;
+            margin-bottom: 30px;
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .countdown-box {
+            background: var(--white);
+            border: var(--border);
+            padding: 20px;
+        }
+
+        .countdown-number {
+            font-size: clamp(36px, 10vw, 72px);
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        /* Shame Mode */
+        .shame-mode {
+            background: var(--red) !important;
+        }
+
+        .shame-mode .countdown-box {
+            background: var(--black);
+            color: var(--red);
+            border-color: var(--red);
+        }
+
+        .shame-mode .project-name {
+            background: var(--red);
+            color: var(--black);
+        }
+
+        .shame-mode .tagline,
+        .shame-mode header {
+            background: var(--red);
+        }
+
+        .shame-mode h1 {
+            color: var(--black);
+        }
+
+        /* Status Messages */
+        .status-message {
+            font-size: clamp(20px, 4vw, 32px);
+            padding: 20px;
+            margin: 20px 0;
+            border: var(--border);
+        }
+
+        .status-ontrack {
+            background: var(--green);
+        }
+
+        .status-warning {
+            background: var(--yellow);
+        }
+
+        .status-overdue {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        /* Brutal Quotes */
+        .brutal-quote {
+            font-size: clamp(16px, 3vw, 24px);
+            padding: 30px;
+            background: var(--black);
+            color: var(--yellow);
+            margin: 20px 0;
+            transform: rotate(-1deg);
+        }
+
+        /* Actions */
+        .actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        /* Share Section */
+        .share-section {
+            background: var(--white);
+            border: var(--border);
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .share-url {
+            width: 100%;
+            padding: 15px;
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            border: 2px solid var(--black);
+            background: var(--yellow);
+            margin-bottom: 10px;
+        }
+
+        /* Shipped State */
+        .shipped-section {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .shipped-emoji {
+            font-size: 120px;
+            animation: bounce 0.5s ease infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-20px); }
+        }
+
+        .shipped-message {
+            font-size: clamp(32px, 8vw, 72px);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin: 30px 0;
+        }
+
+        .shipped-stats {
+            font-size: 18px;
+            background: var(--black);
+            color: var(--green);
+            display: inline-block;
+            padding: 15px 30px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .stat-box {
+            background: var(--white);
+            border: var(--border);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            border-top: var(--border);
+            margin-top: 40px;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: var(--black);
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            .countdown-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Hidden */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>
+                <span>Ship</span>
+                <span>or</span>
+                <span>Sink</span>
+            </h1>
+            <div class="tagline">🚢 Stop procrastinating. Launch it.</div>
+        </header>
+
+        <!-- Setup Section -->
+        <section id="setup" class="setup-section">
+            <h2>⚡ Set Your Deadline</h2>
+            <div class="form-group">
+                <label for="projectName">Project Name</label>
+                <input type="text" id="projectName" placeholder="My awesome side project" required>
+            </div>
+            <div class="form-group">
+                <label for="deadline">Launch Deadline</label>
+                <input type="datetime-local" id="deadline" required>
+            </div>
+            <button class="btn btn-primary" onclick="startCountdown()">🚀 Start Countdown</button>
+        </section>
+
+        <!-- Countdown Section -->
+        <section id="countdown" class="countdown-section">
+            <div class="project-name" id="displayProjectName"></div>
+            
+            <div class="countdown-grid">
+                <div class="countdown-box">
+                    <div class="countdown-number" id="days">00</div>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-number" id="hours">00</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-number" id="minutes">00</div>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-number" id="seconds">00</div>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+
+            <div class="status-message" id="statusMessage"></div>
+            <div class="brutal-quote" id="brutalQuote"></div>
+
+            <div class="actions">
+                <button class="btn btn-success" onclick="markShipped()">✅ I SHIPPED IT!</button>
+                <button class="btn btn-danger" onclick="resetAll()">🗑️ Reset</button>
+            </div>
+
+            <div class="share-section">
+                <label>🔗 Share your shame (or glory):</label>
+                <input type="text" class="share-url" id="shareUrl" readonly onclick="copyUrl()">
+                <button class="btn" onclick="copyUrl()">📋 Copy Link</button>
+            </div>
+        </section>
+
+        <!-- Shipped Section -->
+        <section id="shipped" class="shipped-section">
+            <div class="shipped-emoji">🎉</div>
+            <div class="shipped-message">YOU SHIPPED IT!</div>
+            <div class="shipped-stats" id="shippedStats"></div>
+            
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-number" id="finalDays">0</div>
+                    <div class="stat-label">Days to Ship</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="finalStatus">🎯</div>
+                    <div class="stat-label">Status</div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-primary" onclick="resetAll()">🚀 New Project</button>
+                <button class="btn" onclick="shareResult()">📢 Share Win</button>
+            </div>
+        </section>
+
+        <footer>
+            <p>Built with ☕ & zero excuses by <a href="https://github.com/LuzGuilherme" target="_blank">@LuzGuilherme</a></p>
+            <p style="margin-top: 10px;">💡 Tip: Share your deadline publicly. Social pressure works.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Brutal quotes for motivation
+        const onTrackQuotes = [
+            "Good. You're not failing yet.",
+            "The clock is ticking. What are you waiting for?",
+            "Every hour you waste is an hour you'll regret.",
+            "Ship it ugly. Ship it broken. Just ship it.",
+            "Perfect is the enemy of shipped.",
+            "Your competitors aren't procrastinating.",
+            "Done is better than perfect. Always.",
+            "Stop tweaking. Start shipping.",
+            "The world doesn't need another unfinished project.",
+            "Nobody cares about your side project until you launch it."
+        ];
+
+        const warningQuotes = [
+            "Getting close. Nervous yet?",
+            "Time to cut features and ship.",
+            "Whatever isn't done by now, cut it.",
+            "The MVP means MINIMUM. Ship the minimum.",
+            "Last chance to ship with dignity.",
+            "Your deadline is watching you.",
+            "Excuses won't launch your product."
+        ];
+
+        const overdueQuotes = [
+            "You failed. Your deadline is dead.",
+            "Another unfinished project. Classic.",
+            "Your past self is disappointed in you.",
+            "Every day overdue is a day of shame.",
+            "You had one job: ship it. You didn't.",
+            "The graveyard of side projects claims another victim.",
+            "Still not shipped? Shocking.",
+            "Your deadline didn't care about your excuses. Neither do we."
+        ];
+
+        let countdownInterval;
+        let deadline;
+        let projectName;
+        let startTime;
+
+        // Check URL params on load
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const p = params.get('p'); // project name
+            const d = params.get('d'); // deadline timestamp
+            const s = params.get('s'); // start timestamp
+
+            if (p && d) {
+                projectName = decodeURIComponent(p);
+                deadline = new Date(parseInt(d));
+                startTime = s ? new Date(parseInt(s)) : new Date();
+                
+                document.getElementById('projectName').value = projectName;
+                showCountdown();
+            }
+
+            // Set default deadline to 7 days from now
+            const defaultDate = new Date();
+            defaultDate.setDate(defaultDate.getDate() + 7);
+            document.getElementById('deadline').value = defaultDate.toISOString().slice(0, 16);
+        };
+
+        function startCountdown() {
+            projectName = document.getElementById('projectName').value.trim();
+            const deadlineInput = document.getElementById('deadline').value;
+
+            if (!projectName) {
+                alert('Give your project a name!');
+                return;
+            }
+            if (!deadlineInput) {
+                alert('Set a deadline!');
+                return;
+            }
+
+            deadline = new Date(deadlineInput);
+            startTime = new Date();
+
+            if (deadline <= startTime) {
+                alert('Deadline must be in the future!');
+                return;
+            }
+
+            updateUrl();
+            showCountdown();
+        }
+
+        function showCountdown() {
+            document.getElementById('setup').classList.add('hidden');
+            document.getElementById('countdown').style.display = 'block';
+            document.getElementById('shipped').style.display = 'none';
+            document.getElementById('displayProjectName').textContent = projectName;
+            
+            updateUrl();
+            updateCountdown();
+            countdownInterval = setInterval(updateCountdown, 1000);
+        }
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = deadline - now;
+
+            const isOverdue = diff < 0;
+            const absDiff = Math.abs(diff);
+
+            const days = Math.floor(absDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((absDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((absDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((absDiff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+
+            const statusEl = document.getElementById('statusMessage');
+            const quoteEl = document.getElementById('brutalQuote');
+
+            if (isOverdue) {
+                document.body.classList.add('shame-mode');
+                statusEl.className = 'status-message status-overdue';
+                statusEl.innerHTML = `⚠️ ${days} DAYS OVERDUE`;
+                quoteEl.textContent = overdueQuotes[Math.floor(Math.random() * overdueQuotes.length)];
+            } else if (days < 1) {
+                document.body.classList.remove('shame-mode');
+                statusEl.className = 'status-message status-warning';
+                statusEl.innerHTML = '🔥 LESS THAN 24 HOURS!';
+                quoteEl.textContent = warningQuotes[Math.floor(Math.random() * warningQuotes.length)];
+            } else if (days < 3) {
+                document.body.classList.remove('shame-mode');
+                statusEl.className = 'status-message status-warning';
+                statusEl.innerHTML = '⏰ Final countdown...';
+                quoteEl.textContent = warningQuotes[Math.floor(Math.random() * warningQuotes.length)];
+            } else {
+                document.body.classList.remove('shame-mode');
+                statusEl.className = 'status-message status-ontrack';
+                statusEl.innerHTML = '✅ On track. Keep shipping.';
+                quoteEl.textContent = onTrackQuotes[Math.floor(Math.random() * onTrackQuotes.length)];
+            }
+        }
+
+        function updateUrl() {
+            const params = new URLSearchParams();
+            params.set('p', encodeURIComponent(projectName));
+            params.set('d', deadline.getTime());
+            params.set('s', startTime.getTime());
+            
+            const newUrl = window.location.pathname + '?' + params.toString();
+            window.history.replaceState({}, '', newUrl);
+            
+            document.getElementById('shareUrl').value = window.location.href;
+        }
+
+        function copyUrl() {
+            const urlInput = document.getElementById('shareUrl');
+            urlInput.select();
+            document.execCommand('copy');
+            alert('Link copied! Share your deadline publicly.');
+        }
+
+        function markShipped() {
+            clearInterval(countdownInterval);
+            
+            const now = new Date();
+            const totalTime = now - startTime;
+            const daysToShip = Math.ceil(totalTime / (1000 * 60 * 60 * 24));
+            const wasOnTime = now <= deadline;
+
+            document.getElementById('countdown').style.display = 'none';
+            document.getElementById('shipped').style.display = 'block';
+            document.body.classList.remove('shame-mode');
+            document.body.style.background = 'var(--green)';
+
+            document.getElementById('finalDays').textContent = daysToShip;
+            document.getElementById('finalStatus').textContent = wasOnTime ? '✅ ON TIME' : '⚠️ LATE';
+            document.getElementById('shippedStats').textContent = 
+                `${projectName} shipped in ${daysToShip} day${daysToShip === 1 ? '' : 's'}!`;
+        }
+
+        function shareResult() {
+            const daysToShip = document.getElementById('finalDays').textContent;
+            const text = `🚀 Just shipped "${projectName}" in ${daysToShip} days using Ship or Sink!\n\nStop procrastinating, start shipping: ${window.location.origin}${window.location.pathname}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Ship or Sink',
+                    text: text,
+                    url: window.location.origin + window.location.pathname
+                });
+            } else {
+                navigator.clipboard.writeText(text);
+                alert('Share text copied to clipboard!');
+            }
+        }
+
+        function resetAll() {
+            clearInterval(countdownInterval);
+            document.getElementById('setup').classList.remove('hidden');
+            document.getElementById('countdown').style.display = 'none';
+            document.getElementById('shipped').style.display = 'none';
+            document.body.classList.remove('shame-mode');
+            document.body.style.background = '';
+            document.getElementById('projectName').value = '';
+            window.history.replaceState({}, '', window.location.pathname);
+        }
+    </script>
+</body>
+</html>
