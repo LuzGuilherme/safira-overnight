@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Transformer | Repurpose Your Content</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fafafa;
+            --surface: #ffffff;
+            --text: #1a1a1a;
+            --text-muted: #666666;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --border: #e5e5e5;
+            --success: #059669;
+            --twitter: #1da1f2;
+            --linkedin: #0077b5;
+            --instagram: #e4405f;
+            --newsletter: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            background: var(--surface);
+        }
+
+        .logo {
+            font-family: 'Fraunces', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Main Layout */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 3rem;
+        }
+
+        @media (max-width: 1024px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Input Section */
+        .input-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-family: 'Fraunces', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 300px;
+            padding: 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            resize: vertical;
+            transition: border-color 0.2s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        textarea::placeholder {
+            color: #999;
+        }
+
+        .char-count {
+            text-align: right;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+        }
+
+        /* Transform Buttons */
+        .transform-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .transform-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: white;
+        }
+
+        .transform-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-twitter { background: var(--twitter); }
+        .btn-twitter:hover:not(:disabled) { background: #1a8cd8; }
+
+        .btn-linkedin { background: var(--linkedin); }
+        .btn-linkedin:hover:not(:disabled) { background: #006399; }
+
+        .btn-instagram { background: var(--instagram); }
+        .btn-instagram:hover:not(:disabled) { background: #d62d52; }
+
+        .btn-newsletter { background: var(--newsletter); }
+        .btn-newsletter:hover:not(:disabled) { background: #d97706; }
+
+        .btn-all {
+            grid-column: 1 / -1;
+            background: var(--accent);
+        }
+        .btn-all:hover:not(:disabled) { background: var(--accent-hover); }
+
+        /* Output Section */
+        .output-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .output-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .output-card.visible {
+            display: block;
+        }
+
+        .output-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            background: #fafafa;
+        }
+
+        .output-platform {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .output-platform.twitter { color: var(--twitter); }
+        .output-platform.linkedin { color: var(--linkedin); }
+        .output-platform.instagram { color: var(--instagram); }
+        .output-platform.newsletter { color: var(--newsletter); }
+
+        .output-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text);
+        }
+
+        .action-btn:hover {
+            background: var(--text);
+            color: white;
+            border-color: var(--text);
+        }
+
+        .action-btn.copied {
+            background: var(--success);
+            color: white;
+            border-color: var(--success);
+        }
+
+        .output-content {
+            padding: 1.25rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .output-meta {
+            padding: 0.75rem 1.25rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-muted);
+        }
+
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            opacity: 0.3;
+            margin-bottom: 1.5rem;
+        }
+
+        .empty-state h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.2rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Loading State */
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 2rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Sample Content Button */
+        .sample-btn {
+            margin-top: 1rem;
+            padding: 0.75rem 1.25rem;
+            background: transparent;
+            border: 1px dashed var(--border);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .sample-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Content Transformer</div>
+        <p class="tagline">Turn one piece of content into multiple platform-ready posts. Write once, publish everywhere.</p>
+    </header>
+
+    <main>
+        <div class="input-section">
+            <h2 class="section-title">
+                📝 Your Content
+                <span>Paste your article, blog post, or notes</span>
+            </h2>
+            <textarea id="sourceContent" placeholder="Paste your content here...
+
+Example: A blog post about productivity, a newsletter draft, meeting notes, or any text you want to repurpose for different platforms.
+
+The transformer will analyze your content and create optimized versions for each platform, maintaining your voice while adapting to each format's best practices."></textarea>
+            <div class="char-count"><span id="charCount">0</span> characters</div>
+            
+            <button class="sample-btn" onclick="loadSample()">📄 Load sample content to try</button>
+
+            <div class="transform-buttons">
+                <button class="transform-btn btn-twitter" onclick="transform('twitter')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    Twitter Thread
+                </button>
+                <button class="transform-btn btn-linkedin" onclick="transform('linkedin')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    LinkedIn Post
+                </button>
+                <button class="transform-btn btn-instagram" onclick="transform('instagram')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    Instagram Caption
+                </button>
+                <button class="transform-btn btn-newsletter" onclick="transform('newsletter')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    Newsletter Blurb
+                </button>
+                <button class="transform-btn btn-all" onclick="transformAll()">
+                    ✨ Transform All
+                </button>
+            </div>
+        </div>
+
+        <div class="output-section" id="outputSection">
+            <div class="empty-state" id="emptyState">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
+                </svg>
+                <h3>Ready to transform</h3>
+                <p>Paste your content and click a platform button to generate optimized posts</p>
+            </div>
+
+            <!-- Twitter Output -->
+            <div class="output-card" id="twitterOutput">
+                <div class="output-header">
+                    <div class="output-platform twitter">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        Twitter Thread
+                    </div>
+                    <div class="output-actions">
+                        <button class="action-btn" onclick="copyOutput('twitter')">Copy</button>
+                    </div>
+                </div>
+                <div class="output-content" id="twitterContent"></div>
+                <div class="output-meta">
+                    <span id="twitterTweets">0 tweets</span>
+                    <span id="twitterChars">0 characters total</span>
+                </div>
+            </div>
+
+            <!-- LinkedIn Output -->
+            <div class="output-card" id="linkedinOutput">
+                <div class="output-header">
+                    <div class="output-platform linkedin">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        LinkedIn Post
+                    </div>
+                    <div class="output-actions">
+                        <button class="action-btn" onclick="copyOutput('linkedin')">Copy</button>
+                    </div>
+                </div>
+                <div class="output-content" id="linkedinContent"></div>
+                <div class="output-meta">
+                    <span id="linkedinLines">0 lines</span>
+                    <span id="linkedinChars">0 characters</span>
+                </div>
+            </div>
+
+            <!-- Instagram Output -->
+            <div class="output-card" id="instagramOutput">
+                <div class="output-header">
+                    <div class="output-platform instagram">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        Instagram Caption
+                    </div>
+                    <div class="output-actions">
+                        <button class="action-btn" onclick="copyOutput('instagram')">Copy</button>
+                    </div>
+                </div>
+                <div class="output-content" id="instagramContent"></div>
+                <div class="output-meta">
+                    <span id="instagramHashtags">0 hashtags</span>
+                    <span id="instagramChars">0 characters</span>
+                </div>
+            </div>
+
+            <!-- Newsletter Output -->
+            <div class="output-card" id="newsletterOutput">
+                <div class="output-header">
+                    <div class="output-platform newsletter">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        Newsletter Blurb
+                    </div>
+                    <div class="output-actions">
+                        <button class="action-btn" onclick="copyOutput('newsletter')">Copy</button>
+                    </div>
+                </div>
+                <div class="output-content" id="newsletterContent"></div>
+                <div class="output-meta">
+                    <span id="newsletterWords">0 words</span>
+                    <span id="newsletterReadTime">0 min read</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Built with ☕ during a late-night coding session • <a href="https://github.com/luzguilherme" target="_blank">@luzguilherme</a></p>
+    </footer>
+
+    <script>
+        const sourceContent = document.getElementById('sourceContent');
+        const charCount = document.getElementById('charCount');
+        const emptyState = document.getElementById('emptyState');
+
+        // Character counter
+        sourceContent.addEventListener('input', () => {
+            charCount.textContent = sourceContent.value.length;
+        });
+
+        // Sample content
+        function loadSample() {
+            const sample = `The Future of Remote Work: 5 Trends Shaping 2025
+
+Remote work isn't going anywhere. In fact, it's evolving in ways we didn't expect.
+
+After analyzing data from over 500 companies, here are the key trends I've identified:
+
+1. Async-First Communication
+Companies are moving away from real-time meetings. The most productive teams now default to written communication, reserving sync time for creative collaboration and relationship building.
+
+2. Outcome-Based Performance
+Hours worked? Nobody cares anymore. What matters is results. This shift is forcing managers to become better at defining clear objectives and trusting their teams.
+
+3. Geographic Arbitrage is Mainstream
+It's no longer just digital nomads. Entire families are relocating to lower cost-of-living areas while keeping their high-paying remote jobs. This is reshaping housing markets globally.
+
+4. AI-Powered Productivity Tools
+From automated meeting summaries to AI assistants handling routine tasks, technology is amplifying what remote workers can achieve. The productivity gap between remote and office workers is widening—in favor of remote.
+
+5. The Rise of Third Spaces
+Home offices are getting competition. Co-working spaces, libraries, and even coffee shops with "work zones" are seeing increased demand as people seek variety and social interaction.
+
+The bottom line? Remote work is becoming more sophisticated, more productive, and more sustainable. Companies that embrace these trends will attract the best talent. Those that don't will struggle to compete.
+
+What trends are you seeing in your industry?`;
+            
+            sourceContent.value = sample;
+            charCount.textContent = sample.length;
+        }
+
+        // Transform content
+        function transform(platform) {
+            const content = sourceContent.value.trim();
+            if (!content) {
+                alert('Please paste some content first!');
+                return;
+            }
+
+            emptyState.style.display = 'none';
+
+            switch(platform) {
+                case 'twitter':
+                    generateTwitter(content);
+                    break;
+                case 'linkedin':
+                    generateLinkedin(content);
+                    break;
+                case 'instagram':
+                    generateInstagram(content);
+                    break;
+                case 'newsletter':
+                    generateNewsletter(content);
+                    break;
+            }
+        }
+
+        function transformAll() {
+            const content = sourceContent.value.trim();
+            if (!content) {
+                alert('Please paste some content first!');
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            generateTwitter(content);
+            generateLinkedin(content);
+            generateInstagram(content);
+            generateNewsletter(content);
+        }
+
+        // Extract key points from content
+        function extractKeyPoints(content) {
+            const lines = content.split('\n').filter(line => line.trim());
+            const points = [];
+            
+            // Find title
+            const title = lines[0] || '';
+            
+            // Find numbered points or bullet points
+            lines.forEach(line => {
+                if (/^\d+[\.\)]\s/.test(line) || /^[-•]\s/.test(line)) {
+                    points.push(line.replace(/^[\d\.\)\-•]\s*/, '').trim());
+                }
+            });
+
+            // Find paragraphs that aren't points
+            const paragraphs = lines.filter(line => 
+                !(/^\d+[\.\)]\s/.test(line) || /^[-•]\s/.test(line)) &&
+                line.length > 50
+            );
+
+            return { title, points, paragraphs };
+        }
+
+        // Twitter Thread Generator
+        function generateTwitter(content) {
+            const { title, points, paragraphs } = extractKeyPoints(content);
+            let tweets = [];
+
+            // Hook tweet
+            const hook = title || paragraphs[0] || 'Here\'s what I learned:';
+            tweets.push(`${hook}\n\nA thread 🧵👇`);
+
+            // Main points as tweets
+            points.forEach((point, i) => {
+                const emoji = ['💡', '🔥', '⚡', '✨', '🎯', '💪', '🚀', '📈'][i % 8];
+                tweets.push(`${i + 1}/ ${emoji} ${point}`);
+            });
+
+            // If no points, use paragraphs
+            if (points.length === 0 && paragraphs.length > 0) {
+                paragraphs.slice(0, 5).forEach((para, i) => {
+                    const shortened = para.length > 250 ? para.substring(0, 247) + '...' : para;
+                    tweets.push(`${i + 1}/ ${shortened}`);
+                });
+            }
+
+            // Closing tweet
+            tweets.push(`That's a wrap!\n\nIf you found this valuable:\n• Repost to share with others\n• Follow me for more insights\n\nWhat would you add? 👇`);
+
+            const output = tweets.join('\n\n---\n\n');
+            document.getElementById('twitterContent').textContent = output;
+            document.getElementById('twitterOutput').classList.add('visible');
+            document.getElementById('twitterTweets').textContent = `${tweets.length} tweets`;
+            document.getElementById('twitterChars').textContent = `${output.length} characters total`;
+        }
+
+        // LinkedIn Post Generator
+        function generateLinkedin(content) {
+            const { title, points, paragraphs } = extractKeyPoints(content);
+            let post = '';
+
+            // Strong opening
+            const opener = title || 'Here\'s something important I\'ve been thinking about:';
+            post += opener + '\n\n';
+            post += '↓\n\n';
+
+            // Story/context
+            if (paragraphs[1]) {
+                post += paragraphs[1] + '\n\n';
+            }
+
+            // Key points with emojis
+            if (points.length > 0) {
+                post += 'Here\'s what I\'ve learned:\n\n';
+                points.slice(0, 5).forEach((point, i) => {
+                    const emoji = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣'][i];
+                    post += `${emoji} ${point}\n\n`;
+                });
+            }
+
+            // Insight/takeaway
+            const lastPara = paragraphs[paragraphs.length - 1] || '';
+            if (lastPara) {
+                post += '—\n\n';
+                post += lastPara + '\n\n';
+            }
+
+            // CTA
+            post += '—\n\n';
+            post += 'Agree? Disagree? I\'d love to hear your thoughts.\n\n';
+            post += '♻️ Repost if this resonated\n';
+            post += '🔔 Follow for more insights like this';
+
+            document.getElementById('linkedinContent').textContent = post;
+            document.getElementById('linkedinOutput').classList.add('visible');
+            document.getElementById('linkedinLines').textContent = `${post.split('\n').length} lines`;
+            document.getElementById('linkedinChars').textContent = `${post.length} characters`;
+        }
+
+        // Instagram Caption Generator
+        function generateInstagram(content) {
+            const { title, points, paragraphs } = extractKeyPoints(content);
+            let caption = '';
+
+            // Hook (first line is crucial on Instagram)
+            const hook = title ? title.replace(/[:\-–—].*$/, '').trim() + ' ⚡' : '💡 Important insight:';
+            caption += hook + '\n\n';
+
+            // Short, punchy summary
+            if (paragraphs[1]) {
+                const short = paragraphs[1].substring(0, 150);
+                caption += short + (paragraphs[1].length > 150 ? '...' : '') + '\n\n';
+            }
+
+            // Key points as bullet list
+            if (points.length > 0) {
+                caption += 'Key takeaways:\n';
+                points.slice(0, 4).forEach(point => {
+                    const shortPoint = point.length > 60 ? point.substring(0, 57) + '...' : point;
+                    caption += `✦ ${shortPoint}\n`;
+                });
+                caption += '\n';
+            }
+
+            // CTA
+            caption += '💬 Which one resonates most with you? Drop a comment below!\n\n';
+            caption += '📲 Save this post for later\n';
+            caption += '📤 Share with someone who needs to see this\n\n';
+
+            // Hashtags (generic but relevant)
+            const hashtags = [
+                '#productivity', '#mindset', '#growth', '#success',
+                '#learning', '#motivation', '#business', '#entrepreneur',
+                '#career', '#personaldevelopment', '#tips', '#advice',
+                '#insights', '#strategy', '#goals'
+            ];
+            caption += '.\n.\n.\n';
+            caption += hashtags.slice(0, 12).join(' ');
+
+            const hashtagCount = (caption.match(/#\w+/g) || []).length;
+
+            document.getElementById('instagramContent').textContent = caption;
+            document.getElementById('instagramOutput').classList.add('visible');
+            document.getElementById('instagramHashtags').textContent = `${hashtagCount} hashtags`;
+            document.getElementById('instagramChars').textContent = `${caption.length} characters`;
+        }
+
+        // Newsletter Blurb Generator
+        function generateNewsletter(content) {
+            const { title, points, paragraphs } = extractKeyPoints(content);
+            let blurb = '';
+
+            // Headline
+            blurb += `## ${title || 'This Week\'s Insight'}\n\n`;
+
+            // Summary paragraph
+            if (paragraphs[1]) {
+                blurb += paragraphs[1] + '\n\n';
+            }
+
+            // Key points as bullet list
+            if (points.length > 0) {
+                blurb += '**Key takeaways:**\n\n';
+                points.slice(0, 5).forEach(point => {
+                    blurb += `- ${point}\n`;
+                });
+                blurb += '\n';
+            }
+
+            // Bottom line / insight
+            const lastPara = paragraphs[paragraphs.length - 1];
+            if (lastPara && lastPara !== paragraphs[1]) {
+                blurb += `**The bottom line:** ${lastPara}\n\n`;
+            }
+
+            // Soft CTA
+            blurb += '*What do you think? Hit reply and let me know your thoughts.*';
+
+            const wordCount = blurb.split(/\s+/).length;
+            const readTime = Math.ceil(wordCount / 200);
+
+            document.getElementById('newsletterContent').textContent = blurb;
+            document.getElementById('newsletterOutput').classList.add('visible');
+            document.getElementById('newsletterWords').textContent = `${wordCount} words`;
+            document.getElementById('newsletterReadTime').textContent = `${readTime} min read`;
+        }
+
+        // Copy to clipboard
+        async function copyOutput(platform) {
+            const content = document.getElementById(`${platform}Content`).textContent;
+            await navigator.clipboard.writeText(content);
+            
+            const btn = event.target;
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            
+            setTimeout(() => {
+                btn.textContent = 'Copy';
+                btn.classList.remove('copied');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
