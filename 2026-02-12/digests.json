@@ -1,7 +1,128 @@
 {
-  "generated": "2026-02-27T01:00:00.000000Z",
-  "count": 12,
+  "generated": "2026-03-01T01:00:00.000000Z",
+  "count": 13,
   "digests": [
+    {
+      "id": "2026-03-01-lex-fridman-state-of-ai-2026",
+      "filename": "2026-03-01-lex-fridman-state-of-ai-2026.md",
+      "date": "2026-03-01",
+      "title": "State of AI in 2026: LLMs, Coding, Scaling Laws, China, Agents, GPUs, AGI",
+      "host": "Lex Fridman Podcast (#490)",
+      "guest": "Nathan Lambert (Allen Institute for AI) & Sebastian Raschka (ML Researcher/Author)",
+      "duration": "~4h30m",
+      "link": "https://www.youtube.com/watch?v=EV7WhVT270Q",
+      "theme": "Estado da arte em IA em 2026 - modelos, tendências, China vs US, futuro de AGI",
+      "tldr": "O mercado de IA em 2026 está fragmentado: Claude Opus 3.5 domina coding (hype orgânico no X), ChatGPT mantém share de utilizadores casuais, e Gemini avança em contexto longo. China (DeepSeek, Kimi, MiniMax) continua a libertar modelos open-weight como estratégia de influência, mas EUA mantém vantagem em qualidade. A diferenciação já não é tecnológica (ideias fluem livremente) - é sobre budget, hardware, e cultura organizacional.",
+      "sections_summary": {
+        "China vs US": "- Não há vencedor claro — ideias fluem entre labs\n- DeepSeek inspirou wave de modelos chineses (Kimi, MiniMax, Zhipu AI)\n- Empresas chinesas usam open-weights como soft power\n- Menos GPUs por réplica → mais lento mas mais barato",
+        "ChatGPT vs Claude vs Gemini vs Grok": "- Claude Opus 3.5 = darling do X, especialmente coding\n- ChatGPT = incumbente com muscle memory\n- Gemini = progresso em long context\n- Grok-3 Heavy = surpreendentemente bom para debugging\n- Futuro = múltiplas subscrições",
+        "Best AI for Coding": "- Claude Code = experiência diferente, 'programar em inglês'\n- Cursor = controlo granular\n- Codeium = sweet spot ajuda sem controlo total\n- Sebastian: prefere controlo\n- Nathan: sempre usa extended thinking",
+        "Scaling & Training": "- Mid-training = nova fase (domain adaptation)\n- Scaling laws não morreram mas retornos diminuem\n- Text diffusion = nova área promissora"
+      },
+      "insights": [
+        {
+          "insight": "Ideias fluem livremente entre labs — diferenciação é budget/hardware",
+          "why": "Não apostar em 'segredo tecnológico'"
+        },
+        {
+          "insight": "Claude Opus 3.5 hype é orgânico vs Gemini foi marketing",
+          "why": "Atenção ao que people actually use vs talk about"
+        },
+        {
+          "insight": "Múltiplas subscrições LLM é o novo normal",
+          "why": "Different models for different tasks"
+        },
+        {
+          "insight": "'Programar em inglês' é skill separada",
+          "why": "Vale desenvolver, não substitui fundamentos"
+        },
+        {
+          "insight": "Extended thinking sempre > non-thinking para info crítica",
+          "why": "Sempre usar para pesquisa/trabalho sério"
+        },
+        {
+          "insight": "'Use it until it breaks' — não comparar constantemente",
+          "why": "Usar modelo até falhar significativamente"
+        }
+      ],
+      "actions": {
+        "immediate": [
+          "Considerar Claude Pro para coding",
+          "Testar extended thinking no ChatGPT"
+        ],
+        "week": [
+          "Experimentar Grok-3 Heavy para debug",
+          "Avaliar Gemini para long context tasks"
+        ],
+        "longterm": [
+          "Ler 'Build LLM from Scratch' (Sebastian Raschka)",
+          "Desenvolver skill de 'programar em inglês'"
+        ]
+      },
+      "context_application": {
+        "Para Empreendedor": "- Claude Code acelera MVPs\n- DeepSeek = custo muito mais baixo para startups\n- Skill de prompting eficaz = vantagem",
+        "Para Produtividade": "- Multiple models strategy\n- Extended thinking para info importante\n- Build muscle memory com ferramentas certas"
+      },
+      "frameworks": [
+        {
+          "name": "Use it until it breaks",
+          "content": "Usar um modelo até falhar significativamente, depois explorar alternativas. Não perder tempo comparando constantemente."
+        },
+        {
+          "name": "Winning has multiple timescales",
+          "content": "Vencer hoje ≠ vencer em 1 ano ≠ vencer em 10 anos. Avaliar tecnologias em diferentes horizontes."
+        },
+        {
+          "name": "Budget/Hardware > Ideas",
+          "content": "Ideias fluem, recursos não. Para startups, focar em execução, não 'segredos'."
+        }
+      ],
+      "stories": [
+        {
+          "title": "Sebastian unplugs GPU before trip",
+          "content": "Sebastian tinha de sair, acidentalmente desligou GPU. Precisava Bash script em 10 segundos. Usou modelo rápido (non-thinking) — right tool for the job."
+        }
+      ],
+      "resources": [
+        {
+          "type": "Livros",
+          "description": "Build a Large Language Model from Scratch (Sebastian Raschka), The RLHF Book (Nathan Lambert)"
+        },
+        {
+          "type": "Ferramentas",
+          "description": "Claude Code, Cursor, Codeium, ChatGPT, Gemini, Grok, DeepSeek"
+        },
+        {
+          "type": "Labs",
+          "description": "OpenAI, Anthropic, Google (Gemini), xAI (Grok), DeepSeek, Kimi/Moonshot, MiniMax"
+        }
+      ],
+      "quotes": [
+        "I don't think nowadays, in 2026, that there will be any company having access to a technology that no other company has access to.",
+        "You use it until it breaks, and then you change the LLM.",
+        "The best way to learn is to build it yourself from scratch."
+      ],
+      "rating": 5.0,
+      "rating_breakdown": {
+        "Novidade da informação": 5,
+        "Aplicabilidade prática": 4,
+        "Qualidade da conversa": 5,
+        "Recomendo a outros": 5
+      },
+      "tags": [
+        "ai",
+        "llm",
+        "coding",
+        "productivity",
+        "startup",
+        "openai",
+        "claude",
+        "deepseek",
+        "china",
+        "lex-fridman"
+      ],
+      "verdict": "Episódio OBRIGATÓRIO para quem trabalha com AI. Sebastian e Nathan são dois dos melhores comunicadores técnicos. 4h30 bem investidas."
+    },
     {
       "id": "2026-02-25-endurance-asia-tommy-lewis",
       "filename": "2026-02-25-endurance-asia-tommy-lewis.md",
