@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TL;DR Terms - Decode Any Terms & Conditions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7C3AED;
+            --primary-light: #A78BFA;
+            --secondary: #F59E0B;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --bg: #FAFAFA;
+            --card: #FFFFFF;
+            --text: #1F2937;
+            --text-light: #6B7280;
+            --border: #E5E7EB;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        
+        .logo-emoji {
+            font-size: 2.5rem;
+            -webkit-text-fill-color: initial;
+        }
+        
+        .tagline {
+            color: var(--text-light);
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+        
+        /* Input Section */
+        .input-section {
+            background: var(--card);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            margin-bottom: 2rem;
+        }
+        
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            resize: vertical;
+            transition: all 0.2s ease;
+            background: #F9FAFB;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            background: white;
+        }
+        
+        textarea::placeholder {
+            color: #9CA3AF;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.875rem 1.75rem;
+            border: none;
+            border-radius: 12px;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #9333EA 100%);
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(124, 58, 237, 0.39);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px 0 rgba(124, 58, 237, 0.45);
+        }
+        
+        .btn-secondary {
+            background: var(--bg);
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--primary-light);
+            background: white;
+        }
+        
+        /* Results */
+        .results {
+            display: none;
+        }
+        
+        .results.active {
+            display: block;
+            animation: slideUp 0.4s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Score Card */
+        .score-card {
+            background: var(--card);
+            border-radius: 24px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+        
+        .score-title {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .score-value {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .score-good { color: var(--success); }
+        .score-medium { color: var(--warning); }
+        .score-bad { color: var(--danger); }
+        
+        .score-label {
+            font-size: 1.25rem;
+            font-weight: 700;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+        
+        .label-good {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+        
+        .label-medium {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+        
+        .label-bad {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+        
+        /* Summary */
+        .summary-card {
+            background: var(--card);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+        
+        .summary-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .summary-text {
+            color: var(--text);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        
+        /* Findings Grid */
+        .findings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .finding-card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+        
+        .finding-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .finding-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .finding-icon.red { background: #FEE2E2; }
+        .finding-icon.yellow { background: #FEF3C7; }
+        .finding-icon.green { background: #D1FAE5; }
+        .finding-icon.blue { background: #DBEAFE; }
+        
+        .finding-title {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        
+        .finding-count {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        .finding-list {
+            list-style: none;
+        }
+        
+        .finding-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+        
+        .finding-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .finding-list li::before {
+            content: '•';
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        /* Key Points */
+        .key-points {
+            background: linear-gradient(135deg, #EEF2FF 0%, #FDF2F8 100%);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .key-points-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .key-point {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 16px;
+        }
+        
+        .key-point:last-child {
+            margin-bottom: 0;
+        }
+        
+        .key-point-number {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .key-point-text {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        /* Examples Section */
+        .examples {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px dashed var(--border);
+        }
+        
+        .examples-title {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+        
+        .example-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+        
+        .example-btn {
+            padding: 0.75rem 1.25rem;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 50px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .example-btn:hover {
+            border-color: var(--primary);
+            background: #F5F3FF;
+            transform: scale(1.02);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        /* Loading State */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+        
+        .loading.active {
+            display: block;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            color: var(--text-light);
+            font-weight: 600;
+        }
+        
+        /* Responsive */
+        @media (max-width: 640px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .score-value {
+                font-size: 4rem;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span class="logo-emoji">📜</span>
+                <span>TL;DR Terms</span>
+            </div>
+            <p class="tagline">Decode any Terms & Conditions in seconds ✨</p>
+        </header>
+        
+        <section class="input-section">
+            <label class="input-label">
+                <span>📋</span>
+                <span>Paste your Terms & Conditions</span>
+            </label>
+            <textarea id="termsInput" placeholder="Paste the terms and conditions, privacy policy, or any legal text here...
+
+Example: 'By using our service, you agree to allow us to collect and share your personal information with third-party partners for marketing purposes...'"></textarea>
+            <div class="buttons">
+                <button class="btn btn-primary" onclick="analyzeTerms()">
+                    <span>🔍</span>
+                    <span>Decode This!</span>
+                </button>
+                <button class="btn btn-secondary" onclick="clearInput()">
+                    <span>🗑️</span>
+                    <span>Clear</span>
+                </button>
+            </div>
+        </section>
+        
+        <section class="loading" id="loading">
+            <div class="spinner"></div>
+            <p class="loading-text">Analyzing legal jargon... 🤓</p>
+        </section>
+        
+        <section class="results" id="results">
+            <!-- Score Card -->
+            <div class="score-card">
+                <div class="score-title">Privacy & Fairness Score</div>
+                <div class="score-value" id="scoreValue">7.2</div>
+                <div class="score-label" id="scoreLabel">Pretty Good</div>
+            </div>
+            
+            <!-- Summary -->
+            <div class="summary-card">
+                <div class="summary-title">
+                    <span>💡</span>
+                    <span>Plain English Summary</span>
+                </div>
+                <p class="summary-text" id="summaryText"></p>
+            </div>
+            
+            <!-- Key Points -->
+            <div class="key-points">
+                <div class="key-points-title">
+                    <span>⚡</span>
+                    <span>Key Points You Should Know</span>
+                </div>
+                <div id="keyPointsList"></div>
+            </div>
+            
+            <!-- Findings Grid -->
+            <div class="findings-grid" id="findingsGrid"></div>
+        </section>
+        
+        <section class="examples">
+            <p class="examples-title">Try with popular examples:</p>
+            <div class="example-buttons">
+                <button class="example-btn" onclick="loadExample('netflix')">
+                    <span>🎬</span> Netflix-style
+                </button>
+                <button class="example-btn" onclick="loadExample('social')">
+                    <span>📱</span> Social Media
+                </button>
+                <button class="example-btn" onclick="loadExample('saas')">
+                    <span>☁️</span> SaaS Service
+                </button>
+                <button class="example-btn" onclick="loadExample('ecommerce')">
+                    <span>🛒</span> E-commerce
+                </button>
+                <button class="example-btn" onclick="loadExample('fitness')">
+                    <span>💪</span> Fitness App
+                </button>
+            </div>
+        </section>
+        
+        <footer>
+            <p>Built with 💜 by <a href="https://github.com/luzguilherme">Safira</a> • Overnight Build 2026-03-02</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">Note: This is a demo that simulates analysis. Real implementation would use AI.</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Example terms
+        const examples = {
+            netflix: `Terms of Use
+
+1. Membership and Billing
+Your Netflix membership will continue until terminated. To use the Netflix service you must have Internet access and a Netflix ready device, and provide us with one or more Payment Methods. "Payment Method" means a current, valid, accepted method of payment.
+
+2. Privacy
+We collect information you provide to us, information we collect automatically when you use our services, and information from other sources. We may share your information with our affiliates and subsidiaries, service providers, partners for marketing, and as required by law.
+
+3. Content Viewing
+We grant you a limited, non-exclusive, non-transferable right to access the Netflix content. You may not download (other than through permitted features), copy, modify, distribute, or transfer any content.
+
+4. Account Sharing
+Netflix membership is for your personal and non-commercial use only. You may share your account with members of your household. We may limit the number of devices or simultaneous streams.
+
+5. Cancellation
+You can cancel your membership at any time and continue to have access to the Netflix service through the end of your billing period. We do not provide refunds for any partial billing periods.`,
+
+            social: `Terms of Service & Privacy Policy
+
+1. Data Collection
+We collect: profile information, content you create, your contacts (if you grant access), device information, location data, browsing history, interactions with ads, messages and communications, and biometric data for face filters.
+
+2. Data Usage
+We use your data to: personalize your experience, show you targeted advertisements, improve our products, conduct research, share with our family of companies, and share with third-party advertising partners.
+
+3. Data Retention
+We retain your data for as long as your account is active and for 5 years after deletion. Some data may be retained indefinitely for legal or business purposes.
+
+4. Content Rights
+By posting content, you grant us a non-exclusive, royalty-free, worldwide, transferable license to use, copy, modify, distribute, and create derivative works from your content. This license survives account deletion.
+
+5. Dispute Resolution
+You agree to resolve all disputes through binding arbitration rather than in court. You waive your right to participate in class action lawsuits.
+
+6. Changes to Terms
+We may modify these terms at any time. Continued use constitutes acceptance. We will try to notify you of material changes but are not obligated to do so.`,
+
+            saas: `Software as a Service Agreement
+
+1. Service Access
+You receive a limited, non-exclusive license to access our cloud software. Your subscription includes 100GB storage and 10 team members. Additional usage is billed monthly.
+
+2. Your Data
+You retain ownership of your data. We have a license to process your data to provide the service. Your data is encrypted at rest and in transit. We perform daily backups.
+
+3. Uptime Guarantee
+We aim for 99.9% uptime. In case of downtime exceeding this, you may receive service credits. Maximum liability is limited to one month's subscription fee.
+
+4. Termination
+Either party may terminate with 30 days notice. Upon termination, you have 30 days to export your data. After that, data will be permanently deleted.
+
+5. Security
+We implement industry-standard security measures including SOC 2 compliance. You are responsible for maintaining secure login credentials and reporting any suspected breaches immediately.
+
+6. Support
+Business plan includes email support (24-48h response). Enterprise plan includes priority support and dedicated account manager.`,
+
+            ecommerce: `Terms & Conditions
+
+1. Orders and Pricing
+All prices are subject to change without notice. We reserve the right to cancel any order for any reason. Product images are for illustration only.
+
+2. Shipping
+Orders are typically shipped within 3-5 business days. Shipping times are estimates only and not guaranteed. Risk of loss passes to you upon delivery to carrier.
+
+3. Returns
+Returns accepted within 30 days of purchase. Items must be unused and in original packaging. Restocking fee of 15% may apply. Shipping costs are non-refundable.
+
+4. Warranty
+Products come with manufacturer warranty only. We make no additional warranties. Maximum liability is limited to purchase price.
+
+5. Communications
+By making a purchase, you consent to receive promotional emails, SMS messages, and phone calls. You may opt out at any time.
+
+6. Disputes
+All disputes shall be resolved through binding arbitration in our home jurisdiction. You waive the right to jury trial and class action participation.`,
+
+            fitness: `App Terms of Service
+
+1. Health Disclaimer
+This app is not medical advice. Consult a physician before starting any exercise program. We are not responsible for any injuries sustained while following app guidance.
+
+2. Data Collection
+We collect: health metrics (heart rate, weight, activity), location during workouts, connected device data, photos you upload, and usage patterns. Data may be shared with research partners in anonymized form.
+
+3. Subscription
+Free tier: limited features. Premium: $12.99/month or $99.99/year. Prices may change with notice. Auto-renewal can be turned off in settings.
+
+4. Content
+Workout videos and plans are for personal use only. You may not record, redistribute, or commercially use any content.
+
+5. Community Guidelines
+User-generated content must not be offensive, misleading, or infringe copyrights. We may remove content and suspend accounts at our discretion.
+
+6. Challenges and Competitions
+Virtual challenges are for entertainment only. Physical prizes, if any, subject to availability and additional terms.`
+        };
+        
+        // Analysis patterns (simulated)
+        const analysisPatterns = {
+            dataCollection: {
+                icon: '📊',
+                title: 'Data Collection',
+                iconClass: 'blue',
+                patterns: [
+                    'personal information', 'collect', 'data', 'tracking', 'cookies',
+                    'location', 'browsing', 'device', 'biometric', 'contacts'
+                ]
+            },
+            sharing: {
+                icon: '🔄',
+                title: 'Data Sharing',
+                iconClass: 'yellow',
+                patterns: [
+                    'share', 'third-party', 'partners', 'affiliates', 'advertisers',
+                    'marketing', 'transfer', 'disclose'
+                ]
+            },
+            rights: {
+                icon: '⚖️',
+                title: 'Your Rights Given Away',
+                iconClass: 'red',
+                patterns: [
+                    'license', 'waive', 'arbitration', 'class action', 'lawsuit',
+                    'royalty-free', 'transferable', 'derivative'
+                ]
+            },
+            good: {
+                icon: '✅',
+                title: 'Good Practices',
+                iconClass: 'green',
+                patterns: [
+                    'encrypted', 'security', 'delete', 'export', 'cancel anytime',
+                    'opt out', 'refund', 'ownership', 'SOC 2'
+                ]
+            }
+        };
+        
+        function analyzeTerms() {
+            const input = document.getElementById('termsInput').value;
+            if (!input.trim()) {
+                alert('Please paste some terms and conditions first! 📋');
+                return;
+            }
+            
+            // Show loading
+            document.getElementById('loading').classList.add('active');
+            document.getElementById('results').classList.remove('active');
+            
+            // Simulate analysis delay
+            setTimeout(() => {
+                const analysis = performAnalysis(input);
+                displayResults(analysis);
+                
+                document.getElementById('loading').classList.remove('active');
+                document.getElementById('results').classList.add('active');
+            }, 1500);
+        }
+        
+        function performAnalysis(text) {
+            const lowerText = text.toLowerCase();
+            const wordCount = text.split(/\s+/).length;
+            
+            let findings = {};
+            let score = 7.0;
+            let keyPoints = [];
+            
+            // Analyze each category
+            for (const [key, config] of Object.entries(analysisPatterns)) {
+                const matches = [];
+                config.patterns.forEach(pattern => {
+                    if (lowerText.includes(pattern)) {
+                        matches.push(pattern);
+                    }
+                });
+                
+                if (matches.length > 0) {
+                    findings[key] = {
+                        ...config,
+                        matches: matches
+                    };
+                }
+            }
+            
+            // Calculate score based on findings
+            if (findings.dataCollection && findings.dataCollection.matches.length > 3) {
+                score -= 1.5;
+                keyPoints.push('They collect extensive data including ' + findings.dataCollection.matches.slice(0, 3).join(', '));
+            }
+            
+            if (findings.sharing && findings.sharing.matches.length > 2) {
+                score -= 2;
+                keyPoints.push('Your data may be shared with third parties for ' + (lowerText.includes('marketing') ? 'marketing purposes' : 'various purposes'));
+            }
+            
+            if (findings.rights && findings.rights.matches.length > 0) {
+                score -= 1.5;
+                if (lowerText.includes('arbitration')) {
+                    keyPoints.push('You give up your right to sue in court (forced arbitration)');
+                }
+                if (lowerText.includes('royalty-free')) {
+                    keyPoints.push('They get free rights to use your content');
+                }
+            }
+            
+            if (findings.good && findings.good.matches.length > 2) {
+                score += 1;
+                keyPoints.push('Good news: They mention ' + findings.good.matches.slice(0, 2).join(' and '));
+            }
+            
+            // Bonus/penalties for specific things
+            if (lowerText.includes('delete your data')) score += 0.5;
+            if (lowerText.includes('cancel anytime')) score += 0.3;
+            if (lowerText.includes('biometric')) score -= 0.5;
+            if (lowerText.includes('indefinitely')) score -= 0.5;
+            if (lowerText.includes('without notice')) score -= 0.3;
+            
+            // Clamp score
+            score = Math.max(1, Math.min(10, score));
+            score = Math.round(score * 10) / 10;
+            
+            // Generate summary
+            let summary = generateSummary(text, findings, score);
+            
+            // Add default key points if needed
+            if (keyPoints.length < 3) {
+                if (wordCount > 500) {
+                    keyPoints.push(`This is a ${wordCount > 1000 ? 'very ' : ''}long document (${wordCount} words) - typical for this type of service`);
+                }
+                if (!keyPoints.some(p => p.includes('cancel'))) {
+                    keyPoints.push(lowerText.includes('cancel') ? 'Cancellation is mentioned in the terms' : 'Check cancellation policy carefully');
+                }
+            }
+            
+            return { score, findings, keyPoints: keyPoints.slice(0, 5), summary };
+        }
+        
+        function generateSummary(text, findings, score) {
+            const parts = [];
+            
+            if (score >= 7) {
+                parts.push("This looks like a fairly standard agreement with reasonable terms.");
+            } else if (score >= 5) {
+                parts.push("This agreement has some concerning clauses worth knowing about.");
+            } else {
+                parts.push("Heads up - this agreement has several terms that you should carefully consider.");
+            }
+            
+            if (findings.dataCollection) {
+                parts.push("They collect various types of user data.");
+            }
+            
+            if (findings.sharing) {
+                parts.push("Your information may be shared with third parties.");
+            }
+            
+            if (findings.rights && findings.rights.matches.includes('arbitration')) {
+                parts.push("Disputes must go through arbitration rather than court.");
+            }
+            
+            if (findings.good && findings.good.matches.length > 1) {
+                parts.push("On the positive side, they mention some good security or privacy practices.");
+            }
+            
+            return parts.join(" ");
+        }
+        
+        function displayResults(analysis) {
+            // Score
+            const scoreEl = document.getElementById('scoreValue');
+            const labelEl = document.getElementById('scoreLabel');
+            
+            scoreEl.textContent = analysis.score;
+            scoreEl.className = 'score-value';
+            labelEl.className = 'score-label';
+            
+            if (analysis.score >= 7) {
+                scoreEl.classList.add('score-good');
+                labelEl.classList.add('label-good');
+                labelEl.textContent = '👍 Pretty Good';
+            } else if (analysis.score >= 5) {
+                scoreEl.classList.add('score-medium');
+                labelEl.classList.add('label-medium');
+                labelEl.textContent = '⚠️ Proceed with Caution';
+            } else {
+                scoreEl.classList.add('score-bad');
+                labelEl.classList.add('label-bad');
+                labelEl.textContent = '🚨 Watch Out!';
+            }
+            
+            // Summary
+            document.getElementById('summaryText').textContent = analysis.summary;
+            
+            // Key Points
+            const keyPointsEl = document.getElementById('keyPointsList');
+            keyPointsEl.innerHTML = analysis.keyPoints.map((point, i) => `
+                <div class="key-point">
+                    <div class="key-point-number">${i + 1}</div>
+                    <div class="key-point-text">${point}</div>
+                </div>
+            `).join('');
+            
+            // Findings Grid
+            const gridEl = document.getElementById('findingsGrid');
+            gridEl.innerHTML = Object.entries(analysis.findings).map(([key, data]) => `
+                <div class="finding-card">
+                    <div class="finding-header">
+                        <div class="finding-icon ${data.iconClass}">${data.icon}</div>
+                        <div>
+                            <div class="finding-title">${data.title}</div>
+                            <div class="finding-count">${data.matches.length} mention${data.matches.length > 1 ? 's' : ''}</div>
+                        </div>
+                    </div>
+                    <ul class="finding-list">
+                        ${data.matches.slice(0, 4).map(m => `<li>${m}</li>`).join('')}
+                        ${data.matches.length > 4 ? `<li>+${data.matches.length - 4} more...</li>` : ''}
+                    </ul>
+                </div>
+            `).join('');
+        }
+        
+        function loadExample(type) {
+            document.getElementById('termsInput').value = examples[type];
+            document.getElementById('termsInput').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function clearInput() {
+            document.getElementById('termsInput').value = '';
+            document.getElementById('results').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
