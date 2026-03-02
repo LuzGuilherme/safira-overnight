@@ -1,7 +1,154 @@
 {
-  "generated": "2026-03-01T01:00:00.000000Z",
-  "count": 13,
+  "generated": "2026-03-02T01:00:00.000000Z",
+  "count": 16,
   "digests": [
+    {
+      "id": "2026-03-02-uber-ceo-doac",
+      "filename": "2026-03-02-uber-ceo-doac.md",
+      "date": "2026-03-02",
+      "title": "Uber CEO: I Have To Be Honest, AI Will Replace 9.4 Million Jobs At Uber!",
+      "host": "Diary of a CEO (Steven Bartlett)",
+      "guest": "Dara Khosrowshahi (CEO Uber)",
+      "duration": "~90 min",
+      "link": "https://www.youtube.com/watch?v=s52O1JH2tnU",
+      "theme": "Liderança empresarial, impacto da IA no trabalho, e a jornada de um imigrante iraniano a CEO da Uber",
+      "tldr": "Dara Khosrowshahi transformou a Uber de uma empresa que perdia $3 biliões/ano para uma que gera $8.5 biliões em free cash flow. É brutalmente honesto sobre IA: 9.4 milhões de motoristas serão substituídos por veículos autónomos em 15-20 anos. O CEO defende que hard work é learned skill, e que não se deve fazer planos de carreira rígidos — deixar o mundo mudar-te primeiro.",
+      "insights": [
+        {
+          "insight": "Hard work is a learned skill, not genetic",
+          "why": "Remove desculpas — trabalho duro é treinável"
+        },
+        {
+          "insight": "AI will replace 9.4M Uber drivers in 15-20 years",
+          "why": "Disruption real está a chegar"
+        },
+        {
+          "insight": "Don't plan your career — lose curiosity with rigid plans",
+          "why": "Oportunidades vêm de estar aberto"
+        },
+        {
+          "insight": "UBI tests have all failed — purpose comes from work",
+          "why": "Propósito vem de criar valor"
+        },
+        {
+          "insight": "Let the world change you first",
+          "why": "Absorver antes de tentar mudar"
+        }
+      ],
+      "quotes": [
+        "The most important skill in life is the skill of working hard. That's a learned skill.",
+        "Since when is life about being happy? It's about making impact. — Daniel Ek",
+        "Don't plan. Let the world change you first.",
+        "That conversation with my dad — you can't get time back."
+      ],
+      "rating": 5.0,
+      "tags": [
+        "leadership",
+        "ai",
+        "uber",
+        "career",
+        "immigrant-founder",
+        "work-ethic"
+      ]
+    },
+    {
+      "id": "2026-03-02-scott-galloway-mfm",
+      "filename": "2026-03-02-scott-galloway-mfm.md",
+      "date": "2026-03-02",
+      "title": "Scott Galloway: Why I'm Selling My American Stocks",
+      "host": "My First Million (Sam Parr + Shaan Puri)",
+      "guest": "Scott Galloway (Professor NYU, investidor, autor)",
+      "duration": "~50 min",
+      "link": "https://www.youtube.com/watch?v=cxvwSLSRpfU",
+      "theme": "Investimentos, GLP-1s como revolução maior que IA, gastar dinheiro bem, e a epidemia masculina",
+      "tldr": "Scott Galloway está a diversificar fora de stocks americanos — EUA overvalued (Buffett Index a 210% vs 90% ideal). Defende que GLP-1s são mais transformadores que IA. Partilha filosofia: depois de atingir 'o número', ou gasta ('como gangster dos 50s com cancro no rabo') ou dá — não acumula.",
+      "insights": [
+        {
+          "insight": "America is expensive — Europe is on sale",
+          "why": "Diversificação geográfica faz sentido agora"
+        },
+        {
+          "insight": "GLP-1 > AI in life impact",
+          "why": "Pode ser opportunity de investimento e saúde"
+        },
+        {
+          "insight": "The sexier the investment, the worse the return",
+          "why": "Investir no boring, consumir o sexy"
+        },
+        {
+          "insight": "Private aviation fractional = best ROI for time",
+          "why": "Para quem pode, poupa 17 dias/ano"
+        },
+        {
+          "insight": "Third places are business opportunity",
+          "why": "Male loneliness = gap no mercado"
+        }
+      ],
+      "quotes": [
+        "I spend money like a 50s gangster just diagnosed with ass cancer.",
+        "Take my house, don't take my plane.",
+        "Drive a Hyundai and take your husband to Africa.",
+        "GLP-1 is the most transformative technology of the last 20-30 years."
+      ],
+      "rating": 5.0,
+      "tags": [
+        "investing",
+        "glp-1",
+        "spending",
+        "male-loneliness",
+        "europe",
+        "diversification"
+      ]
+    },
+    {
+      "id": "2026-03-02-self-help-lies-mfm",
+      "filename": "2026-03-02-self-help-lies-mfm.md",
+      "date": "2026-03-02",
+      "title": "Why the Self-Help Industry Is Built on Lies",
+      "host": "My First Million (Sam Parr + Shaan Puri)",
+      "guest": "N/A (conversa Sam & Shaan)",
+      "duration": "~45 min",
+      "link": "https://www.youtube.com/watch?v=XwVUuE9qc2U",
+      "theme": "A fraude de Napoleon Hill, legitimidade no self-help, e criação prolífica",
+      "tldr": "Napoleon Hill nunca conheceu Andrew Carnegie — toda a backstory de Think and Grow Rich é fabricada, e ele tinha rap sheet de fraude. Apesar disso, o conteúdo foi validado por ciência. Peter Levels: 4 de 70+ projectos fizeram dinheiro — hit rate de 5%, por isso 'ship more'.",
+      "insights": [
+        {
+          "insight": "Napoleon Hill invented his entire backstory",
+          "why": "Famous success stories may be fabricated"
+        },
+        {
+          "insight": "Peter Levels: 5% hit rate in 70+ projects",
+          "why": "Volume > perfection"
+        },
+        {
+          "insight": "The best make highest quality AND quantity",
+          "why": "Prolific is the pattern"
+        },
+        {
+          "insight": "Two criteria for legitimacy: helpful + no lies",
+          "why": "Simple framework para avaliar gurus"
+        },
+        {
+          "insight": "When you have quality problem, you have quantity problem",
+          "why": "Fazer mais = fazer melhor"
+        }
+      ],
+      "quotes": [
+        "Everything I just told you is a lie. — Sam Parr (plot twist)",
+        "4 out of 70+ projects made money. My hit rate is only 5%, so ship more. — Peter Levels",
+        "The people who make the best quality also make the highest quantity.",
+        "He convinced the woman's parents to loan him money, went bankrupt, and divorced the woman."
+      ],
+      "rating": 4.5,
+      "tags": [
+        "self-help",
+        "napoleon-hill",
+        "fraud",
+        "prolific",
+        "peter-levels",
+        "quantity"
+      ]
+    },
     {
       "id": "2026-03-01-lex-fridman-state-of-ai-2026",
       "filename": "2026-03-01-lex-fridman-state-of-ai-2026.md",
