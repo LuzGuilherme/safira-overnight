@@ -1,7 +1,59 @@
 {
-  "generated": "2026-03-02T01:00:00.000000Z",
-  "count": 16,
+  "generated": "2026-03-03T01:05:00.000000Z",
+  "count": 17,
   "digests": [
+    {
+      "id": "2026-03-03-lex-fridman-rick-beato",
+      "filename": "2026-03-03-lex-fridman-rick-beato.md",
+      "date": "2026-03-03",
+      "title": "Rick Beato: Greatest Guitarists of All Time, History & Future of Music",
+      "host": "Lex Fridman Podcast (#492)",
+      "guest": "Rick Beato — Educator musical, produtor, guitarrista, YouTube",
+      "duration": "~4h",
+      "link": "https://www.youtube.com/watch?v=1SJiTwbSI58",
+      "theme": "A arte da guitarra, perfect pitch, grandes guitarristas, e a ciência do aprendizado musical",
+      "tldr": "Rick Beato partilha jornada de aprender Hey Joe aos 14 até entrevistar David Gilmour. Conceito revolucionário: todas as crianças têm perfect pitch ao nascer e perdem-no aos 9 meses se não for desenvolvido. Masterclass sobre Hendrix, Gilmour, Mark Knopfler, Miles Davis, e a importância da luta no aprendizado.",
+      "insights": [
+        {
+          "insight": "Perfect pitch pode ser desenvolvido nos primeiros 9 meses",
+          "why": "Exposição a música complexa preserva capacidade"
+        },
+        {
+          "insight": "10 min/dia > 1 hora/semana",
+          "why": "Consistência vence intensidade"
+        },
+        {
+          "insight": "Struggle é onde o aprendizado acontece",
+          "why": "Figuring out sozinho cria memória mais forte"
+        },
+        {
+          "insight": "Tone = identidade — reconheces Gilmour por UMA nota",
+          "why": "Desenvolver tone pessoal é tão importante quanto técnica"
+        },
+        {
+          "insight": "Miles Davis nunca ensaiava ou ouvia gravações depois",
+          "why": "Pensamento é inimigo do flow"
+        }
+      ],
+      "quotes": [
+        "If you ever learn to play guitar like this, you've accomplished something with your life. — Rick's dad sobre Joe Pass",
+        "Thought is the enemy of flow. — Vinnie Colaiuta",
+        "It's better to practice 10 minutes a day, 7 days a week, than to practice one day for an hour.",
+        "The struggle is where it's at. This is true for education in general."
+      ],
+      "rating": 5.0,
+      "tags": [
+        "music",
+        "guitar",
+        "perfect-pitch",
+        "ear-training",
+        "david-gilmour",
+        "hendrix",
+        "miles-davis",
+        "learning",
+        "lex-fridman"
+      ]
+    },
     {
       "id": "2026-03-02-uber-ceo-doac",
       "filename": "2026-03-02-uber-ceo-doac.md",
