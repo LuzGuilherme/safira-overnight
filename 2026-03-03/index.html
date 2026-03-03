@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrepCall AI — Meeting Prep in 30 Seconds</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f0f23;
+            --bg-secondary: #1a1a3e;
+            --accent-1: #ff6b35;
+            --accent-2: #f72585;
+            --accent-3: #4cc9f0;
+            --accent-4: #7209b7;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0c0;
+            --gradient-fire: linear-gradient(135deg, #ff6b35 0%, #f72585 100%);
+            --gradient-cool: linear-gradient(135deg, #4cc9f0 0%, #7209b7 100%);
+            --gradient-mixed: linear-gradient(135deg, #ff6b35 0%, #f72585 50%, #7209b7 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(255, 107, 53, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(247, 37, 133, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(76, 201, 240, 0.1) 0%, transparent 70%);
+            z-index: -1;
+            animation: pulseGradient 8s ease-in-out infinite;
+        }
+        
+        @keyframes pulseGradient {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        /* Header */
+        header {
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: var(--gradient-fire);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes logoGlow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.5)); }
+            50% { filter: drop-shadow(0 0 40px rgba(247, 37, 133, 0.7)); }
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+        
+        .tagline span {
+            color: var(--accent-3);
+            font-weight: 600;
+        }
+        
+        /* Main container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Input section */
+        .input-section {
+            background: rgba(26, 26, 62, 0.8);
+            border-radius: 24px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+        
+        .input-section::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 26px;
+            background: var(--gradient-fire);
+            z-index: -1;
+            opacity: 0.5;
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-group label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            font-family: inherit;
+            background: rgba(15, 15, 35, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--accent-1);
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+        }
+        
+        .input-group input::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.5;
+        }
+        
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        @media (max-width: 600px) {
+            .input-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Button */
+        .btn-prep {
+            width: 100%;
+            padding: 1.25rem 2rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-family: inherit;
+            background: var(--gradient-fire);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-prep::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-prep:hover::before {
+            left: 100%;
+        }
+        
+        .btn-prep:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(255, 107, 53, 0.4);
+        }
+        
+        .btn-prep:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Results section */
+        .results-section {
+            display: none;
+        }
+        
+        .results-section.active {
+            display: block;
+            animation: slideUp 0.5s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .result-card {
+            background: rgba(26, 26, 62, 0.9);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--accent-1);
+            transition: all 0.3s ease;
+        }
+        
+        .result-card:hover {
+            transform: translateX(10px);
+            border-left-color: var(--accent-2);
+        }
+        
+        .result-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .result-card h3 .icon {
+            font-size: 1.5rem;
+        }
+        
+        .result-card p, .result-card ul {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        
+        .result-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .result-card ul li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .result-card ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-3);
+        }
+        
+        /* Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        
+        .tag {
+            background: rgba(76, 201, 240, 0.2);
+            color: var(--accent-3);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .tag.hot {
+            background: rgba(247, 37, 133, 0.2);
+            color: var(--accent-2);
+        }
+        
+        .tag.warning {
+            background: rgba(255, 107, 53, 0.2);
+            color: var(--accent-1);
+        }
+        
+        /* Talking points grid */
+        .talking-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .talking-point {
+            background: rgba(15, 15, 35, 0.6);
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .talking-point .number {
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--gradient-cool);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .talking-point p {
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        /* Score meter */
+        .score-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .score-ring {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 1rem;
+            position: relative;
+        }
+        
+        .score-ring svg {
+            transform: rotate(-90deg);
+        }
+        
+        .score-ring circle {
+            fill: none;
+            stroke-width: 10;
+        }
+        
+        .score-ring .bg {
+            stroke: rgba(255, 255, 255, 0.1);
+        }
+        
+        .score-ring .progress {
+            stroke: url(#scoreGradient);
+            stroke-linecap: round;
+            stroke-dasharray: 408;
+            stroke-dashoffset: 408;
+            transition: stroke-dashoffset 1.5s ease;
+        }
+        
+        .score-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .score-label {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        /* Loading animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+        
+        .loading.active {
+            display: block;
+        }
+        
+        .loading-dots {
+            display: inline-flex;
+            gap: 0.5rem;
+        }
+        
+        .loading-dots span {
+            width: 12px;
+            height: 12px;
+            background: var(--accent-1);
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        
+        .loading-dots span:nth-child(1) { animation-delay: -0.32s; background: var(--accent-1); }
+        .loading-dots span:nth-child(2) { animation-delay: -0.16s; background: var(--accent-2); }
+        .loading-dots span:nth-child(3) { animation-delay: 0; background: var(--accent-3); }
+        
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+        
+        .loading p {
+            margin-top: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        footer a {
+            color: var(--accent-3);
+            text-decoration: none;
+        }
+        
+        /* Quick examples */
+        .examples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+        
+        .example-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .example-btn:hover {
+            background: rgba(255, 107, 53, 0.2);
+            border-color: var(--accent-1);
+            color: var(--accent-1);
+        }
+        
+        /* Copy button */
+        .copy-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .copy-btn:hover {
+            background: var(--accent-3);
+            color: var(--bg-primary);
+        }
+        
+        .result-card {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    
+    <header>
+        <h1 class="logo">PrepCall AI</h1>
+        <p class="tagline">Walk into every meeting <span>fully prepared</span></p>
+    </header>
+    
+    <main class="container">
+        <section class="input-section">
+            <div class="input-row">
+                <div class="input-group">
+                    <label>Prospect Name</label>
+                    <input type="text" id="prospectName" placeholder="e.g., João Silva">
+                </div>
+                <div class="input-group">
+                    <label>Company</label>
+                    <input type="text" id="companyName" placeholder="e.g., TechStartup Lda">
+                </div>
+            </div>
+            <div class="input-row">
+                <div class="input-group">
+                    <label>LinkedIn URL (optional)</label>
+                    <input type="text" id="linkedinUrl" placeholder="linkedin.com/in/...">
+                </div>
+                <div class="input-group">
+                    <label>Industry</label>
+                    <input type="text" id="industry" placeholder="e.g., E-commerce, SaaS">
+                </div>
+            </div>
+            <div class="input-group">
+                <label>Meeting Context (optional)</label>
+                <input type="text" id="context" placeholder="e.g., Discovery call for Google Ads services">
+            </div>
+            
+            <button class="btn-prep" id="prepBtn" onclick="generateBriefing()">
+                🚀 Generate Meeting Prep
+            </button>
+            
+            <div class="examples">
+                <span style="color: var(--text-secondary); margin-right: 0.5rem;">Try:</span>
+                <button class="example-btn" onclick="fillExample('Maria Costa', 'Boutique Algarve', '', 'Retail/Tourism', 'Marketing assessment call')">E-commerce Client</button>
+                <button class="example-btn" onclick="fillExample('Carlos Mendes', 'HealthTech PT', 'linkedin.com/in/cmendes', 'Healthcare/SaaS', 'Demo call')">SaaS Founder</button>
+                <button class="example-btn" onclick="fillExample('Ana Rodrigues', 'PropTech Lisboa', '', 'Real Estate', 'Partnership discussion')">Real Estate</button>
+            </div>
+        </section>
+        
+        <div class="loading" id="loading">
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p>Researching prospect & generating insights...</p>
+        </div>
+        
+        <section class="results-section" id="results">
+            <!-- Score -->
+            <div class="score-section">
+                <div class="score-ring">
+                    <svg width="150" height="150">
+                        <defs>
+                            <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#ff6b35"/>
+                                <stop offset="100%" style="stop-color:#f72585"/>
+                            </linearGradient>
+                        </defs>
+                        <circle class="bg" cx="75" cy="75" r="65"></circle>
+                        <circle class="progress" id="scoreCircle" cx="75" cy="75" r="65"></circle>
+                    </svg>
+                    <div class="score-value" id="scoreValue">0</div>
+                </div>
+                <p class="score-label">Meeting Readiness Score</p>
+            </div>
+            
+            <!-- Prospect Overview -->
+            <div class="result-card" id="overviewCard">
+                <button class="copy-btn" onclick="copyCard('overviewCard')">📋 Copy</button>
+                <h3><span class="icon">👤</span> Prospect Overview</h3>
+                <div id="overviewContent"></div>
+            </div>
+            
+            <!-- Company Intel -->
+            <div class="result-card" id="companyCard">
+                <button class="copy-btn" onclick="copyCard('companyCard')">📋 Copy</button>
+                <h3><span class="icon">🏢</span> Company Intelligence</h3>
+                <div id="companyContent"></div>
+            </div>
+            
+            <!-- Pain Points -->
+            <div class="result-card" id="painCard">
+                <button class="copy-btn" onclick="copyCard('painCard')">📋 Copy</button>
+                <h3><span class="icon">🎯</span> Likely Pain Points</h3>
+                <div id="painContent"></div>
+            </div>
+            
+            <!-- Talking Points -->
+            <div class="result-card" id="talkingCard">
+                <button class="copy-btn" onclick="copyCard('talkingCard')">📋 Copy</button>
+                <h3><span class="icon">💬</span> Conversation Starters</h3>
+                <div class="talking-points" id="talkingContent"></div>
+            </div>
+            
+            <!-- Questions to Ask -->
+            <div class="result-card" id="questionsCard">
+                <button class="copy-btn" onclick="copyCard('questionsCard')">📋 Copy</button>
+                <h3><span class="icon">❓</span> Discovery Questions</h3>
+                <div id="questionsContent"></div>
+            </div>
+            
+            <!-- Red Flags -->
+            <div class="result-card" id="flagsCard" style="border-left-color: var(--accent-2);">
+                <button class="copy-btn" onclick="copyCard('flagsCard')">📋 Copy</button>
+                <h3><span class="icon">⚠️</span> Watch Out For</h3>
+                <div id="flagsContent"></div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Built with ☕ by <a href="#">Safira</a> • Overnight Build March 3, 2026</p>
+        <p style="margin-top: 0.5rem;">Close more deals. Waste less time.</p>
+    </footer>
+    
+    <script>
+        // Example data - in production this would come from AI/APIs
+        const industryData = {
+            'Retail/Tourism': {
+                pains: [
+                    'Seasonal revenue fluctuations',
+                    'High customer acquisition costs',
+                    'Competition from online giants',
+                    'Difficulty tracking marketing ROI'
+                ],
+                topics: [
+                    'Peak season preparation',
+                    'Customer retention strategies',
+                    'Local vs tourist marketing mix',
+                    'Social proof & reviews'
+                ],
+                questions: [
+                    'What percentage of your revenue comes from high season vs low season?',
+                    'How are you currently acquiring new customers?',
+                    'What\'s your average customer lifetime value?',
+                    'Have you experimented with paid advertising before?'
+                ],
+                flags: [
+                    'May expect immediate results (seasonal urgency)',
+                    'Budget might be tied to seasonal cash flow',
+                    'Could have bad experiences with agencies before'
+                ]
+            },
+            'Healthcare/SaaS': {
+                pains: [
+                    'Long sales cycles',
+                    'Regulatory compliance concerns',
+                    'Building trust with enterprise clients',
+                    'Competing with established players'
+                ],
+                topics: [
+                    'GDPR/data privacy approach',
+                    'Integration capabilities',
+                    'Customer success stories',
+                    'Security certifications'
+                ],
+                questions: [
+                    'What\'s your typical sales cycle length?',
+                    'Who are the key decision-makers in your target accounts?',
+                    'How do you currently handle lead generation?',
+                    'What\'s your biggest growth bottleneck right now?'
+                ],
+                flags: [
+                    'Technical founders may undervalue marketing',
+                    'Long decision process if not founder-led',
+                    'May want case studies before committing'
+                ]
+            },
+            'Real Estate': {
+                pains: [
+                    'Lead quality issues',
+                    'Long conversion timelines',
+                    'Market uncertainty',
+                    'Standing out in a crowded market'
+                ],
+                topics: [
+                    'Local market trends',
+                    'Digital presence vs traditional',
+                    'Lead nurturing strategies',
+                    'Geographic targeting'
+                ],
+                questions: [
+                    'What\'s your average time from lead to close?',
+                    'How do you currently qualify inbound leads?',
+                    'What percentage of your business is referral vs new?',
+                    'What makes your properties stand out?'
+                ],
+                flags: [
+                    'Commission-based may resist fixed retainers',
+                    'Highly relationship-driven industry',
+                    'May have unrealistic expectations on lead volume'
+                ]
+            },
+            'default': {
+                pains: [
+                    'Difficulty scaling customer acquisition',
+                    'Lack of visibility into marketing ROI',
+                    'Resource constraints',
+                    'Competitive pressure'
+                ],
+                topics: [
+                    'Current growth challenges',
+                    'Marketing strategy alignment',
+                    'Team structure and capacity',
+                    'Technology stack'
+                ],
+                questions: [
+                    'What\'s driving the need for this conversation now?',
+                    'What does success look like in the next 6 months?',
+                    'Who else is involved in this decision?',
+                    'What have you tried before that didn\'t work?'
+                ],
+                flags: [
+                    'May be in early research phase',
+                    'Budget might not be defined yet',
+                    'Decision timeline unclear'
+                ]
+            }
+        };
+        
+        function fillExample(name, company, linkedin, industry, context) {
+            document.getElementById('prospectName').value = name;
+            document.getElementById('companyName').value = company;
+            document.getElementById('linkedinUrl').value = linkedin;
+            document.getElementById('industry').value = industry;
+            document.getElementById('context').value = context;
+        }
+        
+        function generateBriefing() {
+            const name = document.getElementById('prospectName').value || 'Unknown Prospect';
+            const company = document.getElementById('companyName').value || 'Unknown Company';
+            const linkedin = document.getElementById('linkedinUrl').value;
+            const industry = document.getElementById('industry').value || 'General';
+            const context = document.getElementById('context').value || 'Business meeting';
+            
+            // Show loading
+            document.getElementById('loading').classList.add('active');
+            document.getElementById('results').classList.remove('active');
+            document.getElementById('prepBtn').disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                const data = industryData[industry] || industryData['default'];
+                
+                // Generate overview
+                document.getElementById('overviewContent').innerHTML = `
+                    <p><strong>${name}</strong> at <strong>${company}</strong></p>
+                    <p style="margin-top: 0.5rem;">Industry: ${industry}</p>
+                    <p>Meeting context: ${context}</p>
+                    ${linkedin ? `<p style="margin-top: 0.5rem;"><a href="https://${linkedin}" target="_blank" style="color: var(--accent-3);">View LinkedIn Profile →</a></p>` : ''}
+                    <div class="tags">
+                        <span class="tag">First Meeting</span>
+                        <span class="tag">${industry}</span>
+                        ${context.toLowerCase().includes('discovery') ? '<span class="tag hot">Discovery Call</span>' : ''}
+                    </div>
+                `;
+                
+                // Company intel
+                document.getElementById('companyContent').innerHTML = `
+                    <ul>
+                        <li>Operating in the <strong>${industry}</strong> sector</li>
+                        <li>Likely facing industry-specific challenges around growth and efficiency</li>
+                        <li>May be evaluating solutions to improve marketing ROI</li>
+                        <li>Decision process: Research typical org structure for ${company.split(' ')[0]}</li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag warning">Research company website before call</span>
+                        <span class="tag">Check recent news/announcements</span>
+                    </div>
+                `;
+                
+                // Pain points
+                document.getElementById('painContent').innerHTML = `
+                    <ul>
+                        ${data.pains.map(p => `<li>${p}</li>`).join('')}
+                    </ul>
+                `;
+                
+                // Talking points
+                document.getElementById('talkingContent').innerHTML = data.topics.map((t, i) => `
+                    <div class="talking-point">
+                        <span class="number">${i + 1}</span>
+                        <p>${t}</p>
+                    </div>
+                `).join('');
+                
+                // Questions
+                document.getElementById('questionsContent').innerHTML = `
+                    <ul>
+                        ${data.questions.map(q => `<li>${q}</li>`).join('')}
+                    </ul>
+                `;
+                
+                // Red flags
+                document.getElementById('flagsContent').innerHTML = `
+                    <ul>
+                        ${data.flags.map(f => `<li>${f}</li>`).join('')}
+                    </ul>
+                `;
+                
+                // Animate score
+                const score = Math.floor(Math.random() * 20) + 75; // 75-94
+                animateScore(score);
+                
+                // Show results
+                document.getElementById('loading').classList.remove('active');
+                document.getElementById('results').classList.add('active');
+                document.getElementById('prepBtn').disabled = false;
+                
+            }, 2000);
+        }
+        
+        function animateScore(score) {
+            const circle = document.getElementById('scoreCircle');
+            const valueEl = document.getElementById('scoreValue');
+            const circumference = 408; // 2 * PI * 65
+            const offset = circumference - (score / 100) * circumference;
+            
+            setTimeout(() => {
+                circle.style.strokeDashoffset = offset;
+            }, 100);
+            
+            let current = 0;
+            const increment = score / 50;
+            const interval = setInterval(() => {
+                current += increment;
+                if (current >= score) {
+                    current = score;
+                    clearInterval(interval);
+                }
+                valueEl.textContent = Math.round(current);
+            }, 30);
+        }
+        
+        function copyCard(cardId) {
+            const card = document.getElementById(cardId);
+            const text = card.innerText.replace('📋 Copy', '').trim();
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = card.querySelector('.copy-btn');
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    btn.textContent = '📋 Copy';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

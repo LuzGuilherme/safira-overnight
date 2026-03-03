@@ -86,3 +86,4 @@ Ver `/root/clawd/data/STYLE_LIBRARY.md` para detalhes completos.
 | 2026-02-28 | Ship or Sink 🚢 | Produtividade/Indie | **Neo Brutalist** 🔲 |
 | 2026-03-01 | Content Transformer 🔄 | Marketing/Content | **Editorial Clean** ☀️ |
 | 2026-03-02 | TL;DR Terms 📜 | Utilidade/Consumer | **Playful** 🎭 |
+| 2026-03-03 | PrepCall AI 🚀 | Sales/Produtividade | **Bold Maximalist** 🎨 |
