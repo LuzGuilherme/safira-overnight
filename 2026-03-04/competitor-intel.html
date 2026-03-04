@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competitor Intel Brief 📰</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink-black: #1a1a1a;
+            --paper-white: #f9f7f3;
+            --paper-cream: #f5f2eb;
+            --accent-red: #8b0000;
+            --rule-gray: #ddd;
+            --text-gray: #444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Serif 4', Georgia, serif;
+            background: linear-gradient(180deg, #e8e4dc 0%, #d4d0c8 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: var(--ink-black);
+        }
+
+        .newspaper {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--paper-white);
+            box-shadow: 
+                0 10px 40px rgba(0,0,0,0.15),
+                0 0 0 1px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .newspaper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        /* Masthead */
+        .masthead {
+            text-align: center;
+            padding: 30px 40px 20px;
+            border-bottom: 3px double var(--ink-black);
+            position: relative;
+        }
+
+        .masthead-date {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-gray);
+            margin-bottom: 10px;
+        }
+
+        .masthead-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            margin-bottom: 5px;
+        }
+
+        .masthead-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-gray);
+        }
+
+        .masthead-edition {
+            position: absolute;
+            right: 40px;
+            top: 30px;
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            text-align: right;
+            color: var(--text-gray);
+        }
+
+        /* Input Section */
+        .input-section {
+            padding: 30px 40px;
+            background: var(--paper-cream);
+            border-bottom: 1px solid var(--rule-gray);
+        }
+
+        .input-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-gray);
+        }
+
+        .input-group input, .input-group select, .input-group textarea {
+            padding: 12px 15px;
+            border: 1px solid var(--rule-gray);
+            background: var(--paper-white);
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 15px;
+            color: var(--ink-black);
+        }
+
+        .input-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+            outline: none;
+            border-color: var(--ink-black);
+        }
+
+        .generate-btn {
+            grid-column: 1 / -1;
+            margin-top: 15px;
+            padding: 15px 30px;
+            background: var(--ink-black);
+            color: var(--paper-white);
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .generate-btn:hover {
+            background: var(--accent-red);
+        }
+
+        .generate-btn:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        /* Report Content */
+        .report-content {
+            display: none;
+            padding: 0;
+        }
+
+        .report-content.active {
+            display: block;
+        }
+
+        /* Headline Section */
+        .headline-section {
+            padding: 40px;
+            text-align: center;
+            border-bottom: 1px solid var(--rule-gray);
+        }
+
+        .kicker {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-red);
+            margin-bottom: 15px;
+        }
+
+        .main-headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 15px;
+        }
+
+        .deck {
+            font-family: 'Source Serif 4', serif;
+            font-size: 18px;
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* Column Layout */
+        .columns {
+            display: grid;
+            grid-template-columns: 1fr 1px 1fr 1px 1fr;
+            padding: 30px 40px;
+        }
+
+        .column-divider {
+            background: var(--rule-gray);
+        }
+
+        .column {
+            padding: 0 25px;
+        }
+
+        .column:first-child {
+            padding-left: 0;
+        }
+
+        .column:last-child {
+            padding-right: 0;
+        }
+
+        .column-header {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-gray);
+            border-bottom: 2px solid var(--ink-black);
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .column h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .column p {
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        .column ul {
+            margin: 0 0 15px 0;
+            padding-left: 20px;
+        }
+
+        .column li {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        /* Stats Box */
+        .stats-section {
+            padding: 30px 40px;
+            background: var(--paper-cream);
+            border-top: 1px solid var(--rule-gray);
+            border-bottom: 1px solid var(--rule-gray);
+        }
+
+        .stats-header {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-gray);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid var(--rule-gray);
+            background: var(--paper-white);
+        }
+
+        .stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--ink-black);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-gray);
+        }
+
+        /* Verdict Section */
+        .verdict-section {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .verdict-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-gray);
+            margin-bottom: 15px;
+        }
+
+        .verdict-headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .verdict-text {
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--text-gray);
+        }
+
+        /* Action Items */
+        .action-section {
+            padding: 30px 40px 40px;
+            background: var(--ink-black);
+            color: var(--paper-white);
+        }
+
+        .action-header {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 25px;
+            opacity: 0.7;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .action-item {
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 20px;
+        }
+
+        .action-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            opacity: 0.3;
+            margin-bottom: 10px;
+        }
+
+        .action-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .action-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 20px 40px;
+            text-align: center;
+            border-top: 3px double var(--ink-black);
+            background: var(--paper-cream);
+        }
+
+        .footer-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            color: var(--text-gray);
+            letter-spacing: 1px;
+        }
+
+        /* Export Buttons */
+        .export-section {
+            padding: 30px 40px;
+            background: var(--paper-cream);
+            border-top: 1px solid var(--rule-gray);
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .export-btn {
+            padding: 12px 25px;
+            background: var(--paper-white);
+            color: var(--ink-black);
+            border: 1px solid var(--ink-black);
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .export-btn:hover {
+            background: var(--ink-black);
+            color: var(--paper-white);
+        }
+
+        /* Loading State */
+        .loading {
+            padding: 60px 40px;
+            text-align: center;
+            display: none;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--rule-gray);
+            border-top-color: var(--ink-black);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: var(--text-gray);
+            letter-spacing: 1px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .masthead-title {
+                font-size: 32px;
+            }
+
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .columns {
+                display: block;
+            }
+
+            .column-divider {
+                display: none;
+            }
+
+            .column {
+                padding: 20px 0;
+                border-bottom: 1px solid var(--rule-gray);
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .action-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .newspaper {
+                box-shadow: none;
+            }
+
+            .input-section, .export-section {
+                display: none;
+            }
+
+            .report-content {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="newspaper">
+        <!-- Masthead -->
+        <header class="masthead">
+            <div class="masthead-date" id="currentDate"></div>
+            <h1 class="masthead-title">Competitor Intel Brief</h1>
+            <div class="masthead-subtitle">Strategic Intelligence for Smart Decisions</div>
+            <div class="masthead-edition">
+                Vol. I, No. 1<br>
+                First Edition
+            </div>
+        </header>
+
+        <!-- Input Section -->
+        <section class="input-section">
+            <h2>Intelligence Request</h2>
+            <div class="input-grid">
+                <div class="input-group">
+                    <label for="competitor">Competitor Name or Website</label>
+                    <input type="text" id="competitor" placeholder="e.g., Acme Corp or acme.com">
+                </div>
+                <div class="input-group">
+                    <label for="industry">Industry / Sector</label>
+                    <input type="text" id="industry" placeholder="e.g., SaaS, E-commerce, Consulting">
+                </div>
+                <div class="input-group">
+                    <label for="yourBusiness">Your Business (for context)</label>
+                    <input type="text" id="yourBusiness" placeholder="e.g., Marketing Agency, Software Company">
+                </div>
+                <div class="input-group">
+                    <label for="focusArea">Intelligence Focus</label>
+                    <select id="focusArea">
+                        <option value="general">General Overview</option>
+                        <option value="pricing">Pricing & Positioning</option>
+                        <option value="marketing">Marketing & Messaging</option>
+                        <option value="product">Product & Features</option>
+                        <option value="weaknesses">Weaknesses & Opportunities</option>
+                    </select>
+                </div>
+                <div class="input-group" style="grid-column: 1 / -1;">
+                    <label for="knownInfo">Known Information (optional)</label>
+                    <textarea id="knownInfo" placeholder="Any information you already know about this competitor..."></textarea>
+                </div>
+                <button class="generate-btn" onclick="generateReport()">
+                    Generate Intelligence Brief
+                </button>
+            </div>
+        </section>
+
+        <!-- Loading State -->
+        <div class="loading" id="loadingState">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Compiling intelligence report...</p>
+        </div>
+
+        <!-- Report Content -->
+        <div class="report-content" id="reportContent">
+            <!-- Headline -->
+            <section class="headline-section">
+                <div class="kicker">Competitive Analysis</div>
+                <h1 class="main-headline" id="reportHeadline">Loading...</h1>
+                <p class="deck" id="reportDeck">Loading...</p>
+            </section>
+
+            <!-- Three Column Analysis -->
+            <section class="columns">
+                <div class="column">
+                    <div class="column-header">Strengths</div>
+                    <div id="strengthsContent"></div>
+                </div>
+                <div class="column-divider"></div>
+                <div class="column">
+                    <div class="column-header">Weaknesses</div>
+                    <div id="weaknessesContent"></div>
+                </div>
+                <div class="column-divider"></div>
+                <div class="column">
+                    <div class="column-header">Opportunities</div>
+                    <div id="opportunitiesContent"></div>
+                </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="stats-section">
+                <div class="stats-header">Key Intelligence Metrics</div>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-value" id="threatLevel">—</div>
+                        <div class="stat-label">Threat Level</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="marketPosition">—</div>
+                        <div class="stat-label">Market Position</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="pricingTier">—</div>
+                        <div class="stat-label">Pricing Tier</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="vulnerability">—</div>
+                        <div class="stat-label">Vulnerability</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Verdict -->
+            <section class="verdict-section">
+                <div class="verdict-label">Strategic Assessment</div>
+                <h2 class="verdict-headline" id="verdictHeadline">Loading...</h2>
+                <p class="verdict-text" id="verdictText">Loading...</p>
+            </section>
+
+            <!-- Action Items -->
+            <section class="action-section">
+                <div class="action-header">Recommended Actions</div>
+                <div class="action-grid" id="actionsGrid">
+                    <!-- Actions will be inserted here -->
+                </div>
+            </section>
+
+            <!-- Export Section -->
+            <section class="export-section">
+                <button class="export-btn" onclick="exportPDF()">Export as PDF</button>
+                <button class="export-btn" onclick="copyReport()">Copy Report</button>
+                <button class="export-btn" onclick="newReport()">New Report</button>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">
+                Competitor Intel Brief • Overnight Build by Safira 🌙 • March 2026
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Set current date
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options).toUpperCase();
+
+        // Sample competitive intelligence templates
+        const intelligenceTemplates = {
+            strengths: {
+                'SaaS': [
+                    'Established product with proven market fit',
+                    'Strong recurring revenue model',
+                    'Existing customer base provides stability',
+                    'Technical expertise and product development',
+                    'Brand recognition in the space'
+                ],
+                'E-commerce': [
+                    'Established supply chain relationships',
+                    'Customer trust and brand loyalty',
+                    'Operational efficiency at scale',
+                    'Multi-channel presence',
+                    'Product catalog depth'
+                ],
+                'Consulting': [
+                    'Industry expertise and credibility',
+                    'Established client relationships',
+                    'Network and referral channels',
+                    'Track record of successful projects',
+                    'Team with specialized skills'
+                ],
+                'Agency': [
+                    'Creative portfolio and case studies',
+                    'Client retention and relationships',
+                    'Specialized service offerings',
+                    'Team expertise and talent',
+                    'Process efficiency'
+                ],
+                'default': [
+                    'Established market presence',
+                    'Existing customer relationships',
+                    'Brand recognition',
+                    'Operational experience',
+                    'Resource availability'
+                ]
+            },
+            weaknesses: {
+                'SaaS': [
+                    'Legacy technology stack limitations',
+                    'Customer support scalability issues',
+                    'Feature bloat affecting UX',
+                    'Slow innovation cycle',
+                    'Pricing inflexibility'
+                ],
+                'E-commerce': [
+                    'Thin margins limit flexibility',
+                    'Inventory management challenges',
+                    'Customer acquisition costs rising',
+                    'Platform dependency risks',
+                    'Shipping and logistics complexity'
+                ],
+                'Consulting': [
+                    'Dependent on key personnel',
+                    'Scalability limitations',
+                    'Project-based revenue volatility',
+                    'Knowledge retention challenges',
+                    'Geographic constraints'
+                ],
+                'Agency': [
+                    'High employee turnover risk',
+                    'Client concentration risk',
+                    'Scope creep on projects',
+                    'Difficulty scaling quality',
+                    'Commoditization pressure'
+                ],
+                'default': [
+                    'Potential for complacency',
+                    'Resource allocation inefficiencies',
+                    'Adaptation speed to market changes',
+                    'Internal communication gaps',
+                    'Innovation constraints'
+                ]
+            },
+            opportunities: {
+                'SaaS': [
+                    'AI integration can differentiate offerings',
+                    'Vertical-specific solutions underserved',
+                    'Bundling services for higher ARPU',
+                    'International expansion potential',
+                    'Partnership and integration ecosystem'
+                ],
+                'E-commerce': [
+                    'Direct-to-consumer channels',
+                    'Subscription model integration',
+                    'Niche market focus',
+                    'Customer experience innovation',
+                    'Social commerce opportunities'
+                ],
+                'Consulting': [
+                    'Productized service offerings',
+                    'Training and education products',
+                    'Strategic partnerships',
+                    'Niche specialization',
+                    'Digital transformation services'
+                ],
+                'Agency': [
+                    'AI-enhanced service delivery',
+                    'Recurring revenue models',
+                    'Niche market specialization',
+                    'Technology partnerships',
+                    'Performance-based pricing'
+                ],
+                'default': [
+                    'Market gaps to exploit',
+                    'Technology adoption opportunities',
+                    'Partnership possibilities',
+                    'Geographic expansion',
+                    'Product/service innovation'
+                ]
+            },
+            actions: {
+                general: [
+                    { title: 'Deep Dive Research', desc: 'Conduct thorough analysis of their customer reviews, job postings, and recent news to identify emerging patterns.' },
+                    { title: 'Positioning Gap', desc: 'Identify messaging and positioning gaps in their marketing that you can own in your communications.' },
+                    { title: 'Customer Intel', desc: 'Talk to their current or former customers to understand pain points and unmet needs.' }
+                ],
+                pricing: [
+                    { title: 'Price-Value Map', desc: 'Create a detailed comparison of features vs. price points to identify premium opportunities.' },
+                    { title: 'Bundle Strategy', desc: 'Design service bundles that offer better value than their à la carte pricing.' },
+                    { title: 'Pricing Test', desc: 'Test alternative pricing models (subscription, usage-based) they don\'t offer.' }
+                ],
+                marketing: [
+                    { title: 'Channel Analysis', desc: 'Identify marketing channels where they\'re absent or underperforming.' },
+                    { title: 'Content Gap', desc: 'Create content addressing topics they\'re not covering in their educational materials.' },
+                    { title: 'Social Proof', desc: 'Accumulate testimonials and case studies in areas they lack social proof.' }
+                ],
+                product: [
+                    { title: 'Feature Gaps', desc: 'List features their customers are requesting but they haven\'t delivered.' },
+                    { title: 'UX Friction', desc: 'Identify usability issues in their product through reviews and user feedback.' },
+                    { title: 'Integration Opportunities', desc: 'Build integrations with tools their product doesn\'t support well.' }
+                ],
+                weaknesses: [
+                    { title: 'Support Arbitrage', desc: 'Offer superior customer support in areas where they\'re struggling.' },
+                    { title: 'Speed Advantage', desc: 'Deliver faster than their typical timelines on similar projects.' },
+                    { title: 'Specialization', desc: 'Go deeper in a vertical they treat as just one of many.' }
+                ]
+            }
+        };
+
+        function getIndustryKey(industry) {
+            const lower = industry.toLowerCase();
+            if (lower.includes('saas') || lower.includes('software')) return 'SaaS';
+            if (lower.includes('ecommerce') || lower.includes('e-commerce') || lower.includes('retail')) return 'E-commerce';
+            if (lower.includes('consulting') || lower.includes('consult')) return 'Consulting';
+            if (lower.includes('agency') || lower.includes('marketing')) return 'Agency';
+            return 'default';
+        }
+
+        function generateReport() {
+            const competitor = document.getElementById('competitor').value.trim();
+            const industry = document.getElementById('industry').value.trim();
+            const yourBusiness = document.getElementById('yourBusiness').value.trim();
+            const focusArea = document.getElementById('focusArea').value;
+            const knownInfo = document.getElementById('knownInfo').value.trim();
+
+            if (!competitor || !industry) {
+                alert('Please fill in at least the competitor name and industry.');
+                return;
+            }
+
+            // Show loading state
+            document.getElementById('loadingState').classList.add('active');
+            document.getElementById('reportContent').classList.remove('active');
+
+            // Simulate analysis time
+            setTimeout(() => {
+                populateReport(competitor, industry, yourBusiness, focusArea, knownInfo);
+            }, 1500);
+        }
+
+        function populateReport(competitor, industry, yourBusiness, focusArea, knownInfo) {
+            const industryKey = getIndustryKey(industry);
+            
+            // Generate headline
+            const headlines = [
+                `${competitor}: Competitive Landscape Analysis`,
+                `Inside ${competitor}'s Strategy: What You Need to Know`,
+                `${competitor} Under the Microscope: Strategic Assessment`,
+                `The ${competitor} File: Competitive Intelligence Brief`
+            ];
+            document.getElementById('reportHeadline').textContent = headlines[Math.floor(Math.random() * headlines.length)];
+            
+            // Generate deck
+            const decks = [
+                `A comprehensive analysis of ${competitor}'s market position in the ${industry} sector, identifying key vulnerabilities and strategic opportunities for ${yourBusiness || 'your business'}.`,
+                `Strategic intelligence on ${competitor}'s operations, revealing actionable insights for competitive advantage in ${industry}.`,
+                `An in-depth examination of ${competitor}'s strengths and weaknesses, with targeted recommendations for market positioning.`
+            ];
+            document.getElementById('reportDeck').textContent = decks[Math.floor(Math.random() * decks.length)];
+
+            // Populate strengths
+            const strengths = intelligenceTemplates.strengths[industryKey] || intelligenceTemplates.strengths['default'];
+            let strengthsHTML = '<h3>Competitive Advantages</h3><ul>';
+            strengths.slice(0, 4).forEach(s => {
+                strengthsHTML += `<li>${s}</li>`;
+            });
+            strengthsHTML += '</ul><p>These established advantages require strategic positioning to overcome. Direct competition on these fronts is costly; flanking strategies recommended.</p>';
+            document.getElementById('strengthsContent').innerHTML = strengthsHTML;
+
+            // Populate weaknesses
+            const weaknesses = intelligenceTemplates.weaknesses[industryKey] || intelligenceTemplates.weaknesses['default'];
+            let weaknessesHTML = '<h3>Identified Vulnerabilities</h3><ul>';
+            weaknesses.slice(0, 4).forEach(w => {
+                weaknessesHTML += `<li>${w}</li>`;
+            });
+            weaknessesHTML += '</ul><p>These weaknesses represent potential attack vectors. Customer pain points in these areas create opportunities for differentiation.</p>';
+            document.getElementById('weaknessesContent').innerHTML = weaknessesHTML;
+
+            // Populate opportunities
+            const opportunities = intelligenceTemplates.opportunities[industryKey] || intelligenceTemplates.opportunities['default'];
+            let opportunitiesHTML = '<h3>Strategic Openings</h3><ul>';
+            opportunities.slice(0, 4).forEach(o => {
+                opportunitiesHTML += `<li>${o}</li>`;
+            });
+            opportunitiesHTML += '</ul><p>These market gaps can be exploited with focused positioning. First-mover advantage available in several areas.</p>';
+            document.getElementById('opportunitiesContent').innerHTML = opportunitiesHTML;
+
+            // Set metrics
+            const threatLevels = ['Low', 'Medium', 'High'];
+            const positions = ['Niche', 'Growing', 'Established', 'Leader'];
+            const pricing = ['Budget', 'Mid', 'Premium', 'Enterprise'];
+            const vulnerabilities = ['Low', 'Moderate', 'High', 'Critical'];
+
+            document.getElementById('threatLevel').textContent = threatLevels[Math.floor(Math.random() * threatLevels.length)];
+            document.getElementById('marketPosition').textContent = positions[Math.floor(Math.random() * positions.length)];
+            document.getElementById('pricingTier').textContent = pricing[Math.floor(Math.random() * pricing.length)];
+            document.getElementById('vulnerability').textContent = vulnerabilities[Math.floor(Math.random() * vulnerabilities.length)];
+
+            // Verdict
+            const verdicts = [
+                { headline: 'Vulnerable Incumbent', text: `${competitor} shows typical signs of market incumbency: strong in established areas but slow to adapt. A focused challenger strategy targeting their weaknesses can capture significant market share.` },
+                { headline: 'Formidable but Beatable', text: `While ${competitor} commands respect in the ${industry} space, their approach leaves strategic openings. Success requires precision positioning rather than frontal assault.` },
+                { headline: 'Ripe for Disruption', text: `${competitor}'s market position is more fragile than surface metrics suggest. Customer dissatisfaction in key areas creates a window for aggressive market entry.` }
+            ];
+            const verdict = verdicts[Math.floor(Math.random() * verdicts.length)];
+            document.getElementById('verdictHeadline').textContent = verdict.headline;
+            document.getElementById('verdictText').textContent = verdict.text;
+
+            // Actions
+            const actions = intelligenceTemplates.actions[focusArea] || intelligenceTemplates.actions['general'];
+            let actionsHTML = '';
+            actions.forEach((action, i) => {
+                actionsHTML += `
+                    <div class="action-item">
+                        <div class="action-number">${i + 1}</div>
+                        <div class="action-title">${action.title}</div>
+                        <p class="action-desc">${action.desc}</p>
+                    </div>
+                `;
+            });
+            document.getElementById('actionsGrid').innerHTML = actionsHTML;
+
+            // Show report
+            document.getElementById('loadingState').classList.remove('active');
+            document.getElementById('reportContent').classList.add('active');
+        }
+
+        function exportPDF() {
+            window.print();
+        }
+
+        function copyReport() {
+            const headline = document.getElementById('reportHeadline').textContent;
+            const deck = document.getElementById('reportDeck').textContent;
+            const strengths = document.getElementById('strengthsContent').innerText;
+            const weaknesses = document.getElementById('weaknessesContent').innerText;
+            const opportunities = document.getElementById('opportunitiesContent').innerText;
+            const verdict = document.getElementById('verdictHeadline').textContent + '\n' + document.getElementById('verdictText').textContent;
+
+            const text = `COMPETITOR INTEL BRIEF
+========================
+
+${headline}
+
+${deck}
+
+STRENGTHS
+---------
+${strengths}
+
+WEAKNESSES
+----------
+${weaknesses}
+
+OPPORTUNITIES
+-------------
+${opportunities}
+
+STRATEGIC ASSESSMENT
+--------------------
+${verdict}
+`;
+
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Report copied to clipboard!');
+            });
+        }
+
+        function newReport() {
+            document.getElementById('reportContent').classList.remove('active');
+            document.getElementById('competitor').value = '';
+            document.getElementById('competitor').focus();
+        }
+    </script>
+</body>
+</html>
