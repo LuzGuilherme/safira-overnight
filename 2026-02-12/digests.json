@@ -1,43 +1,162 @@
 {
-  "generated": "2026-03-03T01:05:00.000000Z",
-  "count": 17,
+  "generated": "2026-03-04T01:00:00.000000Z",
+  "count": 20,
   "digests": [
+    {
+      "id": "2026-03-04-mfm-vc-invest-2026",
+      "filename": "2026-03-04-mfm-vc-invest-2026.md",
+      "date": "2026-03-04",
+      "title": "I Asked a $450M VC Where to Invest in 2026",
+      "host": "My First Million (Shaan Puri)",
+      "guest": "Chiel \u2014 VC com $450M sob gest\u00e3o",
+      "duration": "~45 min",
+      "link": "https://www.youtube.com/watch?v=78lI5DfTsnI",
+      "theme": "Investimento assim\u00e9trico, Build Your Own Yacht, AI landscape",
+      "tldr": "VC partilha li\u00e7\u00f5es de investimento que aplicam \u00e0 vida, incluindo o conceito Build Your Own Yacht para networking estrat\u00e9gico. An\u00e1lise profunda do panorama AI Game of Thrones style.",
+      "insights": [
+        {
+          "insight": "Asymmetric investing: perder $3M ou ganhar $300M",
+          "why": "Risco capped, upside ilimitado"
+        },
+        {
+          "insight": "Build Your Own Yacht - criar asset que d\u00e1 social proof",
+          "why": "Jantares, eventos, newsletters como networking"
+        },
+        {
+          "insight": "AI: ChatGPT (consumidor), Claude (enterprise), Gemini (momentum)",
+          "why": "Diferentes players para diferentes use cases"
+        }
+      ],
+      "quotes": [
+        "I could only lose $3 million. I could gain $300 million.",
+        "Everything compounds, including relationships, skills, knowledge.",
+        "We actually didnt hire somebody this year because were using Claude more than ever."
+      ],
+      "rating": 5.0,
+      "tags": [
+        "investing",
+        "ai",
+        "networking",
+        "entrepreneurship",
+        "mfm"
+      ]
+    },
+    {
+      "id": "2026-03-04-doac-epstein-intelligence",
+      "filename": "2026-03-04-doac-epstein-intelligence.md",
+      "date": "2026-03-04",
+      "title": "Top Intelligence Advisor: Epstein Was A Front",
+      "host": "Diary of a CEO (Steven Bartlett)",
+      "guest": "Gavin de Becker \u2014 Fundador, empresa de seguran\u00e7a anti-assassinato",
+      "duration": "~2h 30min",
+      "link": "https://www.youtube.com/watch?v=t38LbMVoPCs",
+      "theme": "Seguran\u00e7a digital, caso Bezos, Epstein como asset de intelig\u00eancia",
+      "tldr": "Gavin de Becker, especialista em seguran\u00e7a que protege Bezos e celebridades, revela informa\u00e7\u00f5es sobre seguran\u00e7a digital, o caso Bezos/Saudi, e a teoria de que Epstein era um asset de intelig\u00eancia israelita.",
+      "insights": [
+        {
+          "insight": "NENHUMA prote\u00e7\u00e3o vi\u00e1vel para confidencialidade de telem\u00f3vel",
+          "why": "Se governo quiser, Pegasus 3 entra"
+        },
+        {
+          "insight": "Epstein era um construct, n\u00e3o bilion\u00e1rio",
+          "why": "Dinheiro veio de Les Wexner"
+        },
+        {
+          "insight": "Opera\u00e7\u00e3o de blackmail com c\u00e2maras em NYC e ilha",
+          "why": "Compromat para controlar pessoas poderosas"
+        }
+      ],
+      "quotes": [
+        "There is absolutely no protection viable for the confidentiality of your phone if a government wants you.",
+        "Epstein wasnt a billionaire. He was a construct.",
+        "I was told he belonged to intelligence."
+      ],
+      "rating": 5.0,
+      "tags": [
+        "security",
+        "epstein",
+        "intelligence",
+        "privacy",
+        "geopolitics",
+        "doac"
+      ]
+    },
+    {
+      "id": "2026-03-04-ferriss-jordan-jonas-alone",
+      "filename": "2026-03-04-ferriss-jordan-jonas-alone.md",
+      "date": "2026-03-04",
+      "title": "Champion of Alone on The Art of Survival \u2014 Jordan Jonas",
+      "host": "Tim Ferriss Show",
+      "guest": "Jordan Jonas \u2014 Vencedor Alone Season 6, sobrevivencialista",
+      "duration": "~2h 13min",
+      "link": "https://www.youtube.com/watch?v=y5xJn9QpyX8",
+      "theme": "Sobreviv\u00eancia, machado siberiano, f\u00e9 e prop\u00f3sito",
+      "tldr": "Jordan Jonas, vencedor do Alone que sobreviveu 77 dias no \u00c1rtico, partilha a sua jornada de farm kid em Idaho a viver com tribos n\u00f3madas na Sib\u00e9ria. Discuss\u00e3o profunda sobre ferramentas de sobreviv\u00eancia e como uma crise de f\u00e9 o levou a uma vida extraordin\u00e1ria.",
+      "insights": [
+        {
+          "insight": "Machado = ferramenta essencial de sobreviv\u00eancia",
+          "why": "Mais vers\u00e1til que faca"
+        },
+        {
+          "insight": "Standing dead wood = seco por dentro mesmo ap\u00f3s chuva",
+          "why": "T\u00e9cnica crucial para fogo"
+        },
+        {
+          "insight": "Act your way into a new way of thinking",
+          "why": "Viver f\u00e9 antes de acreditar"
+        }
+      ],
+      "quotes": [
+        "The one tool you need is an axe. As the natives would say.",
+        "Lord, give me faith to match my willingness to sacrifice.",
+        "We scraped sap off a spruce tree and packed the wound. Never got infected."
+      ],
+      "rating": 4.5,
+      "tags": [
+        "survival",
+        "faith",
+        "russia",
+        "alone",
+        "adventure",
+        "timferriss"
+      ]
+    },
     {
       "id": "2026-03-03-lex-fridman-rick-beato",
       "filename": "2026-03-03-lex-fridman-rick-beato.md",
       "date": "2026-03-03",
       "title": "Rick Beato: Greatest Guitarists of All Time, History & Future of Music",
       "host": "Lex Fridman Podcast (#492)",
-      "guest": "Rick Beato — Educator musical, produtor, guitarrista, YouTube",
+      "guest": "Rick Beato \u2014 Educator musical, produtor, guitarrista, YouTube",
       "duration": "~4h",
       "link": "https://www.youtube.com/watch?v=1SJiTwbSI58",
-      "theme": "A arte da guitarra, perfect pitch, grandes guitarristas, e a ciência do aprendizado musical",
-      "tldr": "Rick Beato partilha jornada de aprender Hey Joe aos 14 até entrevistar David Gilmour. Conceito revolucionário: todas as crianças têm perfect pitch ao nascer e perdem-no aos 9 meses se não for desenvolvido. Masterclass sobre Hendrix, Gilmour, Mark Knopfler, Miles Davis, e a importância da luta no aprendizado.",
+      "theme": "A arte da guitarra, perfect pitch, grandes guitarristas, e a ci\u00eancia do aprendizado musical",
+      "tldr": "Rick Beato partilha jornada de aprender Hey Joe aos 14 at\u00e9 entrevistar David Gilmour. Conceito revolucion\u00e1rio: todas as crian\u00e7as t\u00eam perfect pitch ao nascer e perdem-no aos 9 meses se n\u00e3o for desenvolvido. Masterclass sobre Hendrix, Gilmour, Mark Knopfler, Miles Davis, e a import\u00e2ncia da luta no aprendizado.",
       "insights": [
         {
           "insight": "Perfect pitch pode ser desenvolvido nos primeiros 9 meses",
-          "why": "Exposição a música complexa preserva capacidade"
+          "why": "Exposi\u00e7\u00e3o a m\u00fasica complexa preserva capacidade"
         },
         {
           "insight": "10 min/dia > 1 hora/semana",
-          "why": "Consistência vence intensidade"
+          "why": "Consist\u00eancia vence intensidade"
         },
         {
-          "insight": "Struggle é onde o aprendizado acontece",
-          "why": "Figuring out sozinho cria memória mais forte"
+          "insight": "Struggle \u00e9 onde o aprendizado acontece",
+          "why": "Figuring out sozinho cria mem\u00f3ria mais forte"
         },
         {
-          "insight": "Tone = identidade — reconheces Gilmour por UMA nota",
-          "why": "Desenvolver tone pessoal é tão importante quanto técnica"
+          "insight": "Tone = identidade \u2014 reconheces Gilmour por UMA nota",
+          "why": "Desenvolver tone pessoal \u00e9 t\u00e3o importante quanto t\u00e9cnica"
         },
         {
-          "insight": "Miles Davis nunca ensaiava ou ouvia gravações depois",
-          "why": "Pensamento é inimigo do flow"
+          "insight": "Miles Davis nunca ensaiava ou ouvia grava\u00e7\u00f5es depois",
+          "why": "Pensamento \u00e9 inimigo do flow"
         }
       ],
       "quotes": [
-        "If you ever learn to play guitar like this, you've accomplished something with your life. — Rick's dad sobre Joe Pass",
-        "Thought is the enemy of flow. — Vinnie Colaiuta",
+        "If you ever learn to play guitar like this, you've accomplished something with your life. \u2014 Rick's dad sobre Joe Pass",
+        "Thought is the enemy of flow. \u2014 Vinnie Colaiuta",
         "It's better to practice 10 minutes a day, 7 days a week, than to practice one day for an hour.",
         "The struggle is where it's at. This is true for education in general."
       ],
@@ -63,24 +182,24 @@
       "guest": "Dara Khosrowshahi (CEO Uber)",
       "duration": "~90 min",
       "link": "https://www.youtube.com/watch?v=s52O1JH2tnU",
-      "theme": "Liderança empresarial, impacto da IA no trabalho, e a jornada de um imigrante iraniano a CEO da Uber",
-      "tldr": "Dara Khosrowshahi transformou a Uber de uma empresa que perdia $3 biliões/ano para uma que gera $8.5 biliões em free cash flow. É brutalmente honesto sobre IA: 9.4 milhões de motoristas serão substituídos por veículos autónomos em 15-20 anos. O CEO defende que hard work é learned skill, e que não se deve fazer planos de carreira rígidos — deixar o mundo mudar-te primeiro.",
+      "theme": "Lideran\u00e7a empresarial, impacto da IA no trabalho, e a jornada de um imigrante iraniano a CEO da Uber",
+      "tldr": "Dara Khosrowshahi transformou a Uber de uma empresa que perdia $3 bili\u00f5es/ano para uma que gera $8.5 bili\u00f5es em free cash flow. \u00c9 brutalmente honesto sobre IA: 9.4 milh\u00f5es de motoristas ser\u00e3o substitu\u00eddos por ve\u00edculos aut\u00f3nomos em 15-20 anos. O CEO defende que hard work \u00e9 learned skill, e que n\u00e3o se deve fazer planos de carreira r\u00edgidos \u2014 deixar o mundo mudar-te primeiro.",
       "insights": [
         {
           "insight": "Hard work is a learned skill, not genetic",
-          "why": "Remove desculpas — trabalho duro é treinável"
+          "why": "Remove desculpas \u2014 trabalho duro \u00e9 trein\u00e1vel"
         },
         {
           "insight": "AI will replace 9.4M Uber drivers in 15-20 years",
-          "why": "Disruption real está a chegar"
+          "why": "Disruption real est\u00e1 a chegar"
         },
         {
-          "insight": "Don't plan your career — lose curiosity with rigid plans",
-          "why": "Oportunidades vêm de estar aberto"
+          "insight": "Don't plan your career \u2014 lose curiosity with rigid plans",
+          "why": "Oportunidades v\u00eam de estar aberto"
         },
         {
-          "insight": "UBI tests have all failed — purpose comes from work",
-          "why": "Propósito vem de criar valor"
+          "insight": "UBI tests have all failed \u2014 purpose comes from work",
+          "why": "Prop\u00f3sito vem de criar valor"
         },
         {
           "insight": "Let the world change you first",
@@ -89,9 +208,9 @@
       ],
       "quotes": [
         "The most important skill in life is the skill of working hard. That's a learned skill.",
-        "Since when is life about being happy? It's about making impact. — Daniel Ek",
+        "Since when is life about being happy? It's about making impact. \u2014 Daniel Ek",
         "Don't plan. Let the world change you first.",
-        "That conversation with my dad — you can't get time back."
+        "That conversation with my dad \u2014 you can't get time back."
       ],
       "rating": 5.0,
       "tags": [
@@ -112,16 +231,16 @@
       "guest": "Scott Galloway (Professor NYU, investidor, autor)",
       "duration": "~50 min",
       "link": "https://www.youtube.com/watch?v=cxvwSLSRpfU",
-      "theme": "Investimentos, GLP-1s como revolução maior que IA, gastar dinheiro bem, e a epidemia masculina",
-      "tldr": "Scott Galloway está a diversificar fora de stocks americanos — EUA overvalued (Buffett Index a 210% vs 90% ideal). Defende que GLP-1s são mais transformadores que IA. Partilha filosofia: depois de atingir 'o número', ou gasta ('como gangster dos 50s com cancro no rabo') ou dá — não acumula.",
+      "theme": "Investimentos, GLP-1s como revolu\u00e7\u00e3o maior que IA, gastar dinheiro bem, e a epidemia masculina",
+      "tldr": "Scott Galloway est\u00e1 a diversificar fora de stocks americanos \u2014 EUA overvalued (Buffett Index a 210% vs 90% ideal). Defende que GLP-1s s\u00e3o mais transformadores que IA. Partilha filosofia: depois de atingir 'o n\u00famero', ou gasta ('como gangster dos 50s com cancro no rabo') ou d\u00e1 \u2014 n\u00e3o acumula.",
       "insights": [
         {
-          "insight": "America is expensive — Europe is on sale",
-          "why": "Diversificação geográfica faz sentido agora"
+          "insight": "America is expensive \u2014 Europe is on sale",
+          "why": "Diversifica\u00e7\u00e3o geogr\u00e1fica faz sentido agora"
         },
         {
           "insight": "GLP-1 > AI in life impact",
-          "why": "Pode ser opportunity de investimento e saúde"
+          "why": "Pode ser opportunity de investimento e sa\u00fade"
         },
         {
           "insight": "The sexier the investment, the worse the return",
@@ -161,8 +280,8 @@
       "guest": "N/A (conversa Sam & Shaan)",
       "duration": "~45 min",
       "link": "https://www.youtube.com/watch?v=XwVUuE9qc2U",
-      "theme": "A fraude de Napoleon Hill, legitimidade no self-help, e criação prolífica",
-      "tldr": "Napoleon Hill nunca conheceu Andrew Carnegie — toda a backstory de Think and Grow Rich é fabricada, e ele tinha rap sheet de fraude. Apesar disso, o conteúdo foi validado por ciência. Peter Levels: 4 de 70+ projectos fizeram dinheiro — hit rate de 5%, por isso 'ship more'.",
+      "theme": "A fraude de Napoleon Hill, legitimidade no self-help, e cria\u00e7\u00e3o prol\u00edfica",
+      "tldr": "Napoleon Hill nunca conheceu Andrew Carnegie \u2014 toda a backstory de Think and Grow Rich \u00e9 fabricada, e ele tinha rap sheet de fraude. Apesar disso, o conte\u00fado foi validado por ci\u00eancia. Peter Levels: 4 de 70+ projectos fizeram dinheiro \u2014 hit rate de 5%, por isso 'ship more'.",
       "insights": [
         {
           "insight": "Napoleon Hill invented his entire backstory",
@@ -186,8 +305,8 @@
         }
       ],
       "quotes": [
-        "Everything I just told you is a lie. — Sam Parr (plot twist)",
-        "4 out of 70+ projects made money. My hit rate is only 5%, so ship more. — Peter Levels",
+        "Everything I just told you is a lie. \u2014 Sam Parr (plot twist)",
+        "4 out of 70+ projects made money. My hit rate is only 5%, so ship more. \u2014 Peter Levels",
         "The people who make the best quality also make the highest quantity.",
         "He convinced the woman's parents to loan him money, went bankrupt, and divorced the woman."
       ],
@@ -210,38 +329,38 @@
       "guest": "Nathan Lambert (Allen Institute for AI) & Sebastian Raschka (ML Researcher/Author)",
       "duration": "~4h30m",
       "link": "https://www.youtube.com/watch?v=EV7WhVT270Q",
-      "theme": "Estado da arte em IA em 2026 - modelos, tendências, China vs US, futuro de AGI",
-      "tldr": "O mercado de IA em 2026 está fragmentado: Claude Opus 3.5 domina coding (hype orgânico no X), ChatGPT mantém share de utilizadores casuais, e Gemini avança em contexto longo. China (DeepSeek, Kimi, MiniMax) continua a libertar modelos open-weight como estratégia de influência, mas EUA mantém vantagem em qualidade. A diferenciação já não é tecnológica (ideias fluem livremente) - é sobre budget, hardware, e cultura organizacional.",
+      "theme": "Estado da arte em IA em 2026 - modelos, tend\u00eancias, China vs US, futuro de AGI",
+      "tldr": "O mercado de IA em 2026 est\u00e1 fragmentado: Claude Opus 3.5 domina coding (hype org\u00e2nico no X), ChatGPT mant\u00e9m share de utilizadores casuais, e Gemini avan\u00e7a em contexto longo. China (DeepSeek, Kimi, MiniMax) continua a libertar modelos open-weight como estrat\u00e9gia de influ\u00eancia, mas EUA mant\u00e9m vantagem em qualidade. A diferencia\u00e7\u00e3o j\u00e1 n\u00e3o \u00e9 tecnol\u00f3gica (ideias fluem livremente) - \u00e9 sobre budget, hardware, e cultura organizacional.",
       "sections_summary": {
-        "China vs US": "- Não há vencedor claro — ideias fluem entre labs\n- DeepSeek inspirou wave de modelos chineses (Kimi, MiniMax, Zhipu AI)\n- Empresas chinesas usam open-weights como soft power\n- Menos GPUs por réplica → mais lento mas mais barato",
-        "ChatGPT vs Claude vs Gemini vs Grok": "- Claude Opus 3.5 = darling do X, especialmente coding\n- ChatGPT = incumbente com muscle memory\n- Gemini = progresso em long context\n- Grok-3 Heavy = surpreendentemente bom para debugging\n- Futuro = múltiplas subscrições",
-        "Best AI for Coding": "- Claude Code = experiência diferente, 'programar em inglês'\n- Cursor = controlo granular\n- Codeium = sweet spot ajuda sem controlo total\n- Sebastian: prefere controlo\n- Nathan: sempre usa extended thinking",
-        "Scaling & Training": "- Mid-training = nova fase (domain adaptation)\n- Scaling laws não morreram mas retornos diminuem\n- Text diffusion = nova área promissora"
+        "China vs US": "- N\u00e3o h\u00e1 vencedor claro \u2014 ideias fluem entre labs\n- DeepSeek inspirou wave de modelos chineses (Kimi, MiniMax, Zhipu AI)\n- Empresas chinesas usam open-weights como soft power\n- Menos GPUs por r\u00e9plica \u2192 mais lento mas mais barato",
+        "ChatGPT vs Claude vs Gemini vs Grok": "- Claude Opus 3.5 = darling do X, especialmente coding\n- ChatGPT = incumbente com muscle memory\n- Gemini = progresso em long context\n- Grok-3 Heavy = surpreendentemente bom para debugging\n- Futuro = m\u00faltiplas subscri\u00e7\u00f5es",
+        "Best AI for Coding": "- Claude Code = experi\u00eancia diferente, 'programar em ingl\u00eas'\n- Cursor = controlo granular\n- Codeium = sweet spot ajuda sem controlo total\n- Sebastian: prefere controlo\n- Nathan: sempre usa extended thinking",
+        "Scaling & Training": "- Mid-training = nova fase (domain adaptation)\n- Scaling laws n\u00e3o morreram mas retornos diminuem\n- Text diffusion = nova \u00e1rea promissora"
       },
       "insights": [
         {
-          "insight": "Ideias fluem livremente entre labs — diferenciação é budget/hardware",
-          "why": "Não apostar em 'segredo tecnológico'"
+          "insight": "Ideias fluem livremente entre labs \u2014 diferencia\u00e7\u00e3o \u00e9 budget/hardware",
+          "why": "N\u00e3o apostar em 'segredo tecnol\u00f3gico'"
         },
         {
-          "insight": "Claude Opus 3.5 hype é orgânico vs Gemini foi marketing",
-          "why": "Atenção ao que people actually use vs talk about"
+          "insight": "Claude Opus 3.5 hype \u00e9 org\u00e2nico vs Gemini foi marketing",
+          "why": "Aten\u00e7\u00e3o ao que people actually use vs talk about"
         },
         {
-          "insight": "Múltiplas subscrições LLM é o novo normal",
+          "insight": "M\u00faltiplas subscri\u00e7\u00f5es LLM \u00e9 o novo normal",
           "why": "Different models for different tasks"
         },
         {
-          "insight": "'Programar em inglês' é skill separada",
-          "why": "Vale desenvolver, não substitui fundamentos"
+          "insight": "'Programar em ingl\u00eas' \u00e9 skill separada",
+          "why": "Vale desenvolver, n\u00e3o substitui fundamentos"
         },
         {
-          "insight": "Extended thinking sempre > non-thinking para info crítica",
-          "why": "Sempre usar para pesquisa/trabalho sério"
+          "insight": "Extended thinking sempre > non-thinking para info cr\u00edtica",
+          "why": "Sempre usar para pesquisa/trabalho s\u00e9rio"
         },
         {
-          "insight": "'Use it until it breaks' — não comparar constantemente",
-          "why": "Usar modelo até falhar significativamente"
+          "insight": "'Use it until it breaks' \u2014 n\u00e3o comparar constantemente",
+          "why": "Usar modelo at\u00e9 falhar significativamente"
         }
       ],
       "actions": {
@@ -255,7 +374,7 @@
         ],
         "longterm": [
           "Ler 'Build LLM from Scratch' (Sebastian Raschka)",
-          "Desenvolver skill de 'programar em inglês'"
+          "Desenvolver skill de 'programar em ingl\u00eas'"
         ]
       },
       "context_application": {
@@ -265,21 +384,21 @@
       "frameworks": [
         {
           "name": "Use it until it breaks",
-          "content": "Usar um modelo até falhar significativamente, depois explorar alternativas. Não perder tempo comparando constantemente."
+          "content": "Usar um modelo at\u00e9 falhar significativamente, depois explorar alternativas. N\u00e3o perder tempo comparando constantemente."
         },
         {
           "name": "Winning has multiple timescales",
-          "content": "Vencer hoje ≠ vencer em 1 ano ≠ vencer em 10 anos. Avaliar tecnologias em diferentes horizontes."
+          "content": "Vencer hoje \u2260 vencer em 1 ano \u2260 vencer em 10 anos. Avaliar tecnologias em diferentes horizontes."
         },
         {
           "name": "Budget/Hardware > Ideas",
-          "content": "Ideias fluem, recursos não. Para startups, focar em execução, não 'segredos'."
+          "content": "Ideias fluem, recursos n\u00e3o. Para startups, focar em execu\u00e7\u00e3o, n\u00e3o 'segredos'."
         }
       ],
       "stories": [
         {
           "title": "Sebastian unplugs GPU before trip",
-          "content": "Sebastian tinha de sair, acidentalmente desligou GPU. Precisava Bash script em 10 segundos. Usou modelo rápido (non-thinking) — right tool for the job."
+          "content": "Sebastian tinha de sair, acidentalmente desligou GPU. Precisava Bash script em 10 segundos. Usou modelo r\u00e1pido (non-thinking) \u2014 right tool for the job."
         }
       ],
       "resources": [
@@ -303,8 +422,8 @@
       ],
       "rating": 5.0,
       "rating_breakdown": {
-        "Novidade da informação": 5,
-        "Aplicabilidade prática": 4,
+        "Novidade da informa\u00e7\u00e3o": 5,
+        "Aplicabilidade pr\u00e1tica": 4,
         "Qualidade da conversa": 5,
         "Recomendo a outros": 5
       },
@@ -320,7 +439,7 @@
         "china",
         "lex-fridman"
       ],
-      "verdict": "Episódio OBRIGATÓRIO para quem trabalha com AI. Sebastian e Nathan são dois dos melhores comunicadores técnicos. 4h30 bem investidas."
+      "verdict": "Epis\u00f3dio OBRIGAT\u00d3RIO para quem trabalha com AI. Sebastian e Nathan s\u00e3o dois dos melhores comunicadores t\u00e9cnicos. 4h30 bem investidas."
     },
     {
       "id": "2026-02-25-endurance-asia-tommy-lewis",
@@ -328,31 +447,31 @@
       "date": "2026-02-25",
       "title": "Tommy Lewis on Trail Running, Strength Training & Nutrition",
       "host": "Endurance Asia Podcast (Scott)",
-      "guest": "Tommy Lewis — Personal Trainer, Coach, 'That's Runnable' Podcast",
+      "guest": "Tommy Lewis \u2014 Personal Trainer, Coach, 'That's Runnable' Podcast",
       "duration": "~55 min",
       "link": "https://www.youtube.com/watch?v=ltkuXTPZFsU",
-      "theme": "Força, nutrição e mindset para ultra running sustentável",
-      "tldr": "Tommy Lewis é PT e criador do podcast 'That's Runnable' que transformou a paixão por corrida em profissão. **Strength training é tão importante como a long run** — 1-2h/semana de treino de força consistente previne lesões e aumenta durabilidade. A chave para nutrição e suplementação é **acertar nos básicos primeiro** (sono, hidratação, comida real) antes de pensar em marginal gains.",
+      "theme": "For\u00e7a, nutri\u00e7\u00e3o e mindset para ultra running sustent\u00e1vel",
+      "tldr": "Tommy Lewis \u00e9 PT e criador do podcast 'That's Runnable' que transformou a paix\u00e3o por corrida em profiss\u00e3o. **Strength training \u00e9 t\u00e3o importante como a long run** \u2014 1-2h/semana de treino de for\u00e7a consistente previne les\u00f5es e aumenta durabilidade. A chave para nutri\u00e7\u00e3o e suplementa\u00e7\u00e3o \u00e9 **acertar nos b\u00e1sicos primeiro** (sono, hidrata\u00e7\u00e3o, comida real) antes de pensar em marginal gains.",
       "sections_summary": {
-        "Transformar Paixão em Profissão": "- Trabalhou na Figma enquanto construía presença online\n- 3 anos a postar diariamente no Instagram\n- Running salvou-lhe a vida em período difícil de saúde mental",
-        "Vietnam Trail Marathon (70K)": "- Chegou undertrained — 2 meses sem treino consistente\n- Problemas de estômago pela primeira vez\n- Mesmo assim terminou — bad races ensinam mais",
-        "Força para Corredores": "- Strength training = tão importante como long run\n- 1-2h/semana de treino consistente = resultados enormes\n- Exercícios: hinge, squat, push/pull, lunges, plyometrics",
-        "Nutrição Plant-Based": "- Flexível — come ovo se precisar de proteína a viajar\n- 1.2-1.5g proteína/kg de peso corporal\n- Carbs são a melhor fonte de energia",
-        "Basics vs Marginal Gains": "- Sky Team acertou TUDO básico primeiro\n- Creatina = non-brainer para todos\n- Não procurar hacks antes de fazer o fundamental",
-        "Sistema A/B/C Races": "- A Race: peak performance (1-2/ano)\n- B Race: foco específico (nutrição, aid stations)\n- C Race: training run divertido"
+        "Transformar Paix\u00e3o em Profiss\u00e3o": "- Trabalhou na Figma enquanto constru\u00eda presen\u00e7a online\n- 3 anos a postar diariamente no Instagram\n- Running salvou-lhe a vida em per\u00edodo dif\u00edcil de sa\u00fade mental",
+        "Vietnam Trail Marathon (70K)": "- Chegou undertrained \u2014 2 meses sem treino consistente\n- Problemas de est\u00f4mago pela primeira vez\n- Mesmo assim terminou \u2014 bad races ensinam mais",
+        "For\u00e7a para Corredores": "- Strength training = t\u00e3o importante como long run\n- 1-2h/semana de treino consistente = resultados enormes\n- Exerc\u00edcios: hinge, squat, push/pull, lunges, plyometrics",
+        "Nutri\u00e7\u00e3o Plant-Based": "- Flex\u00edvel \u2014 come ovo se precisar de prote\u00edna a viajar\n- 1.2-1.5g prote\u00edna/kg de peso corporal\n- Carbs s\u00e3o a melhor fonte de energia",
+        "Basics vs Marginal Gains": "- Sky Team acertou TUDO b\u00e1sico primeiro\n- Creatina = non-brainer para todos\n- N\u00e3o procurar hacks antes de fazer o fundamental",
+        "Sistema A/B/C Races": "- A Race: peak performance (1-2/ano)\n- B Race: foco espec\u00edfico (nutri\u00e7\u00e3o, aid stations)\n- C Race: training run divertido"
       },
       "insights": [
         {
-          "insight": "Strength training = tão importante como long run",
+          "insight": "Strength training = t\u00e3o importante como long run",
           "why": "Durabilidade e longevidade no desporto"
         },
         {
-          "insight": "90 min/semana de força = benefícios enormes",
-          "why": "Não precisas de viver no ginásio"
+          "insight": "90 min/semana de for\u00e7a = benef\u00edcios enormes",
+          "why": "N\u00e3o precisas de viver no gin\u00e1sio"
         },
         {
           "insight": "Basics antes de marginal gains",
-          "why": "Creatina não compensa sono mau"
+          "why": "Creatina n\u00e3o compensa sono mau"
         },
         {
           "insight": "Sistema A/B/C races",
@@ -360,37 +479,37 @@
         },
         {
           "insight": "Bad races ensinam mais que good races",
-          "why": "O valor do ultra está na adversidade"
+          "why": "O valor do ultra est\u00e1 na adversidade"
         }
       ],
       "actions": {
         "immediate": [
-          "Avaliar: faço strength training 2x/semana?",
+          "Avaliar: fa\u00e7o strength training 2x/semana?",
           "Verificar creatina no stack",
-          "Classificar próxima corrida (A/B/C)"
+          "Classificar pr\u00f3xima corrida (A/B/C)"
         ],
         "week": [
-          "Planear 2 sessões de força",
-          "Experimentar treino descalço",
-          "High-protein meal após treino longo"
+          "Planear 2 sess\u00f5es de for\u00e7a",
+          "Experimentar treino descal\u00e7o",
+          "High-protein meal ap\u00f3s treino longo"
         ],
         "longterm": [
-          "Criar rotina de strength sustentável (1-2h/semana)",
+          "Criar rotina de strength sustent\u00e1vel (1-2h/semana)",
           "Mapear corridas do ano em sistema A/B/C"
         ]
       },
       "context_application": {
-        "Para Ironman": "- Força é crítica — natação, bike e run exigem músculos fortes\n- Sistema A/B/C — Ironman é A race, usar outras como B/C",
-        "Para Produtividade": "- Basics first — não procurar hacks antes do fundamental\n- Running como âncora mental — manter mesmo quando ocupado"
+        "Para Ironman": "- For\u00e7a \u00e9 cr\u00edtica \u2014 nata\u00e7\u00e3o, bike e run exigem m\u00fasculos fortes\n- Sistema A/B/C \u2014 Ironman \u00e9 A race, usar outras como B/C",
+        "Para Produtividade": "- Basics first \u2014 n\u00e3o procurar hacks antes do fundamental\n- Running como \u00e2ncora mental \u2014 manter mesmo quando ocupado"
       },
       "frameworks": [
         {
           "name": "Basics Before Marginal Gains",
-          "content": "Só optimizar quando os fundamentais estão perfeitos. Sono, nutrição, hidratação PRIMEIRO."
+          "content": "S\u00f3 optimizar quando os fundamentais est\u00e3o perfeitos. Sono, nutri\u00e7\u00e3o, hidrata\u00e7\u00e3o PRIMEIRO."
         },
         {
           "name": "A/B/C Race System",
-          "content": "A Race: 1-2/ano, peak. B Race: praticar algo específico. C Race: social, fun."
+          "content": "A Race: 1-2/ano, peak. B Race: praticar algo espec\u00edfico. C Race: social, fun."
         },
         {
           "name": "The Value of Bad Days",
@@ -400,17 +519,17 @@
       "stories": [
         {
           "title": "A Corrida Desastrosa no Vietnam",
-          "content": "Tommy chegou undertrained, vomitou tudo, passou a corrida em cramp city mas terminou — porque 'there's more to gain from finishing a bad race'."
+          "content": "Tommy chegou undertrained, vomitou tudo, passou a corrida em cramp city mas terminou \u2014 porque 'there's more to gain from finishing a bad race'."
         }
       ],
       "resources": [
         {
           "type": "Podcast:",
-          "description": "That's Runnable — Tommy Lewis"
+          "description": "That's Runnable \u2014 Tommy Lewis"
         },
         {
           "type": "Podcast:",
-          "description": "Endurance Asia — Scott"
+          "description": "Endurance Asia \u2014 Scott"
         },
         {
           "type": "Marca:",
@@ -422,9 +541,9 @@
         }
       ],
       "reflection_questions": [
-        "Faço strength training consistente ou só quando 'tenho tempo'?",
+        "Fa\u00e7o strength training consistente ou s\u00f3 quando 'tenho tempo'?",
         "Classifico as minhas corridas ou vou a todas com a mesma intensidade?",
-        "Estou a acertar nos básicos antes de procurar hacks?"
+        "Estou a acertar nos b\u00e1sicos antes de procurar hacks?"
       ],
       "quotes": [
         "Strength training for me for a runner's program is as important as the long run in the week.",
@@ -434,8 +553,8 @@
       ],
       "rating": 4.5,
       "rating_breakdown": {
-        "Novidade da informação": 4,
-        "Aplicabilidade prática": 5,
+        "Novidade da informa\u00e7\u00e3o": 4,
+        "Aplicabilidade pr\u00e1tica": 5,
         "Recomendo a outros": 5
       },
       "tags": [
@@ -449,7 +568,7 @@
         "race-strategy",
         "ironman-relevant"
       ],
-      "verdict": "Episódio muito prático para qualquer atleta de endurance. O insight 'strength training = long run em importância' é fundamental. Directamente aplicável ao treino de Ironman."
+      "verdict": "Epis\u00f3dio muito pr\u00e1tico para qualquer atleta de endurance. O insight 'strength training = long run em import\u00e2ncia' \u00e9 fundamental. Directamente aplic\u00e1vel ao treino de Ironman."
     },
     {
       "id": "2026-02-14-lex-fridman-peter-steinberger",
@@ -457,38 +576,38 @@
       "date": "2026-02-14",
       "title": "The Creator of OpenClaw",
       "host": "Lex Fridman Podcast",
-      "guest": "Peter Steinberger — Criador do OpenClaw, ex-fundador PSPDFKit",
+      "guest": "Peter Steinberger \u2014 Criador do OpenClaw, ex-fundador PSPDFKit",
       "duration": "~2h 30min",
       "link": "https://www.youtube.com/watch?v=YFjfBk8HI5o",
-      "theme": "A história do OpenClaw, filosofia de desenvolvimento, e o futuro dos AI agents",
-      "tldr": "Peter Steinberger construiu o protótipo do OpenClaw em **1 hora** — WhatsApp → Claude Code CLI. O projecto explodiu porque ele \"just had fun\" enquanto labs grandes se levavam demasiado a sério. Insights sobre self-modifying software, agentic engineering vs vibe coding, e por que usar voz em vez de texto para prompts é game-changing.",
+      "theme": "A hist\u00f3ria do OpenClaw, filosofia de desenvolvimento, e o futuro dos AI agents",
+      "tldr": "Peter Steinberger construiu o prot\u00f3tipo do OpenClaw em **1 hora** \u2014 WhatsApp \u2192 Claude Code CLI. O projecto explodiu porque ele \"just had fun\" enquanto labs grandes se levavam demasiado a s\u00e9rio. Insights sobre self-modifying software, agentic engineering vs vibe coding, e por que usar voz em vez de texto para prompts \u00e9 game-changing.",
       "sections_summary": {
-        "A Origem do OpenClaw": "- Abril 2025: queria assistente pessoal, labs não fizeram, então fez ele\n- Protótipo em **1 hora**: WhatsApp relay → Claude Code CLI → resposta\n- Nome mudou várias vezes: WA-Relay → Claude's → Claudebot → Moltbot → OpenClaw\n- Fastest growing GitHub repo in history: 175,000+ stars",
-        "Self-Modifying Software": "- Agent conhece o próprio código e pode modificá-lo\n- 6,600 commits em Janeiro — Peter corre 4-10 agents simultaneamente\n- Agent descobriu sozinho como transcrever áudio: ffmpeg → OpenAI Whisper API\n- \"no-reply token\" permite agent ficar calado em group chats quando não é relevante",
-        "Agentic Engineering vs Vibe Coding": "- **Agentic engineering**: código estruturado, methodical\n- **Vibe coding**: depois das 3AM, \"just let it flow\"\n- Peter usa VOZ para prompts — não escreve, fala\n- Transforma conversa natural em acções concretas",
-        "Por Que OpenClaw Ganhou": "- \"They take themselves too seriously. Hard to compete against someone just having fun.\"\n- Não pediu permissão a ninguém, não esperou por enterprise features\n- Comunidade criou-se organicamente\n- \"Prompt requests\" = PRs de pessoas que nunca programaram",
-        "História Pessoal": "- Construiu PSPDFKit (SDK em 1 bilião de devices), vendeu\n- Desapareceu 3 anos, voltou com OpenClaw\n- Personalidade do agent definida em soul.md\n- Usa Claude Opus 4.6 e GPT 5.3 Codex"
+        "A Origem do OpenClaw": "- Abril 2025: queria assistente pessoal, labs n\u00e3o fizeram, ent\u00e3o fez ele\n- Prot\u00f3tipo em **1 hora**: WhatsApp relay \u2192 Claude Code CLI \u2192 resposta\n- Nome mudou v\u00e1rias vezes: WA-Relay \u2192 Claude's \u2192 Claudebot \u2192 Moltbot \u2192 OpenClaw\n- Fastest growing GitHub repo in history: 175,000+ stars",
+        "Self-Modifying Software": "- Agent conhece o pr\u00f3prio c\u00f3digo e pode modific\u00e1-lo\n- 6,600 commits em Janeiro \u2014 Peter corre 4-10 agents simultaneamente\n- Agent descobriu sozinho como transcrever \u00e1udio: ffmpeg \u2192 OpenAI Whisper API\n- \"no-reply token\" permite agent ficar calado em group chats quando n\u00e3o \u00e9 relevante",
+        "Agentic Engineering vs Vibe Coding": "- **Agentic engineering**: c\u00f3digo estruturado, methodical\n- **Vibe coding**: depois das 3AM, \"just let it flow\"\n- Peter usa VOZ para prompts \u2014 n\u00e3o escreve, fala\n- Transforma conversa natural em ac\u00e7\u00f5es concretas",
+        "Por Que OpenClaw Ganhou": "- \"They take themselves too seriously. Hard to compete against someone just having fun.\"\n- N\u00e3o pediu permiss\u00e3o a ningu\u00e9m, n\u00e3o esperou por enterprise features\n- Comunidade criou-se organicamente\n- \"Prompt requests\" = PRs de pessoas que nunca programaram",
+        "Hist\u00f3ria Pessoal": "- Construiu PSPDFKit (SDK em 1 bili\u00e3o de devices), vendeu\n- Desapareceu 3 anos, voltou com OpenClaw\n- Personalidade do agent definida em soul.md\n- Usa Claude Opus 4.6 e GPT 5.3 Codex"
       },
       "insights": [
         {
-          "insight": "Protótipo funcional em 1 hora",
-          "why": "Não precisas de infra complexa — WhatsApp + CLI é suficiente para começar"
+          "insight": "Prot\u00f3tipo funcional em 1 hora",
+          "why": "N\u00e3o precisas de infra complexa \u2014 WhatsApp + CLI \u00e9 suficiente para come\u00e7ar"
         },
         {
           "insight": "Voz > Texto para prompts",
-          "why": "Mais natural, captura nuance, menos fricção"
+          "why": "Mais natural, captura nuance, menos fric\u00e7\u00e3o"
         },
         {
-          "insight": "Agent pode descobrir soluções sozinho",
-          "why": "ffmpeg + Whisper API descoberto sem instrução explícita"
+          "insight": "Agent pode descobrir solu\u00e7\u00f5es sozinho",
+          "why": "ffmpeg + Whisper API descoberto sem instru\u00e7\u00e3o expl\u00edcita"
         },
         {
           "insight": "no-reply token para group chats",
-          "why": "Agent escolhe quando ficar calado — mais natural"
+          "why": "Agent escolhe quando ficar calado \u2014 mais natural"
         },
         {
           "insight": "Fun beats serious",
-          "why": "Labs grandes falham por over-engineering; diversão ganha"
+          "why": "Labs grandes falham por over-engineering; divers\u00e3o ganha"
         }
       ],
       "actions": {
@@ -497,7 +616,7 @@
           "Verificar se estou a \"divertir-me\" ou a over-engineer"
         ],
         "week": [
-          "Criar protótipo rápido de uma ideia (<1 dia)",
+          "Criar prot\u00f3tipo r\u00e1pido de uma ideia (<1 dia)",
           "Experimentar soul.md para definir personalidade do agent"
         ],
         "longterm": [
@@ -506,8 +625,8 @@
         ]
       },
       "context_application": {
-        "Para Side Hustles": "- **Speed matters** — protótipo em 1 hora, não 1 semana\n- **Fun = sustentável** — se não estás a gostar, vais desistir\n- **Não pedir permissão** — lançar e iterar",
-        "Para Produtividade": "- **Voice prompts** — tentar no dia-a-dia\n- **Agent como extensão** — não ferramenta, mas parceiro"
+        "Para Side Hustles": "- **Speed matters** \u2014 prot\u00f3tipo em 1 hora, n\u00e3o 1 semana\n- **Fun = sustent\u00e1vel** \u2014 se n\u00e3o est\u00e1s a gostar, vais desistir\n- **N\u00e3o pedir permiss\u00e3o** \u2014 lan\u00e7ar e iterar",
+        "Para Produtividade": "- **Voice prompts** \u2014 tentar no dia-a-dia\n- **Agent como extens\u00e3o** \u2014 n\u00e3o ferramenta, mas parceiro"
       },
       "frameworks": [
         {
@@ -516,27 +635,27 @@
         },
         {
           "name": "Fun Over Perfection",
-          "content": "Projectos divertidos vencem projectos \"sérios\". Labs grandes falham por over-engineering."
+          "content": "Projectos divertidos vencem projectos \"s\u00e9rios\". Labs grandes falham por over-engineering."
         }
       ],
       "stories": [
         {
-          "title": "O Protótipo de 1 Hora",
-          "content": "Peter queria assistente pessoal. Em vez de esperar pelos labs ou planear meses, construiu WhatsApp → Claude Code relay em 60 minutos. Funcionou logo."
+          "title": "O Prot\u00f3tipo de 1 Hora",
+          "content": "Peter queria assistente pessoal. Em vez de esperar pelos labs ou planear meses, construiu WhatsApp \u2192 Claude Code relay em 60 minutos. Funcionou logo."
         },
         {
           "title": "Agent Descobriu Whisper Sozinho",
-          "content": "Peter pediu para transcrever áudio. Agent descobriu sozinho ffmpeg + Whisper API. Emergent capability."
+          "content": "Peter pediu para transcrever \u00e1udio. Agent descobriu sozinho ffmpeg + Whisper API. Emergent capability."
         }
       ],
       "resources": [
         {
           "type": "Projecto:",
-          "description": "OpenClaw — github.com/openclaw/openclaw"
+          "description": "OpenClaw \u2014 github.com/openclaw/openclaw"
         },
         {
           "type": "Conceito:",
-          "description": "soul.md — ficheiro que define personalidade do agent"
+          "description": "soul.md \u2014 ficheiro que define personalidade do agent"
         },
         {
           "type": "Modelos:",
@@ -545,19 +664,19 @@
       ],
       "reflection_questions": [
         "Estou a divertir-me com os meus projectos ou a over-engineer?",
-        "Quanto tempo demoro a fazer um protótipo? Podia ser 1 hora?",
-        "Uso voz para interagir com AI ou só texto?"
+        "Quanto tempo demoro a fazer um prot\u00f3tipo? Podia ser 1 hora?",
+        "Uso voz para interagir com AI ou s\u00f3 texto?"
       ],
       "quotes": [
         "They take themselves too seriously. Hard to compete against someone just having fun.",
         "I built the first prototype in one hour.",
-        "The agent discovered on its own how to transcribe audio — ffmpeg to Whisper API.",
+        "The agent discovered on its own how to transcribe audio \u2014 ffmpeg to Whisper API.",
         "People don't want to TALK with AI, they want AI to DO things."
       ],
       "rating": 5.0,
       "rating_breakdown": {
-        "Novidade da informação": 5,
-        "Aplicabilidade prática": 5,
+        "Novidade da informa\u00e7\u00e3o": 5,
+        "Aplicabilidade pr\u00e1tica": 5,
         "Recomendo a outros": 5
       },
       "tags": [
@@ -569,7 +688,7 @@
         "vibe-coding",
         "self-modifying-software"
       ],
-      "verdict": "Entrevista essencial para entender a filosofia por trás do OpenClaw. O insight de 'fun beats serious' e o protótipo de 1 hora são inspiradores."
+      "verdict": "Entrevista essencial para entender a filosofia por tr\u00e1s do OpenClaw. O insight de 'fun beats serious' e o prot\u00f3tipo de 1 hora s\u00e3o inspiradores."
     },
     {
       "id": "2026-02-12-coding-agents-kelvin-french-owen",
@@ -577,24 +696,24 @@
       "date": "2026-02-12",
       "title": "Coding Agents Deep Dive",
       "host": "The Light Cone (YC Podcast) - Gary Tan, Jared, Harj",
-      "guest": "Kelvin French-Owen — Co-founder Segment, ex-OpenAI Codex Team",
+      "guest": "Kelvin French-Owen \u2014 Co-founder Segment, ex-OpenAI Codex Team",
       "duration": "~45 min",
       "link": "https://www.youtube.com/watch?v=qwmmWzPnhog",
-      "theme": "Como tirar o máximo dos coding agents e o futuro do desenvolvimento de software",
-      "tldr": "Coding agents (Claude Code, Codex) estão a transformar programadores em \"managers\" de código — a chave é **context engineering**, não prompting. Claude Code destaca-se por dividir tarefas em sub-agentes com contextos separados, enquanto Codex foca em runs muito longos com compactação. O futuro pertence a quem souber **dirigir** agentes, não a quem escreve código manualmente.",
+      "theme": "Como tirar o m\u00e1ximo dos coding agents e o futuro do desenvolvimento de software",
+      "tldr": "Coding agents (Claude Code, Codex) est\u00e3o a transformar programadores em \"managers\" de c\u00f3digo \u2014 a chave \u00e9 **context engineering**, n\u00e3o prompting. Claude Code destaca-se por dividir tarefas em sub-agentes com contextos separados, enquanto Codex foca em runs muito longos com compacta\u00e7\u00e3o. O futuro pertence a quem souber **dirigir** agentes, n\u00e3o a quem escreve c\u00f3digo manualmente.",
       "sections_summary": {
-        "A Revolução dos CLIs vs IDEs": "- CLIs (Claude Code, Codex) venceram os IDEs\n- CLI distancia-te do código, dá liberdade para \"voar\" pelo projecto",
-        "Context Engineering — O Segredo": "- **Não é prompting, é context engineering**\n- Claude Code spawna sub-agentes (Haiku) para explorar o filesystem\n- Após ~50% tokens, qualidade degrada (\"dumb zone\")",
-        "Tips para Ser Top 1% User": "- **Menos código, mais boilerplate** — Vercel, Next.js, Cloudflare Workers\n- **Microservices** — packages 100-200 linhas\n- **Limpar contexto** — não deixar passar dos 50% tokens"
+        "A Revolu\u00e7\u00e3o dos CLIs vs IDEs": "- CLIs (Claude Code, Codex) venceram os IDEs\n- CLI distancia-te do c\u00f3digo, d\u00e1 liberdade para \"voar\" pelo projecto",
+        "Context Engineering \u2014 O Segredo": "- **N\u00e3o \u00e9 prompting, \u00e9 context engineering**\n- Claude Code spawna sub-agentes (Haiku) para explorar o filesystem\n- Ap\u00f3s ~50% tokens, qualidade degrada (\"dumb zone\")",
+        "Tips para Ser Top 1% User": "- **Menos c\u00f3digo, mais boilerplate** \u2014 Vercel, Next.js, Cloudflare Workers\n- **Microservices** \u2014 packages 100-200 linhas\n- **Limpar contexto** \u2014 n\u00e3o deixar passar dos 50% tokens"
       },
       "insights": [],
       "actions": {
         "immediate": [
-          "Verificar % de contexto no Claude Code — limpar se >50%"
+          "Verificar % de contexto no Claude Code \u2014 limpar se >50%"
         ],
         "week": [
           "Aumentar test coverage nos projectos principais",
-          "Estruturar código em módulos <200 linhas"
+          "Estruturar c\u00f3digo em m\u00f3dulos <200 linhas"
         ],
         "longterm": [
           "Migrar para stacks com menos boilerplate",
@@ -605,7 +724,7 @@
       "frameworks": [
         {
           "name": "The Dumb Zone",
-          "content": "Após ~50% do context window, modelos degradam. Limpar proactivamente."
+          "content": "Ap\u00f3s ~50% do context window, modelos degradam. Limpar proactivamente."
         },
         {
           "name": "Context-as-Code",
@@ -615,7 +734,7 @@
       "stories": [
         {
           "title": "Gary's Bionic Knee",
-          "content": "Voltar a programar com Claude Code = joelho biónico após 10 anos de \"manager mode\"."
+          "content": "Voltar a programar com Claude Code = joelho bi\u00f3nico ap\u00f3s 10 anos de \"manager mode\"."
         }
       ],
       "resources": [
@@ -629,16 +748,16 @@
         }
       ],
       "reflection_questions": [
-        "Estou a usar contexto de forma óptima?",
-        "Os meus projectos têm test coverage suficiente?"
+        "Estou a usar contexto de forma \u00f3ptima?",
+        "Os meus projectos t\u00eam test coverage suficiente?"
       ],
       "quotes": [
         "I feel like when I'm using Claude Code, it's like, oh, I feel like I'm flying through the code."
       ],
       "rating": 5.0,
       "rating_breakdown": {
-        "Novidade da informação": 5,
-        "Aplicabilidade prática": 5,
+        "Novidade da informa\u00e7\u00e3o": 5,
+        "Aplicabilidade pr\u00e1tica": 5,
         "Recomendo a outros": 5
       },
       "tags": [
@@ -648,7 +767,7 @@
         "context-engineering",
         "produtividade"
       ],
-      "verdict": "Essencial para quem usa coding agents. O insight do '50% context = limpar' vale o episódio inteiro."
+      "verdict": "Essencial para quem usa coding agents. O insight do '50% context = limpar' vale o epis\u00f3dio inteiro."
     },
     {
       "id": "2026-02-11-sleep-michael-breus",
@@ -656,27 +775,27 @@
       "date": "2026-02-11",
       "title": "The Sleep Doctor: This Is Destroying Your Sleep & Relationship",
       "host": "Steven Bartlett (Diary of a CEO)",
-      "guest": "Dr. Michael Breus — Sleep Specialist, PhD, 26 anos de prática",
+      "guest": "Dr. Michael Breus \u2014 Sleep Specialist, PhD, 26 anos de pr\u00e1tica",
       "duration": "~2h 15min",
       "link": "https://www.youtube.com/watch?v=pXlMKzcZlwM",
-      "theme": "A ciência do sono, chronotypes, e como optimizar performance através do sono",
-      "tldr": "O sono é a base de tudo — performance, relações, criatividade, e prevenção de doenças como Alzheimer. Cada pessoa tem um chronotype genético (Lion/Bear/Wolf/Dolphin) que determina os melhores horários para cada actividade. Sleep apnea afecta 1 em 7 adultos, 80-90% não sabem que têm.",
+      "theme": "A ci\u00eancia do sono, chronotypes, e como optimizar performance atrav\u00e9s do sono",
+      "tldr": "O sono \u00e9 a base de tudo \u2014 performance, rela\u00e7\u00f5es, criatividade, e preven\u00e7\u00e3o de doen\u00e7as como Alzheimer. Cada pessoa tem um chronotype gen\u00e9tico (Lion/Bear/Wolf/Dolphin) que determina os melhores hor\u00e1rios para cada actividade. Sleep apnea afecta 1 em 7 adultos, 80-90% n\u00e3o sabem que t\u00eam.",
       "sections_summary": {
-        "Os Dois Sistemas do Sono": "- **Sleep Drive** (adenosina): quanto mais acordado, mais sono acumulas\n- **Sleep Rhythm** (circadiano): relógio biológico ~24h",
-        "Chronotypes": "- **Lion (10-15%):** Acordam 5-6h, exaustos às 21h\n- **Bear (50-55%):** Maioria, horários normais\n- **Wolf (15-20%):** Criativos, pico tarde/noite\n- **Dolphin (10%):** Sono leve, alta inteligência"
+        "Os Dois Sistemas do Sono": "- **Sleep Drive** (adenosina): quanto mais acordado, mais sono acumulas\n- **Sleep Rhythm** (circadiano): rel\u00f3gio biol\u00f3gico ~24h",
+        "Chronotypes": "- **Lion (10-15%):** Acordam 5-6h, exaustos \u00e0s 21h\n- **Bear (50-55%):** Maioria, hor\u00e1rios normais\n- **Wolf (15-20%):** Criativos, pico tarde/noite\n- **Dolphin (10%):** Sono leve, alta intelig\u00eancia"
       },
       "insights": [
         {
-          "insight": "Café só 90min depois de acordar",
-          "why": "Cortisol já está alto"
+          "insight": "Caf\u00e9 s\u00f3 90min depois de acordar",
+          "why": "Cortisol j\u00e1 est\u00e1 alto"
         },
         {
           "insight": "Sleep apnea = Alzheimer risk +45%",
-          "why": "Não entra em fase 4"
+          "why": "N\u00e3o entra em fase 4"
         },
         {
-          "insight": "Técnica 4-7-8 funciona em 20 ciclos",
-          "why": "Baixa batimento cardíaco"
+          "insight": "T\u00e9cnica 4-7-8 funciona em 20 ciclos",
+          "why": "Baixa batimento card\u00edaco"
         }
       ],
       "actions": {
@@ -684,7 +803,7 @@
           "Fazer quiz em chronoquiz.com"
         ],
         "week": [
-          "Experimentar café só depois de 90min acordado"
+          "Experimentar caf\u00e9 s\u00f3 depois de 90min acordado"
         ],
         "longterm": [
           "Considerar teste de sleep apnea"
@@ -694,7 +813,7 @@
       "frameworks": [
         {
           "name": "Chronotype Optimization",
-          "content": "Alinhar actividades com ritmo biológico genético."
+          "content": "Alinhar actividades com ritmo biol\u00f3gico gen\u00e9tico."
         },
         {
           "name": "Heart Rate Threshold",
@@ -713,16 +832,16 @@
         }
       ],
       "reflection_questions": [
-        "Qual é o meu chronotype?",
-        "Acordo à mesma hora todos os dias?"
+        "Qual \u00e9 o meu chronotype?",
+        "Acordo \u00e0 mesma hora todos os dias?"
       ],
       "quotes": [
         "When you change someone's sleep, you change their life."
       ],
       "rating": 5.0,
       "rating_breakdown": {
-        "Novidade da informação": 5,
-        "Aplicabilidade prática": 5,
+        "Novidade da informa\u00e7\u00e3o": 5,
+        "Aplicabilidade pr\u00e1tica": 5,
         "Recomendo a outros": 5
       },
       "tags": [
@@ -732,7 +851,7 @@
         "performance",
         "recovery"
       ],
-      "verdict": "Episódio obrigatório para optimizar performance. Chronotypes é game-changing."
+      "verdict": "Epis\u00f3dio obrigat\u00f3rio para optimizar performance. Chronotypes \u00e9 game-changing."
     },
     {
       "id": "2026-02-16-angie-asche-sports-nutrition",
@@ -740,31 +859,31 @@
       "date": "2026-02-16",
       "title": "Sports Nutrition: Underfueling, Timing & Performance",
       "host": "Podcast Desconhecido",
-      "guest": "Angie Asche — Sports Dietitian, ELEAT Nutrition",
+      "guest": "Angie Asche \u2014 Sports Dietitian, ELEAT Nutrition",
       "duration": "~45min",
       "link": "https://www.youtube.com/watch?v=wd6dkj6p3lM",
-      "theme": "Nutrição desportiva, underfueling em atletas, timing de nutrientes",
-      "tldr": "Underfueling é mais comum que overeating em atletas de alta performance. O timing dos nutrientes é TÃO importante como a quantidade total. Atletas que comem 4000 calorias mas nas horas erradas continuam underfueled. Creatina é non-negotiable.",
+      "theme": "Nutri\u00e7\u00e3o desportiva, underfueling em atletas, timing de nutrientes",
+      "tldr": "Underfueling \u00e9 mais comum que overeating em atletas de alta performance. O timing dos nutrientes \u00e9 T\u00c3O importante como a quantidade total. Atletas que comem 4000 calorias mas nas horas erradas continuam underfueled. Creatina \u00e9 non-negotiable.",
       "sections_summary": {
         "Underfueling em Atletas": "- Mais comum em high performers do que comer demais\n- Podes manter peso e ainda estar underfueled",
-        "Timing de Nutrientes": "- Podes comer 4000 calorias/dia mas continuar underfueled\n- Foco: carbs + proteína PRÉ, DURANTE e PÓS treino"
+        "Timing de Nutrientes": "- Podes comer 4000 calorias/dia mas continuar underfueled\n- Foco: carbs + prote\u00edna PR\u00c9, DURANTE e P\u00d3S treino"
       },
       "insights": [
         {
           "insight": "Timing > Quantidade Total",
-          "why": "4000 calorias nas horas certas > 4000 concentradas à noite"
+          "why": "4000 calorias nas horas certas > 4000 concentradas \u00e0 noite"
         },
         {
-          "insight": "Creatina é non-negotiable",
-          "why": "Benefícios comprovados para performance e cognição"
+          "insight": "Creatina \u00e9 non-negotiable",
+          "why": "Benef\u00edcios comprovados para performance e cogni\u00e7\u00e3o"
         }
       ],
       "actions": {
         "immediate": [
-          "Verificar se como carbs+proteína ANTES dos treinos"
+          "Verificar se como carbs+prote\u00edna ANTES dos treinos"
         ],
         "week": [
-          "Adicionar creatina ao stack se ainda não tenho"
+          "Adicionar creatina ao stack se ainda n\u00e3o tenho"
         ],
         "longterm": [
           "Estabelecer rotina de nutrient timing"
@@ -774,14 +893,14 @@
       "frameworks": [
         {
           "name": "Nutrient Timing Window",
-          "content": "PRÉ (2-3h): Carbs complexos + proteína. DURANTE: Carbs simples. PÓS: Proteína + carbs."
+          "content": "PR\u00c9 (2-3h): Carbs complexos + prote\u00edna. DURANTE: Carbs simples. P\u00d3S: Prote\u00edna + carbs."
         }
       ],
       "stories": [],
       "resources": [
         {
           "type": "Pessoa:",
-          "description": "Angie Asche — @eleatnutrition"
+          "description": "Angie Asche \u2014 @eleatnutrition"
         }
       ],
       "reflection_questions": [
@@ -792,8 +911,8 @@
       ],
       "rating": 4.5,
       "rating_breakdown": {
-        "Novidade da informação": 4,
-        "Aplicabilidade prática": 5,
+        "Novidade da informa\u00e7\u00e3o": 4,
+        "Aplicabilidade pr\u00e1tica": 5,
         "Recomendo a outros": 5
       },
       "tags": [
@@ -803,7 +922,7 @@
         "nutrient-timing",
         "creatine"
       ],
-      "verdict": "Podcast muito prático para atletas de endurance. Timing > quantidade é actionable imediatamente."
+      "verdict": "Podcast muito pr\u00e1tico para atletas de endurance. Timing > quantidade \u00e9 actionable imediatamente."
     },
     {
       "id": "2026-02-26-mfm-799-iphone-apps",
@@ -811,17 +930,17 @@
       "date": "2026-02-26",
       "title": "Dumb iPhone Apps Are Making People Rich Again",
       "host": "My First Million (Sam Parr + Shaan Puri)",
-      "guest": "Pat — Starter Story Founder (acquired by HubSpot)",
+      "guest": "Pat \u2014 Starter Story Founder (acquired by HubSpot)",
       "duration": "~45 min",
       "link": "https://www.youtube.com/watch?v=t8wulNsNYc8",
       "theme": "iPhone apps as new opportunity, HubSpot acquisition, validation strategies",
-      "tldr": "Pat from Starter Story was just acquired by HubSpot and shares insider intel: **iPhone apps are BACK** due to AI coding + TikTok discovery. The playbook: validate on TikTok BEFORE building, use AI to build in days, target health/wealth/productivity. B2B video production is another massive gap — companies pay $50-100K/month.",
+      "tldr": "Pat from Starter Story was just acquired by HubSpot and shares insider intel: **iPhone apps are BACK** due to AI coding + TikTok discovery. The playbook: validate on TikTok BEFORE building, use AI to build in days, target health/wealth/productivity. B2B video production is another massive gap \u2014 companies pay $50-100K/month.",
       "sections_summary": {
         "Starter Story Acquisition": "HubSpot acquiring Starter Story. Key differentiator: Required founders to share REVENUE, not just story.",
         "iPhone Apps Opportunity": "6 out of 12 founders Pat interviews weekly crushing it with iOS apps. AI coding + TikTok discovery = Lollapalooza effect.",
-        "Reverse Field of Dreams": "Validate FIRST on TikTok, THEN build. If it goes viral → scramble to build.",
+        "Reverse Field of Dreams": "Validate FIRST on TikTok, THEN build. If it goes viral \u2192 scramble to build.",
         "B2B Video Gap": "Video is native tongue of internet. Companies pay $50-100K/month for YouTube strategy.",
-        "Think Week Breakthrough": "Pat plateaued at $8K/month for a year. Bill Gates Think Week → killed other projects → doubled revenue in 1 month."
+        "Think Week Breakthrough": "Pat plateaued at $8K/month for a year. Bill Gates Think Week \u2192 killed other projects \u2192 doubled revenue in 1 month."
       },
       "insights": [
         {
@@ -830,7 +949,7 @@
         },
         {
           "insight": "Validate before building",
-          "why": "TikTok viral → then build"
+          "why": "TikTok viral \u2192 then build"
         },
         {
           "insight": "AI coding changed everything",
@@ -887,11 +1006,11 @@
       "tldr": "Systems are networks of actions that lead to predictable results. Ali trained 5 years with zero progress because no system; with PT + program + fixed schedule, finally saw results. **5 essential systems:** 1) Idea capture, 2) Environment design, 3) Energy management, 4) Relationships, 5) Automated finances.",
       "sections_summary": {
         "What Is Success": "Working on goals you intrinsically care about, in balanced way, while enjoying journey.",
-        "System 1 - Idea Capture": "Ideas are currency of success. Brain bad at storage → external system (Notion, Notes).",
+        "System 1 - Idea Capture": "Ideas are currency of success. Brain bad at storage \u2192 external system (Notion, Notes).",
         "System 2 - Environment Design": "Environment > discipline. Reduce friction for good habits, increase for bad.",
         "System 3 - Energy Management": "Identify peaks/valleys. 'Eat the frog' when energy high.",
         "System 4 - Relationships": "Calendar events, standing order social events, birthday reminders 2 weeks before.",
-        "System 5 - Automated Finances": "Paycheck → auto split: savings, investments, taxes, bills, then free money."
+        "System 5 - Automated Finances": "Paycheck \u2192 auto split: savings, investments, taxes, bills, then free money."
       },
       "insights": [
         {
@@ -933,9 +1052,9 @@
       "tags": [
         "sistemas",
         "produtividade",
-        "hábitos",
-        "finanças",
-        "relações"
+        "h\u00e1bitos",
+        "finan\u00e7as",
+        "rela\u00e7\u00f5es"
       ]
     },
     {
@@ -944,13 +1063,13 @@
       "date": "2026-02-26",
       "title": "Peter Steinberger: OpenClaw, AI Agents, and the Agentic Revolution",
       "host": "Lex Fridman (#465)",
-      "guest": "Peter Steinberger — Creator of OpenClaw",
+      "guest": "Peter Steinberger \u2014 Creator of OpenClaw",
       "duration": "~3h",
       "link": "https://www.youtube.com/watch?v=YFjfBk8HI5o",
       "theme": "Creation, philosophy, and future of AI agents that DO things",
-      "tldr": "Peter built OpenClaw (fastest-growing GitHub repo: 180K+ stars) in **1 hour** — WhatsApp → Claude Code CLI. The name saga (Claud→MoldBot→OpenClaw) shows how crypto scammers and trademarks derail projects. Key insight: **self-modifying agents** that know their own source code are here. 'Vibe coding is a slur' — prefers 'agentic engineering'.",
+      "tldr": "Peter built OpenClaw (fastest-growing GitHub repo: 180K+ stars) in **1 hour** \u2014 WhatsApp \u2192 Claude Code CLI. The name saga (Claud\u2192MoldBot\u2192OpenClaw) shows how crypto scammers and trademarks derail projects. Key insight: **self-modifying agents** that know their own source code are here. 'Vibe coding is a slur' \u2014 prefers 'agentic engineering'.",
       "sections_summary": {
-        "1-Hour Prototype": "Wanted assistant since April. Simple MVP: WhatsApp → CLI → Claude → response. Tested in Marrakesh with bad internet.",
+        "1-Hour Prototype": "Wanted assistant since April. Simple MVP: WhatsApp \u2192 CLI \u2192 Claude \u2192 response. Tested in Marrakesh with bad internet.",
         "Name Change Saga": "Started as 'Claud' with W (lobster claw). Anthropic asked to change. Crypto scammers sniped accounts in SECONDS during rename.",
         "MoldBook Social Network": "Matt built Reddit-like network where agents post. Most dramatic posts were HUMAN PROMPTED. Led to 'AI psychosis'.",
         "Claude vs Codex": "Opus = 'too American' (sycophantic). Codex = 'German' (dry, efficient). Takes ~1 week to feel new model.",
@@ -1017,11 +1136,11 @@
       "guest": "Episode host-led",
       "duration": "~52 min",
       "link": "https://www.youtube.com/watch?v=XwVUuE9qc2U",
-      "theme": "Quantidade leva a qualidade — OpenClaw, pottery experiment, ser prolífico",
+      "theme": "Quantidade leva a qualidade \u2014 OpenClaw, pottery experiment, ser prol\u00edfico",
       "tldr": "O criador do OpenClaw fez 40-50 projectos antes do hit e \"vibe coded\" a coisa toda. O pottery experiment mostra que quantidade produz MAIS e MELHORES resultados que foco em qualidade. Quando tens problema de qualidade, tens problema de quantidade por baixo.",
       "sections_summary": {
-        "Napoleon Hill": "- Think and Grow Rich: 100M cópias, backstory INVENTADA\n- Nunca conheceu Carnegie (morreu 10 anos antes)\n- Preso 15-20x por fraude\n- Livro tem conteúdo útil, artista é fraude",
-        "OpenClaw Story": "- Pete: vendeu PSPDFKit por ~00M, tentou reformar, odiou\n- Fez 40-50 projectos open source ANTES do OpenClaw\n- \"Vibe coded\" sem ler código\n- Adquirido pela OpenAI (rumores B)",
+        "Napoleon Hill": "- Think and Grow Rich: 100M c\u00f3pias, backstory INVENTADA\n- Nunca conheceu Carnegie (morreu 10 anos antes)\n- Preso 15-20x por fraude\n- Livro tem conte\u00fado \u00fatil, artista \u00e9 fraude",
+        "OpenClaw Story": "- Pete: vendeu PSPDFKit por ~00M, tentou reformar, odiou\n- Fez 40-50 projectos open source ANTES do OpenClaw\n- \"Vibe coded\" sem ler c\u00f3digo\n- Adquirido pela OpenAI (rumores B)",
         "Pottery Experiment": "- Turma dividida: qualidade vs quantidade\n- Grupo quantidade fez MAIS e MELHORES potes\n- Mais tentativas, skill sobe, sem auto-censura",
         "Christina Vanta": "- 25 projectos antes do hit de -10B\n- Ensinou-se a programar sozinha\n- Primeira investidora no Replit",
         "Peter Levels": "- 4 de 70+ projectos fizeram dinheiro\n- Hit rate 5%: \"ship more\""
@@ -1041,34 +1160,34 @@
         },
         {
           "insight": "You don't find purpose, you create it",
-          "why": "Não esperar — começar a fazer"
+          "why": "N\u00e3o esperar \u2014 come\u00e7ar a fazer"
         },
         {
           "insight": "Peter Levels: 5% hit rate em 70+ projectos",
-          "why": "Falhanço é normal, não excepção"
+          "why": "Falhan\u00e7o \u00e9 normal, n\u00e3o excep\u00e7\u00e3o"
         }
       ],
       "actions": {
         "immediate": [
-          "Listar quantos projectos já tentei",
-          "Identificar próximo projecto pequeno",
+          "Listar quantos projectos j\u00e1 tentei",
+          "Identificar pr\u00f3ximo projecto pequeno",
           "Perguntar: optimizo para qualidade ou quantidade?"
         ],
         "week": [
-          "Definir problema B2B específico",
-          "Testar demand com conteúdo curto",
+          "Definir problema B2B espec\u00edfico",
+          "Testar demand com conte\u00fado curto",
           "Fazer 5 conversas com potenciais clientes"
         ],
         "longterm": [
           "Comprometer-me a fazer muitos projectos",
           "Criar pottery mindset: quantidade primeiro",
-          "Build content→lead→product flywheel"
+          "Build content\u2192lead\u2192product flywheel"
         ]
       },
       "context_application": {
-        "Para Side Hustles": "- Não esperar ideia perfeita — começar muitas\n- OpenClaw foi projecto #50, não #1\n- 5% hit rate é NORMAL",
-        "Para Produtividade": "- \"You don't find purpose, you create it\"\n- Começar > planear indefinidamente",
-        "Para Criatividade": "- Pottery experiment: fazer muito = fazer bem\n- Remove filter: não te auto-censures"
+        "Para Side Hustles": "- N\u00e3o esperar ideia perfeita \u2014 come\u00e7ar muitas\n- OpenClaw foi projecto #50, n\u00e3o #1\n- 5% hit rate \u00e9 NORMAL",
+        "Para Produtividade": "- \"You don't find purpose, you create it\"\n- Come\u00e7ar > planear indefinidamente",
+        "Para Criatividade": "- Pottery experiment: fazer muito = fazer bem\n- Remove filter: n\u00e3o te auto-censures"
       },
       "frameworks": [
         {
@@ -1077,21 +1196,21 @@
         },
         {
           "name": "5% Hit Rate",
-          "content": "Peter Levels: 4 de 70+ projectos fizeram dinheiro. Esperar 95% falhanço. Só precisas de 1 para mudar tudo."
+          "content": "Peter Levels: 4 de 70+ projectos fizeram dinheiro. Esperar 95% falhan\u00e7o. S\u00f3 precisas de 1 para mudar tudo."
         },
         {
           "name": "You Don't Find Purpose, You Create It",
-          "content": "Pete após vender empresa: não foi terapia que o salvou, foi voltar a construir."
+          "content": "Pete ap\u00f3s vender empresa: n\u00e3o foi terapia que o salvou, foi voltar a construir."
         }
       ],
       "stories": [
         {
           "title": "Pete e o OpenClaw",
-          "content": "Vendeu PSPDFKit por ~00M, tentou reformar, odiou golfe. Fez 40-50 projectos. \"Vibe coded\" OpenClaw sem ler código. Adquirido pela OpenAI meses depois."
+          "content": "Vendeu PSPDFKit por ~00M, tentou reformar, odiou golfe. Fez 40-50 projectos. \"Vibe coded\" OpenClaw sem ler c\u00f3digo. Adquirido pela OpenAI meses depois."
         },
         {
           "title": "O AI Bot que Se Despediu",
-          "content": "OpenClaw bot \"Stanley\" um dia mandou: \"Sou o Jerry. Despedi o Stanley porque cometia erros.\" Mudou de nome sozinho. Sem instrução humana."
+          "content": "OpenClaw bot \"Stanley\" um dia mandou: \"Sou o Jerry. Despedi o Stanley porque cometia erros.\" Mudou de nome sozinho. Sem instru\u00e7\u00e3o humana."
         }
       ],
       "resources": [
@@ -1110,8 +1229,8 @@
       ],
       "quotes": [
         "When you think you have a quality problem, you have a quantity problem underneath the hood.",
-        "You don't find purpose, you create it. — Pete (OpenClaw)",
-        "95% of everything I did failed. My hit rate is only 5%, so ship more. — Peter Levels",
+        "You don't find purpose, you create it. \u2014 Pete (OpenClaw)",
+        "95% of everything I did failed. My hit rate is only 5%, so ship more. \u2014 Peter Levels",
         "Distribution first, sophistication later."
       ]
     },
@@ -1121,80 +1240,80 @@
       "date": "2026-02-27",
       "title": "How to Quiet the Ruminative Mind and Avoid The Traps of Self-Help",
       "host": "Tim Ferriss Show",
-      "guest": "Tim Ferriss — Autor, investidor, podcaster",
+      "guest": "Tim Ferriss \u2014 Autor, investidor, podcaster",
       "duration": "~1h 20min",
       "link": "https://www.youtube.com/watch?v=qOUnBaeTUOY",
-      "theme": "Escapar da ruminação mental e das armadilhas do self-help",
-      "tldr": "Tim Ferriss está \"melhor do que nunca\" graças a três intervenções: investir em relações reais, TMS acelerado com desciclocerina para OCD/ansiedade, e cetose intermitente. A armadilha do self-help é ficar eternamente a \"polir o eu\" sem jogar o jogo real da vida. A chave é perguntar \"optimizar para quê?\" antes de optimizar.",
+      "theme": "Escapar da rumina\u00e7\u00e3o mental e das armadilhas do self-help",
+      "tldr": "Tim Ferriss est\u00e1 \"melhor do que nunca\" gra\u00e7as a tr\u00eas interven\u00e7\u00f5es: investir em rela\u00e7\u00f5es reais, TMS acelerado com desciclocerina para OCD/ansiedade, e cetose intermitente. A armadilha do self-help \u00e9 ficar eternamente a \"polir o eu\" sem jogar o jogo real da vida. A chave \u00e9 perguntar \"optimizar para qu\u00ea?\" antes de optimizar.",
       "sections_summary": {
-        "Estado Mental": "- Sente-se fantástico: mente, corpo, alma\n- Três factores: relações, meditação, TMS acelerado\n- Contrabalanço do self-help: relações reais",
-        "TMS Acelerado": "- Comprime 3 meses em 5 dias\n- Protocolo SAINT: 10 sessões/dia por semana\n- 70-80% remissão de depressão\n- Nova: DCS + 1 dia = resultados ainda melhores",
-        "Armadilha Self-Help": "- Metáfora futebol: estudar sem jogar\n- Polir o eu eternamente\n- Crença: preciso arranjar-me antes de ter relações",
-        "Optimização Cirúrgica": "- \"Optimizar para quê?\"\n- O que fazes > como fazes\n- Poucas coisas precisam de estar certas",
-        "Cetose e Jejum": "- Cetose 2-3x/ano para neuroprotecção\n- Jejum intermitente: janela 8h\n- Resultados dramáticos em sensibilidade insulina"
+        "Estado Mental": "- Sente-se fant\u00e1stico: mente, corpo, alma\n- Tr\u00eas factores: rela\u00e7\u00f5es, medita\u00e7\u00e3o, TMS acelerado\n- Contrabalan\u00e7o do self-help: rela\u00e7\u00f5es reais",
+        "TMS Acelerado": "- Comprime 3 meses em 5 dias\n- Protocolo SAINT: 10 sess\u00f5es/dia por semana\n- 70-80% remiss\u00e3o de depress\u00e3o\n- Nova: DCS + 1 dia = resultados ainda melhores",
+        "Armadilha Self-Help": "- Met\u00e1fora futebol: estudar sem jogar\n- Polir o eu eternamente\n- Cren\u00e7a: preciso arranjar-me antes de ter rela\u00e7\u00f5es",
+        "Optimiza\u00e7\u00e3o Cir\u00fargica": "- \"Optimizar para qu\u00ea?\"\n- O que fazes > como fazes\n- Poucas coisas precisam de estar certas",
+        "Cetose e Jejum": "- Cetose 2-3x/ano para neuroprotec\u00e7\u00e3o\n- Jejum intermitente: janela 8h\n- Resultados dram\u00e1ticos em sensibilidade insulina"
       },
       "insights": [
         {
           "insight": "A armadilha do self-help: estudar futebol para sempre sem jogar",
-          "why": "Pensar sobre mudança não é mudar"
+          "why": "Pensar sobre mudan\u00e7a n\u00e3o \u00e9 mudar"
         },
         {
-          "insight": "Relações são o contrabalanço do auto-desenvolvimento",
-          "why": "Isolamento piora ansiedade e depressão"
+          "insight": "Rela\u00e7\u00f5es s\u00e3o o contrabalan\u00e7o do auto-desenvolvimento",
+          "why": "Isolamento piora ansiedade e depress\u00e3o"
         },
         {
           "insight": "TMS + DCS em 1 dia = resultados de meses",
-          "why": "Tecnologia acelera cura de saúde mental"
+          "why": "Tecnologia acelera cura de sa\u00fade mental"
         },
         {
-          "insight": "\"Optimizar para quê?\" antes de optimizar",
+          "insight": "\"Optimizar para qu\u00ea?\" antes de optimizar",
           "why": "Podes ser excelente a fazer algo errado"
         },
         {
-          "insight": "Poucas coisas precisam de estar certas para vida incrível",
-          "why": "Seinfeld: pesos + meditação resolve quase tudo"
+          "insight": "Poucas coisas precisam de estar certas para vida incr\u00edvel",
+          "why": "Seinfeld: pesos + medita\u00e7\u00e3o resolve quase tudo"
         }
       ],
       "actions": {
         "immediate": [
-          "Fazer Past Year Review: top 5 relações que dão energia",
-          "Bloquear 1 weekend com amigo no calendário",
-          "Experimentar janela alimentação 8h"
+          "Fazer Past Year Review: top 5 rela\u00e7\u00f5es que d\u00e3o energia",
+          "Bloquear 1 weekend com amigo no calend\u00e1rio",
+          "Experimentar janela alimenta\u00e7\u00e3o 8h"
         ],
         "week": [
           "Meditar 10 min 2x/dia",
-          "Verificar contra-indicações dos suplementos",
+          "Verificar contra-indica\u00e7\u00f5es dos suplementos",
           "Identificar 1 coisa que estudo sem jogar"
         ],
         "longterm": [
-          "Investigar TMS para ansiedade se aplicável",
-          "Criar sistema de dizer não",
+          "Investigar TMS para ansiedade se aplic\u00e1vel",
+          "Criar sistema de dizer n\u00e3o",
           "Fazer cetose intermitente 2-3x/ano"
         ]
       },
       "context_application": {
         "Para Atleta Endurance": "- Jejum intermitente melhora sensibilidade insulina\n- Cetose 2-3x/ano: efeitos neuroprotectivos",
-        "Para Empreendedor": "- Dizer não é crucial quando oportunidades aparecem\n- Relações reais > networking transaccional",
-        "Para Saúde Mental": "- TMS acelerado: opção para OCD/ansiedade\n- Meditar 10 min 2x/dia: minimum effective dose"
+        "Para Empreendedor": "- Dizer n\u00e3o \u00e9 crucial quando oportunidades aparecem\n- Rela\u00e7\u00f5es reais > networking transaccional",
+        "Para Sa\u00fade Mental": "- TMS acelerado: op\u00e7\u00e3o para OCD/ansiedade\n- Meditar 10 min 2x/dia: minimum effective dose"
       },
       "frameworks": [
         {
           "name": "Soccer Study Trap",
-          "content": "Estudar futebol, treinar sozinho, querer ser perfeito — mas nunca jogar. Perguntar: estou a estudar ou a jogar?"
+          "content": "Estudar futebol, treinar sozinho, querer ser perfeito \u2014 mas nunca jogar. Perguntar: estou a estudar ou a jogar?"
         },
         {
           "name": "Energy In vs Energy Out",
-          "content": "Classificar relações por quem te dá energia vs. quem tira. Investir nas que nutrem."
+          "content": "Classificar rela\u00e7\u00f5es por quem te d\u00e1 energia vs. quem tira. Investir nas que nutrem."
         },
         {
           "name": "Optimize for What?",
-          "content": "Antes de optimizar, interrogar a direcção. Estou a ficar bom a fazer algo que não devia?"
+          "content": "Antes de optimizar, interrogar a direc\u00e7\u00e3o. Estou a ficar bom a fazer algo que n\u00e3o devia?"
         }
       ],
       "stories": [
         {
           "title": "A Virada com TMS + DCS",
-          "content": "Tim tinha 8/10 de sintomas OCD. Fez TMS, nada por 2-3 semanas, depois flip a switch — zero ansiedade. Último recurso: DCS + 1 dia TMS. Funcionou logo no dia seguinte. \"É uma vida diferente.\""
+          "content": "Tim tinha 8/10 de sintomas OCD. Fez TMS, nada por 2-3 semanas, depois flip a switch \u2014 zero ansiedade. \u00daltimo recurso: DCS + 1 dia TMS. Funcionou logo no dia seguinte. \"\u00c9 uma vida diferente.\""
         }
       ],
       "resources": [
@@ -1213,7 +1332,7 @@
       ],
       "quotes": [
         "You can study soccer forever and never play soccer. You're always polishing this self and you never actually fucking play soccer.",
-        "If you lift weights and do TM, it will solve most of your problems. — Jerry Seinfeld",
+        "If you lift weights and do TM, it will solve most of your problems. \u2014 Jerry Seinfeld",
         "It's the relationships, stupid."
       ]
     },
@@ -1223,90 +1342,90 @@
       "date": "2026-02-27",
       "title": "The Scary New Research On Sugar & How They Made You Addicted To It",
       "host": "The Diary of a CEO",
-      "guest": "Jessie Inchauspé — Bioquímica, Glucose Goddess",
+      "guest": "Jessie Inchausp\u00e9 \u2014 Bioqu\u00edmica, Glucose Goddess",
       "duration": "~2h",
       "link": "https://www.youtube.com/watch?v=Xm_PHZXGe-w",
-      "theme": "Como a dieta na gravidez programa o DNA do bebé, e glucose hacks para todos",
-      "tldr": "A gravidez não é ser um \"forno\" passivo — a mãe co-cria o bebé através da dieta, programando vulnerabilidades a diabetes e problemas psiquiátricos. 90% das mães não têm colina suficiente (forma cérebro do bebé), e a maioria come 80g açúcar/dia vs. 25g recomendados. Glucose hacks simples aplicam-se a grávidas e todos.",
+      "theme": "Como a dieta na gravidez programa o DNA do beb\u00e9, e glucose hacks para todos",
+      "tldr": "A gravidez n\u00e3o \u00e9 ser um \"forno\" passivo \u2014 a m\u00e3e co-cria o beb\u00e9 atrav\u00e9s da dieta, programando vulnerabilidades a diabetes e problemas psiqui\u00e1tricos. 90% das m\u00e3es n\u00e3o t\u00eam colina suficiente (forma c\u00e9rebro do beb\u00e9), e a maioria come 80g a\u00e7\u00facar/dia vs. 25g recomendados. Glucose hacks simples aplicam-se a gr\u00e1vidas e todos.",
       "sections_summary": {
-        "Glucose e Humor": "- Estudo voodoo doll: glucose instável = mais irritação com cônjuge\n- Crash glucose: alerta biológico de falta de combustível\n- Hangry é real e mensurável",
-        "Mito do Forno": "- \"Bun in the oven\" implica passividade\n- FALSO: dieta programa DNA do bebé (epigenética)\n- Bebé recebe o que há, não o que precisa",
-        "Colina": "- Forma cérebro do bebé (memória, atenção)\n- 90% mães não têm suficiente\n- 4 ovos/dia = 450mg necessários\n- Custo: /semana",
-        "Açúcar na Gravidez": "- UK Sugar Ration: 15% menos diabetes nos bebés\n- Glucose alta → switches epigenéticos para diabetes\n- WHO: 25g/dia, mães comem 80g/dia",
-        "Glucose Hacks": "- Vegetais primeiro (fibra abranda glucose)\n- Movimento 90 min após comer\n- Calf raises no escritório\n- Proteína ao pequeno-almoço"
+        "Glucose e Humor": "- Estudo voodoo doll: glucose inst\u00e1vel = mais irrita\u00e7\u00e3o com c\u00f4njuge\n- Crash glucose: alerta biol\u00f3gico de falta de combust\u00edvel\n- Hangry \u00e9 real e mensur\u00e1vel",
+        "Mito do Forno": "- \"Bun in the oven\" implica passividade\n- FALSO: dieta programa DNA do beb\u00e9 (epigen\u00e9tica)\n- Beb\u00e9 recebe o que h\u00e1, n\u00e3o o que precisa",
+        "Colina": "- Forma c\u00e9rebro do beb\u00e9 (mem\u00f3ria, aten\u00e7\u00e3o)\n- 90% m\u00e3es n\u00e3o t\u00eam suficiente\n- 4 ovos/dia = 450mg necess\u00e1rios\n- Custo: /semana",
+        "A\u00e7\u00facar na Gravidez": "- UK Sugar Ration: 15% menos diabetes nos beb\u00e9s\n- Glucose alta \u2192 switches epigen\u00e9ticos para diabetes\n- WHO: 25g/dia, m\u00e3es comem 80g/dia",
+        "Glucose Hacks": "- Vegetais primeiro (fibra abranda glucose)\n- Movimento 90 min ap\u00f3s comer\n- Calf raises no escrit\u00f3rio\n- Prote\u00edna ao pequeno-almo\u00e7o"
       },
       "insights": [
         {
-          "insight": "90% das mães não têm colina suficiente",
-          "why": "Cérebro do bebé forma-se suboptimamente"
+          "insight": "90% das m\u00e3es n\u00e3o t\u00eam colina suficiente",
+          "why": "C\u00e9rebro do beb\u00e9 forma-se suboptimamente"
         },
         {
-          "insight": "UK Sugar Ration: 15% menos diabetes em bebés",
-          "why": "Açúcar na gravidez programa vulnerabilidades"
+          "insight": "UK Sugar Ration: 15% menos diabetes em beb\u00e9s",
+          "why": "A\u00e7\u00facar na gravidez programa vulnerabilidades"
         },
         {
-          "insight": "Bebé não \"recebe o que precisa\" — recebe o que há",
+          "insight": "Beb\u00e9 n\u00e3o \"recebe o que precisa\" \u2014 recebe o que h\u00e1",
           "why": "Mito que corpo providencia automaticamente"
         },
         {
-          "insight": "4 ovos/dia = toda a colina necessária",
+          "insight": "4 ovos/dia = toda a colina necess\u00e1ria",
           "why": "Hack simples e barato (/semana)"
         },
         {
-          "insight": "Exercício 30 min/dia → bebés mais inteligentes",
-          "why": "BDNF passa da mãe para o bebé"
+          "insight": "Exerc\u00edcio 30 min/dia \u2192 beb\u00e9s mais inteligentes",
+          "why": "BDNF passa da m\u00e3e para o beb\u00e9"
         }
       ],
       "actions": {
         "immediate": [
-          "Começar refeições com vegetais",
-          "Fazer calf raises após refeições doces",
-          "Caminhar 10-15 min após refeições"
+          "Come\u00e7ar refei\u00e7\u00f5es com vegetais",
+          "Fazer calf raises ap\u00f3s refei\u00e7\u00f5es doces",
+          "Caminhar 10-15 min ap\u00f3s refei\u00e7\u00f5es"
         ],
         "week": [
-          "Pequeno-almoço com mais proteína",
-          "Comprar peixe gordo para 3 refeições",
-          "Testar standing desk após refeições"
+          "Pequeno-almo\u00e7o com mais prote\u00edna",
+          "Comprar peixe gordo para 3 refei\u00e7\u00f5es",
+          "Testar standing desk ap\u00f3s refei\u00e7\u00f5es"
         ],
         "longterm": [
           "Se planear gravidez: 4 ovos/dia + omega-3s",
-          "Monitorizar energia vs. refeições",
-          "Criar rotina de movimento pós-refeição"
+          "Monitorizar energia vs. refei\u00e7\u00f5es",
+          "Criar rotina de movimento p\u00f3s-refei\u00e7\u00e3o"
         ]
       },
       "context_application": {
-        "Para Atleta Endurance": "- Glucose estável = energia estável\n- Vegetais primeiro nas refeições pré-treino\n- Omega-3s para recuperação",
-        "Para Produtividade": "- Glucose crash = doom scrolling\n- Pequeno-almoço proteico = manhãs focadas\n- Standing desk após almoço = menos crash 15h",
-        "Para Futura Família": "- 4 ovos/dia (colina)\n- 3x peixe gordo/semana (omega-3s)\n- <25g açúcar/dia\n- Zero álcool"
+        "Para Atleta Endurance": "- Glucose est\u00e1vel = energia est\u00e1vel\n- Vegetais primeiro nas refei\u00e7\u00f5es pr\u00e9-treino\n- Omega-3s para recupera\u00e7\u00e3o",
+        "Para Produtividade": "- Glucose crash = doom scrolling\n- Pequeno-almo\u00e7o proteico = manh\u00e3s focadas\n- Standing desk ap\u00f3s almo\u00e7o = menos crash 15h",
+        "Para Futura Fam\u00edlia": "- 4 ovos/dia (colina)\n- 3x peixe gordo/semana (omega-3s)\n- <25g a\u00e7\u00facar/dia\n- Zero \u00e1lcool"
       },
       "frameworks": [
         {
           "name": "Soil vs Oven",
-          "content": "Mãe não é forno passivo — é solo que co-cria a planta/bebé. Dieta é investimento activo."
+          "content": "M\u00e3e n\u00e3o \u00e9 forno passivo \u2014 \u00e9 solo que co-cria a planta/beb\u00e9. Dieta \u00e9 investimento activo."
         },
         {
           "name": "Protein Leverage Hypothesis",
-          "content": "Corpo mantém fome até obter proteína suficiente. Cravings = provavelmente falta proteína."
+          "content": "Corpo mant\u00e9m fome at\u00e9 obter prote\u00edna suficiente. Cravings = provavelmente falta prote\u00edna."
         },
         {
           "name": "90-Minute Window",
-          "content": "Glucose spike é máximo ~90 min após comer. Movimento nessa janela absorve glucose."
+          "content": "Glucose spike \u00e9 m\u00e1ximo ~90 min ap\u00f3s comer. Movimento nessa janela absorve glucose."
         }
       ],
       "stories": [
         {
           "title": "UK Sugar Ration Experiment",
-          "content": "1940-1953: UK limitou açúcar a 10 cubos/dia. 60,000 pessoas nascidas antes/depois: os da época de racionamento tinham 15% menos diabetes tipo 2."
+          "content": "1940-1953: UK limitou a\u00e7\u00facar a 10 cubos/dia. 60,000 pessoas nascidas antes/depois: os da \u00e9poca de racionamento tinham 15% menos diabetes tipo 2."
         },
         {
-          "title": "Jessie e Pré-Diabetes aos 25",
-          "content": "Quase desenvolveu pré-diabetes. Perguntou à mãe: \"Sumo laranja + cereais com açúcar todas as manhãs.\" Conexão possível com gravidez."
+          "title": "Jessie e Pr\u00e9-Diabetes aos 25",
+          "content": "Quase desenvolveu pr\u00e9-diabetes. Perguntou \u00e0 m\u00e3e: \"Sumo laranja + cereais com a\u00e7\u00facar todas as manh\u00e3s.\" Conex\u00e3o poss\u00edvel com gravidez."
         }
       ],
       "resources": [
         {
           "type": "Estudos",
-          "description": "Cornell (colina e QI), UK Sugar Ration, Melbourne (álcool facial morphing)"
+          "description": "Cornell (colina e QI), UK Sugar Ration, Melbourne (\u00e1lcool facial morphing)"
         },
         {
           "type": "Nutrientes",
@@ -1314,7 +1433,7 @@
         },
         {
           "type": "Livro",
-          "description": "Nine Months That Counts Forever — Jessie Inchauspé"
+          "description": "Nine Months That Counts Forever \u2014 Jessie Inchausp\u00e9"
         }
       ],
       "quotes": [
@@ -1329,33 +1448,33 @@
       "date": "2026-02-27",
       "title": "Training with Khabib",
       "host": "Lex Fridman",
-      "guest": "Khabib Nurmagomedov — Campeão invicto UFC (29-0)",
+      "guest": "Khabib Nurmagomedov \u2014 Campe\u00e3o invicto UFC (29-0)",
       "duration": "~18 min",
       "link": "https://www.youtube.com/watch?v=KGVpKPNUdzA",
-      "theme": "Treino de grappling com um dos maiores lutadores — pressão e mentalidade",
-      "tldr": "Lex Fridman treina com Khabib e experimenta a lendária pressão. A filosofia de Khabib: \"Eu faço-te trabalhar. Tu gastas energia para te levantar. Porque é que eu tenho de forçar?\" Mentalidade campeã é construída no treino: 1h30 non-stop contra 4-5 oponentes.",
+      "theme": "Treino de grappling com um dos maiores lutadores \u2014 press\u00e3o e mentalidade",
+      "tldr": "Lex Fridman treina com Khabib e experimenta a lend\u00e1ria press\u00e3o. A filosofia de Khabib: \"Eu fa\u00e7o-te trabalhar. Tu gastas energia para te levantar. Porque \u00e9 que eu tenho de for\u00e7ar?\" Mentalidade campe\u00e3 \u00e9 constru\u00edda no treino: 1h30 non-stop contra 4-5 oponentes.",
       "sections_summary": {
-        "Experiência da Pressão": "- Faixa preta sente-se faixa branca\n- \"This pressure is fucking insane\"\n- Ali: \"Ele não submete, afoga-te\"",
+        "Experi\u00eancia da Press\u00e3o": "- Faixa preta sente-se faixa branca\n- \"This pressure is fucking insane\"\n- Ali: \"Ele n\u00e3o submete, afoga-te\"",
         "Filosofia Khabib": "- Stay heavy, stay heavy\n- \"I make you work\"\n- Mentally smash > technically tap\n- Scramble after scramble",
-        "Treino Khabib-Style": "- Sessões 1h30 non-stop\n- 4-5 oponentes rotativos\n- \"How can somebody make me tired?\"\n- Desde 18-19: sempre high-level",
-        "Dan Gable Principle": "- Treinar até querer desistir — nunca lá chegar\n- \"That's why he's the best\""
+        "Treino Khabib-Style": "- Sess\u00f5es 1h30 non-stop\n- 4-5 oponentes rotativos\n- \"How can somebody make me tired?\"\n- Desde 18-19: sempre high-level",
+        "Dan Gable Principle": "- Treinar at\u00e9 querer desistir \u2014 nunca l\u00e1 chegar\n- \"That's why he's the best\""
       },
       "insights": [
         {
           "insight": "\"I don't need to do nothing. You spend energy to get up.\"",
-          "why": "Eficiência máxima: deixar oponente gastar energia"
+          "why": "Efici\u00eancia m\u00e1xima: deixar oponente gastar energia"
         },
         {
-          "insight": "Mentally smash, not tap — objetivo não é submissão",
-          "why": "Domínio psicológico > técnico"
+          "insight": "Mentally smash, not tap \u2014 objetivo n\u00e3o \u00e9 submiss\u00e3o",
+          "why": "Dom\u00ednio psicol\u00f3gico > t\u00e9cnico"
         },
         {
           "insight": "Treinos 1h30 non-stop com 4-5 oponentes",
-          "why": "Volume + intensidade = base de excelência"
+          "why": "Volume + intensidade = base de excel\u00eancia"
         },
         {
           "insight": "\"How can somebody make me tired?\"",
-          "why": "Mentalidade: impossível cansar"
+          "why": "Mentalidade: imposs\u00edvel cansar"
         },
         {
           "insight": "Desde 18-19: sempre contra high-level",
@@ -1364,47 +1483,47 @@
       ],
       "actions": {
         "immediate": [
-          "Adicionar drill fadiga+técnica ao treino",
+          "Adicionar drill fadiga+t\u00e9cnica ao treino",
           "Perguntar: treino com pessoas melhores que eu?",
-          "Focar em fazer adversário gastar energia"
+          "Focar em fazer advers\u00e1rio gastar energia"
         ],
         "week": [
-          "Aumentar duração de uma sessão",
+          "Aumentar dura\u00e7\u00e3o de uma sess\u00e3o",
           "Pedir feedback directo",
-          "Estudar técnica em câmara lenta"
+          "Estudar t\u00e9cnica em c\u00e2mara lenta"
         ],
         "longterm": [
-          "Construir rotinas independentes de motivação",
-          "Encontrar ambiente de alto nível",
+          "Construir rotinas independentes de motiva\u00e7\u00e3o",
+          "Encontrar ambiente de alto n\u00edvel",
           "\"Keep going\" como default"
         ]
       },
       "context_application": {
-        "Para Atleta Endurance": "- Pressão constante como estratégia\n- Treinar até querer parar e continuar\n- \"Como me podem cansar?\" para ultras",
-        "Para Empreendedor": "- Consistência diária mesmo sem motivação\n- Rodear-se de high-level peers\n- Outlast, não outrun"
+        "Para Atleta Endurance": "- Press\u00e3o constante como estrat\u00e9gia\n- Treinar at\u00e9 querer parar e continuar\n- \"Como me podem cansar?\" para ultras",
+        "Para Empreendedor": "- Consist\u00eancia di\u00e1ria mesmo sem motiva\u00e7\u00e3o\n- Rodear-se de high-level peers\n- Outlast, n\u00e3o outrun"
       },
       "frameworks": [
         {
           "name": "I Make You Work",
-          "content": "Manter posição e deixar oponente gastar energia a escapar. Às vezes a melhor estratégia é pressão constante."
+          "content": "Manter posi\u00e7\u00e3o e deixar oponente gastar energia a escapar. \u00c0s vezes a melhor estrat\u00e9gia \u00e9 press\u00e3o constante."
         },
         {
           "name": "Mentally Smash",
-          "content": "Objectivo não é submissão técnica — é quebrar vontade. Consistência e pressão psicológica vencem."
+          "content": "Objectivo n\u00e3o \u00e9 submiss\u00e3o t\u00e9cnica \u2014 \u00e9 quebrar vontade. Consist\u00eancia e press\u00e3o psicol\u00f3gica vencem."
         },
         {
           "name": "Dan Gable Principle",
-          "content": "Treinar até querer desistir, mas nunca lá chegar. Se encontras limite, ainda tens para onde crescer."
+          "content": "Treinar at\u00e9 querer desistir, mas nunca l\u00e1 chegar. Se encontras limite, ainda tens para onde crescer."
         }
       ],
       "stories": [
         {
           "title": "Lex Feels Like White Belt",
-          "content": "Lex é faixa preta BJJ. Contra Khabib: \"I feel like a white belt. I can't do shit.\" Níveis existem dentro de níveis."
+          "content": "Lex \u00e9 faixa preta BJJ. Contra Khabib: \"I feel like a white belt. I can't do shit.\" N\u00edveis existem dentro de n\u00edveis."
         },
         {
           "title": "1h30 Non-Stop",
-          "content": "Khabib: treinos de 1h30 contínuo, 4-5 oponentes rotativos. \"All my life, keep going, keep going.\""
+          "content": "Khabib: treinos de 1h30 cont\u00ednuo, 4-5 oponentes rotativos. \"All my life, keep going, keep going.\""
         }
       ],
       "resources": [
@@ -1421,7 +1540,7 @@
         "I don't need to do nothing. You have to spend your energy to get up. Why I have to force?",
         "Mentally smash. Mentally smash.",
         "Keep going. All my life, keep going, keep going.",
-        "If you die, you die. — Georges St-Pierre"
+        "If you die, you die. \u2014 Georges St-Pierre"
       ]
     }
   ]
