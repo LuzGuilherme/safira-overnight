@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indie Revenue Lab ⚡</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a1a;
+            --bg-card: #12122a;
+            --neon-cyan: #00ffff;
+            --neon-pink: #ff00ff;
+            --neon-purple: #9d00ff;
+            --neon-green: #00ff88;
+            --neon-orange: #ff6600;
+            --text-primary: #e0e0ff;
+            --text-dim: #6a6a8a;
+            --grid-color: rgba(0, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Grid Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Scanlines */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 3rem 0;
+            position: relative;
+        }
+
+        .logo {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.8rem;
+            color: var(--neon-cyan);
+            text-shadow: 
+                0 0 10px var(--neon-cyan),
+                0 0 20px var(--neon-cyan),
+                0 0 40px var(--neon-cyan);
+            margin-bottom: 0.5rem;
+            animation: flicker 4s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            92% { opacity: 1; }
+            93% { opacity: 0.8; }
+            94% { opacity: 1; }
+            96% { opacity: 0.9; }
+            97% { opacity: 1; }
+        }
+
+        .tagline {
+            color: var(--neon-pink);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 4px;
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: 
+                0 0 20px rgba(0, 255, 255, 0.1),
+                inset 0 0 60px rgba(0, 255, 255, 0.02);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink), var(--neon-cyan));
+        }
+
+        .card-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            color: var(--neon-cyan);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-title::before {
+            content: '>';
+            color: var(--neon-green);
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            color: var(--text-dim);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 2px;
+            padding: 0.75rem 1rem;
+            color: var(--text-primary);
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+        }
+
+        /* Pricing Model Buttons */
+        .model-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .model-btn {
+            background: transparent;
+            border: 1px solid var(--neon-purple);
+            color: var(--neon-purple);
+            padding: 0.75rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .model-btn:hover {
+            background: rgba(157, 0, 255, 0.2);
+        }
+
+        .model-btn.active {
+            background: var(--neon-purple);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px rgba(157, 0, 255, 0.5);
+        }
+
+        /* Results Display */
+        .result-display {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px dashed var(--neon-green);
+            padding: 1.5rem;
+            margin-top: 1rem;
+            position: relative;
+        }
+
+        .result-display::before {
+            content: 'OUTPUT';
+            position: absolute;
+            top: -8px;
+            left: 10px;
+            background: var(--bg-card);
+            padding: 0 8px;
+            color: var(--neon-green);
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            color: var(--text-dim);
+            font-size: 0.8rem;
+        }
+
+        .result-value {
+            color: var(--neon-green);
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .result-value.highlight {
+            color: var(--neon-pink);
+            font-size: 1.2rem;
+            text-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+        }
+
+        /* MRR Goals */
+        .goals-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .goal-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--neon-orange);
+            padding: 1rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .goal-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 102, 0, 0.3);
+        }
+
+        .goal-label {
+            font-size: 0.65rem;
+            color: var(--neon-orange);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .goal-value {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.4rem;
+            color: var(--text-primary);
+        }
+
+        .goal-customers {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-top: 0.5rem;
+        }
+
+        .goal-customers span {
+            color: var(--neon-cyan);
+        }
+
+        /* Simulator Section */
+        .simulator-full {
+            grid-column: 1 / -1;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            position: relative;
+            padding: 1rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+        }
+
+        .timeline-point {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-dot {
+            width: 16px;
+            height: 16px;
+            background: var(--bg-dark);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 50%;
+            margin: 0 auto 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-point:hover .timeline-dot {
+            background: var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        .timeline-month {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+        }
+
+        .timeline-mrr {
+            font-size: 0.8rem;
+            color: var(--neon-green);
+            margin-top: 0.25rem;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin-top: 2rem;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 24px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--neon-purple);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink));
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                transparent 0%,
+                rgba(255, 255, 255, 0.2) 50%,
+                transparent 100%);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Benchmarks */
+        .benchmark-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .benchmark-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .benchmark-info {
+            flex: 1;
+        }
+
+        .benchmark-name {
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+
+        .benchmark-desc {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+
+        .benchmark-value {
+            color: var(--neon-cyan);
+            font-weight: 700;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            color: var(--text-dim);
+            font-size: 0.75rem;
+        }
+
+        footer a {
+            color: var(--neon-pink);
+            text-decoration: none;
+        }
+
+        .crt-effect {
+            animation: crt 0.1s infinite;
+        }
+
+        @keyframes crt {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(0.5px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Stats Row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-left: 2px solid var(--neon-cyan);
+        }
+
+        .stat-value {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.2rem;
+            color: var(--neon-cyan);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            .logo {
+                font-size: 1.2rem;
+            }
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .goals-grid {
+                grid-template-columns: 1fr;
+            }
+            .model-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo crt-effect">INDIE REVENUE LAB</div>
+            <div class="tagline">Calculate your path to ramen profitability</div>
+        </header>
+
+        <!-- Quick Stats -->
+        <div class="stats-row" id="quickStats">
+            <div class="stat-item">
+                <div class="stat-value" id="statPrice">$29</div>
+                <div class="stat-label">Price/mo</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="statCustomers">172</div>
+                <div class="stat-label">For $5K MRR</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="statARR">$60K</div>
+                <div class="stat-label">Annual Revenue</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="statMonths">8</div>
+                <div class="stat-label">Months to Goal</div>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <!-- Input Section -->
+            <div class="card">
+                <div class="card-title">Pricing Configuration</div>
+                
+                <label>Pricing Model</label>
+                <div class="model-buttons">
+                    <button class="model-btn active" data-model="mrr">MRR</button>
+                    <button class="model-btn" data-model="usage">Usage</button>
+                    <button class="model-btn" data-model="onetime">One-Time</button>
+                </div>
+
+                <div class="form-group">
+                    <label id="priceLabel">Monthly Price ($)</label>
+                    <input type="number" id="price" value="29" min="1" max="10000">
+                </div>
+
+                <div class="form-group" id="usageGroup" style="display: none;">
+                    <label>Avg. Usage/Customer/Month ($)</label>
+                    <input type="number" id="avgUsage" value="15" min="1">
+                </div>
+
+                <div class="form-group">
+                    <label>Monthly Churn Rate (%)</label>
+                    <input type="number" id="churn" value="5" min="0" max="50" step="0.5">
+                </div>
+
+                <div class="form-group">
+                    <label>New Customers/Month</label>
+                    <input type="number" id="newCustomers" value="20" min="1" max="1000">
+                </div>
+
+                <div class="form-group">
+                    <label>Customer Acquisition Cost ($)</label>
+                    <input type="number" id="cac" value="30" min="0" max="1000">
+                </div>
+
+                <div class="result-display">
+                    <div class="result-row">
+                        <span class="result-label">LTV (Lifetime Value)</span>
+                        <span class="result-value" id="ltv">$580</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">LTV:CAC Ratio</span>
+                        <span class="result-value" id="ltvCac">19.3x</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Payback Period</span>
+                        <span class="result-value" id="payback">1.0 months</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Break-even Customers</span>
+                        <span class="result-value highlight" id="breakeven">12</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Goals Section -->
+            <div class="card">
+                <div class="card-title">MRR Goals Calculator</div>
+                
+                <p style="color: var(--text-dim); font-size: 0.8rem; margin-bottom: 1rem;">
+                    How many customers do you need at your current price to hit these milestones?
+                </p>
+
+                <div class="goals-grid">
+                    <div class="goal-card">
+                        <div class="goal-label">Side Hustle</div>
+                        <div class="goal-value">$1K</div>
+                        <div class="goal-customers"><span id="goal1k">35</span> customers</div>
+                    </div>
+                    <div class="goal-card">
+                        <div class="goal-label">Ramen Profit</div>
+                        <div class="goal-value">$5K</div>
+                        <div class="goal-customers"><span id="goal5k">172</span> customers</div>
+                    </div>
+                    <div class="goal-card">
+                        <div class="goal-label">Full-Time</div>
+                        <div class="goal-value">$10K</div>
+                        <div class="goal-customers"><span id="goal10k">345</span> customers</div>
+                    </div>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Progress to $5K MRR</span>
+                        <span id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 1.5rem;">
+                    <label>Current Customers</label>
+                    <input type="number" id="currentCustomers" value="0" min="0">
+                </div>
+
+                <div class="result-display">
+                    <div class="result-row">
+                        <span class="result-label">Current MRR</span>
+                        <span class="result-value" id="currentMRR">$0</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Customers Needed</span>
+                        <span class="result-value" id="customersNeeded">172</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="result-label">Time to $5K MRR</span>
+                        <span class="result-value highlight" id="timeToGoal">8 months</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Growth Simulator -->
+            <div class="card simulator-full">
+                <div class="card-title">12-Month Growth Simulator</div>
+                
+                <div class="timeline" id="timeline">
+                    <!-- Generated by JS -->
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem;">
+                    <div class="result-display">
+                        <div class="result-row">
+                            <span class="result-label">Month 6 MRR</span>
+                            <span class="result-value" id="month6mrr">$2,523</span>
+                        </div>
+                    </div>
+                    <div class="result-display">
+                        <div class="result-row">
+                            <span class="result-label">Month 12 MRR</span>
+                            <span class="result-value highlight" id="month12mrr">$4,785</span>
+                        </div>
+                    </div>
+                    <div class="result-display">
+                        <div class="result-row">
+                            <span class="result-label">Total Revenue (Yr 1)</span>
+                            <span class="result-value" id="totalRevenue">$38,421</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Benchmarks -->
+            <div class="card">
+                <div class="card-title">Industry Benchmarks</div>
+                
+                <div class="benchmark-item">
+                    <div class="benchmark-icon">📊</div>
+                    <div class="benchmark-info">
+                        <div class="benchmark-name">Median Micro-SaaS MRR</div>
+                        <div class="benchmark-desc">Solo founders, first year</div>
+                    </div>
+                    <div class="benchmark-value">$2.5K</div>
+                </div>
+                
+                <div class="benchmark-item">
+                    <div class="benchmark-icon">🎯</div>
+                    <div class="benchmark-info">
+                        <div class="benchmark-name">Target LTV:CAC</div>
+                        <div class="benchmark-desc">Healthy SaaS ratio</div>
+                    </div>
+                    <div class="benchmark-value">3:1+</div>
+                </div>
+                
+                <div class="benchmark-item">
+                    <div class="benchmark-icon">🔄</div>
+                    <div class="benchmark-info">
+                        <div class="benchmark-name">Avg. Monthly Churn</div>
+                        <div class="benchmark-desc">B2B micro-SaaS</div>
+                    </div>
+                    <div class="benchmark-value">3-7%</div>
+                </div>
+                
+                <div class="benchmark-item">
+                    <div class="benchmark-icon">💰</div>
+                    <div class="benchmark-info">
+                        <div class="benchmark-name">Median Pricing</div>
+                        <div class="benchmark-desc">B2B tools</div>
+                    </div>
+                    <div class="benchmark-value">$29-49</div>
+                </div>
+                
+                <div class="benchmark-item">
+                    <div class="benchmark-icon">⏱️</div>
+                    <div class="benchmark-info">
+                        <div class="benchmark-name">Time to $5K MRR</div>
+                        <div class="benchmark-desc">Median for successful products</div>
+                    </div>
+                    <div class="benchmark-value">6-12mo</div>
+                </div>
+            </div>
+
+            <!-- Quick Insights -->
+            <div class="card">
+                <div class="card-title">Quick Insights</div>
+                
+                <div id="insights" style="font-size: 0.85rem; line-height: 1.6;">
+                    <!-- Generated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Built overnight by <a href="#">Safira</a> • Retro Tech Style ⚡</p>
+            <p style="margin-top: 0.5rem;">Data based on indie hacker benchmarks and SaaS industry research</p>
+        </footer>
+    </div>
+
+    <script>
+        // Elements
+        const priceInput = document.getElementById('price');
+        const churnInput = document.getElementById('churn');
+        const newCustomersInput = document.getElementById('newCustomers');
+        const cacInput = document.getElementById('cac');
+        const currentCustomersInput = document.getElementById('currentCustomers');
+        const avgUsageInput = document.getElementById('avgUsage');
+        
+        let currentModel = 'mrr';
+
+        // Model buttons
+        document.querySelectorAll('.model-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.model-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentModel = btn.dataset.model;
+                
+                const usageGroup = document.getElementById('usageGroup');
+                const priceLabel = document.getElementById('priceLabel');
+                
+                if (currentModel === 'usage') {
+                    usageGroup.style.display = 'block';
+                    priceLabel.textContent = 'Base Price ($)';
+                } else if (currentModel === 'onetime') {
+                    usageGroup.style.display = 'none';
+                    priceLabel.textContent = 'One-Time Price ($)';
+                } else {
+                    usageGroup.style.display = 'none';
+                    priceLabel.textContent = 'Monthly Price ($)';
+                }
+                
+                calculate();
+            });
+        });
+
+        // Calculate everything
+        function calculate() {
+            const price = parseFloat(priceInput.value) || 29;
+            const churn = (parseFloat(churnInput.value) || 5) / 100;
+            const newCustomers = parseInt(newCustomersInput.value) || 20;
+            const cac = parseFloat(cacInput.value) || 30;
+            const currentCustomers = parseInt(currentCustomersInput.value) || 0;
+            const avgUsage = parseFloat(avgUsageInput.value) || 15;
+            
+            // Effective monthly revenue per customer
+            let monthlyRev = price;
+            if (currentModel === 'usage') {
+                monthlyRev = price + avgUsage;
+            } else if (currentModel === 'onetime') {
+                // For one-time, we simulate as if it's MRR over 12 months
+                monthlyRev = price / 12;
+            }
+            
+            // LTV calculation
+            const avgLifetimeMonths = churn > 0 ? 1 / churn : 100;
+            const ltv = monthlyRev * avgLifetimeMonths;
+            
+            // LTV:CAC
+            const ltvCac = cac > 0 ? ltv / cac : Infinity;
+            
+            // Payback period
+            const payback = monthlyRev > 0 ? cac / monthlyRev : 0;
+            
+            // Break-even customers (to cover CAC from first month)
+            const breakeven = Math.ceil(cac / monthlyRev * (1 + churn));
+            
+            // Goals
+            const goal1k = Math.ceil(1000 / monthlyRev);
+            const goal5k = Math.ceil(5000 / monthlyRev);
+            const goal10k = Math.ceil(10000 / monthlyRev);
+            
+            // Current MRR
+            const currentMRR = currentCustomers * monthlyRev;
+            
+            // Customers needed for $5K
+            const customersNeeded = Math.max(0, goal5k - currentCustomers);
+            
+            // Time to goal (considering churn)
+            const netGrowth = newCustomers * (1 - churn);
+            const monthsToGoal = netGrowth > 0 ? Math.ceil(customersNeeded / netGrowth) : 999;
+            
+            // Progress
+            const progress = Math.min(100, (currentMRR / 5000) * 100);
+            
+            // Update UI
+            document.getElementById('ltv').textContent = '$' + formatNumber(ltv);
+            document.getElementById('ltvCac').textContent = ltvCac === Infinity ? '∞' : ltvCac.toFixed(1) + 'x';
+            document.getElementById('payback').textContent = payback.toFixed(1) + ' months';
+            document.getElementById('breakeven').textContent = breakeven;
+            
+            document.getElementById('goal1k').textContent = goal1k;
+            document.getElementById('goal5k').textContent = goal5k;
+            document.getElementById('goal10k').textContent = goal10k;
+            
+            document.getElementById('currentMRR').textContent = '$' + formatNumber(currentMRR);
+            document.getElementById('customersNeeded').textContent = customersNeeded;
+            document.getElementById('timeToGoal').textContent = monthsToGoal > 99 ? '99+ months' : monthsToGoal + ' months';
+            
+            document.getElementById('progressPercent').textContent = progress.toFixed(0) + '%';
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            // Quick stats
+            document.getElementById('statPrice').textContent = '$' + price;
+            document.getElementById('statCustomers').textContent = goal5k;
+            document.getElementById('statARR').textContent = '$' + formatNumber(monthlyRev * goal5k * 12 / 1000) + 'K';
+            document.getElementById('statMonths').textContent = monthsToGoal > 99 ? '99+' : monthsToGoal;
+            
+            // Growth simulation
+            simulateGrowth(currentCustomers, newCustomers, churn, monthlyRev);
+            
+            // Generate insights
+            generateInsights(price, churn * 100, ltvCac, monthsToGoal, ltv, cac, currentModel);
+        }
+
+        function simulateGrowth(startCustomers, newPerMonth, churn, monthlyRev) {
+            const timeline = document.getElementById('timeline');
+            timeline.innerHTML = '';
+            
+            let customers = startCustomers;
+            let totalRevenue = 0;
+            const months = ['Now', 'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'];
+            const mrrValues = [];
+            
+            for (let i = 0; i <= 12; i++) {
+                const mrr = customers * monthlyRev;
+                mrrValues.push(mrr);
+                
+                if (i === 6) {
+                    document.getElementById('month6mrr').textContent = '$' + formatNumber(mrr);
+                }
+                if (i === 12) {
+                    document.getElementById('month12mrr').textContent = '$' + formatNumber(mrr);
+                }
+                
+                totalRevenue += mrr;
+                
+                // Create timeline point (show only some months)
+                if (i === 0 || i === 3 || i === 6 || i === 9 || i === 12) {
+                    const point = document.createElement('div');
+                    point.className = 'timeline-point';
+                    point.innerHTML = `
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-month">${months[i]}</div>
+                        <div class="timeline-mrr">$${formatNumber(mrr)}</div>
+                    `;
+                    timeline.appendChild(point);
+                }
+                
+                // Grow for next month
+                const churned = Math.floor(customers * churn);
+                customers = customers - churned + newPerMonth;
+            }
+            
+            document.getElementById('totalRevenue').textContent = '$' + formatNumber(totalRevenue);
+        }
+
+        function generateInsights(price, churn, ltvCac, monthsToGoal, ltv, cac, model) {
+            const insights = [];
+            
+            // Pricing insight
+            if (price < 29) {
+                insights.push(`⚠️ <span style="color: var(--neon-orange)">Low pricing detected.</span> Most successful micro-SaaS charge $29-99. Consider raising prices.`);
+            } else if (price >= 29 && price <= 49) {
+                insights.push(`✅ <span style="color: var(--neon-green)">Sweet spot pricing.</span> $${price}/mo is within the optimal range for B2B tools.`);
+            } else if (price > 100) {
+                insights.push(`💎 <span style="color: var(--neon-cyan)">Premium pricing.</span> Ensure your value prop justifies $${price}/mo with ROI proof.`);
+            }
+            
+            // Churn insight
+            if (churn > 7) {
+                insights.push(`🔴 <span style="color: var(--neon-pink)">High churn alert.</span> ${churn}% monthly churn will kill growth. Focus on retention before acquisition.`);
+            } else if (churn <= 3) {
+                insights.push(`🟢 <span style="color: var(--neon-green)">Excellent retention.</span> ${churn}% churn is best-in-class. Your product has strong PMF signals.`);
+            }
+            
+            // LTV:CAC
+            if (ltvCac < 3) {
+                insights.push(`⚠️ <span style="color: var(--neon-orange)">LTV:CAC ratio below 3:1.</span> Either reduce CAC or increase prices/retention.`);
+            } else if (ltvCac >= 5) {
+                insights.push(`🚀 <span style="color: var(--neon-green)">Strong unit economics.</span> ${ltvCac.toFixed(1)}x ratio means you can scale acquisition confidently.`);
+            }
+            
+            // Time to goal
+            if (monthsToGoal <= 6) {
+                insights.push(`⚡ <span style="color: var(--neon-cyan)">Fast track to $5K MRR!</span> At current growth, you'll hit ramen profitability in ${monthsToGoal} months.`);
+            } else if (monthsToGoal > 12) {
+                insights.push(`📈 <span style="color: var(--neon-purple)">Long runway to $5K.</span> Consider increasing new customer acquisition or raising prices to accelerate.`);
+            }
+            
+            // Model-specific
+            if (model === 'usage') {
+                insights.push(`📊 <span style="color: var(--neon-cyan)">Usage-based model.</span> Great for aligning revenue with customer value. Track usage closely to predict revenue.`);
+            } else if (model === 'onetime') {
+                insights.push(`💰 <span style="color: var(--neon-purple)">One-time pricing.</span> Simpler sales, but requires constant new customer acquisition. Consider offering annual plans.`);
+            }
+            
+            document.getElementById('insights').innerHTML = insights.map(i => `<p style="margin-bottom: 1rem;">${i}</p>`).join('');
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M';
+            } else if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return Math.round(num).toLocaleString();
+        }
+
+        // Event listeners
+        [priceInput, churnInput, newCustomersInput, cacInput, currentCustomersInput, avgUsageInput].forEach(input => {
+            input.addEventListener('input', calculate);
+        });
+
+        // Initial calculation
+        calculate();
+    </script>
+</body>
+</html>
