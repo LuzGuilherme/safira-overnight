@@ -1,6 +1,6 @@
 {
-  "generated": "2026-03-05T01:02:00.000000Z",
-  "count": 22,
+  "generated": "2026-03-06T01:08:20.000000Z",
+  "count": 25,
   "digests": [
     {
       "id": "2026-03-05-doac-ww3-iran",
@@ -1641,6 +1641,163 @@
         "Mentally smash. Mentally smash.",
         "Keep going. All my life, keep going, keep going.",
         "If you die, you die. — Georges St-Pierre"
+      ]
+    },
+    {
+      "id": "2026-03-06-mfm-zach-yadegari",
+      "filename": "2026-03-06-mfm-zach-yadegari-cal-ai.md",
+      "date": "2026-03-06",
+      "title": "Zach Yadegari: Cal AI Exit - $30M App Built in High School",
+      "host": "My First Million (Sam Parr & Shaan Puri)",
+      "guest": "Zach Yadegari — CEO Cal AI, 19 anos",
+      "duration": "~70 min",
+      "link": "https://www.youtube.com/watch?v=wgTOoJ_UkmQ",
+      "theme": "Young founder, AI app, acquisition, self-belief, M&A process",
+      "tldr": "19-year-old vendeu Cal AI (calorie tracking AI app) à MyFitnessPal. $30M em 2025, $5.7M só em Janeiro 2026. Partilha todo o processo de aquisição - primeira ronda falhou com ofertas insulting (<1x profit), aceitou que seria cash flowing business, depois MFP apareceu. Key: audácia > talento técnico.",
+      "insights": [
+        {
+          "insight": "Audácia > talento técnico",
+          "why": "Combinação skills + hustle é que conta"
+        },
+        {
+          "insight": "Primeira ronda M&A quase sempre falha",
+          "why": "Lowball ofertas são normais"
+        },
+        {
+          "insight": "Rejeição pode ser melhor que aceitação",
+          "why": "Tweet de rejeição deu 40M views"
+        },
+        {
+          "insight": "No one coming to save us moment",
+          "why": "Aceitar fortalece a empresa"
+        },
+        {
+          "insight": "When not if language",
+          "why": "Shift mental para manifestar objectivos"
+        }
+      ],
+      "quotes": [
+        "I always believed in my heart I was going to do it. I wanted it so badly that I needed it to be true.",
+        "Companies are bought, not sold — that aint me. I had to run a process.",
+        "The no one coming to save us moment actually just strengthens your resolve."
+      ],
+      "rating": 5,
+      "tags": [
+        "entrepreneurship",
+        "acquisition",
+        "exit",
+        "ai-apps",
+        "nutrition",
+        "young-founder",
+        "m&a",
+        "self-belief"
+      ]
+    },
+    {
+      "id": "2026-03-06-tim-ferriss-jim-collins",
+      "filename": "2026-03-06-tim-ferriss-jim-collins.md",
+      "date": "2026-03-06",
+      "title": "Jim Collins: What to Make of a Life - Cliffs, Fog, Fire & Return on Luck",
+      "host": "The Tim Ferriss Show",
+      "guest": "Jim Collins — autor Good to Great, Built to Last (68 anos)",
+      "duration": "~2h 49 min",
+      "link": "https://www.youtube.com/watch?v=4eOFHZ7JaJQ",
+      "theme": "Life philosophy, resilience, luck maximization, encodings, self-renewal",
+      "tldr": "Jim Collins (68) revela framework do novo livro: Cliffs (eventos que mudam tudo), Fog (incerteza), Encodings (forças natas). Return on Luck: não é ter luck, é o que fazes com ela. Mais energia aos 68 que 37. Two mornings per day. Ultimate success: spouse likes and respects you more over time.",
+      "insights": [
+        {
+          "insight": "Duas manhãs por dia",
+          "why": "Reset às 15h para segunda sessão produtiva"
+        },
+        {
+          "insight": "Return on Luck > Ter Luck",
+          "why": "Preparar para capturar oportunidades"
+        },
+        {
+          "insight": "Encodings > Skills",
+          "why": "Como procesas mundo, não só o que sabes"
+        },
+        {
+          "insight": "Fog é normal",
+          "why": "Não entrar em pânico na incerteza"
+        },
+        {
+          "insight": "Option to return = negative value",
+          "why": "Commitment total gera clareza"
+        },
+        {
+          "insight": "1000h rule para criatividade",
+          "why": "Aceitar curva de aprendizagem"
+        }
+      ],
+      "quotes": [
+        "I have more energy at 68 than I had at 37.",
+        "Fog happens to everyone — dont freak out about it.",
+        "An option to come back has negative value.",
+        "My ultimate definition of success: My spouse likes and respects me evermore as the years go by.",
+        "Toni Morrison wrote Beloved at 56. The mythology of youthful creativity is largely myth."
+      ],
+      "rating": 5,
+      "tags": [
+        "philosophy",
+        "life-design",
+        "luck",
+        "resilience",
+        "creativity",
+        "ageing",
+        "self-knowledge",
+        "jim-collins"
+      ]
+    },
+    {
+      "id": "2026-03-06-tim-ferriss-ruminative-mind",
+      "filename": "2026-03-06-tim-ferriss-ruminative-mind.md",
+      "date": "2026-03-06",
+      "title": "Tim Ferriss: How to Quiet the Ruminative Mind",
+      "host": "The Tim Ferriss Show (entrevistado por Dan Harris)",
+      "guest": "Tim Ferriss (no hot seat)",
+      "duration": "~1h 18 min",
+      "link": "https://www.youtube.com/watch?v=qOUnBaeTUOY",
+      "theme": "Mental health, self-help traps, focus, relationships, health optimization",
+      "tldr": "Tim Ferriss está better than ever após TMS + antibiótico TB para OCD. A armadilha do self-help: polir infinitamente vs jogar o jogo real. Conexão social > optimização individual. 2h de foco diário = top 1%. Escolhe projectos onde ganhas mesmo se falhares.",
+      "insights": [
+        {
+          "insight": "Self-help trap: polir vs jogar",
+          "why": "Acção imperfeita > preparação perfeita"
+        },
+        {
+          "insight": "Relationships > Optimization",
+          "why": "Conexão é o verdadeiro needle-mover"
+        },
+        {
+          "insight": "2h focus = top 1%",
+          "why": "Barra surpreendentemente baixa"
+        },
+        {
+          "insight": "Intermittent fasting: quando > o quê",
+          "why": "Simples e eficaz para bloodwork"
+        },
+        {
+          "insight": "Win even if fail",
+          "why": "Escolher projectos com múltiplos outcomes positivos"
+        }
+      ],
+      "quotes": [
+        "You want to play soccer, but first youre going to read all the textbooks and get a PhD... youre always polishing this self and you never actually play soccer.",
+        "Its the relationships, stupid.",
+        "Two hours of daily focus is the new top 1%.",
+        "I only choose projects that let me win even if they fail."
+      ],
+      "rating": 4.5,
+      "tags": [
+        "mental-health",
+        "self-help",
+        "focus",
+        "relationships",
+        "health-optimization",
+        "productivity",
+        "tim-ferriss",
+        "tms"
       ]
     }
   ]
