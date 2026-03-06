@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Launch Launchpad 🚀</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --gray-100: #f5f5f5;
+            --gray-200: #e5e5e5;
+            --gray-400: #a3a3a3;
+            --gray-600: #525252;
+            --gray-800: #262626;
+            --accent: #000000;
+            --success: #16a34a;
+            --warning: #ca8a04;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+        
+        /* Header */
+        header {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: start;
+            gap: 24px;
+            margin-bottom: 48px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid var(--black);
+        }
+        
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        
+        .subtitle {
+            font-size: 14px;
+            color: var(--gray-600);
+            margin-top: 8px;
+        }
+        
+        /* Stats */
+        .stats {
+            display: flex;
+            gap: 32px;
+            text-align: right;
+        }
+        
+        .stat {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .stat-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray-600);
+        }
+        
+        /* Progress bar */
+        .progress-container {
+            margin-bottom: 48px;
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background: var(--gray-200);
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--black);
+            transition: width 0.3s ease;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--gray-600);
+        }
+        
+        /* Filters */
+        .filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--gray-200);
+            background: var(--white);
+            font-size: 13px;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        
+        .filter-btn:hover {
+            border-color: var(--black);
+        }
+        
+        .filter-btn.active {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+        }
+        
+        /* Categories */
+        .category {
+            margin-bottom: 48px;
+        }
+        
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .category-title {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .category-count {
+            font-size: 12px;
+            color: var(--gray-600);
+        }
+        
+        /* Directory items */
+        .directory-list {
+            display: grid;
+            gap: 1px;
+            background: var(--gray-200);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .directory-item {
+            display: grid;
+            grid-template-columns: 32px 1fr auto auto;
+            gap: 16px;
+            align-items: center;
+            padding: 16px;
+            background: var(--white);
+            transition: background 0.15s ease;
+        }
+        
+        .directory-item:hover {
+            background: var(--gray-100);
+        }
+        
+        .directory-item.completed {
+            opacity: 0.6;
+        }
+        
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--black);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+        }
+        
+        .checkbox.checked {
+            background: var(--black);
+        }
+        
+        .checkbox.checked::after {
+            content: "✓";
+            color: var(--white);
+            font-size: 12px;
+            font-weight: 700;
+        }
+        
+        .directory-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .directory-name {
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .directory-desc {
+            font-size: 12px;
+            color: var(--gray-600);
+        }
+        
+        .directory-tier {
+            padding: 4px 8px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid;
+        }
+        
+        .tier-essential {
+            color: var(--black);
+            border-color: var(--black);
+        }
+        
+        .tier-recommended {
+            color: var(--gray-600);
+            border-color: var(--gray-400);
+        }
+        
+        .tier-bonus {
+            color: var(--gray-400);
+            border-color: var(--gray-200);
+        }
+        
+        .directory-link {
+            font-size: 12px;
+            color: var(--black);
+            text-decoration: none;
+            padding: 8px 12px;
+            border: 1px solid var(--gray-200);
+            transition: all 0.15s ease;
+        }
+        
+        .directory-link:hover {
+            border-color: var(--black);
+            background: var(--gray-100);
+        }
+        
+        /* Product form */
+        .product-form {
+            background: var(--gray-100);
+            padding: 24px;
+            margin-bottom: 48px;
+        }
+        
+        .form-title {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+        
+        .form-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gray-600);
+        }
+        
+        .form-input {
+            padding: 10px 12px;
+            border: 1px solid var(--gray-200);
+            font-family: inherit;
+            font-size: 14px;
+            background: var(--white);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--black);
+        }
+        
+        /* Export section */
+        .export-section {
+            display: flex;
+            gap: 16px;
+            padding-top: 24px;
+            border-top: 1px solid var(--gray-200);
+            margin-top: 48px;
+        }
+        
+        .export-btn {
+            padding: 12px 24px;
+            background: var(--black);
+            color: var(--white);
+            border: none;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.15s ease;
+        }
+        
+        .export-btn:hover {
+            opacity: 0.8;
+        }
+        
+        .export-btn.secondary {
+            background: var(--white);
+            color: var(--black);
+            border: 1px solid var(--black);
+        }
+        
+        /* Responsive */
+        @media (max-width: 640px) {
+            header {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                justify-content: flex-start;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .directory-item {
+                grid-template-columns: 32px 1fr;
+            }
+            
+            .directory-tier,
+            .directory-link {
+                display: none;
+            }
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: 64px;
+            padding-top: 24px;
+            border-top: 1px solid var(--gray-200);
+            font-size: 12px;
+            color: var(--gray-600);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        footer a {
+            color: var(--black);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>Launch Launchpad 🚀</h1>
+                <p class="subtitle">Track your product launch across 40+ directories</p>
+            </div>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-value" id="completedCount">0</span>
+                    <span class="stat-label">Submitted</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="totalCount">0</span>
+                    <span class="stat-label">Total</span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+            <div class="progress-label">
+                <span id="progressText">0% complete</span>
+                <span id="progressRemaining">0 remaining</span>
+            </div>
+        </div>
+        
+        <div class="product-form">
+            <h2 class="form-title">Your Product</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">Product Name</label>
+                    <input type="text" class="form-input" id="productName" placeholder="e.g., LaunchPad">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Website URL</label>
+                    <input type="url" class="form-input" id="productUrl" placeholder="https://...">
+                </div>
+                <div class="form-group full">
+                    <label class="form-label">One-liner description</label>
+                    <input type="text" class="form-input" id="productDesc" placeholder="Track your product launch across 40+ directories">
+                </div>
+            </div>
+        </div>
+        
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="essential">Essential</button>
+            <button class="filter-btn" data-filter="recommended">Recommended</button>
+            <button class="filter-btn" data-filter="bonus">Bonus</button>
+            <button class="filter-btn" data-filter="pending">Pending</button>
+            <button class="filter-btn" data-filter="completed">Completed</button>
+        </div>
+        
+        <div id="directoryContainer"></div>
+        
+        <div class="export-section">
+            <button class="export-btn" onclick="exportProgress()">Export Progress (JSON)</button>
+            <button class="export-btn secondary" onclick="resetProgress()">Reset All</button>
+        </div>
+        
+        <footer>
+            <span>Built by <a href="https://github.com/LuzGuilherme/safira-overnight">Safira</a> 🌙 overnight</span>
+            <span>Data saved locally in your browser</span>
+        </footer>
+    </div>
+    
+    <script>
+        const directories = [
+            // Essential - must-do first
+            { name: "Product Hunt", url: "https://producthunt.com/posts/new", desc: "The #1 place to launch. Time your launch for 00:01 PST", category: "Launch Platforms", tier: "essential" },
+            { name: "Hacker News", url: "https://news.ycombinator.com/submit", desc: "Show HN post. Best for technical products", category: "Launch Platforms", tier: "essential" },
+            { name: "Reddit r/SideProject", url: "https://reddit.com/r/SideProject", desc: "Share your project, get feedback", category: "Launch Platforms", tier: "essential" },
+            { name: "Indie Hackers", url: "https://indiehackers.com/products", desc: "Add your product, share milestones", category: "Launch Platforms", tier: "essential" },
+            { name: "Twitter/X", url: "https://twitter.com/compose/tweet", desc: "Launch thread + build in public", category: "Social", tier: "essential" },
+            
+            // Recommended - high ROI
+            { name: "BetaList", url: "https://betalist.com/submit", desc: "For pre-launch and beta products", category: "Directories", tier: "recommended" },
+            { name: "AlternativeTo", url: "https://alternativeto.net/how-to-add-an-alternative/", desc: "List as alternative to competitors", category: "Directories", tier: "recommended" },
+            { name: "Capterra", url: "https://www.capterra.com/vendors/sign-up", desc: "B2B software reviews", category: "Directories", tier: "recommended" },
+            { name: "G2", url: "https://www.g2.com/products/new", desc: "Enterprise software reviews", category: "Directories", tier: "recommended" },
+            { name: "LinkedIn", url: "https://linkedin.com/feed", desc: "Launch post + update your headline", category: "Social", tier: "recommended" },
+            { name: "Dev.to", url: "https://dev.to/new", desc: "Technical write-up about your stack", category: "Content", tier: "recommended" },
+            { name: "Hashnode", url: "https://hashnode.com/create-story", desc: "Developer blog post", category: "Content", tier: "recommended" },
+            { name: "Medium", url: "https://medium.com/new-story", desc: "Launch story or founder journey", category: "Content", tier: "recommended" },
+            { name: "Reddit r/InternetIsBeautiful", url: "https://reddit.com/r/InternetIsBeautiful", desc: "For beautiful, useful web tools", category: "Reddit", tier: "recommended" },
+            { name: "Reddit r/startups", url: "https://reddit.com/r/startups", desc: "Share your launch story", category: "Reddit", tier: "recommended" },
+            
+            // Bonus directories
+            { name: "SaaSHub", url: "https://www.saashub.com/submit", desc: "SaaS directory and alternatives", category: "Directories", tier: "bonus" },
+            { name: "GetApp", url: "https://www.getapp.com/submit-app", desc: "Business software directory", category: "Directories", tier: "bonus" },
+            { name: "StackShare", url: "https://stackshare.io/submit-tool", desc: "Developer tools directory", category: "Directories", tier: "bonus" },
+            { name: "Slant", url: "https://www.slant.co/topics/new", desc: "Create comparison topic", category: "Directories", tier: "bonus" },
+            { name: "BuiltWith", url: "https://builtwith.com/submit", desc: "Technology lookup directory", category: "Directories", tier: "bonus" },
+            { name: "Launched", url: "https://launched.io/submit", desc: "Simple launch directory", category: "Directories", tier: "bonus" },
+            { name: "StartupBase", url: "https://startupbase.io/submit", desc: "Startup database", category: "Directories", tier: "bonus" },
+            { name: "StartupRanking", url: "https://www.startupranking.com/add", desc: "Global startup ranking", category: "Directories", tier: "bonus" },
+            { name: "KillerStartups", url: "https://www.killerstartups.com/submit-startup", desc: "Startup reviews", category: "Directories", tier: "bonus" },
+            { name: "TechPluto", url: "https://www.techpluto.com/submit-a-startup/", desc: "Tech startup coverage", category: "Directories", tier: "bonus" },
+            
+            // AI specific
+            { name: "There's An AI For That", url: "https://theresanaiforthat.com/submit/", desc: "AI tools directory (if applicable)", category: "AI Directories", tier: "recommended" },
+            { name: "AI Tool Guru", url: "https://aitoolguru.com/submit-tool", desc: "AI tools listing", category: "AI Directories", tier: "bonus" },
+            { name: "Future Tools", url: "https://www.futuretools.io/submit-a-tool", desc: "AI tools by Matt Wolfe", category: "AI Directories", tier: "bonus" },
+            { name: "TopAI.tools", url: "https://topai.tools/submit", desc: "AI tools directory", category: "AI Directories", tier: "bonus" },
+            
+            // Dev specific
+            { name: "GitHub", url: "https://github.com/new", desc: "Open source? Create the repo", category: "Developer", tier: "essential" },
+            { name: "Awesome Lists", url: "https://github.com/topics/awesome", desc: "Find relevant awesome-* list", category: "Developer", tier: "recommended" },
+            { name: "npm/PyPI/etc", url: "#", desc: "Publish to package registries", category: "Developer", tier: "recommended" },
+            
+            // Content marketing
+            { name: "YouTube", url: "https://youtube.com/upload", desc: "Demo video or launch video", category: "Content", tier: "recommended" },
+            { name: "TikTok", url: "https://www.tiktok.com/upload", desc: "Short demo or behind the scenes", category: "Content", tier: "bonus" },
+            
+            // Newsletter/Podcasts
+            { name: "TLDR Newsletter", url: "https://tldr.tech/advertise", desc: "Submit for coverage", category: "Media", tier: "bonus" },
+            { name: "Console.dev", url: "https://console.dev/submit", desc: "Dev tools newsletter", category: "Media", tier: "bonus" },
+            { name: "Bytes.dev", url: "https://bytes.dev/sponsor", desc: "JS/web newsletter", category: "Media", tier: "bonus" },
+            
+            // Community
+            { name: "Discord servers", url: "#", desc: "Share in relevant communities", category: "Community", tier: "recommended" },
+            { name: "Slack communities", url: "#", desc: "Share in relevant channels", category: "Community", tier: "bonus" },
+            { name: "Facebook Groups", url: "https://facebook.com/groups", desc: "Niche groups for your market", category: "Community", tier: "bonus" },
+            
+            // SEO/Backlinks
+            { name: "Crunchbase", url: "https://www.crunchbase.com/add-organization", desc: "Company profile for SEO", category: "SEO", tier: "bonus" },
+            { name: "AngelList", url: "https://angel.co/company/new", desc: "Startup profile", category: "SEO", tier: "bonus" },
+        ];
+        
+        const STORAGE_KEY = 'launch-launchpad-state';
+        
+        let state = {
+            completed: [],
+            product: { name: '', url: '', desc: '' }
+        };
+        
+        function loadState() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                state = JSON.parse(saved);
+                document.getElementById('productName').value = state.product.name || '';
+                document.getElementById('productUrl').value = state.product.url || '';
+                document.getElementById('productDesc').value = state.product.desc || '';
+            }
+        }
+        
+        function saveState() {
+            state.product = {
+                name: document.getElementById('productName').value,
+                url: document.getElementById('productUrl').value,
+                desc: document.getElementById('productDesc').value
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        }
+        
+        function toggleComplete(name) {
+            const idx = state.completed.indexOf(name);
+            if (idx === -1) {
+                state.completed.push(name);
+            } else {
+                state.completed.splice(idx, 1);
+            }
+            saveState();
+            render();
+        }
+        
+        function updateStats() {
+            const total = directories.length;
+            const completed = state.completed.length;
+            const percent = Math.round((completed / total) * 100);
+            
+            document.getElementById('completedCount').textContent = completed;
+            document.getElementById('totalCount').textContent = total;
+            document.getElementById('progressFill').style.width = `${percent}%`;
+            document.getElementById('progressText').textContent = `${percent}% complete`;
+            document.getElementById('progressRemaining').textContent = `${total - completed} remaining`;
+        }
+        
+        function getFilteredDirectories(filter) {
+            let filtered = [...directories];
+            
+            switch (filter) {
+                case 'essential':
+                    filtered = filtered.filter(d => d.tier === 'essential');
+                    break;
+                case 'recommended':
+                    filtered = filtered.filter(d => d.tier === 'recommended');
+                    break;
+                case 'bonus':
+                    filtered = filtered.filter(d => d.tier === 'bonus');
+                    break;
+                case 'pending':
+                    filtered = filtered.filter(d => !state.completed.includes(d.name));
+                    break;
+                case 'completed':
+                    filtered = filtered.filter(d => state.completed.includes(d.name));
+                    break;
+            }
+            
+            return filtered;
+        }
+        
+        function groupByCategory(dirs) {
+            return dirs.reduce((acc, dir) => {
+                if (!acc[dir.category]) acc[dir.category] = [];
+                acc[dir.category].push(dir);
+                return acc;
+            }, {});
+        }
+        
+        function render(filter = 'all') {
+            const filtered = getFilteredDirectories(filter);
+            const grouped = groupByCategory(filtered);
+            const container = document.getElementById('directoryContainer');
+            
+            container.innerHTML = Object.entries(grouped).map(([category, dirs]) => `
+                <div class="category">
+                    <div class="category-header">
+                        <h3 class="category-title">${category}</h3>
+                        <span class="category-count">${dirs.filter(d => state.completed.includes(d.name)).length}/${dirs.length}</span>
+                    </div>
+                    <div class="directory-list">
+                        ${dirs.map(dir => `
+                            <div class="directory-item ${state.completed.includes(dir.name) ? 'completed' : ''}">
+                                <div class="checkbox ${state.completed.includes(dir.name) ? 'checked' : ''}" 
+                                     onclick="toggleComplete('${dir.name}')"></div>
+                                <div class="directory-info">
+                                    <span class="directory-name">${dir.name}</span>
+                                    <span class="directory-desc">${dir.desc}</span>
+                                </div>
+                                <span class="directory-tier tier-${dir.tier}">${dir.tier}</span>
+                                <a href="${dir.url}" target="_blank" rel="noopener" class="directory-link">Submit →</a>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+            
+            updateStats();
+        }
+        
+        function exportProgress() {
+            const data = {
+                ...state,
+                exportDate: new Date().toISOString(),
+                stats: {
+                    total: directories.length,
+                    completed: state.completed.length,
+                    percent: Math.round((state.completed.length / directories.length) * 100)
+                }
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `launch-progress-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+        }
+        
+        function resetProgress() {
+            if (confirm('Reset all progress? This cannot be undone.')) {
+                state = { completed: [], product: { name: '', url: '', desc: '' } };
+                document.getElementById('productName').value = '';
+                document.getElementById('productUrl').value = '';
+                document.getElementById('productDesc').value = '';
+                saveState();
+                render();
+            }
+        }
+        
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                render(btn.dataset.filter);
+            });
+        });
+        
+        // Auto-save product info
+        ['productName', 'productUrl', 'productDesc'].forEach(id => {
+            document.getElementById(id).addEventListener('input', saveState);
+        });
+        
+        // Init
+        loadState();
+        render();
+    </script>
+</body>
+</html>
