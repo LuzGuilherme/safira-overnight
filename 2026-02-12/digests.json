@@ -1,7 +1,89 @@
 {
-  "generated": "2026-03-06T01:08:20.000000Z",
-  "count": 25,
+  "generated": "2026-03-07T01:15:00.000000Z",
+  "count": 27,
   "digests": [
+    {
+      "id": "2026-03-07-doac-alex-honnold",
+      "filename": "2026-03-07-doac-alex-honnold.md",
+      "date": "2026-03-07",
+      "title": "Alex Honnold: World's Greatest Climber",
+      "host": "Diary of a CEO (Steven Bartlett)",
+      "guest": "Alex Honnold (legendary climber, Free Solo documentary subject)",
+      "duration": "~2h 30min",
+      "link": "https://www.youtube.com/watch?v=ajgwabD4_HE",
+      "theme": "Medo, risco, mortalidade, mastery, filosofia de vida",
+      "tldr": "Alex Honnold desmonta o mito de que não sente medo — 30 anos de exposição calibraram a resposta. Morte do pai aos 55 ensinou-lhe urgência. Viveu 10 anos numa carrinha com €300/mês até se tornar 'o dude' e ganhos explodiram. Filosofia: escolher riscos calculados > evitar todo o risco enquanto morres de doenças sedentárias.",
+      "insights": [
+        {
+          "insight": "O medo é treinável — 30 anos de exposição",
+          "why": "Brain scan não mostra anomalia, apenas calibração"
+        },
+        {
+          "insight": "Morte como catalisador de urgência",
+          "why": "Pai morreu aos 55 subitamente"
+        },
+        {
+          "insight": "Winner-take-all economics",
+          "why": "10 anos pobreza, depois 'és o dude' e ganhos explodem"
+        },
+        {
+          "insight": "Riscos escolhidos > riscos passivos",
+          "why": "Sedentários têm maior risco cardíaco"
+        },
+        {
+          "insight": "Divide em peças e treina separadamente",
+          "why": "Cada secção de El Capitan é diferente"
+        }
+      ],
+      "quotes": [
+        "Vais morrer de qualquer forma. Mais vale tomar riscos calculados e fazer o que queres.",
+        "Não é aguentar. 18 aos 30 foi incrível. Faria outra vez.",
+        "Se pusesses um monge num fMRI, o cérebro dele também responderia diferente."
+      ],
+      "rating": 5.0,
+      "tags": ["medo", "risco", "mortalidade", "mastery", "mindset", "doac", "escalada"]
+    },
+    {
+      "id": "2026-03-07-doac-brain-rot-emergency",
+      "filename": "2026-03-07-doac-brain-rot-emergency.md",
+      "date": "2026-03-07",
+      "title": "Brain Rot Emergency",
+      "host": "Diary of a CEO (Steven Bartlett)",
+      "guest": "Jonathan Haidt (NYU, Anxious Generation) & Dr. Aditi Nerurkar (Harvard)",
+      "duration": "~2h",
+      "link": "https://www.youtube.com/watch?v=EScgrk7oEwU",
+      "theme": "Short-form video, destruição de atenção, neurociência do vício digital",
+      "tldr": "Short-form video está a destruir a capacidade de atenção humana. Scroll constante activa amígdala (stress) e atrofia córtex pré-frontal (pensamento). 91% das pessoas melhoram com 2 semanas sem internet no telemóvel. Meta fez 31 estudos internos sobre danos e enterrou-os. Para crianças 0-18: zero short-form.",
+      "insights": [
+        {
+          "insight": "Short-form é a pior das piores",
+          "why": "Re-programa o cérebro, não é só perda de tempo"
+        },
+        {
+          "insight": "Amígdala vs Córtex Pré-Frontal",
+          "why": "Scroll mantém stress activo, atrofia pensamento"
+        },
+        {
+          "insight": "91% melhoram em 2 semanas",
+          "why": "Continuar a usar telefone mas sem internet"
+        },
+        {
+          "insight": "Meta sabe e esconde",
+          "why": "31 estudos internos sobre danos, todos enterrados"
+        },
+        {
+          "insight": "Zero short-form para crianças",
+          "why": "Quantidade adequada para 0-18 anos é zero"
+        }
+      ],
+      "quotes": [
+        "Would you advise to delete short form? OH MY GOD, YES. Most important thing for your intelligence.",
+        "Não é nossa culpa. Eles desenharam isto para ser viciante.",
+        "Somos basicamente traficantes. Estamos a causar reward deficit disorder."
+      ],
+      "rating": 5.0,
+      "tags": ["atenção", "short-form-video", "neurociência", "saúde-mental", "vício", "tiktok", "meta", "doac"]
+    },
     {
       "id": "2026-03-05-doac-ww3-iran",
       "filename": "2026-03-05-doac-ww3-iran.md",
