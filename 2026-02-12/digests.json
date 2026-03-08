@@ -1,7 +1,54 @@
 {
-  "generated": "2026-03-07T01:15:00.000000Z",
-  "count": 27,
+  "generated": "2026-03-08T01:10:00.000000Z",
+  "count": 28,
   "digests": [
+    {
+      "id": "2026-03-08-mfm-mohnish-pabrai",
+      "filename": "2026-03-08-mfm-mohnish-pabrai-10k-to-1m.md",
+      "date": "2026-03-08",
+      "title": "Asking a Billionaire How to Turn $10K into $1M",
+      "host": "My First Million (Shaan Puri)",
+      "guest": "Mohnish Pabrai (billionaire value investor)",
+      "duration": "~90 min",
+      "link": "https://www.youtube.com/watch?v=TN5aKByr3Rs",
+      "theme": "Investimento value, anomalias, Buffett, simplicidade",
+      "tldr": "Mohnish revela que Buffett só teve 12 decisões importantes em 58 anos (4% hit rate). O segredo é encontrar anomalias tão óbvias que não precisas de Excel. Plan A: Berkshire como índice. Plan B: caçar oportunidades que hit you in the head with a 2x4.",
+      "insights": [
+        {
+          "insight": "Plan A/B Framework",
+          "why": "Berkshire como default, anomalias como oportunidade"
+        },
+        {
+          "insight": "Hit Rate 4%",
+          "why": "Buffett: 12 decisões em 300+ moveram agulha"
+        },
+        {
+          "insight": "Se precisas de Excel, é pass",
+          "why": "Explica em 5 frases a um miúdo de 10 anos"
+        },
+        {
+          "insight": "Risk vs Uncertainty",
+          "why": "Low risk + High uncertainty = High rewards"
+        },
+        {
+          "insight": "Too Hard Pile",
+          "why": "99% ideias devem ir para esta caixa"
+        }
+      ],
+      "quotes": [
+        "If you need Excel, it is an automatic pass.",
+        "Great investment ideas are rare. One good idea every five years.",
+        "The highest level of intellect is simplicity."
+      ],
+      "rating": 4.5,
+      "tags": [
+        "investimento",
+        "value-investing",
+        "buffett",
+        "mfm",
+        "simplicidade"
+      ]
+    },
     {
       "id": "2026-03-07-doac-alex-honnold",
       "filename": "2026-03-07-doac-alex-honnold.md",
@@ -41,7 +88,15 @@
         "Se pusesses um monge num fMRI, o cérebro dele também responderia diferente."
       ],
       "rating": 5.0,
-      "tags": ["medo", "risco", "mortalidade", "mastery", "mindset", "doac", "escalada"]
+      "tags": [
+        "medo",
+        "risco",
+        "mortalidade",
+        "mastery",
+        "mindset",
+        "doac",
+        "escalada"
+      ]
     },
     {
       "id": "2026-03-07-doac-brain-rot-emergency",
@@ -82,7 +137,16 @@
         "Somos basicamente traficantes. Estamos a causar reward deficit disorder."
       ],
       "rating": 5.0,
-      "tags": ["atenção", "short-form-video", "neurociência", "saúde-mental", "vício", "tiktok", "meta", "doac"]
+      "tags": [
+        "atenção",
+        "short-form-video",
+        "neurociência",
+        "saúde-mental",
+        "vício",
+        "tiktok",
+        "meta",
+        "doac"
+      ]
     },
     {
       "id": "2026-03-05-doac-ww3-iran",
