@@ -1,20 +1,15 @@
 {
-  "generated_at": "2026-03-02T10:00:15.331271",
-  "total_invoices": 27,
-  "total_spent": 1254.55,
-  "avg_per_visit": 46.46,
+  "generated_at": "2026-03-09T10:00:14.720558",
+  "total_invoices": 28,
+  "total_spent": 1309.57,
+  "avg_per_visit": 46.77,
   "current_month": {
     "month": "2026-03",
-    "total": 0,
-    "visits": 0,
-    "change_pct": -100.0
+    "total": 55.02,
+    "visits": 1,
+    "change_pct": -85.4
   },
   "monthly_data": [
-    {
-      "month": "2025-08",
-      "total": 150.17,
-      "visits": 4
-    },
     {
       "month": "2025-09",
       "total": 78.1,
@@ -39,6 +34,11 @@
       "month": "2026-02",
       "total": 376.2,
       "visits": 6
+    },
+    {
+      "month": "2026-03",
+      "total": 55.02,
+      "visits": 1
     }
   ],
   "top_products": [
