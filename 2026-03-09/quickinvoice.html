@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickInvoice — Facturas Instantâneas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --bg: #fafafa;
+            --bg-card: #ffffff;
+            --text: #1a1a1a;
+            --text-muted: #666666;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --border: #e5e5e5;
+            --success: #059669;
+            --warning: #d97706;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 2rem;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .tagline {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Main Layout */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 0.35rem;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            font-size: 0.9rem;
+            font-family: inherit;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background: var(--bg);
+            color: var(--text);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Buttons */
+        button {
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #047857;
+        }
+
+        .btn-icon {
+            padding: 0.4rem 0.6rem;
+            font-size: 0.8rem;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        /* Items Table */
+        .items-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 40px;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 0.5rem;
+        }
+
+        .item-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 40px;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .item-row input {
+            padding: 0.4rem 0.6rem;
+            font-size: 0.85rem;
+        }
+
+        .item-total {
+            font-weight: 500;
+            text-align: right;
+            padding-right: 0.5rem;
+        }
+
+        .add-item {
+            margin-top: 1rem;
+        }
+
+        /* Totals */
+        .totals {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--border);
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.4rem 0;
+            font-size: 0.9rem;
+        }
+
+        .total-row.final {
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding-top: 0.75rem;
+            margin-top: 0.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Invoice Preview */
+        .preview-section {
+            position: sticky;
+            top: 2rem;
+        }
+
+        .invoice-preview {
+            background: white;
+            padding: 2rem;
+            min-height: 600px;
+            font-size: 0.85rem;
+        }
+
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--text);
+        }
+
+        .invoice-title {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .invoice-number {
+            text-align: right;
+        }
+
+        .invoice-number .number {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .invoice-parties {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .party h4 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .party .name {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .party .details {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            white-space: pre-line;
+        }
+
+        .invoice-items {
+            margin-bottom: 2rem;
+        }
+
+        .invoice-items table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .invoice-items th {
+            text-align: left;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .invoice-items th:last-child,
+        .invoice-items td:last-child {
+            text-align: right;
+        }
+
+        .invoice-items td {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .invoice-totals {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .invoice-totals-table {
+            width: 250px;
+        }
+
+        .invoice-totals-table .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.4rem 0;
+        }
+
+        .invoice-totals-table .row.final {
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding-top: 0.75rem;
+            margin-top: 0.5rem;
+            border-top: 2px solid var(--text);
+        }
+
+        .invoice-footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .invoice-notes {
+            margin-bottom: 1rem;
+        }
+
+        .invoice-notes h4 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Actions */
+        .actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* Status Message */
+        .status {
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .status.success {
+            display: block;
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+
+        .status.info {
+            display: block;
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+            }
+            header, footer, .editor-section, .actions {
+                display: none !important;
+            }
+            main {
+                display: block;
+                padding: 0;
+            }
+            .preview-section {
+                position: static;
+            }
+            .card {
+                border: none;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div>
+                <a href="#" class="logo">Quick<span>Invoice</span></a>
+                <p class="tagline">Facturas profissionais em segundos</p>
+            </div>
+            <div class="actions">
+                <button class="btn-secondary" onclick="saveData()">💾 Guardar</button>
+                <button class="btn-secondary" onclick="loadData()">📂 Carregar</button>
+                <button class="btn-secondary" onclick="clearAll()">🗑️ Limpar</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Editor Section -->
+        <div class="editor-section">
+            <div id="status" class="status"></div>
+
+            <!-- Issuer Info -->
+            <div class="card">
+                <h3 class="card-title">📤 Os Seus Dados</h3>
+                <div class="form-group">
+                    <label>Nome / Empresa</label>
+                    <input type="text" id="issuerName" placeholder="A Sua Empresa, Lda." oninput="updatePreview()">
+                </div>
+                <div class="form-group">
+                    <label>NIF</label>
+                    <input type="text" id="issuerNif" placeholder="123456789" oninput="updatePreview()">
+                </div>
+                <div class="form-group">
+                    <label>Morada</label>
+                    <textarea id="issuerAddress" placeholder="Rua Example, 123&#10;1000-000 Lisboa" oninput="updatePreview()"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="issuerEmail" placeholder="email@exemplo.pt" oninput="updatePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>Telefone</label>
+                        <input type="text" id="issuerPhone" placeholder="+351 912 345 678" oninput="updatePreview()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Client Info -->
+            <div class="card" style="margin-top: 1rem;">
+                <h3 class="card-title">📥 Dados do Cliente</h3>
+                <div class="form-group">
+                    <label>Nome / Empresa</label>
+                    <input type="text" id="clientName" placeholder="Cliente, S.A." oninput="updatePreview()">
+                </div>
+                <div class="form-group">
+                    <label>NIF</label>
+                    <input type="text" id="clientNif" placeholder="987654321" oninput="updatePreview()">
+                </div>
+                <div class="form-group">
+                    <label>Morada</label>
+                    <textarea id="clientAddress" placeholder="Av. Cliente, 456&#10;4000-000 Porto" oninput="updatePreview()"></textarea>
+                </div>
+            </div>
+
+            <!-- Invoice Details -->
+            <div class="card" style="margin-top: 1rem;">
+                <h3 class="card-title">📋 Detalhes da Factura</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nº da Factura</label>
+                        <input type="text" id="invoiceNumber" placeholder="FT 2026/001" oninput="updatePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>Data</label>
+                        <input type="date" id="invoiceDate" oninput="updatePreview()">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Data de Vencimento</label>
+                        <input type="date" id="dueDate" oninput="updatePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label>IVA (%)</label>
+                        <select id="vatRate" onchange="updatePreview()">
+                            <option value="0">0% (Isento)</option>
+                            <option value="6">6% (Reduzida)</option>
+                            <option value="13">13% (Intermédia)</option>
+                            <option value="23" selected>23% (Normal)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Items -->
+            <div class="card" style="margin-top: 1rem;">
+                <h3 class="card-title">📦 Itens</h3>
+                <div class="items-header">
+                    <span>Descrição</span>
+                    <span>Qtd</span>
+                    <span>Preço Un.</span>
+                    <span>Total</span>
+                    <span></span>
+                </div>
+                <div id="itemsContainer"></div>
+                <button class="btn-secondary add-item" onclick="addItem()">+ Adicionar Item</button>
+
+                <div class="totals">
+                    <div class="total-row">
+                        <span>Subtotal</span>
+                        <span id="subtotalDisplay">€0.00</span>
+                    </div>
+                    <div class="total-row">
+                        <span>IVA (<span id="vatRateDisplay">23</span>%)</span>
+                        <span id="vatDisplay">€0.00</span>
+                    </div>
+                    <div class="total-row final">
+                        <span>Total</span>
+                        <span id="totalDisplay">€0.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notes -->
+            <div class="card" style="margin-top: 1rem;">
+                <h3 class="card-title">📝 Notas</h3>
+                <div class="form-group">
+                    <label>Notas / Observações</label>
+                    <textarea id="notes" placeholder="Pagamento por transferência bancária para IBAN PT50...&#10;Obrigado pela preferência!" oninput="updatePreview()"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="preview-section">
+            <div class="card">
+                <h3 class="card-title">👁️ Pré-visualização</h3>
+                <div id="invoicePreview" class="invoice-preview">
+                    <!-- Preview will be rendered here -->
+                </div>
+                <div class="actions">
+                    <button class="btn-success" onclick="downloadPDF()">📥 Exportar PDF</button>
+                    <button class="btn-secondary" onclick="window.print()">🖨️ Imprimir</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>QuickInvoice — Feito com ❤️ por <a href="https://github.com/LuzGuilherme" target="_blank">Safira</a> numa noite</p>
+        <p style="margin-top: 0.5rem; font-size: 0.7rem; color: #999;">Os dados ficam no seu browser. Nada é enviado para servidores.</p>
+    </footer>
+
+    <script>
+        // State
+        let items = [];
+        let itemIdCounter = 0;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set default date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('invoiceDate').value = today;
+            
+            // Set due date to 30 days from now
+            const dueDate = new Date();
+            dueDate.setDate(dueDate.getDate() + 30);
+            document.getElementById('dueDate').value = dueDate.toISOString().split('T')[0];
+
+            // Add first item
+            addItem();
+            
+            // Try to load saved data
+            const saved = localStorage.getItem('quickinvoice_issuer');
+            if (saved) {
+                const data = JSON.parse(saved);
+                document.getElementById('issuerName').value = data.name || '';
+                document.getElementById('issuerNif').value = data.nif || '';
+                document.getElementById('issuerAddress').value = data.address || '';
+                document.getElementById('issuerEmail').value = data.email || '';
+                document.getElementById('issuerPhone').value = data.phone || '';
+            }
+
+            updatePreview();
+        });
+
+        // Add Item
+        function addItem() {
+            const id = itemIdCounter++;
+            items.push({ id, description: '', quantity: 1, price: 0 });
+            renderItems();
+        }
+
+        // Remove Item
+        function removeItem(id) {
+            items = items.filter(item => item.id !== id);
+            if (items.length === 0) addItem();
+            renderItems();
+            updatePreview();
+        }
+
+        // Render Items
+        function renderItems() {
+            const container = document.getElementById('itemsContainer');
+            container.innerHTML = items.map(item => `
+                <div class="item-row" data-id="${item.id}">
+                    <input type="text" placeholder="Serviço de consultoria..." 
+                           value="${item.description}" 
+                           onchange="updateItem(${item.id}, 'description', this.value)">
+                    <input type="number" min="0" step="1" value="${item.quantity}" 
+                           onchange="updateItem(${item.id}, 'quantity', this.value)">
+                    <input type="number" min="0" step="0.01" value="${item.price}" 
+                           onchange="updateItem(${item.id}, 'price', this.value)">
+                    <span class="item-total">€${(item.quantity * item.price).toFixed(2)}</span>
+                    <button class="btn-icon btn-danger" onclick="removeItem(${item.id})">✕</button>
+                </div>
+            `).join('');
+        }
+
+        // Update Item
+        function updateItem(id, field, value) {
+            const item = items.find(i => i.id === id);
+            if (item) {
+                if (field === 'quantity' || field === 'price') {
+                    item[field] = parseFloat(value) || 0;
+                } else {
+                    item[field] = value;
+                }
+            }
+            renderItems();
+            updatePreview();
+        }
+
+        // Calculate Totals
+        function calculateTotals() {
+            const subtotal = items.reduce((sum, item) => sum + (item.quantity * item.price), 0);
+            const vatRate = parseFloat(document.getElementById('vatRate').value) || 0;
+            const vat = subtotal * (vatRate / 100);
+            const total = subtotal + vat;
+
+            document.getElementById('subtotalDisplay').textContent = `€${subtotal.toFixed(2)}`;
+            document.getElementById('vatRateDisplay').textContent = vatRate;
+            document.getElementById('vatDisplay').textContent = `€${vat.toFixed(2)}`;
+            document.getElementById('totalDisplay').textContent = `€${total.toFixed(2)}`;
+
+            return { subtotal, vat, total, vatRate };
+        }
+
+        // Update Preview
+        function updatePreview() {
+            const { subtotal, vat, total, vatRate } = calculateTotals();
+
+            const issuerName = document.getElementById('issuerName').value || 'A Sua Empresa';
+            const issuerNif = document.getElementById('issuerNif').value;
+            const issuerAddress = document.getElementById('issuerAddress').value;
+            const issuerEmail = document.getElementById('issuerEmail').value;
+            const issuerPhone = document.getElementById('issuerPhone').value;
+
+            const clientName = document.getElementById('clientName').value || 'Cliente';
+            const clientNif = document.getElementById('clientNif').value;
+            const clientAddress = document.getElementById('clientAddress').value;
+
+            const invoiceNumber = document.getElementById('invoiceNumber').value || 'FT 2026/001';
+            const invoiceDate = document.getElementById('invoiceDate').value;
+            const dueDate = document.getElementById('dueDate').value;
+            const notes = document.getElementById('notes').value;
+
+            const formatDate = (dateStr) => {
+                if (!dateStr) return '';
+                const d = new Date(dateStr);
+                return d.toLocaleDateString('pt-PT', { day: '2-digit', month: 'long', year: 'numeric' });
+            };
+
+            const issuerDetails = [
+                issuerNif ? `NIF: ${issuerNif}` : '',
+                issuerAddress,
+                issuerEmail,
+                issuerPhone
+            ].filter(Boolean).join('\n');
+
+            const clientDetails = [
+                clientNif ? `NIF: ${clientNif}` : '',
+                clientAddress
+            ].filter(Boolean).join('\n');
+
+            const itemsHtml = items.filter(i => i.description || i.price > 0).map(item => `
+                <tr>
+                    <td>${item.description || '-'}</td>
+                    <td>${item.quantity}</td>
+                    <td>€${item.price.toFixed(2)}</td>
+                    <td>€${(item.quantity * item.price).toFixed(2)}</td>
+                </tr>
+            `).join('') || `
+                <tr>
+                    <td colspan="4" style="text-align: center; color: #999; padding: 2rem;">
+                        Adicione itens à factura
+                    </td>
+                </tr>
+            `;
+
+            document.getElementById('invoicePreview').innerHTML = `
+                <div class="invoice-header">
+                    <div class="invoice-title">FACTURA</div>
+                    <div class="invoice-number">
+                        <div class="number">${invoiceNumber}</div>
+                        <div style="color: var(--text-muted); margin-top: 0.25rem;">
+                            ${formatDate(invoiceDate)}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="invoice-parties">
+                    <div class="party">
+                        <h4>De</h4>
+                        <div class="name">${issuerName}</div>
+                        <div class="details">${issuerDetails}</div>
+                    </div>
+                    <div class="party">
+                        <h4>Para</h4>
+                        <div class="name">${clientName}</div>
+                        <div class="details">${clientDetails}</div>
+                    </div>
+                </div>
+
+                <div class="invoice-items">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Descrição</th>
+                                <th>Qtd</th>
+                                <th>Preço Un.</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${itemsHtml}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="invoice-totals">
+                    <div class="invoice-totals-table">
+                        <div class="row">
+                            <span>Subtotal</span>
+                            <span>€${subtotal.toFixed(2)}</span>
+                        </div>
+                        <div class="row">
+                            <span>IVA (${vatRate}%)</span>
+                            <span>€${vat.toFixed(2)}</span>
+                        </div>
+                        <div class="row final">
+                            <span>Total</span>
+                            <span>€${total.toFixed(2)}</span>
+                        </div>
+                    </div>
+                </div>
+
+                ${dueDate ? `
+                    <div style="margin-top: 1.5rem; padding: 0.75rem 1rem; background: #fef3c7; border-radius: 4px; font-size: 0.85rem;">
+                        <strong>Vencimento:</strong> ${formatDate(dueDate)}
+                    </div>
+                ` : ''}
+
+                ${notes ? `
+                    <div class="invoice-footer">
+                        <div class="invoice-notes">
+                            <h4>Notas</h4>
+                            <p style="white-space: pre-line;">${notes}</p>
+                        </div>
+                    </div>
+                ` : ''}
+            `;
+        }
+
+        // Download PDF
+        function downloadPDF() {
+            const element = document.getElementById('invoicePreview');
+            const invoiceNumber = document.getElementById('invoiceNumber').value || 'factura';
+            const filename = `${invoiceNumber.replace(/[^a-z0-9]/gi, '-').toLowerCase()}.pdf`;
+
+            const opt = {
+                margin: [10, 10, 10, 10],
+                filename: filename,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            showStatus('A gerar PDF...', 'info');
+            
+            html2pdf().set(opt).from(element).save().then(() => {
+                showStatus('PDF exportado com sucesso!', 'success');
+            });
+        }
+
+        // Save Data
+        function saveData() {
+            // Save issuer data for reuse
+            const issuerData = {
+                name: document.getElementById('issuerName').value,
+                nif: document.getElementById('issuerNif').value,
+                address: document.getElementById('issuerAddress').value,
+                email: document.getElementById('issuerEmail').value,
+                phone: document.getElementById('issuerPhone').value
+            };
+            localStorage.setItem('quickinvoice_issuer', JSON.stringify(issuerData));
+
+            // Save current invoice
+            const invoiceData = {
+                issuer: issuerData,
+                client: {
+                    name: document.getElementById('clientName').value,
+                    nif: document.getElementById('clientNif').value,
+                    address: document.getElementById('clientAddress').value
+                },
+                invoice: {
+                    number: document.getElementById('invoiceNumber').value,
+                    date: document.getElementById('invoiceDate').value,
+                    dueDate: document.getElementById('dueDate').value,
+                    vatRate: document.getElementById('vatRate').value,
+                    notes: document.getElementById('notes').value
+                },
+                items: items
+            };
+            localStorage.setItem('quickinvoice_current', JSON.stringify(invoiceData));
+            
+            showStatus('Dados guardados no browser!', 'success');
+        }
+
+        // Load Data
+        function loadData() {
+            const saved = localStorage.getItem('quickinvoice_current');
+            if (!saved) {
+                showStatus('Nenhuma factura guardada.', 'info');
+                return;
+            }
+
+            const data = JSON.parse(saved);
+            
+            // Issuer
+            document.getElementById('issuerName').value = data.issuer?.name || '';
+            document.getElementById('issuerNif').value = data.issuer?.nif || '';
+            document.getElementById('issuerAddress').value = data.issuer?.address || '';
+            document.getElementById('issuerEmail').value = data.issuer?.email || '';
+            document.getElementById('issuerPhone').value = data.issuer?.phone || '';
+
+            // Client
+            document.getElementById('clientName').value = data.client?.name || '';
+            document.getElementById('clientNif').value = data.client?.nif || '';
+            document.getElementById('clientAddress').value = data.client?.address || '';
+
+            // Invoice
+            document.getElementById('invoiceNumber').value = data.invoice?.number || '';
+            document.getElementById('invoiceDate').value = data.invoice?.date || '';
+            document.getElementById('dueDate').value = data.invoice?.dueDate || '';
+            document.getElementById('vatRate').value = data.invoice?.vatRate || '23';
+            document.getElementById('notes').value = data.invoice?.notes || '';
+
+            // Items
+            items = data.items || [];
+            if (items.length === 0) addItem();
+            itemIdCounter = Math.max(...items.map(i => i.id), 0) + 1;
+            renderItems();
+            updatePreview();
+
+            showStatus('Factura carregada!', 'success');
+        }
+
+        // Clear All
+        function clearAll() {
+            if (!confirm('Limpar todos os dados?')) return;
+            
+            document.getElementById('clientName').value = '';
+            document.getElementById('clientNif').value = '';
+            document.getElementById('clientAddress').value = '';
+            document.getElementById('invoiceNumber').value = '';
+            document.getElementById('notes').value = '';
+            
+            items = [];
+            addItem();
+            updatePreview();
+            
+            showStatus('Dados limpos.', 'info');
+        }
+
+        // Show Status
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `status ${type}`;
+            setTimeout(() => {
+                status.className = 'status';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
