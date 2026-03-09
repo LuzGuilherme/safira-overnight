@@ -1,7 +1,57 @@
 {
-  "generated": "2026-03-08T01:10:00.000000Z",
-  "count": 28,
+  "generated": "2026-03-09T01:15:00.000000Z",
+  "count": 29,
   "digests": [
+    {
+      "id": "2026-03-09-tim-ferriss-tommy-wood-brain",
+      "filename": "2026-03-09-tim-ferriss-tommy-wood-brain.md",
+      "date": "2026-03-09",
+      "title": "How to Future-Proof Your Brain from Dementia",
+      "host": "The Tim Ferriss Show (#851)",
+      "guest": "Dr. Tommy Wood (Associate Professor, UW - Pediatrics & Neuroscience)",
+      "duration": "~2h 08min",
+      "link": "https://www.youtube.com/watch?v=tTLLfUoOFLU",
+      "theme": "Prevenção de demência, omega-3, walking, methylation, brain health",
+      "tldr": "45-72% dos casos de demência são potencialmente preveníveis através de lifestyle. Tommy Wood (2º Washington's Strongest Man E top 20 off-road Ironman) explica que omega-3s + B vitaminas + exercício aeróbico são os pilares fundamentais. Surpreendente: 4000 passos/dia = -25% risco demência; 10000 passos pode reverter shrinkage do hipocampo.",
+      "insights": [
+        {
+          "insight": "4000 passos/dia = -25% risco demência",
+          "why": "Threshold baixo, muito acessível"
+        },
+        {
+          "insight": "10000 passos = +2% volume hipocampo (vs -1-2% esperado)",
+          "why": "Reverter shrinkage é possível!"
+        },
+        {
+          "insight": "Omega-3 + B vitamins trabalham em SINERGIA",
+          "why": "Um sem o outro não funciona"
+        },
+        {
+          "insight": "Homocisteína >13 = red flag",
+          "why": "Fácil de testar em sangue"
+        },
+        {
+          "insight": "Após concussão: evitar febre e glucose spikes",
+          "why": "Cafeína prejudicial acutamente (ao contrário de bebés prematuros)"
+        }
+      ],
+      "quotes": [
+        "45 to 70% of dementia is preventable through lifestyle.",
+        "You need the orchestra... multiple legs of the stool. It's not just one leg.",
+        "You can stack the deck massively in your favor."
+      ],
+      "rating": 5.0,
+      "tags": [
+        "dementia",
+        "brain-health",
+        "omega3",
+        "walking",
+        "methylation",
+        "longevity",
+        "concussion",
+        "tim-ferriss"
+      ]
+    },
     {
       "id": "2026-03-08-mfm-mohnish-pabrai",
       "filename": "2026-03-08-mfm-mohnish-pabrai-10k-to-1m.md",
