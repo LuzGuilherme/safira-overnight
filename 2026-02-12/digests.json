@@ -1,7 +1,78 @@
 {
-  "generated": "2026-03-09T01:15:00.000000Z",
-  "count": 29,
+  "generated": "2026-03-10T01:00:00.000000Z",
+  "count": 32,
   "digests": [
+    {
+      "id": "2026-03-10-mfm-uber-investor-ai-era",
+      "filename": "2026-03-10-mfm-uber-investor-ai-era.md",
+      "date": "2026-03-10",
+      "title": "Uber's Legendary Investor Explains Who Will Thrive in AI Era",
+      "host": "My First Million (Sam Parr & Shaan Puri)",
+      "guest": "Bill Tai (Early Uber/Zoom/Canva investor)",
+      "duration": "~51 min",
+      "link": "https://www.youtube.com/watch?v=-iu3XNAgLfM",
+      "theme": "AI era winners, network effects, taste as skill, venture capital",
+      "tldr": "Bill Tai, investidor early em Zoom, Canva, e Uber, partilha perspectiva sobre quem vai prosperar na era AI. AI amplifica talento mas não substitui julgamento humano. Quem combinar skills técnicos com 'taste' e capacidade de fazer perguntas certas vai dominar.",
+      "insights": [
+        {"insight": "AI amplifica mas não substitui julgamento", "why": "Skills de 'taste' e curadoria ganham valor"},
+        {"insight": "Pergunta certa > resposta certa", "why": "AI dá respostas, humanos fazem perguntas"},
+        {"insight": "Network effects = moat mais durável", "why": "Mesmo com AI, winner-take-most persiste"}
+      ],
+      "quotes": [
+        "AI gives you infinite answers. The question is: can you ask the right question?",
+        "Network effects don't go away with AI. If anything, winner-take-most accelerates."
+      ],
+      "rating": 4.5,
+      "tags": ["ai-era", "investing", "taste", "network-effects", "mfm", "venture-capital"]
+    },
+    {
+      "id": "2026-03-10-doac-divorce-lawyer-james-sexton",
+      "filename": "2026-03-10-doac-divorce-lawyer-james-sexton.md",
+      "date": "2026-03-10",
+      "title": "No.1 Divorce Lawyer: The Real Reasons Marriages Fail",
+      "host": "Diary of a CEO (Steven Bartlett)",
+      "guest": "James Sexton (Celebrity Divorce Lawyer, 25 anos)",
+      "duration": "~2h 05min",
+      "link": "https://www.youtube.com/watch?v=Uvy5mcLiWW0",
+      "theme": "Relações, casamento, slippage, manter amor, high-achievers",
+      "tldr": "James Sexton revela os verdadeiros motivos pelos quais casamentos falham. Não é infidelidade ou dinheiro — é 'slippage': pequenas desconexões diárias que acumulam até ao colapso. O segredo: manter a pessoa como prioridade visível.",
+      "insights": [
+        {"insight": "Slippage = pequenas desconexões que acumulam", "why": "Nenhuma gota sozinha causa a inundação"},
+        {"insight": "'She slipped in the rankings' = razão #1", "why": "High-achievers perdem parceiro na lista de prioridades"},
+        {"insight": "Aversão à dor > busca de prazer", "why": "Evitamos desconforto temporário, criamos permanente"},
+        {"insight": "Casamento é trabalho — e isso não é mau", "why": "Tratamos carreira com mais atenção que relações"}
+      ],
+      "quotes": [
+        "She just feels herself slipping in the rankings. That's the number one reason I have women divorcing great providers.",
+        "Slippage will keep me in business for the rest of my life.",
+        "Your marriage will end. It ends in death or divorce."
+      ],
+      "rating": 5.0,
+      "tags": ["relationships", "marriage", "divorce", "doac", "love", "communication", "high-achievers"]
+    },
+    {
+      "id": "2026-03-10-doac-christianity-wesley-huff",
+      "filename": "2026-03-10-doac-christianity-wesley-huff.md",
+      "date": "2026-03-10",
+      "title": "No.1 Christianity Expert: Evidence for God & The Bible",
+      "host": "Diary of a CEO (Steven Bartlett)",
+      "guest": "Wesley Huff (Historian, Theologian)",
+      "duration": "~2h 26min",
+      "link": "https://www.youtube.com/watch?v=nrwNSSyKuD4",
+      "theme": "Religião, evidência histórica da Bíblia, meaning em sociedade",
+      "tldr": "Wesley Huff apresenta caso histórico para a fiabilidade da Bíblia. New Atheism está em declínio, religião a subir (63% US adults = Christian). Temos mais evidência documental para Jesus que para a maioria das figuras antigas.",
+      "insights": [
+        {"insight": "New Atheism funcionou em papel, não na vida real", "why": "Falta de meaning na prática"},
+        {"insight": "Mais fontes para Jesus que para Tibério", "why": "Counter-intuitive mas documentado"},
+        {"insight": "40-60 anos gap ≠ Chinese whispers", "why": "Cultura oral ≠ whisper game rules"}
+      ],
+      "quotes": [
+        "We're more hungry than we've ever been and we have no idea how to cook.",
+        "99% of historians would argue the 27 books of the New Testament are written in the first century."
+      ],
+      "rating": 3.5,
+      "tags": ["religion", "christianity", "history", "bible", "doac", "faith", "meaning"]
+    },
     {
       "id": "2026-03-09-tim-ferriss-tommy-wood-brain",
       "filename": "2026-03-09-tim-ferriss-tommy-wood-brain.md",
