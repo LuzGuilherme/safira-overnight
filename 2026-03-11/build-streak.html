@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Streak Dashboard 🔥</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --border: #30363d;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+            --accent-green: #238636;
+            --accent-green-light: #2ea043;
+            --streak-0: #161b22;
+            --streak-1: #0e4429;
+            --streak-2: #006d32;
+            --streak-3: #26a641;
+            --streak-4: #39d353;
+            --fire: #f97316;
+            --gold: #fbbf24;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .fire-emoji {
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .header .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .streak-counter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--fire), #ea580c);
+            border-radius: 8px;
+            display: inline-flex;
+        }
+
+        .streak-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .streak-label {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.9);
+            text-align: left;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--streak-4);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        /* Contribution Graph */
+        .graph-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .graph-container {
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .contribution-graph {
+            display: grid;
+            grid-template-rows: repeat(7, 14px);
+            grid-auto-flow: column;
+            gap: 3px;
+            width: fit-content;
+        }
+
+        .day-cell {
+            width: 14px;
+            height: 14px;
+            border-radius: 2px;
+            background: var(--streak-0);
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        .day-cell:hover {
+            transform: scale(1.3);
+        }
+
+        .day-cell.level-1 { background: var(--streak-1); }
+        .day-cell.level-2 { background: var(--streak-2); }
+        .day-cell.level-3 { background: var(--streak-3); }
+        .day-cell.level-4 { background: var(--streak-4); }
+
+        .graph-legend {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 16px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .legend-boxes {
+            display: flex;
+            gap: 3px;
+        }
+
+        .legend-box {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        /* Category & Style Breakdown */
+        .breakdown-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .breakdown-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .breakdown-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .breakdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .breakdown-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .breakdown-bar-container {
+            flex: 1;
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            margin: 0 16px;
+            overflow: hidden;
+        }
+
+        .breakdown-bar {
+            height: 100%;
+            background: var(--streak-3);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .breakdown-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            min-width: 30px;
+            text-align: right;
+        }
+
+        /* Build Timeline */
+        .timeline-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 30px;
+        }
+
+        .timeline-controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .filter-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+            color: white;
+        }
+
+        .timeline {
+            display: grid;
+            gap: 12px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .build-entry {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            border-left: 3px solid var(--streak-3);
+            transition: border-color 0.2s ease;
+        }
+
+        .build-entry:hover {
+            border-left-color: var(--streak-4);
+        }
+
+        .build-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            min-width: 90px;
+        }
+
+        .build-content {
+            flex: 1;
+        }
+
+        .build-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .build-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: fixed;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+            max-width: 300px;
+        }
+
+        .tooltip.visible {
+            opacity: 1;
+        }
+
+        .tooltip-date {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+        }
+
+        .tooltip-name {
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: var(--accent-green-light);
+            text-decoration: none;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .streak-number {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .breakdown-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>
+                <span class="fire-emoji">🔥</span>
+                Build Streak Dashboard
+                <span class="fire-emoji">🔥</span>
+            </h1>
+            <p class="subtitle">Overnight builds journey — one night at a time</p>
+            <div class="streak-counter">
+                <span class="streak-number" id="streakCount">40</span>
+                <span class="streak-label">noites<br>consecutivas</span>
+            </div>
+        </header>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="totalBuilds">40</div>
+                <div class="stat-label">Total de Builds</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalCategories">14</div>
+                <div class="stat-label">Categorias</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalStyles">10</div>
+                <div class="stat-label">Estilos Usados</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="startDate">28 Jan</div>
+                <div class="stat-label">Início da Streak</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avgPerWeek">7</div>
+                <div class="stat-label">Builds/Semana</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="longestGap">0</div>
+                <div class="stat-label">Dias sem Build</div>
+            </div>
+        </div>
+
+        <!-- Contribution Graph -->
+        <section class="graph-section">
+            <div class="section-header">
+                <h2 class="section-title">📊 Contribution Graph</h2>
+            </div>
+            <div class="graph-container">
+                <div class="contribution-graph" id="contributionGraph"></div>
+            </div>
+            <div class="graph-legend">
+                <span>Menos</span>
+                <div class="legend-boxes">
+                    <div class="legend-box" style="background: var(--streak-0)"></div>
+                    <div class="legend-box" style="background: var(--streak-1)"></div>
+                    <div class="legend-box" style="background: var(--streak-2)"></div>
+                    <div class="legend-box" style="background: var(--streak-3)"></div>
+                    <div class="legend-box" style="background: var(--streak-4)"></div>
+                </div>
+                <span>Mais</span>
+            </div>
+        </section>
+
+        <!-- Breakdown -->
+        <div class="breakdown-grid">
+            <div class="breakdown-card">
+                <div class="section-header">
+                    <h2 class="section-title">📁 Por Categoria</h2>
+                </div>
+                <div id="categoryBreakdown"></div>
+            </div>
+            <div class="breakdown-card">
+                <div class="section-header">
+                    <h2 class="section-title">🎨 Por Estilo</h2>
+                </div>
+                <div id="styleBreakdown"></div>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <section class="timeline-section">
+            <div class="section-header">
+                <h2 class="section-title">📜 Timeline de Builds</h2>
+            </div>
+            <div class="timeline-controls">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="recent">Última Semana</button>
+                <button class="filter-btn" data-filter="saas">SaaS</button>
+                <button class="filter-btn" data-filter="marketing">Marketing</button>
+                <button class="filter-btn" data-filter="personal">Pessoal</button>
+            </div>
+            <div class="timeline" id="timeline"></div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Overnight Build #40 · Estilo: Data Dense 📊</p>
+            <p>Construído com ❤️ pela Safira · 11 Mar 2026</p>
+            <p><a href="https://luzguilherme.github.io/safira-overnight/">Ver todos os builds →</a></p>
+        </footer>
+    </div>
+
+    <div class="tooltip" id="tooltip">
+        <div class="tooltip-date"></div>
+        <div class="tooltip-name"></div>
+    </div>
+
+    <script>
+        // Build data - complete history
+        const builds = [
+            { date: '2026-01-28', name: 'Idea Tracker', category: 'Ideias/Gestão', style: 'Unknown', emoji: '💡' },
+            { date: '2026-01-29', name: 'Keyword Expander', category: 'Marketing/SEO', style: 'Unknown', emoji: '🔍' },
+            { date: '2026-01-31', name: 'BigIdeasDB Portugal', category: 'Research/Mercado', style: 'Unknown', emoji: '🇵🇹' },
+            { date: '2026-02-01', name: 'Side Hustle Prioritizer', category: 'Ideias/Scoring', style: 'Unknown', emoji: '📊' },
+            { date: '2026-02-02', name: 'Weekly Review Dashboard', category: 'Produtividade', style: 'Unknown', emoji: '📅' },
+            { date: '2026-02-03', name: 'Landing Page Auditor', category: 'Marketing/UX', style: 'Unknown', emoji: '🔎' },
+            { date: '2026-02-04', name: 'Spending Insights', category: 'Finanças', style: 'Unknown', emoji: '💰' },
+            { date: '2026-02-05', name: 'Side Hustle Scoreboard', category: 'Ideias/Scoring', style: 'Unknown', emoji: '🏆' },
+            { date: '2026-02-06', name: 'ReportAI Landing', category: 'SaaS/Reporting', style: 'Industrial Dark', emoji: '📈' },
+            { date: '2026-02-07', name: 'Idea Portfolio Dashboard', category: 'Ideias/Gestão', style: 'Industrial Dark', emoji: '💼' },
+            { date: '2026-02-08', name: 'Football Calendar', category: 'Desporto', style: 'Industrial Dark', emoji: '⚽' },
+            { date: '2026-02-09', name: 'Side Hustle Validator', category: 'Ideias/Validação', style: 'Industrial Dark', emoji: '✅' },
+            { date: '2026-02-10', name: 'Cancelar.pt', category: 'Utilidade PT', style: 'Industrial Dark', emoji: '❌' },
+            { date: '2026-02-11', name: 'Ironman Countdown', category: 'Desporto/Treino', style: 'Industrial Dark', emoji: '🏊' },
+            { date: '2026-02-12', name: 'Podcast Digest', category: 'Content/Podcasts', style: 'Industrial Dark', emoji: '🎧' },
+            { date: '2026-02-13', name: 'Cold Outreach Generator', category: 'Marketing/Sales', style: 'Industrial Dark', emoji: '📧' },
+            { date: '2026-02-14', name: 'AI Support PT Demo', category: 'SaaS/Support', style: 'Industrial Dark', emoji: '🤖' },
+            { date: '2026-02-15', name: 'Automation Post Generator', category: 'Marketing/Social', style: 'Industrial Dark', emoji: '🔄' },
+            { date: '2026-02-16', name: 'Strava Card Generator', category: 'Desporto/Social', style: 'Industrial Dark', emoji: '🏃' },
+            { date: '2026-02-17', name: 'AI Agent ROI Calculator', category: 'Business/Calculadora', style: 'Industrial Dark', emoji: '💹' },
+            { date: '2026-02-18', name: 'IRONMAN 2026 Countdown', category: 'Desporto/Treino', style: 'Industrial Dark', emoji: '🏅' },
+            { date: '2026-02-21', name: 'Mini PC Welcome Kit', category: 'Pessoal/Celebração', style: 'Retro Tech', emoji: '🏠' },
+            { date: '2026-02-22', name: 'Newsletter Survey Dashboard', category: 'Newsletter/Insights', style: 'Editorial Clean', emoji: '📊' },
+            { date: '2026-02-23', name: 'Client Value Calculator', category: 'Business/Calculadora', style: 'Swiss Minimal', emoji: '🧮' },
+            { date: '2026-02-24', name: 'Testimonial Wall', category: 'Marketing/Social Proof', style: 'Newspaper', emoji: '📰' },
+            { date: '2026-02-25', name: 'Usage Insights', category: 'Ferramentas/Analytics', style: 'Data Dense', emoji: '📊' },
+            { date: '2026-02-26', name: 'Kindness Streak', category: 'Pessoal/Mindset', style: 'Organic Soft', emoji: '🌱' },
+            { date: '2026-02-28', name: 'Ship or Sink', category: 'Produtividade/Indie', style: 'Neo Brutalist', emoji: '🚢' },
+            { date: '2026-03-01', name: 'Content Transformer', category: 'Marketing/Content', style: 'Editorial Clean', emoji: '🔄' },
+            { date: '2026-03-02', name: 'TL;DR Terms', category: 'Utilidade/Consumer', style: 'Playful', emoji: '📜' },
+            { date: '2026-03-03', name: 'PrepCall AI', category: 'Sales/Produtividade', style: 'Bold Maximalist', emoji: '🚀' },
+            { date: '2026-03-04', name: 'Competitor Intel Brief', category: 'Business/Competitive Intel', style: 'Newspaper', emoji: '📰' },
+            { date: '2026-03-05', name: 'Indie Revenue Lab', category: 'Business/Calculadora', style: 'Retro Tech', emoji: '⚡' },
+            { date: '2026-03-06', name: 'Launch Launchpad', category: 'Indie/Launch', style: 'Swiss Minimal', emoji: '🚀' },
+            { date: '2026-03-07', name: 'VibeGuard', category: 'Security/Dev Tools', style: 'Industrial Dark', emoji: '🛡️' },
+            { date: '2026-03-08', name: 'Athlete Fuel Planner', category: 'Nutrição/Wellness', style: 'Organic Soft', emoji: '🥗' },
+            { date: '2026-03-09', name: 'QuickInvoice', category: 'Ferramentas/Freelancers', style: 'Editorial Clean', emoji: '🧾' },
+            { date: '2026-03-10', name: 'Subject Analyzer', category: 'Marketing/Email', style: 'Playful', emoji: '📧' },
+            { date: '2026-03-11', name: 'Build Streak Dashboard', category: 'Ferramentas/Analytics', style: 'Data Dense', emoji: '🔥' }
+        ];
+
+        // Calculate stats
+        function calculateStats() {
+            const categories = {};
+            const styles = {};
+            
+            builds.forEach(build => {
+                const cat = build.category.split('/')[0];
+                categories[cat] = (categories[cat] || 0) + 1;
+                styles[build.style] = (styles[build.style] || 0) + 1;
+            });
+
+            return {
+                total: builds.length,
+                categories: Object.keys(categories).length,
+                styles: Object.keys(styles).filter(s => s !== 'Unknown').length,
+                categoryData: categories,
+                styleData: styles
+            };
+        }
+
+        // Generate contribution graph
+        function generateGraph() {
+            const graph = document.getElementById('contributionGraph');
+            const tooltip = document.getElementById('tooltip');
+            
+            // Create date map for builds
+            const buildMap = {};
+            builds.forEach(build => {
+                buildMap[build.date] = build;
+            });
+
+            // Generate last 12 weeks (84 days)
+            const today = new Date('2026-03-11');
+            const startDate = new Date(today);
+            startDate.setDate(startDate.getDate() - 83);
+            
+            // Adjust to start on Sunday
+            const startDay = startDate.getDay();
+            startDate.setDate(startDate.getDate() - startDay);
+
+            for (let i = 0; i < 84; i++) {
+                const currentDate = new Date(startDate);
+                currentDate.setDate(startDate.getDate() + i);
+                
+                const dateStr = currentDate.toISOString().split('T')[0];
+                const build = buildMap[dateStr];
+                
+                const cell = document.createElement('div');
+                cell.className = 'day-cell';
+                
+                if (build) {
+                    cell.classList.add('level-4');
+                    cell.dataset.date = dateStr;
+                    cell.dataset.name = build.name;
+                    cell.dataset.emoji = build.emoji;
+                }
+                
+                // Tooltip events
+                cell.addEventListener('mouseenter', (e) => {
+                    if (e.target.dataset.name) {
+                        const tooltipDateEl = tooltip.querySelector('.tooltip-date');
+                        const tooltipNameEl = tooltip.querySelector('.tooltip-name');
+                        
+                        const date = new Date(e.target.dataset.date);
+                        tooltipDateEl.textContent = date.toLocaleDateString('pt-PT', { 
+                            weekday: 'short', 
+                            day: 'numeric', 
+                            month: 'short' 
+                        });
+                        tooltipNameEl.textContent = `${e.target.dataset.emoji} ${e.target.dataset.name}`;
+                        
+                        tooltip.style.left = (e.pageX + 10) + 'px';
+                        tooltip.style.top = (e.pageY - 40) + 'px';
+                        tooltip.classList.add('visible');
+                    }
+                });
+                
+                cell.addEventListener('mouseleave', () => {
+                    tooltip.classList.remove('visible');
+                });
+                
+                graph.appendChild(cell);
+            }
+        }
+
+        // Render breakdown
+        function renderBreakdown(data, containerId, maxItems = 8) {
+            const container = document.getElementById(containerId);
+            const sorted = Object.entries(data)
+                .filter(([key]) => key !== 'Unknown')
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, maxItems);
+            
+            const maxCount = Math.max(...sorted.map(([, count]) => count));
+            
+            sorted.forEach(([name, count]) => {
+                const percentage = (count / maxCount) * 100;
+                
+                const item = document.createElement('div');
+                item.className = 'breakdown-item';
+                item.innerHTML = `
+                    <span class="breakdown-name">${name}</span>
+                    <div class="breakdown-bar-container">
+                        <div class="breakdown-bar" style="width: ${percentage}%"></div>
+                    </div>
+                    <span class="breakdown-count">${count}</span>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // Render timeline
+        function renderTimeline(filter = 'all') {
+            const timeline = document.getElementById('timeline');
+            timeline.innerHTML = '';
+            
+            let filteredBuilds = [...builds].reverse();
+            
+            if (filter === 'recent') {
+                const weekAgo = new Date('2026-03-04');
+                filteredBuilds = filteredBuilds.filter(b => new Date(b.date) >= weekAgo);
+            } else if (filter === 'saas') {
+                filteredBuilds = filteredBuilds.filter(b => 
+                    b.category.toLowerCase().includes('saas') || 
+                    b.category.toLowerCase().includes('business'));
+            } else if (filter === 'marketing') {
+                filteredBuilds = filteredBuilds.filter(b => 
+                    b.category.toLowerCase().includes('marketing') ||
+                    b.category.toLowerCase().includes('sales'));
+            } else if (filter === 'personal') {
+                filteredBuilds = filteredBuilds.filter(b => 
+                    b.category.toLowerCase().includes('pessoal') ||
+                    b.category.toLowerCase().includes('desporto') ||
+                    b.category.toLowerCase().includes('wellness'));
+            }
+            
+            filteredBuilds.forEach(build => {
+                const entry = document.createElement('div');
+                entry.className = 'build-entry';
+                
+                const date = new Date(build.date);
+                const dateStr = date.toLocaleDateString('pt-PT', { day: '2-digit', month: 'short' });
+                
+                entry.innerHTML = `
+                    <span class="build-date">${dateStr}</span>
+                    <div class="build-content">
+                        <div class="build-name">
+                            ${build.emoji} ${build.name}
+                        </div>
+                        <div class="build-meta">
+                            <span class="tag">📁 ${build.category}</span>
+                            <span class="tag">🎨 ${build.style}</span>
+                        </div>
+                    </div>
+                `;
+                timeline.appendChild(entry);
+            });
+        }
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderTimeline(btn.dataset.filter);
+            });
+        });
+
+        // Initialize
+        const stats = calculateStats();
+        document.getElementById('totalBuilds').textContent = stats.total;
+        document.getElementById('streakCount').textContent = stats.total;
+        document.getElementById('totalCategories').textContent = stats.categories;
+        document.getElementById('totalStyles').textContent = stats.styles;
+
+        generateGraph();
+        renderBreakdown(stats.categoryData, 'categoryBreakdown');
+        renderBreakdown(stats.styleData, 'styleBreakdown');
+        renderTimeline();
+
+        console.log('🔥 Build Streak Dashboard loaded!');
+        console.log(`📊 ${stats.total} builds tracked`);
+    </script>
+</body>
+</html>
