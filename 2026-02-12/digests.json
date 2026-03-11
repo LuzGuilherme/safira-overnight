@@ -1,29 +1,33 @@
 {
-  "generated": "2026-03-10T01:00:00.000000Z",
+  "generated": "2026-03-11T01:00:00.000000Z",
   "count": 32,
   "digests": [
     {
-      "id": "2026-03-10-mfm-uber-investor-ai-era",
-      "filename": "2026-03-10-mfm-uber-investor-ai-era.md",
-      "date": "2026-03-10",
-      "title": "Uber's Legendary Investor Explains Who Will Thrive in AI Era",
-      "host": "My First Million (Sam Parr & Shaan Puri)",
-      "guest": "Bill Tai (Early Uber/Zoom/Canva investor)",
-      "duration": "~51 min",
+      "id": "2026-03-11-mfm-bill-gurley-career",
+      "filename": "2026-03-11-mfm-bill-gurley-career.md",
+      "date": "2026-03-09",
+      "title": "Bill Gurley: 6 Out of 10 People Are Making This Mistake",
+      "host": "My First Million (Sam Parr)",
+      "guest": "Bill Gurley (Legendary VC, Benchmark, Uber board)",
+      "duration": "~55 min",
       "link": "https://www.youtube.com/watch?v=-iu3XNAgLfM",
-      "theme": "AI era winners, network effects, taste as skill, venture capital",
-      "tldr": "Bill Tai, investidor early em Zoom, Canva, e Uber, partilha perspectiva sobre quem vai prosperar na era AI. AI amplifica talento mas não substitui julgamento humano. Quem combinar skills técnicos com 'taste' e capacidade de fazer perguntas certas vai dominar.",
+      "theme": "Career, passion vs fascination, peer groups, risk vs uncertainty",
+      "tldr": "Bill Gurley partilha filosofia do seu livro 'Runnin' Down a Dream'. Estatística chocante: 6/10 pessoas fariam carreira diferente. A chave é encontrar o que te FASCINA e perguntar: 'Quero fazer isto daqui a 30 anos?' Peer groups são mais importantes que mentores.",
       "insights": [
-        {"insight": "AI amplifica mas não substitui julgamento", "why": "Skills de 'taste' e curadoria ganham valor"},
-        {"insight": "Pergunta certa > resposta certa", "why": "AI dá respostas, humanos fazem perguntas"},
-        {"insight": "Network effects = moat mais durável", "why": "Mesmo com AI, winner-take-most persiste"}
+        {"insight": "6 em 10 pessoas arrependem-se da carreira", "why": "Regrets de inacção pesam mais ao longo da vida"},
+        {"insight": "Teste dos 30 anos", "why": "'Quero fazer isto em 2056?' — se não, é hora de mudar"},
+        {"insight": "Fascination > Passion", "why": "O que não consegues ignorar? O que queres sempre saber mais?"},
+        {"insight": "Peer groups subvalorizados", "why": "Toda a gente fala de mentores, ninguém fala de peers"},
+        {"insight": "AI como jet pack para high-agency people", "why": "Quem aprende continuamente prospera; quem estagna está em risco"}
       ],
       "quotes": [
-        "AI gives you infinite answers. The question is: can you ask the right question?",
-        "Network effects don't go away with AI. If anything, winner-take-most accelerates."
+        "Do I want to still be doing this 30 years from now? I had no inhibitions whatsoever about walking away.",
+        "Pay attention to what fascinates you. Seinfeld said fascination was a better word than passion.",
+        "Everyone talks about mentors and no one talks about peers.",
+        "If you're crafting your own personal career and you're high agency, AI is like a jet pack."
       ],
-      "rating": 4.5,
-      "tags": ["ai-era", "investing", "taste", "network-effects", "mfm", "venture-capital"]
+      "rating": 5.0,
+      "tags": ["career", "mfm", "bill-gurley", "passion", "peer-groups", "vc", "life-design", "fascination"]
     },
     {
       "id": "2026-03-10-doac-divorce-lawyer-james-sexton",
