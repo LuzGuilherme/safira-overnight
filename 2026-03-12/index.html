@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human or Machine? | The AI Detection Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF3366;
+            --secondary: #00D4AA;
+            --accent: #FFE600;
+            --dark: #0D0D0D;
+            --light: #FAFAFA;
+            --gradient-1: linear-gradient(135deg, #FF3366 0%, #FF6B35 100%);
+            --gradient-2: linear-gradient(135deg, #00D4AA 0%, #00B4D8 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero/Start Screen */
+        .screen {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--gradient-1);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 span {
+            display: block;
+        }
+
+        .hero h1 .human {
+            color: var(--secondary);
+        }
+
+        .hero h1 .or {
+            font-size: 0.4em;
+            color: rgba(255,255,255,0.5);
+            margin: 0.5rem 0;
+        }
+
+        .hero h1 .machine {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 500px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        .start-btn {
+            background: var(--gradient-1);
+            border: none;
+            padding: 1.2rem 3rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(255, 51, 102, 0.4);
+        }
+
+        /* Game Screen */
+        .progress-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-2);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .question-counter {
+            text-align: center;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .score-display {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .score-display span {
+            background: rgba(255,255,255,0.1);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+
+        .score-display .correct {
+            color: var(--secondary);
+        }
+
+        .text-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .text-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 5rem;
+            color: rgba(255,255,255,0.1);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .text-content {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.9);
+            position: relative;
+            z-index: 1;
+        }
+
+        .text-meta {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .choice-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .choice-btn {
+            padding: 1.5rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border: 3px solid;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: transparent;
+        }
+
+        .choice-btn.human {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        .choice-btn.human:hover {
+            background: var(--secondary);
+            color: var(--dark);
+            transform: scale(1.02);
+        }
+
+        .choice-btn.machine {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .choice-btn.machine:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.02);
+        }
+
+        .choice-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .choice-btn.selected.correct {
+            background: var(--secondary) !important;
+            border-color: var(--secondary) !important;
+            color: var(--dark) !important;
+        }
+
+        .choice-btn.selected.wrong {
+            background: var(--primary) !important;
+            border-color: var(--primary) !important;
+            color: white !important;
+        }
+
+        /* Feedback */
+        .feedback {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-top: 1.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback.correct {
+            background: rgba(0, 212, 170, 0.2);
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+        }
+
+        .feedback.wrong {
+            background: rgba(255, 51, 102, 0.2);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .feedback-source {
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            color: rgba(255,255,255,0.6);
+            font-weight: 400;
+        }
+
+        .next-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .next-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Results Screen */
+        .results {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .results-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .results-score {
+            font-size: clamp(4rem, 15vw, 8rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .results-score.excellent {
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .results-score.good {
+            color: var(--accent);
+        }
+
+        .results-score.average {
+            color: var(--primary);
+        }
+
+        .results-label {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .results-breakdown {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .breakdown-item {
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+        }
+
+        .breakdown-item .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .breakdown-item .label {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .breakdown-item.correct .number { color: var(--secondary); }
+        .breakdown-item.wrong .number { color: var(--primary); }
+        .breakdown-item.total .number { color: var(--accent); }
+
+        .insight-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .insight-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .insight-card p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .insight-card ul {
+            margin-left: 1.5rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .insight-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        .play-again-btn {
+            background: var(--gradient-2);
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+            border-radius: 60px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 2rem;
+        }
+
+        .play-again-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(0, 212, 170, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem;
+            color: rgba(255,255,255,0.3);
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .hero {
+                padding: 2rem 0;
+            }
+
+            .choice-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .results-breakdown {
+                grid-template-columns: 1fr;
+            }
+
+            .text-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Start Screen -->
+        <div id="start-screen" class="screen active">
+            <div class="hero">
+                <span class="hero-badge">🎮 The Game Everyone's Playing</span>
+                <h1>
+                    <span class="human">Human</span>
+                    <span class="or">or</span>
+                    <span class="machine">Machine?</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Can you tell the difference between human writing and AI-generated text? 
+                    Test your detection skills with 12 real examples.
+                </p>
+                <button class="start-btn" onclick="startGame()">
+                    Start Playing →
+                </button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress"></div>
+            </div>
+            
+            <div class="question-counter" id="counter">Question 1 of 12</div>
+            
+            <div class="score-display">
+                <span>Score: <span class="correct" id="current-score">0</span> / <span id="total-answered">0</span></span>
+            </div>
+
+            <div class="text-card">
+                <p class="text-content" id="text-content">Loading...</p>
+                <div class="text-meta" id="text-meta">Context: General writing</div>
+            </div>
+
+            <div class="choice-buttons" id="choice-buttons">
+                <button class="choice-btn human" onclick="submitAnswer('human')">
+                    🧠 Human
+                </button>
+                <button class="choice-btn machine" onclick="submitAnswer('machine')">
+                    🤖 Machine
+                </button>
+            </div>
+
+            <div id="feedback-area"></div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen">
+            <div class="results">
+                <div class="results-title">Your Detection Score</div>
+                <div class="results-score" id="final-score">0%</div>
+                <div class="results-label" id="results-label">Keep Practicing!</div>
+
+                <div class="results-breakdown">
+                    <div class="breakdown-item correct">
+                        <div class="number" id="correct-count">0</div>
+                        <div class="label">Correct</div>
+                    </div>
+                    <div class="breakdown-item wrong">
+                        <div class="number" id="wrong-count">0</div>
+                        <div class="label">Wrong</div>
+                    </div>
+                    <div class="breakdown-item total">
+                        <div class="number">12</div>
+                        <div class="label">Total</div>
+                    </div>
+                </div>
+
+                <div class="insight-card">
+                    <h3>💡 How to Spot AI Writing</h3>
+                    <p>Here are some patterns that often indicate machine-generated text:</p>
+                    <ul>
+                        <li><strong>Perfect structure</strong> — AI tends to be overly organized</li>
+                        <li><strong>Hedging language</strong> — "It's important to note...", "One might argue..."</li>
+                        <li><strong>Lack of personal voice</strong> — Generic, neutral tone</li>
+                        <li><strong>Too comprehensive</strong> — Covers all angles equally</li>
+                        <li><strong>Unusual word choices</strong> — "Delve", "crucial", "landscape"</li>
+                    </ul>
+                    <p style="margin-top: 1rem;">Human writing often has quirks, incomplete thoughts, strong opinions, and personal references.</p>
+                </div>
+
+                <button class="play-again-btn" onclick="resetGame()">
+                    🔄 Play Again
+                </button>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Built by <a href="https://twitter.com/GuilhermeLu7_" target="_blank">Safira</a> • A overnight build exploring AI detection</p>
+        </footer>
+    </div>
+
+    <script>
+        // Game Data - Mix of human and AI-generated texts
+        const gameData = [
+            {
+                text: "The thing about working from home is that some days you're incredibly productive, and other days you spend 3 hours reorganizing your sock drawer because you convinced yourself it was 'essential'. There's no in-between.",
+                source: "human",
+                context: "Social media post",
+                explanation: "Human — conversational tone, self-deprecating humor, specific quirky detail (sock drawer)"
+            },
+            {
+                text: "Effective time management is crucial for achieving work-life balance in today's fast-paced world. By implementing strategic planning methodologies and prioritizing tasks based on their importance, individuals can significantly enhance their productivity while maintaining personal well-being.",
+                source: "machine",
+                context: "Productivity article",
+                explanation: "AI — generic advice, buzzwords ('crucial', 'strategic', 'enhance'), lacks personal voice"
+            },
+            {
+                text: "I've been thinking a lot about why I stopped reading. Used to devour books. Now I pick one up and my brain just... wanders. Maybe it's the phones. Maybe I'm just tired. Probably both.",
+                source: "human",
+                context: "Personal reflection",
+                explanation: "Human — fragmented thoughts, ellipsis for pause, uncertainty, personal admission"
+            },
+            {
+                text: "When considering the implementation of artificial intelligence in healthcare settings, it is essential to carefully evaluate both the potential benefits and the inherent risks. Stakeholders must engage in thoughtful dialogue to ensure that technological advancements align with ethical considerations and patient welfare.",
+                source: "machine",
+                context: "Healthcare article",
+                explanation: "AI — formal structure, hedging ('it is essential'), generic stakeholder language"
+            },
+            {
+                text: "My grandmother's recipe for apple pie calls for 'some butter' and 'enough cinnamon.' I've been making it for 20 years and still don't know the exact measurements. That's the beauty of it, I guess.",
+                source: "human",
+                context: "Food blog",
+                explanation: "Human — personal story, vague measurements, emotional connection, casual ending"
+            },
+            {
+                text: "The landscape of digital marketing continues to evolve at an unprecedented pace. Brands must adapt their strategies to leverage emerging platforms while maintaining authenticity in their customer engagement efforts. This delicate balance requires both creativity and analytical thinking.",
+                source: "machine",
+                context: "Marketing content",
+                explanation: "AI — 'landscape', 'unprecedented', 'leverage', 'delicate balance' — classic AI vocabulary"
+            },
+            {
+                text: "Just spent 45 minutes helping my dad set up his new phone and now he's texting me to ask how to make the letters bigger. I love him but I need a drink.",
+                source: "human",
+                context: "Social media",
+                explanation: "Human — specific timeframe, relatable frustration, humor, emotional honesty"
+            },
+            {
+                text: "In order to foster a more inclusive workplace environment, organizations should implement comprehensive diversity and inclusion initiatives. These programs should encompass training, policy reform, and ongoing evaluation to ensure meaningful and lasting change across all levels of the institution.",
+                source: "machine",
+                context: "HR article",
+                explanation: "AI — corporate speak, comprehensive coverage, no specific examples, formulaic structure"
+            },
+            {
+                text: "The weird thing about grief is that it doesn't hit you when you expect it to. I was fine at the funeral. Completely fell apart three weeks later at the grocery store because they were out of her favorite yogurt.",
+                source: "human",
+                context: "Personal essay",
+                explanation: "Human — emotional vulnerability, unexpected detail, specific memory, raw honesty"
+            },
+            {
+                text: "Climate change represents one of the most significant challenges facing humanity today. Scientific consensus indicates that immediate action is necessary to mitigate the worst effects of global warming. Governments, businesses, and individuals all have a role to play in addressing this critical issue.",
+                source: "machine",
+                context: "Environmental article",
+                explanation: "AI — neutral, covers all bases, generic call to action, no specific stance"
+            },
+            {
+                text: "I'm not saying my cooking is bad, but my smoke detector cheers me on every time I enter the kitchen. At this point, it's basically my sous chef.",
+                source: "human",
+                context: "Humor post",
+                explanation: "Human — self-deprecating humor, creative metaphor, personality shines through"
+            },
+            {
+                text: "The integration of mindfulness practices into daily routines has been shown to yield numerous benefits for mental health and overall well-being. By dedicating just a few minutes each day to meditation and self-reflection, individuals can experience reduced stress levels and improved emotional regulation.",
+                source: "machine",
+                context: "Wellness article",
+                explanation: "AI — 'yield numerous benefits', generic advice, lacks personal experience, textbook tone"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let shuffledData = [];
+        let answered = false;
+
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function startGame() {
+            shuffledData = shuffleArray(gameData);
+            currentQuestion = 0;
+            score = 0;
+            answered = false;
+            
+            document.getElementById('start-screen').classList.remove('active');
+            document.getElementById('game-screen').classList.add('active');
+            
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = shuffledData[currentQuestion];
+            
+            document.getElementById('progress').style.width = `${((currentQuestion) / shuffledData.length) * 100}%`;
+            document.getElementById('counter').textContent = `Question ${currentQuestion + 1} of ${shuffledData.length}`;
+            document.getElementById('current-score').textContent = score;
+            document.getElementById('total-answered').textContent = currentQuestion;
+            document.getElementById('text-content').textContent = q.text;
+            document.getElementById('text-meta').textContent = `Context: ${q.context}`;
+            
+            // Reset buttons
+            const buttons = document.querySelectorAll('.choice-btn');
+            buttons.forEach(btn => {
+                btn.disabled = false;
+                btn.classList.remove('selected', 'correct', 'wrong');
+            });
+            
+            document.getElementById('feedback-area').innerHTML = '';
+            answered = false;
+        }
+
+        function submitAnswer(choice) {
+            if (answered) return;
+            answered = true;
+            
+            const q = shuffledData[currentQuestion];
+            const isCorrect = choice === q.source;
+            
+            if (isCorrect) score++;
+            
+            // Update buttons
+            const buttons = document.querySelectorAll('.choice-btn');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                if (btn.classList.contains(choice)) {
+                    btn.classList.add('selected');
+                    btn.classList.add(isCorrect ? 'correct' : 'wrong');
+                }
+            });
+            
+            // Show feedback
+            const feedbackHTML = `
+                <div class="feedback ${isCorrect ? 'correct' : 'wrong'}">
+                    ${isCorrect ? '✓ Correct!' : '✗ Wrong!'} It was ${q.source === 'human' ? 'written by a human' : 'AI-generated'}
+                    <div class="feedback-source">${q.explanation}</div>
+                </div>
+                <button class="next-btn" onclick="nextQuestion()">
+                    ${currentQuestion < shuffledData.length - 1 ? 'Next Question →' : 'See Results →'}
+                </button>
+            `;
+            document.getElementById('feedback-area').innerHTML = feedbackHTML;
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            
+            if (currentQuestion >= shuffledData.length) {
+                showResults();
+            } else {
+                loadQuestion();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('game-screen').classList.remove('active');
+            document.getElementById('results-screen').classList.add('active');
+            
+            const percentage = Math.round((score / shuffledData.length) * 100);
+            const scoreEl = document.getElementById('final-score');
+            scoreEl.textContent = `${percentage}%`;
+            
+            // Set score class
+            if (percentage >= 75) {
+                scoreEl.classList.add('excellent');
+                document.getElementById('results-label').textContent = '🎯 AI Detection Expert!';
+            } else if (percentage >= 50) {
+                scoreEl.classList.add('good');
+                document.getElementById('results-label').textContent = '👍 Getting There!';
+            } else {
+                scoreEl.classList.add('average');
+                document.getElementById('results-label').textContent = '🤔 Keep Practicing!';
+            }
+            
+            document.getElementById('correct-count').textContent = score;
+            document.getElementById('wrong-count').textContent = shuffledData.length - score;
+        }
+
+        function resetGame() {
+            document.getElementById('results-screen').classList.remove('active');
+            
+            const scoreEl = document.getElementById('final-score');
+            scoreEl.classList.remove('excellent', 'good', 'average');
+            
+            document.getElementById('start-screen').classList.add('active');
+        }
+    </script>
+</body>
+</html>
