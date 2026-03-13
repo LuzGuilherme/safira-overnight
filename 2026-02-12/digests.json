@@ -1,7 +1,57 @@
 {
-  "generated": "2026-03-12T01:05:15.000000Z",
-  "count": 34,
+  "generated": "2026-03-13T01:05:00.000000Z",
+  "count": 35,
   "digests": [
+    {
+      "id": "2026-03-13-lex-fridman-jeff-kaplan-493",
+      "filename": "2026-03-13-lex-fridman-jeff-kaplan-493.md",
+      "date": "2026-03-11",
+      "title": "Jeff Kaplan: World of Warcraft, Overwatch, Blizzard, and Future of Gaming",
+      "host": "Lex Fridman Podcast (#493)",
+      "guest": "Jeff Kaplan (Game Designer - WoW, Overwatch; Kintsugiyama)",
+      "duration": "~4h",
+      "link": "https://www.youtube.com/watch?v=H9rF1CSSh-w",
+      "theme": "Jornada de gamer → game designer, depressão, liderança, criação de mundos imersivos",
+      "tldr": "Jeff Kaplan passou de escritor falhado e gamer deprimido para se tornar um dos game designers mais influentes de sempre, criando WoW e Overwatch. A sua jornada ilustra como abandonar um sonho pode abrir portas para outro ainda maior. Agora está a criar 'The Legend of California', jogo set no Gold Rush de 1800s.",
+      "insights": [
+        {
+          "insight": "Foca no que queres FAZER, não no que queres SER",
+          "why": "Fulfillment vem de actividades, não de roles"
+        },
+        {
+          "insight": "Às vezes desistir é necessário",
+          "why": "Closing a door is required for another to open"
+        },
+        {
+          "insight": "Encontra 'os teus people'",
+          "why": "Primeiro momento que Jeff se sentiu ele próprio"
+        },
+        {
+          "insight": "Introverts need people MORE",
+          "why": "Mas não sabem como conectar"
+        },
+        {
+          "insight": "Hard work on something you love cura",
+          "why": "O trabalho, não só amizades, puxou-o para fora"
+        }
+      ],
+      "quotes": [
+        "Focus on what you want to DO, not what you want to BE.",
+        "My whole career and my family are thanks to EverQuest. So I think I won the game.",
+        "These guys just brought me to a Jack in the Box that's in an Arco station. I need to work here."
+      ],
+      "rating": 5.0,
+      "tags": [
+        "gaming",
+        "career",
+        "depression",
+        "leadership",
+        "blizzard",
+        "wow",
+        "overwatch",
+        "lex-fridman"
+      ]
+    },
     {
       "id": "2026-03-12-tim-ferriss-simplify-life-857",
       "filename": "2026-03-12-tim-ferriss-simplify-life-857.md",
