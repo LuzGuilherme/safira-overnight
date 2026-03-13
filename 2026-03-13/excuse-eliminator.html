@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Excuse Eliminator 🎯</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --yellow: #FFE600;
+            --red: #FF3333;
+            --blue: #0066FF;
+            --green: #00CC66;
+            --orange: #FF6600;
+            --border: 4px solid var(--black);
+            --shadow: 6px 6px 0 var(--black);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--yellow);
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .card {
+            background: var(--white);
+            border: var(--border);
+            box-shadow: var(--shadow);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .input-section {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-weight: 900;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 16px;
+            font-family: inherit;
+            font-size: 1rem;
+            border: var(--border);
+            resize: vertical;
+            background: var(--white);
+        }
+
+        textarea:focus {
+            outline: none;
+            background: #FFFDE7;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: var(--border);
+            box-shadow: var(--shadow);
+            transition: all 0.1s ease;
+        }
+
+        .btn:hover {
+            transform: translate(3px, 3px);
+            box-shadow: 3px 3px 0 var(--black);
+        }
+
+        .btn:active {
+            transform: translate(6px, 6px);
+            box-shadow: none;
+        }
+
+        .btn-primary {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .result {
+            display: none;
+        }
+
+        .result.active {
+            display: block;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            font-weight: 900;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            border: 3px solid var(--black);
+            margin-bottom: 16px;
+        }
+
+        .category-time { background: var(--blue); color: var(--white); }
+        .category-money { background: var(--green); color: var(--black); }
+        .category-skills { background: var(--orange); color: var(--black); }
+        .category-fear { background: var(--red); color: var(--white); }
+        .category-energy { background: #9933FF; color: var(--white); }
+        .category-perfectionism { background: #FF66CC; color: var(--black); }
+        .category-priority { background: #00CCCC; color: var(--black); }
+
+        .analysis-section {
+            margin-bottom: 24px;
+        }
+
+        .analysis-section h3 {
+            font-size: 1.3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid var(--black);
+        }
+
+        .counter-list {
+            list-style: none;
+        }
+
+        .counter-list li {
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            background: #f5f5f5;
+            border-left: 4px solid var(--black);
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .counter-list li strong {
+            display: block;
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+
+        .socratic {
+            background: var(--yellow) !important;
+            border-left-color: var(--red) !important;
+            font-weight: 700;
+        }
+
+        .verdict-box {
+            text-align: center;
+            padding: 32px;
+            margin: 24px 0;
+        }
+
+        .verdict-label {
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .verdict {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .verdict-bs { color: var(--red); }
+        .verdict-partial { color: var(--orange); }
+        .verdict-valid { color: var(--green); }
+
+        .bs-meter {
+            margin: 16px auto;
+            max-width: 400px;
+            height: 24px;
+            background: var(--white);
+            border: var(--border);
+            overflow: hidden;
+        }
+
+        .bs-meter-fill {
+            height: 100%;
+            background: var(--red);
+            transition: width 0.5s ease;
+        }
+
+        .bs-percentage {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-top: 8px;
+        }
+
+        .next-step {
+            background: var(--black);
+            color: var(--white);
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .next-step h3 {
+            font-size: 1.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            color: var(--yellow);
+        }
+
+        .next-step p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .example-excuses {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 2px dashed var(--black);
+        }
+
+        .example-excuses h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            opacity: 0.7;
+        }
+
+        .example-btn {
+            display: inline-block;
+            padding: 8px 12px;
+            margin: 4px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            background: var(--white);
+            border: 2px solid var(--black);
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+
+        .example-btn:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 32px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        footer a {
+            color: var(--black);
+        }
+
+        .quote-box {
+            border-left: 6px solid var(--black);
+            padding: 16px 20px;
+            background: #f5f5f5;
+            margin: 16px 0;
+            font-style: italic;
+        }
+
+        .quote-box cite {
+            display: block;
+            margin-top: 8px;
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .card { padding: 16px; }
+            .verdict { font-size: 2rem; }
+            .actions { flex-direction: column; }
+            .btn { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>The Excuse Eliminator 🎯</h1>
+            <p class="tagline">Brutally honest. No bullshit. Zero mercy.</p>
+        </header>
+
+        <div class="card" id="inputCard">
+            <div class="input-section">
+                <label for="excuse">What's your excuse for not doing the thing?</label>
+                <textarea id="excuse" placeholder="I don't have time to start my side project because I'm too busy with my day job and when I get home I'm exhausted..."></textarea>
+            </div>
+
+            <div class="example-excuses">
+                <h4>Try these (or write your own):</h4>
+                <button class="example-btn" onclick="useExample(0)">No time</button>
+                <button class="example-btn" onclick="useExample(1)">No money</button>
+                <button class="example-btn" onclick="useExample(2)">Not skilled enough</button>
+                <button class="example-btn" onclick="useExample(3)">Too risky</button>
+                <button class="example-btn" onclick="useExample(4)">Too tired</button>
+                <button class="example-btn" onclick="useExample(5)">Not ready yet</button>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-primary" onclick="eliminateExcuse()">
+                    🔥 Destroy My Excuse
+                </button>
+            </div>
+        </div>
+
+        <div class="card result" id="resultCard">
+            <div id="categorySection">
+                <span class="category-badge" id="categoryBadge">CATEGORY</span>
+            </div>
+
+            <div class="analysis-section">
+                <h3>📊 Excuse Anatomy</h3>
+                <p id="anatomyText"></p>
+            </div>
+
+            <div class="analysis-section">
+                <h3>⚔️ Counter-Arguments</h3>
+                <ul class="counter-list" id="counterList"></ul>
+            </div>
+
+            <div class="analysis-section">
+                <h3>🤔 Socratic Questions</h3>
+                <ul class="counter-list" id="socraticList"></ul>
+            </div>
+
+            <div class="verdict-box card">
+                <div class="verdict-label">The Verdict</div>
+                <div class="bs-meter">
+                    <div class="bs-meter-fill" id="bsMeter"></div>
+                </div>
+                <div class="bs-percentage" id="bsPercentage">0% BULLSHIT</div>
+                <div class="verdict" id="verdictText">CALCULATING...</div>
+            </div>
+
+            <div class="quote-box" id="quoteBox">
+                <p id="quoteText"></p>
+                <cite id="quoteCite"></cite>
+            </div>
+
+            <div class="next-step" id="nextStep">
+                <h3>🚀 Your Next Step (No More Excuses)</h3>
+                <p id="nextStepText"></p>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-secondary" onclick="tryAgain()">
+                    ↩️ Another Excuse
+                </button>
+                <button class="btn btn-primary" onclick="shareResult()">
+                    📤 Share My Reality Check
+                </button>
+            </div>
+        </div>
+
+        <footer>
+            <p>Built with brutal honesty by <a href="https://github.com/luzguilherme" target="_blank">@luzguilherme</a> 🌙</p>
+            <p style="margin-top: 8px; opacity: 0.6;">Overnight Build — March 13, 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        const excuseExamples = [
+            "I don't have time to start my side project because my day job takes all my energy and when I get home I just want to relax.",
+            "I can't start a business because I don't have enough money saved up and I need to wait until I have more financial security.",
+            "I'm not skilled enough yet. I need to take more courses and learn more before I can actually build something real.",
+            "Starting something new is too risky right now. The economy is uncertain and I have bills to pay.",
+            "I'm always too tired after work to do anything productive. I just don't have the energy.",
+            "I'm not ready yet. My idea isn't fully formed and I need to plan more before I can start executing."
+        ];
+
+        const categories = {
+            time: {
+                name: "TIME",
+                class: "category-time",
+                keywords: ["time", "busy", "schedule", "hours", "day job", "work", "later", "someday", "week", "month"],
+                anatomy: "You've convinced yourself that time is something that happens TO you, rather than something you control. Here's the brutal truth: Everyone has the same 24 hours. The difference is what you prioritize.",
+                counters: [
+                    { title: "The Math Check", text: "168 hours per week. Work: 45. Sleep: 56. That leaves 67 hours. Where are they going?" },
+                    { title: "The Tim Ferriss Test", text: "What would happen if you had to do this in 2 hours instead of 2 weeks? Often, constraints reveal what's actually essential." },
+                    { title: "The Audit Reality", text: "Track your phone screen time for one week. Most people find 2-4 hours/day of recoverable time." },
+                    { title: "The Priority Flip", text: "You don't 'find' time for important things. You MAKE time by saying no to less important things." }
+                ],
+                socratic: [
+                    "If your child was sick, would you suddenly 'find' the time?",
+                    "How much time did you spend on social media/Netflix this week?",
+                    "What would you cut if someone offered you €100k to complete this in 30 days?"
+                ],
+                nextStep: "Block 30 minutes tomorrow morning BEFORE your day job. Set an alarm 30 minutes earlier. Do ONE thing towards your goal. Time doesn't appear—you carve it out."
+            },
+            money: {
+                name: "MONEY",
+                class: "category-money",
+                keywords: ["money", "afford", "expensive", "cost", "budget", "invest", "capital", "savings", "financial", "broke"],
+                anatomy: "Money is rarely the real barrier—it's usually fear dressed up in financial clothing. Most transformative projects can start with €0-100. The rest is a story you're telling yourself.",
+                counters: [
+                    { title: "The Bootstrap Reality", text: "Basecamp, Mailchimp, GitHub—all started with basically nothing. What can you build with just your time and existing skills?" },
+                    { title: "The €0 Version", text: "There's almost always a free tier, open-source alternative, or scrappier way to start. What's the minimum viable budget?" },
+                    { title: "The ROI Question", text: "Is this really 'I don't have money' or 'I'm afraid to invest in something that might fail'?" },
+                    { title: "The Small Bet", text: "Can you start with €50 instead of €5000? Most things don't need what you think they need." }
+                ],
+                socratic: [
+                    "How much did you spend on non-essentials this month?",
+                    "Would you invest this money if success was guaranteed?",
+                    "What's the cost of NOT doing this for another year?"
+                ],
+                nextStep: "List everything you think you need to buy. Cross off 80% of it. Start with what's left. Many millionaires started with less than what's in your pocket right now."
+            },
+            skills: {
+                name: "SKILLS",
+                class: "category-skills",
+                keywords: ["skill", "learn", "course", "know", "experience", "qualified", "expert", "training", "education", "degree"],
+                anatomy: "You're using 'learning' as a form of procrastination. There will NEVER be a point where you feel 'ready enough.' Readiness is a myth perpetuated by your fear of starting.",
+                counters: [
+                    { title: "The Imposter Truth", text: "80% of successful people felt unqualified when they started. They learned BY doing, not before doing." },
+                    { title: "The Course Trap", text: "Another course won't make you ready. Action will. You're using learning as a safety blanket." },
+                    { title: "The 70% Rule", text: "If you're 70% ready, start. The last 30% only comes from real-world experience anyway." },
+                    { title: "The Teaching Hack", text: "You only need to be one step ahead of your customer. Expertise is relative." }
+                ],
+                socratic: [
+                    "How many courses have you taken that you never applied?",
+                    "What skills did you have before your first job? Did that stop you?",
+                    "Will you feel 'ready' in 6 months, or will you find new gaps to fill?"
+                ],
+                nextStep: "Start building TODAY and learn what you actually need as you go. Google exists. YouTube exists. Stack Overflow exists. The 'required skills' list is shorter than you think."
+            },
+            fear: {
+                name: "FEAR",
+                class: "category-fear",
+                keywords: ["risk", "fail", "scared", "afraid", "uncertain", "safe", "secure", "stability", "what if", "might not"],
+                anatomy: "Fear is the most honest excuse here. But you're treating potential failure as catastrophe when it's actually just... feedback. The only true failure is never trying.",
+                counters: [
+                    { title: "The Regret Calculation", text: "At 80, will you regret the things you tried and failed, or the things you never attempted?" },
+                    { title: "The Survivable Test", text: "What's the ACTUAL worst case? Usually it's: lose some time/money, learn something, try again. Survivable." },
+                    { title: "The Failure Resume", text: "Every successful person has a long failure resume. Failure is data, not destiny." },
+                    { title: "The Comfort Zone Math", text: "Playing it safe has a hidden cost: a smaller life, growing regret, and the quiet death of your potential." }
+                ],
+                socratic: [
+                    "What's scarier: failing at this, or being in the same place in 5 years?",
+                    "If failure was impossible, what would you do tomorrow?",
+                    "What would you tell a friend who gave you this exact excuse?"
+                ],
+                nextStep: "Define your 'fear-setting': What's the worst that could happen? What would you do to recover? What's the cost of inaction? Then take ONE scary action today—even a tiny one."
+            },
+            energy: {
+                name: "ENERGY",
+                class: "category-energy",
+                keywords: ["tired", "exhausted", "energy", "drained", "burnt out", "overwhelmed", "stressed", "can't focus"],
+                anatomy: "Fatigue is real, but it's often a symptom of HOW you're spending energy, not how much you have. Uninspiring work drains you. Work that matters often generates energy.",
+                counters: [
+                    { title: "The Energy Audit", text: "What's draining you? Often it's not the hours—it's the meaninglessness, the contexts switches, the lack of progress." },
+                    { title: "The Morning Test", text: "Are you tired at 6 AM or tired at 6 PM? If it's only evenings, your day job is the energy vampire, not your capacity." },
+                    { title: "The Passion Paradox", text: "Notice how you have energy for things you care about? Exhaustion is selective." },
+                    { title: "The 15-Minute Rule", text: "Start with 15 minutes. Most people find that once they begin, energy appears." }
+                ],
+                socratic: [
+                    "Do you have energy for Netflix/games/scrolling?",
+                    "When was the last time you were excited enough about something to lose track of time?",
+                    "What would need to change for you to have energy for this?"
+                ],
+                nextStep: "Tomorrow morning, before checking email or social media, spend 15 minutes on your thing. Morning energy is different. Protect it ruthlessly."
+            },
+            perfectionism: {
+                name: "PERFECTIONISM",
+                class: "category-perfectionism",
+                keywords: ["ready", "perfect", "right time", "fully", "complete", "polished", "plan", "prepare", "wait until"],
+                anatomy: "Perfectionism is fear wearing a productivity mask. You're not waiting to be ready—you're waiting to feel safe. That feeling never comes. Start messy or don't start at all.",
+                counters: [
+                    { title: "The Shipping Truth", text: "Done is better than perfect. Shipped is better than planned. Real feedback beats imaginary improvements." },
+                    { title: "The Version 1 Reality", text: "Every product you love started as a worse version. iPhone 1 had no copy-paste. Ship your embarrassing v1." },
+                    { title: "The Planning Paradox", text: "Over-planning is just procrastination in a suit. You're not getting closer to ready—you're avoiding the start." },
+                    { title: "The 1% Rule", text: "1% progress beats 0% perfection. Compound that over a year." }
+                ],
+                socratic: [
+                    "What would a 'good enough' version look like?",
+                    "How long have you been 'almost ready' to start?",
+                    "What would you do if you HAD to launch in 48 hours?"
+                ],
+                nextStep: "Set a deadline: 1 week, 2 weeks max. Ship whatever you have. Then improve based on REAL feedback, not imagined scenarios."
+            },
+            priority: {
+                name: "PRIORITY",
+                class: "category-priority",
+                keywords: ["later", "someday", "after", "once", "when", "first need to", "eventually", "next year"],
+                anatomy: "You're treating this as a 'nice to have' instead of a 'must have.' If it never becomes urgent, it never happens. The truth is: things that matter get scheduled, not postponed.",
+                counters: [
+                    { title: "The Someday Graveyard", text: "Your 'someday' list is where dreams go to die. How many things have been on that list for years?" },
+                    { title: "The Perfect Moment Myth", text: "There is no perfect time. There's only now and too late." },
+                    { title: "The Priority Test", text: "If this isn't important enough to start now, will it be important enough in 6 months? A year?" },
+                    { title: "The Life Math", text: "You have maybe 4,000 weeks total. How many do you want to spend 'preparing to start'?" }
+                ],
+                socratic: [
+                    "What would need to happen for this to become a real priority?",
+                    "What are you prioritizing instead, and why?",
+                    "If not now, when? Be specific."
+                ],
+                nextStep: "Put it in your calendar. Not 'someday'—pick a date this week. Block the time. Treat it like a meeting with your future self that you can't cancel."
+            }
+        };
+
+        const quotes = [
+            { text: "The best time to plant a tree was 20 years ago. The second best time is now.", author: "Chinese Proverb" },
+            { text: "You don't have to be great to start, but you have to start to be great.", author: "Zig Ziglar" },
+            { text: "The only thing standing between you and your goal is the bullshit story you keep telling yourself.", author: "Jordan Belfort" },
+            { text: "Action expresses priorities.", author: "Gandhi" },
+            { text: "If you really want to do something, you'll find a way. If you don't, you'll find an excuse.", author: "Jim Rohn" },
+            { text: "The cost of being wrong is less than the cost of doing nothing.", author: "Seth Godin" },
+            { text: "Perfectionism is just fear of judgment dressed in a top hat.", author: "Elizabeth Gilbert" },
+            { text: "You are not too old and it's not too late.", author: "Unknown" },
+            { text: "Done is better than perfect.", author: "Sheryl Sandberg" },
+            { text: "The graveyard is full of people who never started.", author: "Unknown" }
+        ];
+
+        function useExample(index) {
+            document.getElementById('excuse').value = excuseExamples[index];
+        }
+
+        function detectCategory(excuse) {
+            const lower = excuse.toLowerCase();
+            let bestMatch = { category: 'fear', score: 0 };
+            
+            for (const [key, cat] of Object.entries(categories)) {
+                const score = cat.keywords.filter(kw => lower.includes(kw)).length;
+                if (score > bestMatch.score) {
+                    bestMatch = { category: key, score };
+                }
+            }
+            
+            return bestMatch.score > 0 ? bestMatch.category : 'fear';
+        }
+
+        function calculateBSScore(excuse, category) {
+            // Base score depends on category (some excuses are more often BS than others)
+            const baseScores = {
+                time: 75,
+                money: 60,
+                skills: 80,
+                fear: 50,
+                energy: 55,
+                perfectionism: 85,
+                priority: 90
+            };
+            
+            let score = baseScores[category] || 70;
+            
+            // Modifiers based on language used
+            const lower = excuse.toLowerCase();
+            
+            // More BS indicators
+            if (lower.includes("can't")) score += 5;
+            if (lower.includes("impossible")) score += 10;
+            if (lower.includes("never")) score += 5;
+            if (lower.includes("everyone")) score += 3;
+            if (lower.includes("always")) score += 3;
+            if (lower.includes("but")) score += 2;
+            
+            // Less BS indicators (more legitimate)
+            if (lower.includes("health")) score -= 15;
+            if (lower.includes("family emergency")) score -= 20;
+            if (lower.includes("medical")) score -= 15;
+            if (lower.includes("child") || lower.includes("kids")) score -= 10;
+            if (lower.includes("legal")) score -= 10;
+            
+            // Keep in bounds
+            return Math.min(95, Math.max(20, score));
+        }
+
+        function getVerdict(bsScore) {
+            if (bsScore >= 70) return { text: "MOSTLY BULLSHIT", class: "verdict-bs" };
+            if (bsScore >= 45) return { text: "PARTIALLY VALID", class: "verdict-partial" };
+            return { text: "LEGITIMATE CONCERN", class: "verdict-valid" };
+        }
+
+        function eliminateExcuse() {
+            const excuse = document.getElementById('excuse').value.trim();
+            
+            if (!excuse) {
+                alert("Enter your excuse first. Don't be shy.");
+                return;
+            }
+
+            const categoryKey = detectCategory(excuse);
+            const category = categories[categoryKey];
+            const bsScore = calculateBSScore(excuse, categoryKey);
+            const verdict = getVerdict(bsScore);
+            const quote = quotes[Math.floor(Math.random() * quotes.length)];
+
+            // Update UI
+            document.getElementById('categoryBadge').textContent = category.name;
+            document.getElementById('categoryBadge').className = `category-badge ${category.class}`;
+            
+            document.getElementById('anatomyText').textContent = category.anatomy;
+            
+            // Counters
+            const counterList = document.getElementById('counterList');
+            counterList.innerHTML = category.counters.map(c => 
+                `<li><strong>${c.title}:</strong> ${c.text}</li>`
+            ).join('');
+            
+            // Socratic questions
+            const socraticList = document.getElementById('socraticList');
+            socraticList.innerHTML = category.socratic.map(q => 
+                `<li class="socratic">${q}</li>`
+            ).join('');
+            
+            // BS meter animation
+            setTimeout(() => {
+                document.getElementById('bsMeter').style.width = bsScore + '%';
+                document.getElementById('bsPercentage').textContent = bsScore + '% BULLSHIT';
+            }, 100);
+            
+            // Verdict
+            document.getElementById('verdictText').textContent = verdict.text;
+            document.getElementById('verdictText').className = `verdict ${verdict.class}`;
+            
+            // Quote
+            document.getElementById('quoteText').textContent = `"${quote.text}"`;
+            document.getElementById('quoteCite').textContent = `— ${quote.author}`;
+            
+            // Next step
+            document.getElementById('nextStepText').textContent = category.nextStep;
+            
+            // Show result
+            document.getElementById('inputCard').style.display = 'none';
+            document.getElementById('resultCard').classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function tryAgain() {
+            document.getElementById('excuse').value = '';
+            document.getElementById('bsMeter').style.width = '0%';
+            document.getElementById('inputCard').style.display = 'block';
+            document.getElementById('resultCard').classList.remove('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function shareResult() {
+            const verdict = document.getElementById('verdictText').textContent;
+            const category = document.getElementById('categoryBadge').textContent;
+            const bs = document.getElementById('bsPercentage').textContent;
+            
+            const text = `🎯 The Excuse Eliminator just destroyed my excuse.\n\nCategory: ${category}\nVerdict: ${verdict} (${bs})\n\nNo more excuses. Time to do the thing.\n\nhttps://luzguilherme.github.io/safira-overnight/2026-03-13/excuse-eliminator.html`;
+            
+            if (navigator.share) {
+                navigator.share({ text });
+            } else {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Copied to clipboard! Share your reality check.');
+                });
+            }
+        }
+
+        // Easter egg: keyboard shortcut
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.metaKey) {
+                eliminateExcuse();
+            }
+        });
+    </script>
+</body>
+</html>
