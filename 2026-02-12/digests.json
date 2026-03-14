@@ -1,7 +1,56 @@
 {
-  "generated": "2026-03-13T01:05:00.000000Z",
-  "count": 35,
+  "generated": "2026-03-14T01:00:00.000000Z",
+  "count": 37,
   "digests": [
+    {
+      "id": "2026-03-14-mfm-naming-companies",
+      "filename": "2026-03-14-mfm-naming-companies.md",
+      "date": "2026-03-14",
+      "title": "Naming billion dollar companies isn't just vibes, here's the science",
+      "host": "My First Million (Sam Parr + Shaan Puri)",
+      "guest": "David Placek (Fundador, Lexicon Branding - Blackberry, Swiffer, Pentium, Sonos)",
+      "duration": "~58 min",
+      "link": "https://www.youtube.com/watch?v=fDIW4W24VNk",
+      "theme": "A ciência do naming de empresas e produtos",
+      "tldr": "David Placek criou nomes icónicos como Blackberry, Swiffer e Pentium. O segredo: nomes não precisam ser confortáveis — precisam ser surpreendentemente familiares. Swiffer vs ReadyMop = $5B vs $200M. Geram 2000+ nomes por projecto porque quantity leads to quality.",
+      "insights": [
+        {"insight": "Nomes polarizantes têm energia", "why": "Andy Grove: 'Este é bom PORQUE é polarizante'"},
+        {"insight": "Quantidade leva a qualidade", "why": "Se só geras 50-100 nomes, estás perdido"},
+        {"insight": "Sound symbolism: K, P, B = velocidade; X = inovação", "why": "Letras têm significados subconscientes"},
+        {"insight": "Testa em contexto visual, não em lista", "why": "Mock-ups revelam se é believable"},
+        {"insight": "Synchronicity = conectar irrelevantes", "why": "Blackberry é irrelevante para tech - funciona"}
+      ],
+      "quotes": [
+        "Quantity leads to quality. Often we will get a list from a client saying we're really stuck. I'll say, how many names did you generate? We get back 50 or 100 names. That's where they got stuck. We're looking at maybe 2,000 names."
+      ],
+      "rating": 5.0,
+      "tags": ["naming", "branding", "mfm", "marketing", "side-hustles", "lexicon"]
+    },
+    {
+      "id": "2026-03-14-doac-iran-war-simulation",
+      "filename": "2026-03-14-doac-iran-war-simulation.md",
+      "date": "2026-03-14",
+      "title": "The Iran War Expert: I Simulated The Iran War for 20 Years",
+      "host": "Diary of a CEO (Steven Bartlett)",
+      "guest": "Professor Robert Pape (40 anos a estudar violência política, aconselhou White House 2001-2024)",
+      "duration": "~1h28m",
+      "link": "https://www.youtube.com/watch?v=xcXfcXJvMXg",
+      "theme": "Análise estratégica da guerra com Irão e escalation trap",
+      "tldr": "Professor Robert Pape, que aconselhou todos os White House desde 2001-2024, explica porque os EUA estão presos numa 'escalation trap' no Irão. Apesar do sucesso táctico (bombas a acertar), há falha estratégica: ninguém sabe onde está o material nuclear para 16 bombas. O novo regime é mais agressivo.",
+      "insights": [
+        {"insight": "Sucesso táctico ≠ Sucesso estratégico", "why": "Bombas acertam mas material nuclear está desaparecido"},
+        {"insight": "Escalation trap tem 3 estágios", "why": "EUA já em Stage 2, 75% probabilidade de Stage 3"},
+        {"insight": "Regimes são matrizes, não Jenga", "why": "Remover líder = substituto mais agressivo"},
+        {"insight": "Fatwas contra nucleares morreram com Khamenei", "why": "Novo líder não tem autoridade religiosa para moderar"},
+        {"insight": "Soft underbelly não é militar", "why": "Vietname: nunca perderam batalha, perderam guerra"}
+      ],
+      "quotes": [
+        "We are losing control of the situation.",
+        "You may kill the leader, but you get in its place a harder regime, a more resilient regime, a tougher regime that wants to lash back even more aggressively - because you killed dad."
+      ],
+      "rating": 4.5,
+      "tags": ["geopolitics", "iran", "war", "strategy", "doac", "intelligence", "escalation"]
+    },
     {
       "id": "2026-03-13-lex-fridman-jeff-kaplan-493",
       "filename": "2026-03-13-lex-fridman-jeff-kaplan-493.md",
