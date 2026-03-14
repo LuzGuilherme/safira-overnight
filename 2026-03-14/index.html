@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Scope Creep Chronicle — Freelancer Edition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #1a1a1a;
+            --white: #ffffff;
+            --cream: #fafaf8;
+            --red: #c41e3a;
+            --gray-light: #e5e5e5;
+            --gray-medium: #999999;
+            --gray-dark: #666666;
+        }
+
+        body {
+            font-family: 'Source Serif 4', Georgia, serif;
+            background: var(--cream);
+            color: var(--black);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Masthead */
+        .masthead {
+            background: var(--black);
+            color: var(--white);
+            text-align: center;
+            padding: 8px 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .masthead span {
+            color: var(--red);
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            border-bottom: 3px double var(--black);
+            padding: 30px 20px 20px;
+            text-align: center;
+        }
+
+        .newspaper-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .newspaper-title .the {
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--gray-dark);
+            border-top: 1px solid var(--gray-light);
+            border-bottom: 1px solid var(--gray-light);
+            padding: 8px 0;
+            margin-top: 15px;
+        }
+
+        .edition-info {
+            display: flex;
+            justify-content: space-between;
+            max-width: 600px;
+            margin: 15px auto 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            color: var(--gray-medium);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* Breaking News Banner */
+        .breaking-news {
+            background: var(--red);
+            color: var(--white);
+            padding: 10px 20px;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Article Grid */
+        .article-grid {
+            display: grid;
+            grid-template-columns: 1fr 2px 2fr 2px 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .divider {
+            background: var(--gray-light);
+        }
+
+        /* Input Section (Left Column) */
+        .input-section {
+            padding-right: 10px;
+        }
+
+        .section-header {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-bottom: 2px solid var(--black);
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .field-group {
+            margin-bottom: 20px;
+        }
+
+        .field-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-dark);
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--gray-light);
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 14px;
+            background: var(--white);
+            transition: border-color 0.2s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--black);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Extra Items List */
+        .extras-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .extra-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            background: var(--white);
+            border: 1px solid var(--gray-light);
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        .extra-item .remove-btn {
+            background: none;
+            border: none;
+            color: var(--red);
+            cursor: pointer;
+            font-size: 16px;
+            padding: 0 5px;
+        }
+
+        .add-extra-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .add-extra-row input {
+            flex: 1;
+        }
+
+        .add-btn {
+            background: var(--black);
+            color: var(--white);
+            border: none;
+            padding: 10px 15px;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .add-btn:hover {
+            background: #333;
+        }
+
+        /* Analysis Button */
+        .analyze-btn {
+            width: 100%;
+            background: var(--red);
+            color: var(--white);
+            border: none;
+            padding: 14px 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.2s;
+        }
+
+        .analyze-btn:hover {
+            background: #a01830;
+        }
+
+        /* Main Story (Center Column) */
+        .main-story {
+            padding: 0 20px;
+        }
+
+        .headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 15px;
+        }
+
+        .subheadline {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--gray-dark);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .byline {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .byline strong {
+            color: var(--red);
+        }
+
+        .article-body {
+            column-count: 2;
+            column-gap: 30px;
+            font-size: 15px;
+            text-align: justify;
+        }
+
+        .article-body p {
+            margin-bottom: 1em;
+            text-indent: 1.5em;
+        }
+
+        .article-body p:first-child {
+            text-indent: 0;
+        }
+
+        .article-body p:first-child::first-letter {
+            font-family: 'Playfair Display', serif;
+            font-size: 4em;
+            float: left;
+            line-height: 0.8;
+            padding-right: 10px;
+            color: var(--red);
+        }
+
+        .pull-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+            margin: 20px 0;
+            border-top: 3px double var(--black);
+            border-bottom: 3px double var(--black);
+            column-span: all;
+        }
+
+        /* Results Panel */
+        .results-panel {
+            display: none;
+            margin-top: 30px;
+            border: 2px solid var(--black);
+            padding: 20px;
+            background: var(--white);
+        }
+
+        .results-panel.visible {
+            display: block;
+        }
+
+        .verdict-box {
+            text-align: center;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 3px solid var(--black);
+        }
+
+        .verdict-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gray-dark);
+        }
+
+        .verdict-score {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1;
+            margin: 10px 0;
+        }
+
+        .verdict-score.low { color: #2d7d32; }
+        .verdict-score.medium { color: #f57c00; }
+        .verdict-score.high { color: var(--red); }
+        .verdict-score.critical { color: #b71c1c; }
+
+        .verdict-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .impact-card {
+            padding: 15px;
+            border: 1px solid var(--gray-light);
+            text-align: center;
+        }
+
+        .impact-card .label {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-dark);
+        }
+
+        .impact-card .value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 8px 0;
+        }
+
+        .impact-card .change {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: var(--red);
+        }
+
+        /* Right Column */
+        .sidebar {
+            padding-left: 10px;
+        }
+
+        .sidebar-box {
+            border: 1px solid var(--gray-light);
+            padding: 15px;
+            margin-bottom: 20px;
+            background: var(--white);
+        }
+
+        .sidebar-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            border-bottom: 1px solid var(--gray-light);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dotted var(--gray-light);
+            font-size: 13px;
+        }
+
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .stat-row .value {
+            font-weight: 600;
+        }
+
+        .email-template {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .email-template.visible {
+            display: block;
+        }
+
+        .email-box {
+            background: var(--white);
+            border: 2px solid var(--black);
+            padding: 20px;
+        }
+
+        .email-header {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .email-content {
+            font-size: 14px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        .copy-btn {
+            width: 100%;
+            background: var(--black);
+            color: var(--white);
+            border: none;
+            padding: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .copy-btn:hover {
+            background: #333;
+        }
+
+        /* Tips Box */
+        .tips-list {
+            list-style: none;
+        }
+
+        .tips-list li {
+            padding: 10px 0;
+            border-bottom: 1px dotted var(--gray-light);
+            font-size: 13px;
+        }
+
+        .tips-list li:last-child {
+            border-bottom: none;
+        }
+
+        .tips-list li::before {
+            content: "§ ";
+            color: var(--red);
+            font-weight: 700;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: var(--white);
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+        }
+
+        footer a {
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .article-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .divider {
+                display: none;
+            }
+
+            .input-section, .sidebar {
+                padding: 0;
+            }
+
+            .main-story {
+                padding: 0;
+                order: -1;
+            }
+
+            .article-body {
+                column-count: 1;
+            }
+
+            .impact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .results-panel.visible {
+            animation: slideIn 0.4s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="masthead">
+        <span>★</span> Special Investigation Unit <span>★</span> Freelancer Protection Bureau
+    </div>
+
+    <header>
+        <h1 class="newspaper-title"><span class="the">The</span> Scope Creep Chronicle</h1>
+        <p class="tagline">Protecting Freelancers Since 2026 • Truth in Every Project</p>
+        <div class="edition-info">
+            <span>Vol. CXXIV, No. 87</span>
+            <span id="current-date"></span>
+            <span>Freelancer Edition</span>
+        </div>
+    </header>
+
+    <div class="breaking-news">
+        ⚡ BREAKING: Another Freelancer Discovers "Quick Changes" Cost 47% of Original Quote
+    </div>
+
+    <div class="container">
+        <div class="article-grid">
+            <!-- Left Column: Input Form -->
+            <div class="input-section">
+                <h2 class="section-header">File Your Report</h2>
+                
+                <div class="field-group">
+                    <label class="field-label">Original Project Name</label>
+                    <input type="text" id="projectName" placeholder="Website Redesign">
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">Agreed Price ($)</label>
+                    <input type="number" id="originalPrice" placeholder="5000">
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">Agreed Timeline (days)</label>
+                    <input type="number" id="originalDays" placeholder="30">
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">Your Hourly Rate ($)</label>
+                    <input type="number" id="hourlyRate" placeholder="75">
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">Original Scope Description</label>
+                    <textarea id="originalScope" placeholder="5-page website with contact form, responsive design, basic SEO..."></textarea>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label">🚨 "Small Extras" Requested</label>
+                    <ul class="extras-list" id="extrasList"></ul>
+                    <div class="add-extra-row">
+                        <input type="text" id="newExtra" placeholder="Add a user dashboard...">
+                        <button class="add-btn" onclick="addExtra()">+Add</button>
+                    </div>
+                </div>
+
+                <button class="analyze-btn" onclick="analyzeCreep()">
+                    📰 Publish Investigation
+                </button>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Center Column: Main Story -->
+            <div class="main-story">
+                <h2 class="headline">The Hidden Cost of "Just One More Thing"</h2>
+                <p class="subheadline">An investigation into the epidemic affecting freelancers worldwide — and how to protect yourself</p>
+                <p class="byline">By <strong>The Scope Creep Chronicle</strong> | Investigation Unit</p>
+                
+                <div class="article-body">
+                    <p>Scope creep remains the silent killer of freelance profitability. It begins innocently — a client asking for "just a small tweak" or "one quick addition" that somehow evolves into hours of unpaid work.</p>
+                    
+                    <p>Recent studies indicate that 73% of freelance projects experience some form of scope expansion, with the average project growing 34% beyond its original specification without corresponding compensation.</p>
+                    
+                    <div class="pull-quote">
+                        "The phrase 'while you're at it' has cost freelancers more money than any economic downturn."
+                    </div>
+                    
+                    <p>The Chronicle's investigation tool allows freelancers to document these additions in real-time, calculating their true cost in both time and money. This evidence proves invaluable when renegotiating terms.</p>
+                    
+                    <p>Our analysis considers industry-standard estimates for common requests: API integrations, dashboard development, authentication systems, and the dreaded "make it pop" revisions. Each addition carries hidden complexity that compounds over time.</p>
+                    
+                    <p>Armed with this data, freelancers can approach clients with concrete evidence of scope expansion. The key is documenting changes as they occur, not after the project has spiraled out of control.</p>
+                    
+                    <p>We recommend using our generated email template as a starting point for the conversation. Professional, firm, and backed by numbers — it transforms an awkward confrontation into a business discussion.</p>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="results-panel" id="resultsPanel">
+                    <div class="verdict-box">
+                        <p class="verdict-label">Scope Creep Severity Index</p>
+                        <p class="verdict-score" id="verdictScore">0%</p>
+                        <p class="verdict-text" id="verdictText">Awaiting Analysis</p>
+                    </div>
+
+                    <div class="impact-grid">
+                        <div class="impact-card">
+                            <p class="label">Additional Hours</p>
+                            <p class="value" id="additionalHours">0</p>
+                            <p class="change" id="hoursChange">+0%</p>
+                        </div>
+                        <div class="impact-card">
+                            <p class="label">Additional Cost</p>
+                            <p class="value" id="additionalCost">$0</p>
+                            <p class="change" id="costChange">+0%</p>
+                        </div>
+                        <div class="impact-card">
+                            <p class="label">Days Added</p>
+                            <p class="value" id="additionalDays">0</p>
+                            <p class="change" id="daysChange">+0%</p>
+                        </div>
+                    </div>
+
+                    <div class="email-template visible" id="emailTemplate">
+                        <div class="email-box">
+                            <p class="email-header">📧 Suggested Client Communication</p>
+                            <div class="email-content" id="emailContent"></div>
+                            <button class="copy-btn" onclick="copyEmail()">Copy to Clipboard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Right Column: Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-box">
+                    <h3 class="sidebar-title">Quick Facts</h3>
+                    <div class="stat-row">
+                        <span>Avg. scope creep</span>
+                        <span class="value">34%</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Projects affected</span>
+                        <span class="value">73%</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Unpaid work/year</span>
+                        <span class="value">$11,400</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Most common phrase</span>
+                        <span class="value">"Quick fix"</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-box">
+                    <h3 class="sidebar-title">Common Time Estimates</h3>
+                    <div class="stat-row">
+                        <span>"Small design tweak"</span>
+                        <span class="value">2-4h</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>"Add a dashboard"</span>
+                        <span class="value">20-40h</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>"User authentication"</span>
+                        <span class="value">15-25h</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>"API integration"</span>
+                        <span class="value">8-20h</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>"Make it mobile"</span>
+                        <span class="value">10-30h</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>"Add analytics"</span>
+                        <span class="value">5-15h</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-box">
+                    <h3 class="sidebar-title">Protection Tips</h3>
+                    <ul class="tips-list">
+                        <li>Document everything in writing before starting</li>
+                        <li>Include a change request clause in contracts</li>
+                        <li>Respond to additions with time/cost estimates immediately</li>
+                        <li>Use "phases" to control scope naturally</li>
+                        <li>Never say "yes" on the spot — always "let me check"</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>The Scope Creep Chronicle — An Overnight Investigation by <a href="https://github.com/LuzGuilherme">Safira</a> 🌙</p>
+        <p style="margin-top: 5px; color: #666;">Built for freelancers who deserve to be paid for their work.</p>
+    </footer>
+
+    <script>
+        // Set current date
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        let extras = [];
+
+        // Keyword-based time estimates (in hours)
+        const timeEstimates = {
+            'dashboard': { min: 20, max: 40 },
+            'admin': { min: 15, max: 30 },
+            'authentication': { min: 15, max: 25 },
+            'auth': { min: 15, max: 25 },
+            'login': { min: 10, max: 20 },
+            'api': { min: 8, max: 20 },
+            'integration': { min: 10, max: 25 },
+            'payment': { min: 15, max: 30 },
+            'stripe': { min: 12, max: 20 },
+            'mobile': { min: 10, max: 30 },
+            'responsive': { min: 5, max: 15 },
+            'analytics': { min: 5, max: 15 },
+            'notification': { min: 8, max: 15 },
+            'email': { min: 5, max: 12 },
+            'search': { min: 6, max: 15 },
+            'filter': { min: 4, max: 10 },
+            'export': { min: 3, max: 8 },
+            'import': { min: 5, max: 12 },
+            'pdf': { min: 4, max: 10 },
+            'report': { min: 8, max: 20 },
+            'chart': { min: 5, max: 12 },
+            'graph': { min: 5, max: 12 },
+            'user': { min: 8, max: 20 },
+            'profile': { min: 5, max: 12 },
+            'settings': { min: 4, max: 10 },
+            'blog': { min: 10, max: 25 },
+            'cms': { min: 15, max: 35 },
+            'calendar': { min: 10, max: 20 },
+            'booking': { min: 15, max: 30 },
+            'multilingual': { min: 10, max: 25 },
+            'translation': { min: 8, max: 20 },
+            'seo': { min: 5, max: 15 },
+            'design': { min: 2, max: 8 },
+            'animation': { min: 4, max: 12 },
+            'form': { min: 3, max: 8 },
+            'database': { min: 10, max: 25 },
+            'security': { min: 8, max: 20 },
+            'testing': { min: 5, max: 15 },
+            'documentation': { min: 3, max: 10 }
+        };
+
+        function estimateHours(text) {
+            const lowerText = text.toLowerCase();
+            let totalMin = 2; // Base minimum for any change
+            let totalMax = 5; // Base maximum for any change
+
+            for (const [keyword, hours] of Object.entries(timeEstimates)) {
+                if (lowerText.includes(keyword)) {
+                    totalMin += hours.min;
+                    totalMax += hours.max;
+                }
+            }
+
+            // If no keywords matched, use word count as rough estimate
+            const wordCount = text.split(/\s+/).length;
+            if (totalMin === 2) {
+                totalMin = Math.max(2, Math.ceil(wordCount / 3));
+                totalMax = Math.max(5, Math.ceil(wordCount / 2));
+            }
+
+            return { min: totalMin, max: totalMax, avg: Math.round((totalMin + totalMax) / 2) };
+        }
+
+        function addExtra() {
+            const input = document.getElementById('newExtra');
+            const text = input.value.trim();
+            
+            if (text) {
+                const estimate = estimateHours(text);
+                extras.push({ text, estimate });
+                renderExtras();
+                input.value = '';
+            }
+        }
+
+        function removeExtra(index) {
+            extras.splice(index, 1);
+            renderExtras();
+        }
+
+        function renderExtras() {
+            const list = document.getElementById('extrasList');
+            list.innerHTML = extras.map((extra, i) => `
+                <li class="extra-item">
+                    <button class="remove-btn" onclick="removeExtra(${i})">×</button>
+                    <span>${extra.text}</span>
+                    <span style="margin-left: auto; color: #999; font-size: 11px;">~${extra.estimate.avg}h</span>
+                </li>
+            `).join('');
+        }
+
+        // Allow Enter key to add extras
+        document.getElementById('newExtra').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addExtra();
+            }
+        });
+
+        function analyzeCreep() {
+            const projectName = document.getElementById('projectName').value || 'Project';
+            const originalPrice = parseFloat(document.getElementById('originalPrice').value) || 0;
+            const originalDays = parseInt(document.getElementById('originalDays').value) || 0;
+            const hourlyRate = parseFloat(document.getElementById('hourlyRate').value) || 75;
+
+            if (extras.length === 0) {
+                alert('Add at least one "extra" request to analyze!');
+                return;
+            }
+
+            // Calculate totals
+            const totalHoursMin = extras.reduce((sum, e) => sum + e.estimate.min, 0);
+            const totalHoursMax = extras.reduce((sum, e) => sum + e.estimate.max, 0);
+            const totalHoursAvg = Math.round((totalHoursMin + totalHoursMax) / 2);
+            
+            const additionalCost = totalHoursAvg * hourlyRate;
+            const additionalDays = Math.ceil(totalHoursAvg / 6); // Assuming 6 productive hours/day
+            
+            // Calculate percentages
+            const originalHours = originalDays * 6;
+            const hoursPercent = originalHours > 0 ? Math.round((totalHoursAvg / originalHours) * 100) : 0;
+            const costPercent = originalPrice > 0 ? Math.round((additionalCost / originalPrice) * 100) : 0;
+            const daysPercent = originalDays > 0 ? Math.round((additionalDays / originalDays) * 100) : 0;
+
+            // Determine severity
+            let severity, severityText;
+            if (costPercent < 15) {
+                severity = 'low';
+                severityText = 'Minor Adjustments';
+            } else if (costPercent < 30) {
+                severity = 'medium';
+                severityText = 'Significant Expansion';
+            } else if (costPercent < 50) {
+                severity = 'high';
+                severityText = 'Serious Scope Creep';
+            } else {
+                severity = 'critical';
+                severityText = 'Critical Project Drift';
+            }
+
+            // Update UI
+            const panel = document.getElementById('resultsPanel');
+            panel.classList.add('visible');
+
+            document.getElementById('verdictScore').textContent = `+${costPercent}%`;
+            document.getElementById('verdictScore').className = `verdict-score ${severity}`;
+            document.getElementById('verdictText').textContent = severityText;
+
+            document.getElementById('additionalHours').textContent = `${totalHoursMin}-${totalHoursMax}`;
+            document.getElementById('hoursChange').textContent = `+${hoursPercent}% of original`;
+
+            document.getElementById('additionalCost').textContent = `$${additionalCost.toLocaleString()}`;
+            document.getElementById('costChange').textContent = `+${costPercent}% of budget`;
+
+            document.getElementById('additionalDays').textContent = additionalDays;
+            document.getElementById('daysChange').textContent = `+${daysPercent}% of timeline`;
+
+            // Generate email template
+            const extrasListText = extras.map(e => `• ${e.text} (~${e.estimate.min}-${e.estimate.max} hours)`).join('\n');
+            
+            const email = `Subject: ${projectName} — Scope Change Request Discussion
+
+Hi [Client Name],
+
+Thank you for your continued trust in working together on ${projectName}. I wanted to follow up on the additional features we've discussed.
+
+After reviewing the requests, I've put together an estimate of the additional work involved:
+
+${extrasListText}
+
+TOTAL ADDITIONAL SCOPE:
+• Estimated hours: ${totalHoursMin}-${totalHoursMax} hours
+• Additional investment: $${additionalCost.toLocaleString()}
+• Timeline extension: ~${additionalDays} days
+
+This represents a ${costPercent}% expansion beyond our original agreement.
+
+I want to ensure we deliver excellent results while maintaining a fair working relationship. I'm happy to:
+
+1. Add these features with the adjusted scope and investment above
+2. Prioritize the most important items within the original budget
+3. Schedule these as Phase 2 after the initial delivery
+
+Please let me know which approach works best for you. I'm flexible and want to find a solution that serves your needs.
+
+Looking forward to your thoughts.
+
+Best regards,
+[Your Name]`;
+
+            document.getElementById('emailContent').textContent = email;
+
+            // Scroll to results
+            panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function copyEmail() {
+            const email = document.getElementById('emailContent').textContent;
+            navigator.clipboard.writeText(email).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    btn.textContent = 'Copy to Clipboard';
+                }, 2000);
+            });
+        }
+
+        // Add some example extras on load for demo
+        window.addEventListener('load', () => {
+            // Pre-populate with example (can be removed)
+            document.getElementById('projectName').value = 'Website Redesign';
+            document.getElementById('originalPrice').value = '5000';
+            document.getElementById('originalDays').value = '30';
+            document.getElementById('hourlyRate').value = '75';
+        });
+    </script>
+</body>
+</html>
