@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🕹️ Launch Day Survival - Can You Ship Without Dying?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-pink: #ff00ff;
+            --neon-cyan: #00ffff;
+            --neon-purple: #9d00ff;
+            --neon-yellow: #ffff00;
+            --neon-green: #00ff88;
+            --dark-bg: #0a0a1a;
+            --darker-bg: #050510;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'VT323', monospace;
+            background: var(--dark-bg);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* CRT Scanlines Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0,0,0,0.15) 0px,
+                rgba(0,0,0,0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Grid background */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+        }
+
+        .title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2rem;
+            background: linear-gradient(180deg, var(--neon-cyan), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255,0,255,0.5);
+            animation: glow 2s ease-in-out infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        /* Game Screen */
+        .game-screen {
+            background: var(--darker-bg);
+            border: 3px solid var(--neon-pink);
+            border-radius: 0;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 
+                0 0 20px rgba(255,0,255,0.3),
+                inset 0 0 50px rgba(0,0,0,0.5);
+        }
+
+        .game-screen::before {
+            content: 'LAUNCH TERMINAL v1.0';
+            position: absolute;
+            top: -1.5rem;
+            left: 1rem;
+            background: var(--darker-bg);
+            padding: 0.3rem 1rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
+            color: var(--neon-cyan);
+            border: 2px solid var(--neon-cyan);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(255,0,255,0.3);
+        }
+
+        .stat {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.2rem;
+        }
+
+        .stat-health .stat-value { color: var(--neon-green); }
+        .stat-stress .stat-value { color: var(--neon-pink); }
+        .stat-users .stat-value { color: var(--neon-cyan); }
+        .stat-money .stat-value { color: var(--neon-yellow); }
+
+        /* Health Bar */
+        .health-bar-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            margin-top: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .health-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-green), #00ff00);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        /* Event Display */
+        .event-container {
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .event-icon {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            animation: bounce 0.5s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .event-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.2rem;
+            text-align: center;
+            color: var(--neon-yellow);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px var(--neon-yellow);
+        }
+
+        .event-description {
+            font-size: 1.4rem;
+            text-align: center;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Choices */
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .choice-btn {
+            font-family: 'VT323', monospace;
+            font-size: 1.3rem;
+            padding: 1rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .choice-btn::before {
+            content: '>';
+            position: absolute;
+            left: -20px;
+            transition: left 0.2s ease;
+            color: var(--neon-pink);
+        }
+
+        .choice-btn:hover {
+            background: rgba(0,255,255,0.1);
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
+            transform: translateX(5px);
+            box-shadow: 0 0 20px rgba(255,0,255,0.3);
+        }
+
+        .choice-btn:hover::before {
+            left: 10px;
+        }
+
+        /* Timer */
+        .timer {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .timer.warning {
+            animation: flash 0.5s ease infinite;
+        }
+
+        @keyframes flash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Result Screen */
+        .result-screen {
+            text-align: center;
+        }
+
+        .result-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .result-win {
+            color: var(--neon-green);
+            text-shadow: 0 0 20px var(--neon-green);
+        }
+
+        .result-lose {
+            color: var(--neon-pink);
+            text-shadow: 0 0 20px var(--neon-pink);
+        }
+
+        .final-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .final-stat {
+            text-align: center;
+        }
+
+        .final-stat-value {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2rem;
+            color: var(--neon-cyan);
+        }
+
+        .final-stat-label {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: 0.5rem;
+        }
+
+        .lessons {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .lessons-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            color: var(--neon-yellow);
+            margin-bottom: 1rem;
+        }
+
+        .lesson {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .lesson::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: var(--neon-cyan);
+        }
+
+        .play-again-btn {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            padding: 1rem 2rem;
+            background: var(--neon-pink);
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 20px rgba(255,0,255,0.5);
+        }
+
+        .play-again-btn:hover {
+            background: var(--neon-cyan);
+            box-shadow: 0 0 30px rgba(0,255,255,0.5);
+            transform: scale(1.05);
+        }
+
+        /* Start Screen */
+        .start-screen {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .start-description {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.7);
+            margin: 2rem 0;
+            line-height: 1.8;
+        }
+
+        .difficulty-select {
+            margin: 2rem 0;
+        }
+
+        .difficulty-label {
+            font-size: 1.2rem;
+            color: var(--neon-cyan);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .difficulty-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .difficulty-btn {
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.3);
+            color: rgba(255,255,255,0.7);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .difficulty-btn:hover, .difficulty-btn.selected {
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
+            box-shadow: 0 0 15px rgba(255,0,255,0.3);
+        }
+
+        .start-btn {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.2rem;
+            padding: 1.5rem 3rem;
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 30px rgba(255,0,255,0.5);
+            animation: pulse 2s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .start-btn:hover {
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-green));
+            box-shadow: 0 0 40px rgba(0,255,255,0.5);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            color: rgba(255,255,255,0.3);
+            font-size: 1rem;
+        }
+
+        .footer a {
+            color: var(--neon-cyan);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            .title {
+                font-size: 1.2rem;
+            }
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .stat-value {
+                font-size: 1rem;
+            }
+            .event-title {
+                font-size: 1rem;
+            }
+            .choice-btn {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Notification popup */
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--darker-bg);
+            border: 2px solid var(--neon-cyan);
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            color: var(--neon-cyan);
+            z-index: 2000;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0,255,255,0.3);
+        }
+
+        .notification.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .notification.bad {
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
+            box-shadow: 0 0 20px rgba(255,0,255,0.3);
+        }
+
+        .notification.good {
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(0,255,136,0.3);
+        }
+
+        /* Hidden */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">LAUNCH DAY SURVIVAL</h1>
+            <p class="subtitle">Can you ship without dying?</p>
+        </header>
+
+        <div class="game-screen">
+            <!-- Start Screen -->
+            <div id="start-screen" class="start-screen">
+                <div class="event-icon">🚀</div>
+                <p class="start-description">
+                    It's 6:00 AM. Today is LAUNCH DAY.<br><br>
+                    You've been building for months. The product is ready (mostly).<br>
+                    Your Twitter post is scheduled. HackerNews is waiting.<br><br>
+                    But the internet is brutal. Servers will crash. Haters will hate.<br>
+                    Can you survive the next 18 hours?
+                </p>
+                
+                <div class="difficulty-select">
+                    <span class="difficulty-label">SELECT DIFFICULTY:</span>
+                    <div class="difficulty-btns">
+                        <button class="difficulty-btn selected" data-events="6">EASY (6 events)</button>
+                        <button class="difficulty-btn" data-events="10">NORMAL (10 events)</button>
+                        <button class="difficulty-btn" data-events="15">CHAOS (15 events)</button>
+                    </div>
+                </div>
+
+                <button class="start-btn" id="start-btn">▶ INSERT COIN TO PLAY</button>
+            </div>
+
+            <!-- Game Screen -->
+            <div id="game-screen" class="hidden">
+                <div class="timer" id="timer">18:00:00</div>
+                
+                <div class="stats-bar">
+                    <div class="stat stat-health">
+                        <div class="stat-label">Health</div>
+                        <div class="stat-value" id="health">100</div>
+                        <div class="health-bar-container">
+                            <div class="health-bar" id="health-bar" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div class="stat stat-stress">
+                        <div class="stat-label">Stress</div>
+                        <div class="stat-value" id="stress">20</div>
+                    </div>
+                    <div class="stat stat-users">
+                        <div class="stat-label">Users</div>
+                        <div class="stat-value" id="users">0</div>
+                    </div>
+                    <div class="stat stat-money">
+                        <div class="stat-label">$$$</div>
+                        <div class="stat-value" id="money">500</div>
+                    </div>
+                </div>
+
+                <div class="event-container">
+                    <div class="event-icon" id="event-icon">⚡</div>
+                    <h2 class="event-title" id="event-title">LOADING...</h2>
+                    <p class="event-description" id="event-description">Preparing for chaos...</p>
+                    
+                    <div class="choices" id="choices">
+                        <!-- Choices will be inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result Screen -->
+            <div id="result-screen" class="result-screen hidden">
+                <h2 class="result-title" id="result-title">GAME OVER</h2>
+                
+                <div class="final-stats">
+                    <div class="final-stat">
+                        <div class="final-stat-value" id="final-users">0</div>
+                        <div class="final-stat-label">Total Users</div>
+                    </div>
+                    <div class="final-stat">
+                        <div class="final-stat-value" id="final-money">$0</div>
+                        <div class="final-stat-label">Revenue</div>
+                    </div>
+                    <div class="final-stat">
+                        <div class="final-stat-value" id="final-score">0</div>
+                        <div class="final-stat-label">Score</div>
+                    </div>
+                </div>
+
+                <div class="lessons" id="lessons">
+                    <h3 class="lessons-title">LESSONS LEARNED:</h3>
+                    <!-- Lessons will be inserted here -->
+                </div>
+
+                <button class="play-again-btn" id="play-again">▶ TRY AGAIN</button>
+            </div>
+        </div>
+
+        <footer class="footer">
+            Built with 💜 at 2AM by <a href="https://github.com/LuzGuilherme/safira-overnight" target="_blank">Safira</a> • 
+            Overnight Build #43 • March 15, 2026
+        </footer>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // Game State
+        const state = {
+            health: 100,
+            stress: 20,
+            users: 0,
+            money: 500,
+            timeLeft: 18, // hours
+            currentEvent: 0,
+            totalEvents: 10,
+            lessonsLearned: [],
+            choices: []
+        };
+
+        // Events Library
+        const events = [
+            {
+                icon: '🔥',
+                title: 'HACKER NEWS FRONT PAGE!',
+                description: 'Your post hit #1 on HN! Traffic is exploding. Server CPU at 95%.',
+                choices: [
+                    { text: 'A) Quickly spin up more servers ($200)', effects: { money: -200, users: 150, stress: 10 }, lesson: 'Always have scaling headroom ready' },
+                    { text: 'B) Hope the current setup holds', effects: { health: -20, users: 80, stress: 25 }, lesson: 'Hope is not a scaling strategy' },
+                    { text: 'C) Enable rate limiting to survive', effects: { users: 50, stress: 5 }, lesson: 'Sometimes controlled growth beats viral chaos' }
+                ]
+            },
+            {
+                icon: '💥',
+                title: 'DATABASE IS DOWN!',
+                description: 'Your PostgreSQL instance just crashed. Users are seeing 500 errors.',
+                choices: [
+                    { text: 'A) Restore from backup (30 min downtime)', effects: { health: -15, users: -20, stress: 15 }, lesson: 'Backups are useless without tested restore procedures' },
+                    { text: 'B) Debug live while users wait', effects: { health: -30, stress: 30, users: -40 }, lesson: 'Never debug in production on launch day' },
+                    { text: 'C) Switch to read-only mode', effects: { stress: 10, users: -10 }, lesson: 'Graceful degradation beats total failure' }
+                ]
+            },
+            {
+                icon: '🐦',
+                title: 'VIRAL TWEET INCOMING',
+                description: 'An influencer with 500K followers just tweeted about your product!',
+                choices: [
+                    { text: 'A) Quote tweet with a thank you + discount code', effects: { users: 100, money: 80, stress: 5 }, lesson: 'Capitalize on momentum quickly but gracefully' },
+                    { text: 'B) Reply with a long thread about your journey', effects: { users: 30, stress: 10 }, lesson: 'Nobody cares about your journey, they care about their problem' },
+                    { text: 'C) Stay quiet and let it ride', effects: { users: 60, stress: 0 }, lesson: 'Sometimes doing nothing is the right move' }
+                ]
+            },
+            {
+                icon: '😡',
+                title: 'ANGRY CUSTOMER ON TWITTER',
+                description: '"This app is GARBAGE. Doesn\'t even work. @YourProduct is a scam!"',
+                choices: [
+                    { text: 'A) Public apology + offer to help fix their issue', effects: { health: 5, stress: 10, users: 10 }, lesson: 'Public grace under fire builds trust' },
+                    { text: 'B) Ignore it, focus on shipping', effects: { stress: 15, users: -10 }, lesson: 'Silence can be interpreted as guilt' },
+                    { text: 'C) Get defensive and explain they\'re wrong', effects: { health: -20, stress: 25, users: -30 }, lesson: 'Never argue with customers in public' }
+                ]
+            },
+            {
+                icon: '💸',
+                title: 'PAYMENT PROCESSOR ISSUE',
+                description: 'Stripe just flagged your account for "suspicious activity". Payments paused.',
+                choices: [
+                    { text: 'A) Call Stripe support immediately', effects: { stress: 20, money: 0 }, lesson: 'Build relationships with your payment providers before you need them' },
+                    { text: 'B) Enable PayPal as backup', effects: { money: -50, stress: 5, users: 5 }, lesson: 'Always have backup payment options' },
+                    { text: 'C) Offer free trials while fixing it', effects: { users: 40, money: -100, stress: 15 }, lesson: 'Turn problems into marketing opportunities' }
+                ]
+            },
+            {
+                icon: '🎉',
+                title: 'FIRST PAYING CUSTOMER!',
+                description: 'Someone just paid $49 for your premium plan! It\'s happening!',
+                choices: [
+                    { text: 'A) Send a personal thank you email', effects: { money: 49, stress: -10, users: 5 }, lesson: 'First customers deserve special attention' },
+                    { text: 'B) Tweet about it (without naming them)', effects: { money: 49, users: 20, stress: 5 }, lesson: 'Social proof converts browsers to buyers' },
+                    { text: 'C) Silently celebrate and keep building', effects: { money: 49, stress: -5 }, lesson: 'Sometimes quiet focus beats public celebration' }
+                ]
+            },
+            {
+                icon: '🤖',
+                title: 'BOT ATTACK!',
+                description: 'Someone is creating thousands of fake accounts. Your server is struggling.',
+                choices: [
+                    { text: 'A) Add CAPTCHA immediately', effects: { stress: 15, users: -10 }, lesson: 'CAPTCHA on day one might have prevented this' },
+                    { text: 'B) Block the IP range', effects: { users: -20, stress: 10 }, lesson: 'IP blocking is a blunt instrument' },
+                    { text: 'C) Rate limit signups to 1 per minute', effects: { stress: 5, users: -5 }, lesson: 'Rate limiting is your first line of defense' }
+                ]
+            },
+            {
+                icon: '📧',
+                title: 'INBOX EXPLOSION',
+                description: 'You have 200 unread emails. Support requests, feature requests, sales inquiries...',
+                choices: [
+                    { text: 'A) Spend 2 hours answering everything', effects: { stress: 25, health: -15, users: 30 }, lesson: 'Email is where founders go to die' },
+                    { text: 'B) Set up auto-responder and prioritize', effects: { stress: 10, users: 15 }, lesson: 'Automation buys you time for what matters' },
+                    { text: 'C) Ignore until tomorrow', effects: { stress: 5, users: -15, money: -50 }, lesson: 'Launch day silence kills momentum' }
+                ]
+            },
+            {
+                icon: '🏆',
+                title: 'PRODUCT HUNT LAUNCH',
+                description: 'You\'re #3 on Product Hunt! The community is discussing your product.',
+                choices: [
+                    { text: 'A) Camp in comments answering questions', effects: { stress: 20, users: 80, health: -10 }, lesson: 'PH engagement directly correlates with ranking' },
+                    { text: 'B) Schedule tweets and let it run', effects: { users: 40, stress: 5 }, lesson: 'Automation is fine but presence matters' },
+                    { text: 'C) Ask your network to upvote', effects: { users: 60, health: -5, stress: 10 }, lesson: 'Community support is powerful but fleeting' }
+                ]
+            },
+            {
+                icon: '⚡',
+                title: 'COMPETITOR LAUNCHES SAME DAY',
+                description: 'A well-funded startup just launched something eerily similar to yours.',
+                choices: [
+                    { text: 'A) Ignore and stay focused on your users', effects: { stress: 5, users: 20 }, lesson: 'Competition validates the market' },
+                    { text: 'B) Write a comparison blog post', effects: { stress: 15, users: 40, health: -10 }, lesson: 'Differentiation beats imitation' },
+                    { text: 'C) Panic and add their missing features', effects: { stress: 30, health: -25, users: -10 }, lesson: 'Feature creep kills products' }
+                ]
+            },
+            {
+                icon: '☕',
+                title: 'CAFFEINE CRASH',
+                description: 'You\'ve been awake for 20 hours. Your brain is fog. Typos everywhere.',
+                choices: [
+                    { text: 'A) Power through with more coffee', effects: { stress: 20, health: -25 }, lesson: 'Sleep debt compounds faster than tech debt' },
+                    { text: 'B) Take a 20-minute power nap', effects: { stress: -15, health: 10 }, lesson: 'Rest is a competitive advantage' },
+                    { text: 'C) Push the critical fix and then rest', effects: { stress: 10, health: -5 }, lesson: 'Know when good enough is good enough' }
+                ]
+            },
+            {
+                icon: '🐛',
+                title: 'CRITICAL BUG FOUND',
+                description: 'A user just found a bug that loses their data. It\'s been live for 3 hours.',
+                choices: [
+                    { text: 'A) Rollback to previous version immediately', effects: { stress: 15, users: -30, health: -5 }, lesson: 'Rollback strategy should be muscle memory' },
+                    { text: 'B) Hotfix and push within 30 min', effects: { stress: 25, health: -15 }, lesson: 'Fast fixes compound stress' },
+                    { text: 'C) Acknowledge publicly, fix properly', effects: { stress: 20, users: -10 }, lesson: 'Transparency builds trust even when breaking things' }
+                ]
+            },
+            {
+                icon: '📱',
+                title: 'MOBILE USERS COMPLAINING',
+                description: '"Your site is broken on iPhone!" Several users reporting the same issue.',
+                choices: [
+                    { text: 'A) Quick CSS fix for mobile', effects: { stress: 15, users: 20 }, lesson: 'Always test on real mobile devices' },
+                    { text: 'B) Add "Best on desktop" banner', effects: { users: -20, stress: 5 }, lesson: 'Excuses lose customers' },
+                    { text: 'C) Promise mobile app coming soon', effects: { users: 10, stress: 10 }, lesson: 'Promises are debt with interest' }
+                ]
+            },
+            {
+                icon: '💡',
+                title: 'FEATURE REQUEST FLOOD',
+                description: '50 different users requesting 50 different features. All marked "urgent".',
+                choices: [
+                    { text: 'A) Create a public roadmap', effects: { stress: 10, users: 30 }, lesson: 'Transparency beats inbox replies' },
+                    { text: 'B) Try to build the top 3 today', effects: { stress: 35, health: -30, users: 15 }, lesson: 'Feature creep on launch day is suicide' },
+                    { text: 'C) Thank them and do nothing yet', effects: { stress: 5, users: -5 }, lesson: 'Listen now, act later' }
+                ]
+            },
+            {
+                icon: '🎙️',
+                title: 'PODCAST INTERVIEW REQUEST',
+                description: 'A popular tech podcast wants to interview you... in 2 hours.',
+                choices: [
+                    { text: 'A) Accept and prep frantically', effects: { stress: 25, users: 60, health: -10 }, lesson: 'PR opportunities have short windows' },
+                    { text: 'B) Ask to reschedule for next week', effects: { users: 20, stress: 5 }, lesson: 'Next week\'s opportunity might not exist' },
+                    { text: 'C) Decline, focus on product', effects: { stress: -5, users: 10 }, lesson: 'Focus is saying no to good things' }
+                ]
+            },
+            {
+                icon: '🔒',
+                title: 'SECURITY VULNERABILITY REPORTED',
+                description: 'A white-hat hacker just emailed: "I found an XSS vulnerability in your login page."',
+                choices: [
+                    { text: 'A) Fix immediately and thank them publicly', effects: { stress: 20, health: 10, users: 5 }, lesson: 'Handle security reports with grace and speed' },
+                    { text: 'B) Offer a bug bounty reward', effects: { money: -100, stress: 10, users: 15, health: 10 }, lesson: 'Bug bounties attract the right kind of hackers' },
+                    { text: 'C) Mark as low priority, fix later', effects: { health: -40, stress: 5, users: -20 }, lesson: 'Security issues escalate fast when ignored' }
+                ]
+            },
+            {
+                icon: '📈',
+                title: 'UNEXPECTED REVENUE SPIKE',
+                description: '10 customers just signed up in the last hour. Your MRR doubled!',
+                choices: [
+                    { text: 'A) Send a thank you tweet + celebration', effects: { money: 200, users: 30, stress: -10 }, lesson: 'Celebrate wins publicly' },
+                    { text: 'B) Investigate why (might be a bug)', effects: { stress: 10, money: 200 }, lesson: 'Trust but verify unexpected success' },
+                    { text: 'C) Stay humble and keep building', effects: { money: 200, stress: -5 }, lesson: 'Consistency beats hype' }
+                ]
+            },
+            {
+                icon: '👀',
+                title: 'INVESTOR DM',
+                description: '"Hey, I\'m a partner at [Big VC]. Can we chat this week about your launch?"',
+                choices: [
+                    { text: 'A) Schedule a call for tomorrow', effects: { stress: 15, users: 20 }, lesson: 'VC interest is fleeting - act fast' },
+                    { text: 'B) Politely say you\'re focused on customers', effects: { stress: -5, users: 30 }, lesson: 'Customer focus impresses VCs more than meetings' },
+                    { text: 'C) Ignore for now, focus on shipping', effects: { stress: 0, users: 10 }, lesson: 'VCs circle back to traction' }
+                ]
+            },
+            {
+                icon: '🎁',
+                title: 'COMPETITOR OFFERS ACQUI-HIRE',
+                description: 'Your bigger competitor just offered to buy your product for $100K + job.',
+                choices: [
+                    { text: 'A) Consider it seriously', effects: { stress: 20, money: 100000, health: -10 }, lesson: 'Every exit option deserves consideration' },
+                    { text: 'B) Politely decline, stay indie', effects: { stress: 5, users: 10 }, lesson: 'Independence has infinite value to some' },
+                    { text: 'C) Use it as leverage for better terms', effects: { stress: 25, money: 50 }, lesson: 'Negotiation is expected' }
+                ]
+            },
+            {
+                icon: '🌙',
+                title: 'END OF DAY 1',
+                description: 'It\'s midnight. Launch day is over. How will you finish?',
+                choices: [
+                    { text: 'A) Write a launch retrospective', effects: { stress: -10, users: 20, health: -5 }, lesson: 'Reflection compounds learning' },
+                    { text: 'B) Schedule tomorrow\'s tweets and sleep', effects: { stress: -15, health: 15 }, lesson: 'Recovery enables sustainability' },
+                    { text: 'C) Keep building features for Day 2', effects: { stress: 15, health: -20, users: 15 }, lesson: 'Sustainable pace beats burnout heroics' }
+                ]
+            }
+        ];
+
+        // DOM Elements
+        const startScreen = document.getElementById('start-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const playAgainBtn = document.getElementById('play-again');
+        const difficultyBtns = document.querySelectorAll('.difficulty-btn');
+
+        const healthEl = document.getElementById('health');
+        const healthBarEl = document.getElementById('health-bar');
+        const stressEl = document.getElementById('stress');
+        const usersEl = document.getElementById('users');
+        const moneyEl = document.getElementById('money');
+        const timerEl = document.getElementById('timer');
+
+        const eventIcon = document.getElementById('event-icon');
+        const eventTitle = document.getElementById('event-title');
+        const eventDescription = document.getElementById('event-description');
+        const choicesContainer = document.getElementById('choices');
+
+        const notification = document.getElementById('notification');
+
+        // Initialize difficulty selection
+        difficultyBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                difficultyBtns.forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                state.totalEvents = parseInt(btn.dataset.events);
+            });
+        });
+
+        // Start Game
+        startBtn.addEventListener('click', startGame);
+        playAgainBtn.addEventListener('click', () => {
+            location.reload();
+        });
+
+        function startGame() {
+            // Reset state
+            state.health = 100;
+            state.stress = 20;
+            state.users = 0;
+            state.money = 500;
+            state.timeLeft = 18;
+            state.currentEvent = 0;
+            state.lessonsLearned = [];
+            state.choices = [];
+
+            // Shuffle events and pick random ones
+            const shuffled = [...events].sort(() => Math.random() - 0.5);
+            state.selectedEvents = shuffled.slice(0, state.totalEvents);
+
+            // Switch screens
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            gameScreen.classList.remove('hidden');
+
+            updateStats();
+            showNextEvent();
+        }
+
+        function showNextEvent() {
+            if (state.currentEvent >= state.selectedEvents.length || state.health <= 0) {
+                endGame();
+                return;
+            }
+
+            const event = state.selectedEvents[state.currentEvent];
+            eventIcon.textContent = event.icon;
+            eventTitle.textContent = event.title;
+            eventDescription.textContent = event.description;
+
+            // Clear and add choices
+            choicesContainer.innerHTML = '';
+            event.choices.forEach((choice, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'choice-btn';
+                btn.textContent = choice.text;
+                btn.addEventListener('click', () => makeChoice(index));
+                choicesContainer.appendChild(btn);
+            });
+        }
+
+        function makeChoice(choiceIndex) {
+            const event = state.selectedEvents[state.currentEvent];
+            const choice = event.choices[choiceIndex];
+
+            // Apply effects
+            if (choice.effects.health) state.health = Math.max(0, Math.min(100, state.health + choice.effects.health));
+            if (choice.effects.stress) state.stress = Math.max(0, Math.min(100, state.stress + choice.effects.stress));
+            if (choice.effects.users) state.users = Math.max(0, state.users + choice.effects.users);
+            if (choice.effects.money) state.money += choice.effects.money;
+
+            // Record lesson
+            if (choice.lesson && !state.lessonsLearned.includes(choice.lesson)) {
+                state.lessonsLearned.push(choice.lesson);
+            }
+
+            // Record choice for scoring
+            state.choices.push({
+                event: event.title,
+                choice: choice.text,
+                effects: choice.effects
+            });
+
+            // Update timer
+            state.timeLeft = Math.max(0, state.timeLeft - (18 / state.totalEvents));
+
+            // Show notification
+            showNotification(choice.effects);
+
+            // Update stats
+            updateStats();
+
+            // Check for game over conditions
+            if (state.health <= 0) {
+                setTimeout(endGame, 500);
+                return;
+            }
+
+            if (state.stress >= 100) {
+                state.health -= 20;
+                showNotification({ health: -20 }, 'BURNOUT! Health -20');
+                updateStats();
+            }
+
+            // Next event
+            state.currentEvent++;
+            setTimeout(showNextEvent, 800);
+        }
+
+        function showNotification(effects, customText = null) {
+            let text = customText;
+            let type = 'neutral';
+
+            if (!text) {
+                const parts = [];
+                if (effects.users > 0) parts.push(`+${effects.users} users`);
+                if (effects.users < 0) parts.push(`${effects.users} users`);
+                if (effects.money > 0) parts.push(`+$${effects.money}`);
+                if (effects.money < 0) parts.push(`-$${Math.abs(effects.money)}`);
+                if (effects.health > 0) parts.push(`+${effects.health} health`);
+                if (effects.health < 0) parts.push(`${effects.health} health`);
+                if (effects.stress > 0) parts.push(`+${effects.stress} stress`);
+                if (effects.stress < 0) parts.push(`${effects.stress} stress`);
+                text = parts.join(' | ');
+
+                // Determine type
+                const net = (effects.users || 0) + (effects.money || 0) / 10 + (effects.health || 0) - (effects.stress || 0);
+                type = net > 0 ? 'good' : net < 0 ? 'bad' : 'neutral';
+            }
+
+            notification.textContent = text;
+            notification.className = `notification show ${type}`;
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2000);
+        }
+
+        function updateStats() {
+            healthEl.textContent = state.health;
+            healthBarEl.style.width = state.health + '%';
+            
+            if (state.health < 30) {
+                healthBarEl.style.background = 'linear-gradient(90deg, #ff0000, #ff4444)';
+            } else if (state.health < 60) {
+                healthBarEl.style.background = 'linear-gradient(90deg, #ff8800, #ffaa00)';
+            } else {
+                healthBarEl.style.background = 'linear-gradient(90deg, var(--neon-green), #00ff00)';
+            }
+
+            stressEl.textContent = state.stress;
+            usersEl.textContent = state.users;
+            moneyEl.textContent = state.money.toLocaleString();
+
+            // Timer
+            const hours = Math.floor(state.timeLeft);
+            const minutes = Math.floor((state.timeLeft % 1) * 60);
+            timerEl.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:00`;
+            
+            if (state.timeLeft < 4) {
+                timerEl.classList.add('warning');
+            } else {
+                timerEl.classList.remove('warning');
+            }
+        }
+
+        function endGame() {
+            gameScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+
+            const resultTitle = document.getElementById('result-title');
+            const finalUsers = document.getElementById('final-users');
+            const finalMoney = document.getElementById('final-money');
+            const finalScore = document.getElementById('final-score');
+            const lessonsEl = document.getElementById('lessons');
+
+            // Calculate score
+            const score = Math.max(0, 
+                state.users * 10 + 
+                state.money / 10 + 
+                state.health * 5 - 
+                state.stress * 3
+            );
+
+            // Determine result
+            if (state.health <= 0) {
+                resultTitle.textContent = 'YOU BURNED OUT 💀';
+                resultTitle.className = 'result-title result-lose';
+            } else if (score > 2000) {
+                resultTitle.textContent = 'LEGENDARY LAUNCH! 🏆';
+                resultTitle.className = 'result-title result-win';
+            } else if (score > 1000) {
+                resultTitle.textContent = 'SUCCESSFUL LAUNCH! 🚀';
+                resultTitle.className = 'result-title result-win';
+            } else if (score > 500) {
+                resultTitle.textContent = 'YOU SURVIVED! 😅';
+                resultTitle.className = 'result-title';
+            } else {
+                resultTitle.textContent = 'ROUGH LAUNCH... 😬';
+                resultTitle.className = 'result-title result-lose';
+            }
+
+            finalUsers.textContent = state.users;
+            finalMoney.textContent = '$' + state.money.toLocaleString();
+            finalScore.textContent = Math.round(score);
+
+            // Show lessons
+            lessonsEl.innerHTML = '<h3 class="lessons-title">LESSONS LEARNED:</h3>';
+            const uniqueLessons = [...new Set(state.lessonsLearned)].slice(0, 5);
+            uniqueLessons.forEach(lesson => {
+                const lessonEl = document.createElement('div');
+                lessonEl.className = 'lesson';
+                lessonEl.textContent = lesson;
+                lessonsEl.appendChild(lessonEl);
+            });
+
+            if (uniqueLessons.length === 0) {
+                const noLesson = document.createElement('div');
+                noLesson.className = 'lesson';
+                noLesson.textContent = 'Every launch teaches something new.';
+                lessonsEl.appendChild(noLesson);
+            }
+        }
+    </script>
+</body>
+</html>
