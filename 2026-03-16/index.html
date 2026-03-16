@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Launch Checklist Generator 🚀</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --border: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --accent: #22c55e;
+            --accent-glow: rgba(34, 197, 94, 0.2);
+            --warning: #f97316;
+            --danger: #ef4444;
+            --info: #06b6d4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent), #4ade80);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Product Type Selector */
+        .selector-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .selector-title {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+
+        .product-btn {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border);
+            padding: 1.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            font-family: inherit;
+            color: var(--text-secondary);
+        }
+
+        .product-btn:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+
+        .product-btn.active {
+            border-color: var(--accent);
+            background: var(--accent-glow);
+            color: var(--text-primary);
+        }
+
+        .product-btn .emoji {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-btn .label {
+            font-weight: 500;
+        }
+
+        /* Checklist Sections */
+        .checklist-container {
+            display: none;
+        }
+
+        .checklist-container.visible {
+            display: block;
+        }
+
+        .phase {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .phase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+        }
+
+        .phase-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .phase-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            background: var(--border);
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .phase-progress {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .phase-items {
+            padding: 1rem 1.5rem;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 0.875rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .checkbox {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border);
+            cursor: pointer;
+            flex-shrink: 0;
+            position: relative;
+            margin-top: 2px;
+            transition: all 0.2s;
+        }
+
+        .checkbox:hover {
+            border-color: var(--accent);
+        }
+
+        .checkbox:checked {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .checkbox:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--bg-primary);
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .item-content {
+            flex: 1;
+        }
+
+        .item-title {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .item-description {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .item-tag {
+            font-size: 0.7rem;
+            padding: 0.15rem 0.4rem;
+            margin-left: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+        }
+
+        .tag-critical { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+        .tag-important { background: rgba(249, 115, 22, 0.2); color: var(--warning); }
+        .tag-optional { background: rgba(6, 182, 212, 0.2); color: var(--info); }
+
+        /* Actions Bar */
+        .actions-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 0.75rem 1.25rem;
+            font-family: inherit;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-btn:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+
+        .action-btn.primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-primary);
+            font-weight: 500;
+        }
+
+        .action-btn.primary:hover {
+            background: #16a34a;
+        }
+
+        /* Progress Overview */
+        .progress-overview {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .progress-overview.visible {
+            display: block;
+        }
+
+        .progress-bar-container {
+            height: 8px;
+            background: var(--bg-tertiary);
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--accent);
+            color: var(--bg-primary);
+            padding: 1rem 1.5rem;
+            font-weight: 500;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-muted);
+        }
+
+        .empty-state .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .actions-bar {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Launch Checklist Generator</h1>
+            <p class="subtitle">Stop forgetting critical launch tasks. Get your custom checklist.</p>
+        </header>
+
+        <section class="selector-section">
+            <div class="selector-title">What are you launching?</div>
+            <div class="product-grid">
+                <button class="product-btn" data-type="saas">
+                    <span class="emoji">💻</span>
+                    <span class="label">SaaS Product</span>
+                </button>
+                <button class="product-btn" data-type="mobile">
+                    <span class="emoji">📱</span>
+                    <span class="label">Mobile App</span>
+                </button>
+                <button class="product-btn" data-type="chrome">
+                    <span class="emoji">🧩</span>
+                    <span class="label">Chrome Extension</span>
+                </button>
+                <button class="product-btn" data-type="info">
+                    <span class="emoji">📚</span>
+                    <span class="label">Info Product</span>
+                </button>
+                <button class="product-btn" data-type="api">
+                    <span class="emoji">⚡</span>
+                    <span class="label">API / Dev Tool</span>
+                </button>
+                <button class="product-btn" data-type="newsletter">
+                    <span class="emoji">📧</span>
+                    <span class="label">Newsletter</span>
+                </button>
+            </div>
+        </section>
+
+        <div class="empty-state" id="emptyState">
+            <div class="icon">👆</div>
+            <p>Select your product type above to generate a launch checklist</p>
+        </div>
+
+        <div class="checklist-container" id="checklistContainer">
+            <div class="progress-overview visible" id="progressOverview">
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+                </div>
+                <div class="progress-stats">
+                    <span id="progressText">0 / 0 tasks completed</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+            </div>
+
+            <div class="actions-bar">
+                <button class="action-btn primary" onclick="copyChecklist()">
+                    📋 Copy as Markdown
+                </button>
+                <button class="action-btn" onclick="resetChecklist()">
+                    🔄 Reset All
+                </button>
+                <button class="action-btn" onclick="shareChecklist()">
+                    🔗 Share Link
+                </button>
+            </div>
+
+            <div id="phases"></div>
+        </div>
+
+        <footer>
+            Built overnight by <a href="https://github.com/LuzGuilherme" target="_blank">Safira</a> · 
+            Never forget a launch task again
+        </footer>
+    </div>
+
+    <div class="toast" id="toast">Copied to clipboard!</div>
+
+    <script>
+        // Checklist Data
+        const checklists = {
+            saas: {
+                name: "SaaS Product",
+                phases: [
+                    {
+                        title: "🔧 Pre-Launch (1-2 weeks before)",
+                        badge: "PREP",
+                        items: [
+                            { title: "Landing page live with clear value proposition", tag: "critical" },
+                            { title: "Pricing page finalized (test different price points)", tag: "critical" },
+                            { title: "Email capture form working (waitlist or early access)", tag: "critical" },
+                            { title: "Payment integration tested (Stripe, Paddle, etc.)", tag: "critical" },
+                            { title: "Legal pages ready: Terms of Service, Privacy Policy", tag: "important" },
+                            { title: "Support system setup (Intercom, email, or simple contact form)", tag: "important" },
+                            { title: "Analytics configured (Plausible, Posthog, or GA)", tag: "important" },
+                            { title: "Error tracking active (Sentry, LogSnag)", tag: "important" },
+                            { title: "Onboarding flow polished (first-time user experience)", tag: "important" },
+                            { title: "Social proof ready: testimonials, logos, or case studies", tag: "optional" },
+                            { title: "Demo video recorded (optional but high-converting)", tag: "optional" },
+                            { title: "Documentation/Help center started", tag: "optional" }
+                        ]
+                    },
+                    {
+                        title: "🚀 Launch Day",
+                        badge: "GO LIVE",
+                        items: [
+                            { title: "Product Hunt post scheduled/submitted", tag: "critical", desc: "Submit at 12:01 AM PST for maximum exposure" },
+                            { title: "Twitter/X announcement thread ready", tag: "critical" },
+                            { title: "Hacker News Show HN post", tag: "important" },
+                            { title: "LinkedIn post for B2B audience", tag: "important" },
+                            { title: "Email blast to waitlist", tag: "critical" },
+                            { title: "Reddit posts in relevant subreddits (r/SideProject, niche subs)", tag: "important" },
+                            { title: "Indie Hackers post", tag: "optional" },
+                            { title: "Personal network DMs to supporters", tag: "important", desc: "Ask friends to upvote, comment, share" },
+                            { title: "Monitor all channels actively", tag: "critical", desc: "Reply to every comment within 1 hour" },
+                            { title: "Have someone on standby for bug fixes", tag: "critical" }
+                        ]
+                    },
+                    {
+                        title: "📈 Post-Launch (48h - 1 week)",
+                        badge: "FOLLOW UP",
+                        items: [
+                            { title: "Send thank-you emails to first users", tag: "important" },
+                            { title: "Collect and act on early feedback", tag: "critical" },
+                            { title: "Fix critical bugs immediately", tag: "critical" },
+                            { title: "Publish retrospective or launch story (builds SEO)", tag: "optional" },
+                            { title: "Reach out to relevant newsletters/bloggers", tag: "important" },
+                            { title: "Schedule follow-up Twitter threads", tag: "important" },
+                            { title: "Analyze traffic sources and conversion data", tag: "important" },
+                            { title: "Ask happy users for testimonials", tag: "important" },
+                            { title: "Plan next feature based on feedback", tag: "optional" },
+                            { title: "Submit to directories (BetaList, AlternativeTo, etc.)", tag: "optional" }
+                        ]
+                    }
+                ]
+            },
+            mobile: {
+                name: "Mobile App",
+                phases: [
+                    {
+                        title: "🔧 Pre-Launch (2-3 weeks before)",
+                        badge: "PREP",
+                        items: [
+                            { title: "App Store listing optimized (ASO)", tag: "critical", desc: "Title, subtitle, keywords, screenshots" },
+                            { title: "App screenshots designed (all required sizes)", tag: "critical" },
+                            { title: "App preview video created", tag: "important" },
+                            { title: "App icon polished and distinctive", tag: "critical" },
+                            { title: "Privacy policy URL ready", tag: "critical" },
+                            { title: "Beta testing completed (TestFlight/Play Console)", tag: "critical" },
+                            { title: "Crashlytics/error monitoring configured", tag: "important" },
+                            { title: "Analytics SDK integrated", tag: "important" },
+                            { title: "Landing page with download links", tag: "important" },
+                            { title: "Press kit prepared (logo, screenshots, description)", tag: "optional" },
+                            { title: "In-app purchase setup tested (if applicable)", tag: "critical" },
+                            { title: "Push notification setup complete", tag: "important" }
+                        ]
+                    },
+                    {
+                        title: "🚀 Launch Day",
+                        badge: "GO LIVE",
+                        items: [
+                            { title: "Submit to App Store & Google Play", tag: "critical", desc: "Submit 2-3 days early for review buffer" },
+                            { title: "Product Hunt submission", tag: "important" },
+                            { title: "App Store featuring application submitted", tag: "optional", desc: "Apple's self-service form" },
+                            { title: "Twitter/X launch announcement", tag: "critical" },
+                            { title: "Reddit posts (r/androidapps, r/iOSapps, niche subs)", tag: "important" },
+                            { title: "Reach out to app review sites", tag: "optional" },
+                            { title: "Email blast to waitlist", tag: "critical" },
+                            { title: "Monitor crash reports closely", tag: "critical" },
+                            { title: "Respond to first reviews immediately", tag: "critical" }
+                        ]
+                    },
+                    {
+                        title: "📈 Post-Launch (First week)",
+                        badge: "FOLLOW UP",
+                        items: [
+                            { title: "Reply to ALL App Store reviews", tag: "critical" },
+                            { title: "Push hotfix for any crash issues", tag: "critical" },
+                            { title: "Ask happy users to leave reviews", tag: "important" },
+                            { title: "A/B test screenshots if downloads are low", tag: "optional" },
+                            { title: "Analyze retention and drop-off points", tag: "important" },
+                            { title: "Plan v1.1 based on feedback", tag: "important" },
+                            { title: "Submit to app directories", tag: "optional" }
+                        ]
+                    }
+                ]
+            },
+            chrome: {
+                name: "Chrome Extension",
+                phases: [
+                    {
+                        title: "🔧 Pre-Launch",
+                        badge: "PREP",
+                        items: [
+                            { title: "Chrome Web Store listing complete", tag: "critical" },
+                            { title: "Clear, benefit-focused description", tag: "critical" },
+                            { title: "Screenshots showing the extension in action", tag: "critical" },
+                            { title: "Promotional tile images (all sizes)", tag: "important" },
+                            { title: "Privacy policy (especially for permissions)", tag: "critical" },
+                            { title: "Manifest V3 compliance verified", tag: "critical" },
+                            { title: "Landing page with install button", tag: "important" },
+                            { title: "Demo video/GIF of functionality", tag: "important" },
+                            { title: "Beta testing with real users", tag: "important" },
+                            { title: "Error tracking (Sentry browser extension)", tag: "optional" }
+                        ]
+                    },
+                    {
+                        title: "🚀 Launch Day",
+                        badge: "GO LIVE",
+                        items: [
+                            { title: "Submit to Chrome Web Store", tag: "critical", desc: "Review can take 1-7 days" },
+                            { title: "Twitter launch thread", tag: "critical" },
+                            { title: "Hacker News Show HN", tag: "important" },
+                            { title: "Reddit r/chrome, niche subreddits", tag: "important" },
+                            { title: "Product Hunt (Extensions category)", tag: "important" },
+                            { title: "Email list announcement", tag: "important" },
+                            { title: "Cross-post to relevant communities", tag: "optional" }
+                        ]
+                    },
+                    {
+                        title: "📈 Post-Launch",
+                        badge: "FOLLOW UP",
+                        items: [
+                            { title: "Reply to Chrome Web Store reviews", tag: "critical" },
+                            { title: "Fix compatibility issues quickly", tag: "critical" },
+                            { title: "Gather feature requests", tag: "important" },
+                            { title: "Submit to extension directories", tag: "optional" },
+                            { title: "Create comparison content (vs competitors)", tag: "optional" },
+                            { title: "Consider Firefox port", tag: "optional" }
+                        ]
+                    }
+                ]
+            },
+            info: {
+                name: "Info Product",
+                phases: [
+                    {
+                        title: "🔧 Pre-Launch (1-2 weeks before)",
+                        badge: "PREP",
+                        items: [
+                            { title: "Sales page with compelling copy", tag: "critical" },
+                            { title: "Payment processor setup (Gumroad, Lemonsqueezy, Stripe)", tag: "critical" },
+                            { title: "Delivery system tested", tag: "critical", desc: "Email delivery, download links work" },
+                            { title: "Preview/sample content ready", tag: "important" },
+                            { title: "Social proof: testimonials, results, credentials", tag: "important" },
+                            { title: "Bonus stack finalized", tag: "optional" },
+                            { title: "Email sequence written (welcome, value delivery)", tag: "important" },
+                            { title: "Affiliate program setup (if applicable)", tag: "optional" },
+                            { title: "Early bird pricing or launch discount defined", tag: "important" },
+                            { title: "Countdown timer working", tag: "optional" }
+                        ]
+                    },
+                    {
+                        title: "🚀 Launch Day",
+                        badge: "GO LIVE",
+                        items: [
+                            { title: "Email blast to list", tag: "critical" },
+                            { title: "Twitter launch thread with value bombs", tag: "critical" },
+                            { title: "LinkedIn post (if B2B audience)", tag: "important" },
+                            { title: "Post in relevant communities", tag: "important" },
+                            { title: "DM supporters asking them to share", tag: "important" },
+                            { title: "Go live on Product Hunt (Books/Courses)", tag: "optional" },
+                            { title: "Gumroad Discover listing optimized", tag: "optional" },
+                            { title: "Monitor sales and respond to questions fast", tag: "critical" }
+                        ]
+                    },
+                    {
+                        title: "📈 Post-Launch",
+                        badge: "FOLLOW UP",
+                        items: [
+                            { title: "Send delivery confirmation email", tag: "critical" },
+                            { title: "Check in with buyers (how's the content?)", tag: "important" },
+                            { title: "Collect testimonials from satisfied customers", tag: "critical" },
+                            { title: "Create evergreen content marketing", tag: "important" },
+                            { title: "Set up retargeting ads", tag: "optional" },
+                            { title: "Plan upsell or follow-up product", tag: "optional" },
+                            { title: "Reach out to newsletter sponsors/features", tag: "optional" }
+                        ]
+                    }
+                ]
+            },
+            api: {
+                name: "API / Dev Tool",
+                phases: [
+                    {
+                        title: "🔧 Pre-Launch",
+                        badge: "PREP",
+                        items: [
+                            { title: "Documentation complete and clear", tag: "critical", desc: "Developers judge tools by docs quality" },
+                            { title: "Quick start guide (< 5 min to first result)", tag: "critical" },
+                            { title: "Code examples in popular languages", tag: "critical" },
+                            { title: "API playground / interactive demo", tag: "important" },
+                            { title: "SDK for at least one language", tag: "important" },
+                            { title: "Status page setup", tag: "important" },
+                            { title: "Pricing page with clear tiers", tag: "important" },
+                            { title: "Free tier available (devs hate credit card upfront)", tag: "critical" },
+                            { title: "Error messages are helpful and actionable", tag: "important" },
+                            { title: "Rate limiting documented", tag: "important" },
+                            { title: "Changelog started", tag: "optional" }
+                        ]
+                    },
+                    {
+                        title: "🚀 Launch Day",
+                        badge: "GO LIVE",
+                        items: [
+                            { title: "Hacker News Show HN post", tag: "critical", desc: "HN is THE place for dev tools" },
+                            { title: "Twitter launch with technical details", tag: "critical" },
+                            { title: "Reddit r/programming, r/webdev, niche subs", tag: "important" },
+                            { title: "Dev.to launch article", tag: "important" },
+                            { title: "Product Hunt launch", tag: "important" },
+                            { title: "GitHub readme polished (if open source)", tag: "critical" },
+                            { title: "Discord/Slack community ready", tag: "optional" },
+                            { title: "Be ready to answer technical questions", tag: "critical" }
+                        ]
+                    },
+                    {
+                        title: "📈 Post-Launch",
+                        badge: "FOLLOW UP",
+                        items: [
+                            { title: "Respond to GitHub issues immediately", tag: "critical" },
+                            { title: "Write tutorials/guides based on questions", tag: "important" },
+                            { title: "Collect integration requests", tag: "important" },
+                            { title: "Submit to Postman API Network", tag: "optional" },
+                            { title: "Create comparison pages (vs alternatives)", tag: "optional" },
+                            { title: "Reach out to developer newsletters", tag: "important" },
+                            { title: "Build integrations with popular tools", tag: "optional" }
+                        ]
+                    }
+                ]
+            },
+            newsletter: {
+                name: "Newsletter",
+                phases: [
+                    {
+                        title: "🔧 Pre-Launch",
+                        badge: "PREP",
+                        items: [
+                            { title: "Landing page with clear value proposition", tag: "critical" },
+                            { title: "Email signup form working", tag: "critical" },
+                            { title: "Welcome email sequence ready", tag: "important" },
+                            { title: "First 2-3 issues already written", tag: "important", desc: "Buffer for consistency" },
+                            { title: "Posting schedule defined and realistic", tag: "important" },
+                            { title: "Sample issue available to preview", tag: "important" },
+                            { title: "Social proof (past writing, credentials)", tag: "optional" },
+                            { title: "Referral program setup (Sparkloop, etc.)", tag: "optional" },
+                            { title: "Lead magnet created (PDF, template, etc.)", tag: "optional" }
+                        ]
+                    },
+                    {
+                        title: "🚀 Launch Day",
+                        badge: "GO LIVE",
+                        items: [
+                            { title: "First issue sent to early subscribers", tag: "critical" },
+                            { title: "Twitter thread announcing launch", tag: "critical" },
+                            { title: "LinkedIn post", tag: "important" },
+                            { title: "Reddit in relevant communities", tag: "important" },
+                            { title: "DM friends/network to subscribe", tag: "important" },
+                            { title: "Cross-promote with other newsletters", tag: "optional" },
+                            { title: "Submit to newsletter directories", tag: "optional", desc: "Substack Discover, The Sample, etc." }
+                        ]
+                    },
+                    {
+                        title: "📈 Post-Launch",
+                        badge: "FOLLOW UP",
+                        items: [
+                            { title: "Maintain consistent publishing schedule", tag: "critical" },
+                            { title: "Reply to subscriber replies", tag: "critical" },
+                            { title: "Ask for feedback after issue 3-5", tag: "important" },
+                            { title: "Grow through Twitter content", tag: "important" },
+                            { title: "Guest write for other newsletters", tag: "optional" },
+                            { title: "Add sponsorship info if planning to monetize", tag: "optional" },
+                            { title: "Track open rates and optimize", tag: "important" }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        let currentType = null;
+        let checkedItems = {};
+
+        // Initialize
+        document.querySelectorAll('.product-btn').forEach(btn => {
+            btn.addEventListener('click', () => selectProduct(btn.dataset.type));
+        });
+
+        // Load from URL params
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('type') && checklists[urlParams.get('type')]) {
+            selectProduct(urlParams.get('type'));
+            
+            // Load checked items from URL
+            const checked = urlParams.get('checked');
+            if (checked) {
+                checked.split(',').forEach(id => {
+                    checkedItems[id] = true;
+                });
+                updateCheckboxes();
+                updateProgress();
+            }
+        }
+
+        function selectProduct(type) {
+            currentType = type;
+            
+            // Update UI
+            document.querySelectorAll('.product-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.type === type);
+            });
+            
+            document.getElementById('emptyState').style.display = 'none';
+            document.getElementById('checklistContainer').classList.add('visible');
+            
+            renderChecklist(type);
+            
+            // Update URL
+            const url = new URL(window.location);
+            url.searchParams.set('type', type);
+            window.history.replaceState({}, '', url);
+        }
+
+        function renderChecklist(type) {
+            const data = checklists[type];
+            const phasesContainer = document.getElementById('phases');
+            phasesContainer.innerHTML = '';
+
+            data.phases.forEach((phase, phaseIndex) => {
+                const phaseEl = document.createElement('div');
+                phaseEl.className = 'phase';
+                phaseEl.innerHTML = `
+                    <div class="phase-header" onclick="togglePhase(${phaseIndex})">
+                        <div class="phase-title">
+                            ${phase.title}
+                            <span class="phase-badge">${phase.badge}</span>
+                        </div>
+                        <div class="phase-progress" id="phase-progress-${phaseIndex}">0 / ${phase.items.length}</div>
+                    </div>
+                    <div class="phase-items" id="phase-items-${phaseIndex}">
+                        ${phase.items.map((item, itemIndex) => {
+                            const id = `${type}-${phaseIndex}-${itemIndex}`;
+                            const checked = checkedItems[id] ? 'checked' : '';
+                            return `
+                                <div class="checklist-item">
+                                    <input type="checkbox" class="checkbox" id="${id}" ${checked} onchange="toggleItem('${id}')">
+                                    <div class="item-content">
+                                        <div class="item-title">
+                                            ${item.title}
+                                            ${item.tag ? `<span class="item-tag tag-${item.tag}">${item.tag}</span>` : ''}
+                                        </div>
+                                        ${item.desc ? `<div class="item-description">${item.desc}</div>` : ''}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+                phasesContainer.appendChild(phaseEl);
+            });
+
+            updateProgress();
+        }
+
+        function togglePhase(index) {
+            const items = document.getElementById(`phase-items-${index}`);
+            items.style.display = items.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function toggleItem(id) {
+            checkedItems[id] = document.getElementById(id).checked;
+            updateProgress();
+            saveToUrl();
+        }
+
+        function updateProgress() {
+            if (!currentType) return;
+            
+            const data = checklists[currentType];
+            let totalItems = 0;
+            let checkedCount = 0;
+
+            data.phases.forEach((phase, phaseIndex) => {
+                let phaseChecked = 0;
+                phase.items.forEach((item, itemIndex) => {
+                    const id = `${currentType}-${phaseIndex}-${itemIndex}`;
+                    totalItems++;
+                    if (checkedItems[id]) {
+                        checkedCount++;
+                        phaseChecked++;
+                    }
+                });
+                
+                const phaseProgress = document.getElementById(`phase-progress-${phaseIndex}`);
+                if (phaseProgress) {
+                    phaseProgress.textContent = `${phaseChecked} / ${phase.items.length}`;
+                }
+            });
+
+            const percent = totalItems > 0 ? Math.round((checkedCount / totalItems) * 100) : 0;
+            document.getElementById('progressBar').style.width = `${percent}%`;
+            document.getElementById('progressText').textContent = `${checkedCount} / ${totalItems} tasks completed`;
+            document.getElementById('progressPercent').textContent = `${percent}%`;
+        }
+
+        function updateCheckboxes() {
+            Object.keys(checkedItems).forEach(id => {
+                const checkbox = document.getElementById(id);
+                if (checkbox) {
+                    checkbox.checked = checkedItems[id];
+                }
+            });
+        }
+
+        function saveToUrl() {
+            const checked = Object.keys(checkedItems).filter(id => checkedItems[id]).join(',');
+            const url = new URL(window.location);
+            if (checked) {
+                url.searchParams.set('checked', checked);
+            } else {
+                url.searchParams.delete('checked');
+            }
+            window.history.replaceState({}, '', url);
+        }
+
+        function copyChecklist() {
+            if (!currentType) return;
+            
+            const data = checklists[currentType];
+            let markdown = `# ${data.name} Launch Checklist\n\n`;
+            
+            data.phases.forEach((phase, phaseIndex) => {
+                markdown += `## ${phase.title}\n\n`;
+                phase.items.forEach((item, itemIndex) => {
+                    const id = `${currentType}-${phaseIndex}-${itemIndex}`;
+                    const checked = checkedItems[id] ? 'x' : ' ';
+                    markdown += `- [${checked}] ${item.title}`;
+                    if (item.tag) markdown += ` [${item.tag.toUpperCase()}]`;
+                    markdown += '\n';
+                    if (item.desc) markdown += `  - ${item.desc}\n`;
+                });
+                markdown += '\n';
+            });
+
+            navigator.clipboard.writeText(markdown).then(() => {
+                showToast('Copied to clipboard!');
+            });
+        }
+
+        function resetChecklist() {
+            checkedItems = {};
+            document.querySelectorAll('.checkbox').forEach(cb => cb.checked = false);
+            updateProgress();
+            saveToUrl();
+            showToast('Checklist reset!');
+        }
+
+        function shareChecklist() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                showToast('Link copied! Share your progress.');
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+    </script>
+</body>
+</html>
