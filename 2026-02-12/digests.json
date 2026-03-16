@@ -1,7 +1,58 @@
 {
-  "generated": "2026-03-15T01:03:00.000000Z",
-  "count": 38,
+  "generated": "2026-03-16T01:05:58.000000Z",
+  "count": 39,
   "digests": [
+    {
+      "id": "2026-03-16-allin-emil-michael",
+      "filename": "2026-03-16-allin-emil-michael.md",
+      "date": "2026-03-16",
+      "title": "Emergency Pod: Emil Michael - Iran Operation, Drone Warfare & China Strategy",
+      "host": "All-In Podcast (Jason, Chamath, Friedberg)",
+      "guest": "Emil Michael (Undersecretary of War for R&E)",
+      "duration": "~75 min",
+      "link": "https://www.youtube.com/watch?v=gzwRflcLPAA",
+      "theme": "Guerra moderna, drones, AI militar, estratégia geopolítica com China",
+      "tldr": "Emil Michael explica Operation Epic Fury no Irão - 6 dias, líder supremo morto, 90% munições destruídas. Nova era de guerra rápida com drones. Toda a estratégia visa criar leverage para negociações com China em Abril. Mais drones usados esta semana que em toda a história militar dos EUA.",
+      "insights": [
+        {
+          "insight": "Venezuela: 1 noite, 0 baixas, Maduro capturado",
+          "why": "Nova era de operações cirúrgicas"
+        },
+        {
+          "insight": "40% petróleo da China vem de Irão+Venezuela+Rússia",
+          "why": "Leverage energético para negociações"
+        },
+        {
+          "insight": "Lucas drones: $50-80K, alcance 500-700 milhas",
+          "why": "Custo baixo, capacidade massiva"
+        },
+        {
+          "insight": "Anthropic recusou trabalhar com DoD",
+          "why": "Emil: \"Chineses vão roubar vossos modelos\""
+        },
+        {
+          "insight": "Golden Dome requer AI - reação humana impossível",
+          "why": "Defesa contra hipersónicos em 90 segundos"
+        }
+      ],
+      "quotes": [
+        "The global war on terror was a disaster, but the people who fought it are generals now.",
+        "Your models are getting stolen by the Chinese. Theyll un-guardrail them and use them against us.",
+        "So every war doesnt have to be three decades and trillions of dollars."
+      ],
+      "rating": 5.0,
+      "tags": [
+        "AllIn",
+        "EmilMichael",
+        "Iran",
+        "Drones",
+        "AI",
+        "Defense",
+        "China",
+        "Geopolitics",
+        "MilitaryTech"
+      ]
+    },
     {
       "id": "2026-03-15-allin-iran-oil-ai-revenue",
       "filename": "2026-03-15-allin-iran-oil-ai-revenue.md",
