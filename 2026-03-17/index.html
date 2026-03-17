@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💸 The Meeting Toll Booth — Quanto custa esta reunião?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #FFF8F0;
+            --bg-secondary: #FFFFFF;
+            --accent-primary: #FF6B6B;
+            --accent-secondary: #4ECDC4;
+            --accent-warning: #FFE66D;
+            --accent-success: #95E1D3;
+            --text-primary: #2D3436;
+            --text-secondary: #636E72;
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+            --radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--accent-primary), #FF8E8E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Attendees Section */
+        .attendees-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .attendee-row {
+            display: grid;
+            grid-template-columns: 1fr 120px 60px;
+            gap: 12px;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .attendee-row input {
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-family: inherit;
+            font-size: 1rem;
+            background: var(--bg-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .attendee-row input:focus {
+            outline: none;
+            border-color: var(--accent-secondary);
+        }
+
+        .attendee-row input[type="number"] {
+            text-align: center;
+        }
+
+        .btn-remove {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-remove:hover {
+            transform: scale(1.1) rotate(90deg);
+            background: #FF5252;
+        }
+
+        .btn-add {
+            background: linear-gradient(135deg, var(--accent-secondary), #45B7AA);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 24px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
+        }
+
+        /* Timer Section */
+        .timer-section {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .cost-display {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--accent-primary);
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .cost-display.burning {
+            animation: burn 0.5s ease-in-out;
+        }
+
+        @keyframes burn {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); color: #FF5252; }
+        }
+
+        .time-display {
+            font-size: 2rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .rate-display {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            background: var(--bg-primary);
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* Control Buttons */
+        .controls {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn-control {
+            padding: 16px 40px;
+            border: none;
+            border-radius: 50px;
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, var(--accent-success), #7DD3C0);
+            color: var(--text-primary);
+        }
+
+        .btn-start:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(149, 225, 211, 0.5);
+        }
+
+        .btn-pause {
+            background: linear-gradient(135deg, var(--accent-warning), #FFD93D);
+            color: var(--text-primary);
+        }
+
+        .btn-pause:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 230, 109, 0.5);
+        }
+
+        .btn-reset {
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            border: 2px solid #DDD;
+        }
+
+        .btn-reset:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+        }
+
+        .stat-card {
+            background: var(--bg-primary);
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .stat-value.warning { color: var(--accent-primary); }
+        .stat-value.good { color: var(--accent-secondary); }
+        .stat-value.neutral { color: var(--text-primary); }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Equivalents */
+        .equivalents {
+            margin-top: 30px;
+        }
+
+        .equivalent-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .equivalent-emoji {
+            font-size: 1.5rem;
+        }
+
+        /* Fun Facts */
+        .fun-fact {
+            background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            text-align: center;
+            font-size: 1rem;
+            margin-top: 20px;
+        }
+
+        .fun-fact strong {
+            color: var(--accent-primary);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: var(--accent-secondary);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.8rem; }
+            .cost-display { font-size: 2.5rem; }
+            .time-display { font-size: 1.4rem; }
+            .attendee-row {
+                grid-template-columns: 1fr 80px 40px;
+                gap: 8px;
+            }
+            .controls { flex-direction: column; }
+            .btn-control { width: 100%; justify-content: center; }
+        }
+
+        /* Hidden class */
+        .hidden { display: none !important; }
+
+        /* Pulse animation for running state */
+        .running .cost-display {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>💸 The Meeting Toll Booth</h1>
+            <p>Cada segundo custa dinheiro. Sabes quanto?</p>
+        </header>
+
+        <!-- Attendees Card -->
+        <div class="card">
+            <div class="card-title">
+                <span>👥</span> Participantes
+            </div>
+            <div id="attendees-list" class="attendees-list">
+                <!-- Attendees will be added here -->
+            </div>
+            <button class="btn-add" onclick="addAttendee()">
+                <span>➕</span> Adicionar Participante
+            </button>
+        </div>
+
+        <!-- Timer Card -->
+        <div class="card timer-section" id="timer-section">
+            <div class="time-display" id="time-display">00:00:00</div>
+            <div class="cost-display" id="cost-display">€0,00</div>
+            <div class="rate-display" id="rate-display">€0,00/hora em jogo</div>
+            
+            <div class="controls">
+                <button class="btn-control btn-start" id="btn-start" onclick="startTimer()">
+                    <span>▶️</span> Começar
+                </button>
+                <button class="btn-control btn-pause hidden" id="btn-pause" onclick="pauseTimer()">
+                    <span>⏸️</span> Pausar
+                </button>
+                <button class="btn-control btn-reset" onclick="resetTimer()">
+                    <span>🔄</span> Reset
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Card -->
+        <div class="card" id="stats-card">
+            <div class="card-title">
+                <span>📊</span> Estatísticas
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value neutral" id="stat-attendees">0</div>
+                    <div class="stat-label">Participantes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value good" id="stat-hourly">€0</div>
+                    <div class="stat-label">Custo/Hora</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value warning" id="stat-minute">€0,00</div>
+                    <div class="stat-label">Custo/Minuto</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value neutral" id="stat-second">€0,00</div>
+                    <div class="stat-label">Custo/Segundo</div>
+                </div>
+            </div>
+
+            <div class="equivalents" id="equivalents">
+                <!-- Dynamic equivalents -->
+            </div>
+
+            <div class="fun-fact" id="fun-fact">
+                💡 <strong>Dica:</strong> Adiciona participantes para ver o custo real da reunião!
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Construído por <a href="#">Safira</a> 🌙 — Uma overnight build para o Guilherme</p>
+            <p style="margin-top: 8px; font-size: 0.8rem;">Porque tempo é literalmente dinheiro 💸</p>
+        </footer>
+    </div>
+
+    <script>
+        // State
+        let attendees = [];
+        let timer = null;
+        let elapsedSeconds = 0;
+        let isRunning = false;
+
+        // Default hourly rates for quick presets
+        const presets = {
+            'CEO': 150,
+            'Manager': 80,
+            'Developer': 60,
+            'Designer': 55,
+            'Marketing': 50,
+            'Sales': 45,
+            'Support': 35,
+            'Estagiário': 15
+        };
+
+        // Fun facts database
+        const funFacts = [
+            'Uma reunião de 1h com 8 pessoas custa o mesmo que 1 reunião de 8h com 1 pessoa. Escolhe bem.',
+            'Segundo a Harvard Business Review, 71% dos gestores consideram reuniões improdutivas.',
+            'A Amazon tem a regra das "2 pizzas": se não consegues alimentar o grupo com 2 pizzas, há gente a mais.',
+            'Jeff Bezos proíbe PowerPoints nas reuniões. Em vez disso, 6 páginas de texto e 30 min de leitura silenciosa.',
+            'Reuniões sem agenda custam, em média, 40% mais tempo do que reuniões preparadas.',
+            'Cada interrupção custa ~23 minutos de foco perdido. Reuniões são interrupções programadas.',
+            'O custo médio de uma reunião em empresas Fortune 500 é de $15.000. Por reunião.',
+            'Elon Musk: "Sai de uma reunião ou desliga se não estás a contribuir. Não é rude."'
+        ];
+
+        // Initialize with 2 default attendees
+        function init() {
+            addAttendee('', 50);
+            addAttendee('', 50);
+            updateStats();
+            showRandomFact();
+        }
+
+        // Add attendee
+        function addAttendee(name = '', rate = 40) {
+            const id = Date.now();
+            attendees.push({ id, name, rate });
+            renderAttendees();
+            updateStats();
+        }
+
+        // Remove attendee
+        function removeAttendee(id) {
+            attendees = attendees.filter(a => a.id !== id);
+            renderAttendees();
+            updateStats();
+        }
+
+        // Render attendees list
+        function renderAttendees() {
+            const container = document.getElementById('attendees-list');
+            container.innerHTML = attendees.map((attendee, index) => `
+                <div class="attendee-row">
+                    <input type="text" 
+                           placeholder="Nome (opcional)" 
+                           value="${attendee.name}"
+                           onchange="updateAttendee(${attendee.id}, 'name', this.value)">
+                    <input type="number" 
+                           placeholder="€/h" 
+                           value="${attendee.rate}"
+                           min="0"
+                           onchange="updateAttendee(${attendee.id}, 'rate', parseFloat(this.value) || 0)">
+                    <button class="btn-remove" onclick="removeAttendee(${attendee.id})" title="Remover">
+                        ×
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Update attendee
+        function updateAttendee(id, field, value) {
+            const attendee = attendees.find(a => a.id === id);
+            if (attendee) {
+                attendee[field] = value;
+                updateStats();
+            }
+        }
+
+        // Calculate total hourly cost
+        function getTotalHourlyRate() {
+            return attendees.reduce((sum, a) => sum + (a.rate || 0), 0);
+        }
+
+        // Update statistics
+        function updateStats() {
+            const hourlyRate = getTotalHourlyRate();
+            const minuteRate = hourlyRate / 60;
+            const secondRate = hourlyRate / 3600;
+
+            document.getElementById('stat-attendees').textContent = attendees.length;
+            document.getElementById('stat-hourly').textContent = '€' + hourlyRate.toFixed(0);
+            document.getElementById('stat-minute').textContent = '€' + minuteRate.toFixed(2);
+            document.getElementById('stat-second').textContent = '€' + secondRate.toFixed(3);
+            document.getElementById('rate-display').textContent = `€${hourlyRate.toFixed(0)}/hora em jogo`;
+
+            updateEquivalents();
+        }
+
+        // Update equivalents based on current cost
+        function updateEquivalents() {
+            const cost = getCurrentCost();
+            const container = document.getElementById('equivalents');
+            
+            if (cost < 1) {
+                container.innerHTML = '';
+                return;
+            }
+
+            const equivalents = [
+                { emoji: '☕', item: 'cafés', price: 1.5 },
+                { emoji: '🍺', item: 'imperiais', price: 2.5 },
+                { emoji: '🍕', item: 'pizzas', price: 12 },
+                { emoji: '🎬', item: 'bilhetes cinema', price: 8 },
+                { emoji: '📚', item: 'livros', price: 15 },
+                { emoji: '🎧', item: 'meses Spotify', price: 10 },
+                { emoji: '🍔', item: 'menus McDonald\'s', price: 9 }
+            ];
+
+            const relevant = equivalents
+                .map(e => ({ ...e, count: Math.floor(cost / e.price) }))
+                .filter(e => e.count >= 1)
+                .slice(0, 3);
+
+            container.innerHTML = relevant.map(e => `
+                <div class="equivalent-item">
+                    <span class="equivalent-emoji">${e.emoji}</span>
+                    <span>Equivale a <strong>${e.count} ${e.item}</strong></span>
+                </div>
+            `).join('');
+        }
+
+        // Get current cost
+        function getCurrentCost() {
+            const secondRate = getTotalHourlyRate() / 3600;
+            return elapsedSeconds * secondRate;
+        }
+
+        // Format time
+        function formatTime(totalSeconds) {
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            return [hours, minutes, seconds]
+                .map(n => n.toString().padStart(2, '0'))
+                .join(':');
+        }
+
+        // Format currency
+        function formatCurrency(amount) {
+            return '€' + amount.toFixed(2).replace('.', ',');
+        }
+
+        // Update display
+        function updateDisplay() {
+            document.getElementById('time-display').textContent = formatTime(elapsedSeconds);
+            
+            const cost = getCurrentCost();
+            const costDisplay = document.getElementById('cost-display');
+            costDisplay.textContent = formatCurrency(cost);
+            
+            // Trigger burn animation every €10
+            if (cost > 0 && Math.floor(cost) % 10 === 0 && cost === Math.floor(cost)) {
+                costDisplay.classList.add('burning');
+                setTimeout(() => costDisplay.classList.remove('burning'), 500);
+            }
+
+            updateEquivalents();
+        }
+
+        // Start timer
+        function startTimer() {
+            if (isRunning) return;
+            
+            isRunning = true;
+            document.getElementById('btn-start').classList.add('hidden');
+            document.getElementById('btn-pause').classList.remove('hidden');
+            document.getElementById('timer-section').classList.add('running');
+
+            timer = setInterval(() => {
+                elapsedSeconds++;
+                updateDisplay();
+            }, 1000);
+        }
+
+        // Pause timer
+        function pauseTimer() {
+            if (!isRunning) return;
+
+            isRunning = false;
+            clearInterval(timer);
+            document.getElementById('btn-start').classList.remove('hidden');
+            document.getElementById('btn-pause').classList.add('hidden');
+            document.getElementById('timer-section').classList.remove('running');
+        }
+
+        // Reset timer
+        function resetTimer() {
+            pauseTimer();
+            elapsedSeconds = 0;
+            updateDisplay();
+            showRandomFact();
+        }
+
+        // Show random fun fact
+        function showRandomFact() {
+            const fact = funFacts[Math.floor(Math.random() * funFacts.length)];
+            document.getElementById('fun-fact').innerHTML = `💡 <strong>Dica:</strong> ${fact}`;
+        }
+
+        // Initialize on load
+        init();
+    </script>
+</body>
+</html>
