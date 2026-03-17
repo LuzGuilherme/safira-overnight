@@ -1,7 +1,58 @@
 {
-  "generated": "2026-03-16T01:05:58.000000Z",
-  "count": 39,
+  "generated": "2026-03-17T01:05:00.000000Z",
+  "count": 40,
   "digests": [
+    {
+      "id": "2026-03-17-doac-daniel-priestley-ai-2029",
+      "filename": "2026-03-16-doac-daniel-priestley-ai-2029.md",
+      "date": "2026-03-17",
+      "title": "Daniel Priestley: Plumbers Will Earn More Than Lawyers (AI Warning 2029)",
+      "host": "Diary of a CEO (Steven Bartlett)",
+      "guest": "Daniel Priestley (Dent Global, ScoreApp)",
+      "duration": "~2h",
+      "link": "https://www.youtube.com/watch?v=fpETS6q1Hww",
+      "theme": "AI disruption, potencial crash 2029, lifestyle businesses, skills que sobrevivem",
+      "tldr": "Daniel Priestley alerta para potencial crise financeira em 2029 causada pelo investimento massivo em data centers AI (vida útil de apenas 3-4 anos). Apesar disso, AI cria oportunidades massivas para lifestyle businesses - empresas pequenas (5-10 pessoas) que agora podem fazer o que antes requeria 50+ pessoas e milhões em funding.",
+      "insights": [
+        {
+          "insight": "Data centers duram 3-4 anos mas $650B investidos",
+          "why": "Modelo financeiro insustentável - crash potencial 2029"
+        },
+        {
+          "insight": "Jevons Paradox: YouTube destruiu Hollywood mas criou 500-600K novos jobs",
+          "why": "Disruption cria empregos inesperados em escala democratizada"
+        },
+        {
+          "insight": "SaaS agora: 2 pessoas + 500 clientes em vez de 50 pessoas + €5M",
+          "why": "Barreira de entrada caiu drasticamente"
+        },
+        {
+          "insight": "Blue collar renaissance: plumbers > advogados",
+          "why": "Trabalho físico = escasso e local; trabalho cognitivo = comoditizado"
+        },
+        {
+          "insight": "1-5M revenue com 10 pessoas totalmente possível",
+          "why": "Lifestyle business mais fácil que nunca, big business mais difícil"
+        }
+      ],
+      "quotes": [
+        "Estamos a viver o tempo mais interessante, oportunístico e aterrorizante para ser empreendedor.",
+        "É provavelmente mais difícil que nunca construir um negócio grande, mas mais fácil que nunca construir um negócio pequeno bem sucedido.",
+        "A cada vez que vais ao AI, o teu pedido vai para um computador num edifício do tamanho do Walmart algures."
+      ],
+      "rating": 4.8,
+      "tags": [
+        "DOAC",
+        "DanielPriestley",
+        "AI",
+        "2029Warning",
+        "JevonsParadox",
+        "LifestyleBusiness",
+        "SaaS",
+        "BlueCollar",
+        "Entrepreneurship"
+      ]
+    },
     {
       "id": "2026-03-16-allin-emil-michael",
       "filename": "2026-03-16-allin-emil-michael.md",
