@@ -1,7 +1,56 @@
 {
-  "generated": "2026-03-17T01:05:00.000000Z",
-  "count": 40,
+  "generated": "2026-03-18T01:00:00.000000Z",
+  "count": 41,
   "digests": [
+    {
+      "id": "2026-03-18-mfm-dhh-bootstrapping",
+      "filename": "mfm-806-dhh-bootstrapping-wisdom.md",
+      "date": "2026-03-18",
+      "title": "DHH: 00M+ Advice on Bootstrapping, Taste vs Data",
+      "host": "My First Million (Sam Parr + Shaan Puri)",
+      "guest": "David Heinemeier Hansson (DHH) — Co-founder 37signals, Creator Ruby on Rails",
+      "duration": "~1h 16m",
+      "link": "https://www.youtube.com/watch?v=9xOaqIkaBZQ",
+      "theme": "Bootstrapping, out-teach not out-spend, constraints breed creativity",
+      "tldr": "DHH partilha 25 anos de lições sobre construir empresas bootstrapped. Margens altas dão liberdade para ignorar métricas e seguir intuição. Defende que ignorância dos jovens é vantagem para inovação, e que constraints breed creativity - Ruby on Rails nasceu porque não tinham dinheiro.",
+      "insights": [
+        {
+          "insight": "Out-teach, not out-spend",
+          "why": "Sem VC, partilhar conhecimento é marketing"
+        },
+        {
+          "insight": "Constraints breed creativity",
+          "why": "Ruby on Rails nasceu da escassez"
+        },
+        {
+          "insight": "Taste > Data (quando tens margem)",
+          "why": "Jason nem sabe conversion rate do hey.com"
+        },
+        {
+          "insight": "Resulting é um erro",
+          "why": "Avaliar decisões pelo processo, não outcome"
+        },
+        {
+          "insight": "Never grind",
+          "why": "Grinding is stupid shit you do in WoW when you are a peon"
+        }
+      ],
+      "quotes": [
+        "Grinding is the stupid shit you do in World of Warcraft when you are a peon.",
+        "VCs have gotten tremendously rich being right 10% of the time.",
+        "If we had raised $20 million, we would never have come up with Ruby on Rails."
+      ],
+      "rating": 5.0,
+      "tags": [
+        "MFM",
+        "DHH",
+        "bootstrapping",
+        "taste-vs-data",
+        "ruby-on-rails",
+        "37signals",
+        "constraints"
+      ]
+    },
     {
       "id": "2026-03-17-doac-daniel-priestley-ai-2029",
       "filename": "2026-03-16-doac-daniel-priestley-ai-2029.md",
