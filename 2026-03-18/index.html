@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profit First Calculator — For Micro-SaaS Founders</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #000000;
+      --white: #ffffff;
+      --gray-100: #f7f7f7;
+      --gray-200: #e5e5e5;
+      --gray-300: #d4d4d4;
+      --gray-400: #a3a3a3;
+      --gray-500: #737373;
+      --gray-600: #525252;
+      --accent: #000000;
+      --success: #16a34a;
+      --warning: #ca8a04;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    /* Typography */
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: var(--gray-600);
+      max-width: 560px;
+      margin-bottom: 64px;
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+    }
+
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      h1 {
+        font-size: 32px;
+      }
+      .container {
+        padding: 40px 20px;
+      }
+    }
+
+    /* Input Section */
+    .input-section {
+      border-right: 1px solid var(--gray-200);
+      padding-right: 64px;
+    }
+
+    @media (max-width: 768px) {
+      .input-section {
+        border-right: none;
+        border-bottom: 1px solid var(--gray-200);
+        padding-right: 0;
+        padding-bottom: 48px;
+      }
+    }
+
+    .form-group {
+      margin-bottom: 40px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 12px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .currency {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--gray-400);
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 16px 16px 16px 40px;
+      font-size: 32px;
+      font-weight: 600;
+      font-family: inherit;
+      border: 2px solid var(--black);
+      background: var(--white);
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    input[type="number"]:focus {
+      background: var(--gray-100);
+    }
+
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Phase Selector */
+    .phase-selector {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .phase-option {
+      display: flex;
+      align-items: flex-start;
+      padding: 16px;
+      border: 2px solid var(--gray-200);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .phase-option:hover {
+      border-color: var(--gray-400);
+    }
+
+    .phase-option.active {
+      border-color: var(--black);
+      background: var(--gray-100);
+    }
+
+    .phase-radio {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--gray-400);
+      border-radius: 50%;
+      margin-right: 16px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .phase-option.active .phase-radio {
+      border-color: var(--black);
+    }
+
+    .phase-option.active .phase-radio::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      background: var(--black);
+      border-radius: 50%;
+    }
+
+    .phase-content h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .phase-content p {
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    /* Output Section */
+    .output-section h2 {
+      margin-bottom: 24px;
+    }
+
+    .allocation-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .allocation-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .allocation-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .allocation-label {
+      flex: 1;
+    }
+
+    .allocation-label h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .allocation-label p {
+      font-size: 13px;
+      color: var(--gray-500);
+      max-width: 200px;
+    }
+
+    .allocation-values {
+      text-align: right;
+    }
+
+    .allocation-amount {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .allocation-percent {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-500);
+    }
+
+    /* Visual Bar */
+    .visual-bar {
+      margin-top: 48px;
+      padding-top: 48px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .bar-container {
+      height: 48px;
+      display: flex;
+      border: 2px solid var(--black);
+      overflow: hidden;
+    }
+
+    .bar-segment {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: width 0.4s ease;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .bar-segment.profit {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .bar-segment.owner {
+      background: var(--gray-300);
+      color: var(--black);
+    }
+
+    .bar-segment.tax {
+      background: var(--gray-200);
+      color: var(--black);
+    }
+
+    .bar-segment.opex {
+      background: var(--gray-100);
+      color: var(--black);
+    }
+
+    .bar-legend {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 16px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--gray-600);
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+    }
+
+    .legend-dot.profit { background: var(--black); }
+    .legend-dot.owner { background: var(--gray-300); }
+    .legend-dot.tax { background: var(--gray-200); }
+    .legend-dot.opex { background: var(--gray-100); border: 1px solid var(--gray-300); }
+
+    /* Tips */
+    .tips-section {
+      margin-top: 64px;
+      padding-top: 64px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .tips-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tip-card {
+      padding: 24px;
+      background: var(--gray-100);
+    }
+
+    .tip-card h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .tip-card p {
+      font-size: 13px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 80px;
+      padding-top: 24px;
+      border-top: 1px solid var(--gray-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    footer p {
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    footer a {
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Empty state */
+    .empty-state {
+      color: var(--gray-400);
+      font-size: 14px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h2>Micro-SaaS Financial Planning</h2>
+      <h1>Profit First Calculator</h1>
+      <p class="subtitle">Allocate your revenue the smart way. Based on the Profit First methodology adapted for software businesses.</p>
+    </header>
+
+    <div class="grid">
+      <div class="input-section">
+        <div class="form-group">
+          <label>Monthly Revenue</label>
+          <div class="input-wrapper">
+            <span class="currency">$</span>
+            <input type="number" id="revenue" placeholder="5000" min="0" step="100">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Business Phase</label>
+          <div class="phase-selector">
+            <div class="phase-option active" data-phase="startup">
+              <div class="phase-radio"></div>
+              <div class="phase-content">
+                <h3>Startup</h3>
+                <p>Under $10K MRR — Focus on growth & survival</p>
+              </div>
+            </div>
+            <div class="phase-option" data-phase="growth">
+              <div class="phase-radio"></div>
+              <div class="phase-content">
+                <h3>Growth</h3>
+                <p>$10K–$50K MRR — Balancing profit & expansion</p>
+              </div>
+            </div>
+            <div class="phase-option" data-phase="scale">
+              <div class="phase-radio"></div>
+              <div class="phase-content">
+                <h3>Scale</h3>
+                <p>Over $50K MRR — Optimizing for sustainability</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="output-section">
+        <h2>Your Allocation</h2>
+        
+        <div id="results">
+          <p class="empty-state">Enter your monthly revenue to see the breakdown.</p>
+        </div>
+
+        <div class="visual-bar" id="visual-bar" style="display: none;">
+          <h2>Visual Breakdown</h2>
+          <div class="bar-container">
+            <div class="bar-segment profit" id="bar-profit">PROFIT</div>
+            <div class="bar-segment owner" id="bar-owner">PAY</div>
+            <div class="bar-segment tax" id="bar-tax">TAX</div>
+            <div class="bar-segment opex" id="bar-opex">OPEX</div>
+          </div>
+          <div class="bar-legend">
+            <div class="legend-item">
+              <div class="legend-dot profit"></div>
+              <span>Profit</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot owner"></div>
+              <span>Owner's Pay</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot tax"></div>
+              <span>Tax Reserve</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot opex"></div>
+              <span>Operating Expenses</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="tips-section">
+      <h2>Profit First Principles</h2>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <h4>1. Pay Yourself First</h4>
+          <p>Before paying any expenses, allocate to Profit and Owner's Pay. This forces your business to operate on what remains.</p>
+        </div>
+        <div class="tip-card">
+          <h4>2. Use Separate Accounts</h4>
+          <p>Open 4 bank accounts (or sub-accounts): Profit, Owner's Pay, Tax, and Operating Expenses. Transfer on the 1st and 15th.</p>
+        </div>
+        <div class="tip-card">
+          <h4>3. Small Plates Theory</h4>
+          <p>By limiting your OpEx account, you'll find creative ways to operate leaner. Constraints breed innovation.</p>
+        </div>
+        <div class="tip-card">
+          <h4>4. Quarterly Profit Distribution</h4>
+          <p>Every quarter, take 50% of your Profit account as a reward. The other 50% stays as a cash buffer.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>Built for indie hackers & micro-SaaS founders</p>
+      <p>
+        <a href="https://github.com/LuzGuilherme/safira-overnight" target="_blank">View Source</a>
+        · Overnight Build by Safira
+      </p>
+    </footer>
+  </main>
+
+  <script>
+    // Profit First percentages by phase (adapted for SaaS)
+    const allocations = {
+      startup: {
+        profit: 5,
+        owner: 30,
+        tax: 15,
+        opex: 50,
+        descriptions: {
+          profit: "Build your safety net first, even if small.",
+          owner: "Cover your basic living expenses.",
+          tax: "Avoid nasty surprises at tax time.",
+          opex: "Tools, hosting, marketing, contractors."
+        }
+      },
+      growth: {
+        profit: 10,
+        owner: 35,
+        tax: 15,
+        opex: 40,
+        descriptions: {
+          profit: "Growing your cash reserves.",
+          owner: "Paying yourself a proper salary.",
+          tax: "Set aside for taxes consistently.",
+          opex: "Invest in growth strategically."
+        }
+      },
+      scale: {
+        profit: 15,
+        owner: 40,
+        tax: 15,
+        opex: 30,
+        descriptions: {
+          profit: "Building real wealth from your business.",
+          owner: "Competitive salary for your role.",
+          tax: "Tax planning becomes more important.",
+          opex: "Lean operations, maximum efficiency."
+        }
+      }
+    };
+
+    const revenueInput = document.getElementById('revenue');
+    const resultsContainer = document.getElementById('results');
+    const visualBar = document.getElementById('visual-bar');
+    const phaseOptions = document.querySelectorAll('.phase-option');
+    
+    let currentPhase = 'startup';
+
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(amount);
+    }
+
+    function calculate() {
+      const revenue = parseFloat(revenueInput.value) || 0;
+      
+      if (revenue <= 0) {
+        resultsContainer.innerHTML = '<p class="empty-state">Enter your monthly revenue to see the breakdown.</p>';
+        visualBar.style.display = 'none';
+        return;
+      }
+
+      const alloc = allocations[currentPhase];
+      
+      const amounts = {
+        profit: revenue * (alloc.profit / 100),
+        owner: revenue * (alloc.owner / 100),
+        tax: revenue * (alloc.tax / 100),
+        opex: revenue * (alloc.opex / 100)
+      };
+
+      resultsContainer.innerHTML = `
+        <div class="allocation-list">
+          <div class="allocation-item">
+            <div class="allocation-label">
+              <h4>Profit</h4>
+              <p>${alloc.descriptions.profit}</p>
+            </div>
+            <div class="allocation-values">
+              <div class="allocation-amount">${formatCurrency(amounts.profit)}</div>
+              <div class="allocation-percent">${alloc.profit}%</div>
+            </div>
+          </div>
+          <div class="allocation-item">
+            <div class="allocation-label">
+              <h4>Owner's Pay</h4>
+              <p>${alloc.descriptions.owner}</p>
+            </div>
+            <div class="allocation-values">
+              <div class="allocation-amount">${formatCurrency(amounts.owner)}</div>
+              <div class="allocation-percent">${alloc.owner}%</div>
+            </div>
+          </div>
+          <div class="allocation-item">
+            <div class="allocation-label">
+              <h4>Tax Reserve</h4>
+              <p>${alloc.descriptions.tax}</p>
+            </div>
+            <div class="allocation-values">
+              <div class="allocation-amount">${formatCurrency(amounts.tax)}</div>
+              <div class="allocation-percent">${alloc.tax}%</div>
+            </div>
+          </div>
+          <div class="allocation-item">
+            <div class="allocation-label">
+              <h4>Operating Expenses</h4>
+              <p>${alloc.descriptions.opex}</p>
+            </div>
+            <div class="allocation-values">
+              <div class="allocation-amount">${formatCurrency(amounts.opex)}</div>
+              <div class="allocation-percent">${alloc.opex}%</div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Update visual bar
+      visualBar.style.display = 'block';
+      document.getElementById('bar-profit').style.width = `${alloc.profit}%`;
+      document.getElementById('bar-owner').style.width = `${alloc.owner}%`;
+      document.getElementById('bar-tax').style.width = `${alloc.tax}%`;
+      document.getElementById('bar-opex').style.width = `${alloc.opex}%`;
+    }
+
+    // Event listeners
+    revenueInput.addEventListener('input', calculate);
+
+    phaseOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        phaseOptions.forEach(o => o.classList.remove('active'));
+        option.classList.add('active');
+        currentPhase = option.dataset.phase;
+        calculate();
+      });
+    });
+
+    // Initialize
+    calculate();
+  </script>
+</body>
+</html>
