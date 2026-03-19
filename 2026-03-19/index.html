@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Decision Journal — Learn From Every Choice</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fafaf9;
+            --bg-card: #ffffff;
+            --text: #1c1917;
+            --text-secondary: #57534e;
+            --text-muted: #a8a29e;
+            --accent: #b45309;
+            --accent-soft: #fef3c7;
+            --border: #e7e5e4;
+            --border-strong: #d6d3d1;
+            --success: #15803d;
+            --success-soft: #dcfce7;
+            --warning: #b45309;
+            --warning-soft: #fef3c7;
+            --error: #b91c1c;
+            --error-soft: #fee2e2;
+            --neutral: #6b7280;
+            --neutral-soft: #f3f4f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2.75rem;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .tagline {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* Stats */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
+        }
+
+        .tab {
+            padding: 0.625rem 1.25rem;
+            background: none;
+            border: 1px solid transparent;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.15s ease;
+        }
+
+        .tab:hover {
+            color: var(--text);
+            background: var(--bg-card);
+        }
+
+        .tab.active {
+            color: var(--text);
+            background: var(--bg-card);
+            border-color: var(--border);
+        }
+
+        /* Card */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .label-hint {
+            font-weight: 400;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9375rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background: var(--bg);
+            color: var(--text);
+            transition: border-color 0.15s ease;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .btn-primary {
+            background: var(--text);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #292524;
+        }
+
+        .btn-secondary {
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text);
+        }
+
+        .btn-small {
+            padding: 0.5rem 0.875rem;
+            font-size: 0.8125rem;
+        }
+
+        /* Decision List */
+        .decision-list {
+            list-style: none;
+        }
+
+        .decision-item {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .decision-item:last-child {
+            border-bottom: none;
+        }
+
+        .decision-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .decision-title {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        .decision-title:hover {
+            color: var(--accent);
+        }
+
+        .decision-meta {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .decision-category {
+            display: inline-block;
+            padding: 0.25rem 0.625rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background: var(--neutral-soft);
+            color: var(--neutral);
+            border-radius: 3px;
+        }
+
+        .decision-status {
+            padding: 0.25rem 0.625rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border-radius: 3px;
+        }
+
+        .status-pending {
+            background: var(--neutral-soft);
+            color: var(--neutral);
+        }
+
+        .status-success {
+            background: var(--success-soft);
+            color: var(--success);
+        }
+
+        .status-mixed {
+            background: var(--warning-soft);
+            color: var(--warning);
+        }
+
+        .status-failed {
+            background: var(--error-soft);
+            color: var(--error);
+        }
+
+        .decision-excerpt {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Decision Detail */
+        .decision-detail {
+            display: none;
+        }
+
+        .decision-detail.visible {
+            display: block;
+        }
+
+        .detail-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-content {
+            font-size: 0.9375rem;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .options-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .options-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .options-list li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: var(--text-muted);
+        }
+
+        .options-list li.chosen {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .options-list li.chosen::before {
+            content: "→";
+            color: var(--accent);
+        }
+
+        /* Review Section */
+        .review-box {
+            background: var(--accent-soft);
+            border: 1px solid #fcd34d;
+            border-radius: 6px;
+            padding: 1.25rem;
+            margin-top: 1rem;
+        }
+
+        .review-box.completed {
+            background: var(--success-soft);
+            border-color: #86efac;
+        }
+
+        .review-title {
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-content {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-chip {
+            padding: 0.375rem 0.875rem;
+            font-size: 0.8125rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .filter-chip:hover,
+        .filter-chip.active {
+            background: var(--text);
+            color: white;
+            border-color: var(--text);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            color: var(--text-muted);
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-title {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Insights */
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .insight-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .insight-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.25rem;
+        }
+
+        .insight-value {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .insight-label {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .insight-trend {
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .trend-up {
+            color: var(--success);
+        }
+
+        .trend-down {
+            color: var(--error);
+        }
+
+        /* Quote */
+        blockquote {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.25rem;
+            font-style: italic;
+            color: var(--text-secondary);
+            border-left: 3px solid var(--accent);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        blockquote cite {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            font-style: normal;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-text {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .footer-link:hover {
+            color: var(--accent);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(28, 25, 23, 0.5);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-overlay.visible {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .modal-close:hover {
+            color: var(--text);
+        }
+
+        /* Actions */
+        .actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Hidden */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">The Decision Journal</div>
+            <h1>Learn From Every Choice</h1>
+            <p class="tagline">Document your decisions, track outcomes, and build wisdom over time. The best founders learn systematically.</p>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value" id="total-decisions">0</div>
+                    <div class="stat-label">Decisions</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="reviewed-count">0</div>
+                    <div class="stat-label">Reviewed</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="success-rate">—</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+            </div>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab active" data-tab="journal">Journal</button>
+            <button class="tab" data-tab="new">+ New Decision</button>
+            <button class="tab" data-tab="review">Pending Review</button>
+            <button class="tab" data-tab="insights">Insights</button>
+        </nav>
+
+        <!-- Journal Tab -->
+        <section id="tab-journal" class="tab-content">
+            <div class="filters">
+                <button class="filter-chip active" data-filter="all">All</button>
+                <button class="filter-chip" data-filter="business">Business</button>
+                <button class="filter-chip" data-filter="product">Product</button>
+                <button class="filter-chip" data-filter="hiring">Hiring</button>
+                <button class="filter-chip" data-filter="personal">Personal</button>
+            </div>
+
+            <div id="decisions-list">
+                <ul class="decision-list" id="decision-list-ul">
+                    <!-- Decisions will be rendered here -->
+                </ul>
+                <div class="empty-state hidden" id="empty-state">
+                    <div class="empty-icon">📓</div>
+                    <div class="empty-title">No decisions yet</div>
+                    <p>Start documenting your decisions to learn from them over time.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Decision Tab -->
+        <section id="tab-new" class="tab-content hidden">
+            <div class="card">
+                <h2 class="card-title">Record a Decision</h2>
+                <form id="decision-form">
+                    <div class="form-group">
+                        <label for="decision-title">What decision are you making?</label>
+                        <input type="text" id="decision-title" placeholder="e.g., Switching from Stripe to Paddle" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="decision-category">Category</label>
+                            <select id="decision-category">
+                                <option value="business">Business</option>
+                                <option value="product">Product</option>
+                                <option value="hiring">Hiring</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="personal">Personal</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="review-date">Review Date</label>
+                            <input type="date" id="review-date" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="decision-context">Context <span class="label-hint">— Why is this decision needed now?</span></label>
+                        <textarea id="decision-context" placeholder="What situation or problem prompted this decision?"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="decision-options">Options Considered <span class="label-hint">— One per line</span></label>
+                        <textarea id="decision-options" placeholder="Option A: Stay with current solution&#10;Option B: Switch to alternative&#10;Option C: Build custom solution"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="chosen-option">Chosen Option</label>
+                        <input type="text" id="chosen-option" placeholder="e.g., Option B">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="decision-reasoning">Why this choice? <span class="label-hint">— Your reasoning at time of decision</span></label>
+                        <textarea id="decision-reasoning" placeholder="What factors influenced your decision? What trade-offs did you accept?"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expected-outcome">Expected Outcome <span class="label-hint">— How will you know if this worked?</span></label>
+                        <textarea id="expected-outcome" placeholder="What does success look like? What metrics or outcomes are you expecting?"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confidence-level">Confidence Level</label>
+                        <select id="confidence-level">
+                            <option value="high">High — Very confident this is right</option>
+                            <option value="medium" selected>Medium — Reasonable confidence</option>
+                            <option value="low">Low — Uncertain, but deciding anyway</option>
+                        </select>
+                    </div>
+
+                    <div class="actions">
+                        <button type="submit" class="btn btn-primary">Save Decision</button>
+                        <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear</button>
+                    </div>
+                </form>
+            </div>
+
+            <blockquote>
+                "Good judgment comes from experience, and experience comes from bad judgment."
+                <cite>— Rita Mae Brown</cite>
+            </blockquote>
+        </section>
+
+        <!-- Review Tab -->
+        <section id="tab-review" class="tab-content hidden">
+            <div id="pending-reviews">
+                <ul class="decision-list" id="review-list-ul">
+                    <!-- Pending reviews will be rendered here -->
+                </ul>
+                <div class="empty-state hidden" id="review-empty-state">
+                    <div class="empty-icon">✓</div>
+                    <div class="empty-title">All caught up!</div>
+                    <p>No decisions pending review. Check back later.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Insights Tab -->
+        <section id="tab-insights" class="tab-content hidden">
+            <div class="insight-grid" id="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-value" id="insight-total">0</div>
+                    <div class="insight-label">Total Decisions</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-value" id="insight-success">—</div>
+                    <div class="insight-label">Success Rate</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-value" id="insight-high-conf">—</div>
+                    <div class="insight-label">High Confidence Accuracy</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-value" id="insight-low-conf">—</div>
+                    <div class="insight-label">Low Confidence Accuracy</div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 1.5rem;">
+                <h2 class="card-title">Decision Patterns</h2>
+                <div id="patterns-content">
+                    <p class="empty-state" style="padding: 1rem 0;">
+                        Record and review more decisions to see patterns emerge.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">Category Breakdown</h2>
+                <div id="category-breakdown">
+                    <!-- Category stats will be rendered here -->
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p class="footer-text">
+                Built with intention · <a href="#" class="footer-link" onclick="exportData()">Export Data</a> · <a href="#" class="footer-link" onclick="importData()">Import</a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Review Modal -->
+    <div class="modal-overlay" id="review-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Review: <span id="modal-decision-title"></span></h3>
+                <button class="modal-close" onclick="closeReviewModal()">&times;</button>
+            </div>
+            <div id="modal-content">
+                <div class="detail-section">
+                    <div class="detail-label">Original Context</div>
+                    <div class="detail-content" id="modal-context"></div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-label">What You Chose</div>
+                    <div class="detail-content" id="modal-chosen"></div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-label">Your Reasoning Then</div>
+                    <div class="detail-content" id="modal-reasoning"></div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-label">Expected Outcome</div>
+                    <div class="detail-content" id="modal-expected"></div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-label">Confidence at Decision Time</div>
+                    <div class="detail-content" id="modal-confidence"></div>
+                </div>
+                <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border);">
+                <form id="review-form">
+                    <input type="hidden" id="review-decision-id">
+                    <div class="form-group">
+                        <label for="actual-outcome">What Actually Happened?</label>
+                        <textarea id="actual-outcome" placeholder="Describe the actual outcome..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="outcome-rating">How did it turn out?</label>
+                        <select id="outcome-rating" required>
+                            <option value="">Select...</option>
+                            <option value="success">Success — Better than or as expected</option>
+                            <option value="mixed">Mixed — Some good, some bad</option>
+                            <option value="failed">Failed — Worse than expected</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="lessons-learned">Lessons Learned <span class="label-hint">— What would you do differently?</span></label>
+                        <textarea id="lessons-learned" placeholder="What did you learn from this decision?"></textarea>
+                    </div>
+                    <div class="actions">
+                        <button type="submit" class="btn btn-primary">Complete Review</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeReviewModal()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div class="modal-overlay" id="detail-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="detail-modal-title"></h3>
+                <button class="modal-close" onclick="closeDetailModal()">&times;</button>
+            </div>
+            <div id="detail-modal-content">
+                <!-- Decision details will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Management
+        const STORAGE_KEY = 'decision-journal-data';
+        
+        let decisions = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+        
+        function saveDecisions() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(decisions));
+            updateStats();
+            renderDecisions();
+            renderPendingReviews();
+            renderInsights();
+        }
+        
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+        
+        // Tab Navigation
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+                
+                tab.classList.add('active');
+                document.getElementById(`tab-${tab.dataset.tab}`).classList.remove('hidden');
+            });
+        });
+        
+        // Filter Chips
+        document.querySelectorAll('.filter-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                renderDecisions(chip.dataset.filter);
+            });
+        });
+        
+        // Form Submission
+        document.getElementById('decision-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const decision = {
+                id: generateId(),
+                title: document.getElementById('decision-title').value,
+                category: document.getElementById('decision-category').value,
+                reviewDate: document.getElementById('review-date').value,
+                context: document.getElementById('decision-context').value,
+                options: document.getElementById('decision-options').value.split('\n').filter(o => o.trim()),
+                chosenOption: document.getElementById('chosen-option').value,
+                reasoning: document.getElementById('decision-reasoning').value,
+                expectedOutcome: document.getElementById('expected-outcome').value,
+                confidence: document.getElementById('confidence-level').value,
+                createdAt: new Date().toISOString(),
+                reviewed: false,
+                review: null
+            };
+            
+            decisions.unshift(decision);
+            saveDecisions();
+            clearForm();
+            
+            // Switch to journal tab
+            document.querySelector('[data-tab="journal"]').click();
+        });
+        
+        // Review Form
+        document.getElementById('review-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const decisionId = document.getElementById('review-decision-id').value;
+            const decision = decisions.find(d => d.id === decisionId);
+            
+            if (decision) {
+                decision.reviewed = true;
+                decision.review = {
+                    actualOutcome: document.getElementById('actual-outcome').value,
+                    rating: document.getElementById('outcome-rating').value,
+                    lessonsLearned: document.getElementById('lessons-learned').value,
+                    reviewedAt: new Date().toISOString()
+                };
+                
+                saveDecisions();
+                closeReviewModal();
+            }
+        });
+        
+        function clearForm() {
+            document.getElementById('decision-form').reset();
+            // Set default review date to 30 days from now
+            const defaultDate = new Date();
+            defaultDate.setDate(defaultDate.getDate() + 30);
+            document.getElementById('review-date').value = defaultDate.toISOString().split('T')[0];
+        }
+        
+        // Rendering
+        function renderDecisions(filter = 'all') {
+            const container = document.getElementById('decision-list-ul');
+            const emptyState = document.getElementById('empty-state');
+            
+            let filtered = decisions;
+            if (filter !== 'all') {
+                filtered = decisions.filter(d => d.category === filter);
+            }
+            
+            if (filtered.length === 0) {
+                container.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+            
+            emptyState.classList.add('hidden');
+            container.innerHTML = filtered.map(d => renderDecisionItem(d)).join('');
+        }
+        
+        function renderDecisionItem(decision) {
+            const statusClass = decision.reviewed 
+                ? `status-${decision.review.rating}` 
+                : 'status-pending';
+            const statusText = decision.reviewed 
+                ? decision.review.rating.charAt(0).toUpperCase() + decision.review.rating.slice(1)
+                : 'Pending Review';
+            
+            const date = new Date(decision.createdAt).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            });
+            
+            return `
+                <li class="decision-item">
+                    <div class="decision-header">
+                        <span class="decision-title" onclick="showDecisionDetail('${decision.id}')">${escapeHtml(decision.title)}</span>
+                        <span class="decision-status ${statusClass}">${statusText}</span>
+                    </div>
+                    <div class="decision-meta">
+                        <span class="decision-category">${decision.category}</span>
+                        <span>${date}</span>
+                        <span>Confidence: ${decision.confidence}</span>
+                    </div>
+                    <p class="decision-excerpt">${escapeHtml(truncate(decision.context, 150))}</p>
+                </li>
+            `;
+        }
+        
+        function renderPendingReviews() {
+            const container = document.getElementById('review-list-ul');
+            const emptyState = document.getElementById('review-empty-state');
+            
+            const today = new Date().toISOString().split('T')[0];
+            const pending = decisions.filter(d => !d.reviewed && d.reviewDate <= today);
+            
+            if (pending.length === 0) {
+                container.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+            
+            emptyState.classList.add('hidden');
+            container.innerHTML = pending.map(d => `
+                <li class="decision-item">
+                    <div class="decision-header">
+                        <span class="decision-title">${escapeHtml(d.title)}</span>
+                        <button class="btn btn-primary btn-small" onclick="openReviewModal('${d.id}')">Review Now</button>
+                    </div>
+                    <div class="decision-meta">
+                        <span class="decision-category">${d.category}</span>
+                        <span>Due: ${new Date(d.reviewDate).toLocaleDateString()}</span>
+                    </div>
+                    <p class="decision-excerpt">${escapeHtml(truncate(d.expectedOutcome, 150))}</p>
+                </li>
+            `).join('');
+        }
+        
+        function renderInsights() {
+            const reviewed = decisions.filter(d => d.reviewed);
+            const total = decisions.length;
+            
+            document.getElementById('insight-total').textContent = total;
+            
+            if (reviewed.length > 0) {
+                const successCount = reviewed.filter(d => d.review.rating === 'success').length;
+                const successRate = Math.round((successCount / reviewed.length) * 100);
+                document.getElementById('insight-success').textContent = successRate + '%';
+                
+                // High confidence accuracy
+                const highConf = reviewed.filter(d => d.confidence === 'high');
+                if (highConf.length > 0) {
+                    const highSuccess = highConf.filter(d => d.review.rating === 'success').length;
+                    document.getElementById('insight-high-conf').textContent = Math.round((highSuccess / highConf.length) * 100) + '%';
+                }
+                
+                // Low confidence accuracy
+                const lowConf = reviewed.filter(d => d.confidence === 'low');
+                if (lowConf.length > 0) {
+                    const lowSuccess = lowConf.filter(d => d.review.rating === 'success').length;
+                    document.getElementById('insight-low-conf').textContent = Math.round((lowSuccess / lowConf.length) * 100) + '%';
+                }
+            }
+            
+            // Category breakdown
+            const categories = {};
+            decisions.forEach(d => {
+                if (!categories[d.category]) {
+                    categories[d.category] = { total: 0, reviewed: 0, success: 0 };
+                }
+                categories[d.category].total++;
+                if (d.reviewed) {
+                    categories[d.category].reviewed++;
+                    if (d.review.rating === 'success') {
+                        categories[d.category].success++;
+                    }
+                }
+            });
+            
+            const breakdownContainer = document.getElementById('category-breakdown');
+            if (Object.keys(categories).length > 0) {
+                breakdownContainer.innerHTML = Object.entries(categories).map(([cat, stats]) => {
+                    const rate = stats.reviewed > 0 ? Math.round((stats.success / stats.reviewed) * 100) : '—';
+                    return `
+                        <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--border);">
+                            <span style="text-transform: capitalize; font-weight: 500;">${cat}</span>
+                            <span style="color: var(--text-muted);">${stats.total} decisions · ${typeof rate === 'number' ? rate + '% success' : 'No reviews yet'}</span>
+                        </div>
+                    `;
+                }).join('');
+            } else {
+                breakdownContainer.innerHTML = '<p style="color: var(--text-muted); padding: 1rem 0;">No decisions recorded yet.</p>';
+            }
+        }
+        
+        // Stats
+        function updateStats() {
+            document.getElementById('total-decisions').textContent = decisions.length;
+            
+            const reviewed = decisions.filter(d => d.reviewed);
+            document.getElementById('reviewed-count').textContent = reviewed.length;
+            
+            if (reviewed.length > 0) {
+                const successCount = reviewed.filter(d => d.review.rating === 'success').length;
+                const rate = Math.round((successCount / reviewed.length) * 100);
+                document.getElementById('success-rate').textContent = rate + '%';
+            } else {
+                document.getElementById('success-rate').textContent = '—';
+            }
+        }
+        
+        // Modals
+        function openReviewModal(decisionId) {
+            const decision = decisions.find(d => d.id === decisionId);
+            if (!decision) return;
+            
+            document.getElementById('review-decision-id').value = decision.id;
+            document.getElementById('modal-decision-title').textContent = decision.title;
+            document.getElementById('modal-context').textContent = decision.context || '(No context provided)';
+            document.getElementById('modal-chosen').textContent = decision.chosenOption || '(Not specified)';
+            document.getElementById('modal-reasoning').textContent = decision.reasoning || '(No reasoning provided)';
+            document.getElementById('modal-expected').textContent = decision.expectedOutcome || '(No expected outcome specified)';
+            document.getElementById('modal-confidence').textContent = decision.confidence.charAt(0).toUpperCase() + decision.confidence.slice(1);
+            
+            document.getElementById('actual-outcome').value = '';
+            document.getElementById('outcome-rating').value = '';
+            document.getElementById('lessons-learned').value = '';
+            
+            document.getElementById('review-modal').classList.add('visible');
+        }
+        
+        function closeReviewModal() {
+            document.getElementById('review-modal').classList.remove('visible');
+        }
+        
+        function showDecisionDetail(decisionId) {
+            const decision = decisions.find(d => d.id === decisionId);
+            if (!decision) return;
+            
+            document.getElementById('detail-modal-title').textContent = decision.title;
+            
+            const options = decision.options.map(o => {
+                const isChosen = o.toLowerCase().includes(decision.chosenOption.toLowerCase());
+                return `<li class="${isChosen ? 'chosen' : ''}">${escapeHtml(o)}</li>`;
+            }).join('');
+            
+            let reviewHtml = '';
+            if (decision.reviewed) {
+                const ratingClass = decision.review.rating === 'success' ? 'completed' : '';
+                reviewHtml = `
+                    <div class="review-box ${ratingClass}">
+                        <div class="review-title">Review (${new Date(decision.review.reviewedAt).toLocaleDateString()})</div>
+                        <div class="detail-section" style="margin-bottom: 0.75rem;">
+                            <div class="detail-label">Outcome</div>
+                            <div class="detail-content">${decision.review.rating.charAt(0).toUpperCase() + decision.review.rating.slice(1)}</div>
+                        </div>
+                        <div class="detail-section" style="margin-bottom: 0.75rem;">
+                            <div class="detail-label">What Actually Happened</div>
+                            <div class="detail-content">${escapeHtml(decision.review.actualOutcome)}</div>
+                        </div>
+                        ${decision.review.lessonsLearned ? `
+                            <div class="detail-section" style="margin-bottom: 0;">
+                                <div class="detail-label">Lessons Learned</div>
+                                <div class="detail-content">${escapeHtml(decision.review.lessonsLearned)}</div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            } else {
+                const daysUntilReview = Math.ceil((new Date(decision.reviewDate) - new Date()) / (1000 * 60 * 60 * 24));
+                reviewHtml = `
+                    <div class="review-box">
+                        <div class="review-title">Review Scheduled</div>
+                        <div class="review-content">
+                            ${daysUntilReview > 0 
+                                ? `Review in ${daysUntilReview} day${daysUntilReview !== 1 ? 's' : ''} (${new Date(decision.reviewDate).toLocaleDateString()})`
+                                : `Review overdue! <button class="btn btn-primary btn-small" onclick="closeDetailModal(); openReviewModal('${decision.id}')">Review Now</button>`
+                            }
+                        </div>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('detail-modal-content').innerHTML = `
+                <div class="decision-meta" style="margin-bottom: 1.5rem;">
+                    <span class="decision-category">${decision.category}</span>
+                    <span>Decided: ${new Date(decision.createdAt).toLocaleDateString()}</span>
+                    <span>Confidence: ${decision.confidence}</span>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="detail-label">Context</div>
+                    <div class="detail-content">${escapeHtml(decision.context) || '(No context provided)'}</div>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="detail-label">Options Considered</div>
+                    <ul class="options-list">${options || '<li>(No options listed)</li>'}</ul>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="detail-label">Reasoning</div>
+                    <div class="detail-content">${escapeHtml(decision.reasoning) || '(No reasoning provided)'}</div>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="detail-label">Expected Outcome</div>
+                    <div class="detail-content">${escapeHtml(decision.expectedOutcome) || '(No expected outcome specified)'}</div>
+                </div>
+                
+                ${reviewHtml}
+                
+                <div class="actions">
+                    <button class="btn btn-secondary" onclick="deleteDecision('${decision.id}')">Delete Decision</button>
+                </div>
+            `;
+            
+            document.getElementById('detail-modal').classList.add('visible');
+        }
+        
+        function closeDetailModal() {
+            document.getElementById('detail-modal').classList.remove('visible');
+        }
+        
+        function deleteDecision(decisionId) {
+            if (confirm('Are you sure you want to delete this decision? This cannot be undone.')) {
+                decisions = decisions.filter(d => d.id !== decisionId);
+                saveDecisions();
+                closeDetailModal();
+            }
+        }
+        
+        // Export/Import
+        function exportData() {
+            const data = JSON.stringify(decisions, null, 2);
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `decision-journal-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        const imported = JSON.parse(event.target.result);
+                        if (Array.isArray(imported)) {
+                            if (confirm(`Import ${imported.length} decisions? This will merge with existing data.`)) {
+                                // Merge, avoiding duplicates by ID
+                                const existingIds = new Set(decisions.map(d => d.id));
+                                const newDecisions = imported.filter(d => !existingIds.has(d.id));
+                                decisions = [...newDecisions, ...decisions];
+                                saveDecisions();
+                                alert(`Imported ${newDecisions.length} new decisions.`);
+                            }
+                        }
+                    } catch (err) {
+                        alert('Invalid file format.');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+        
+        // Utilities
+        function escapeHtml(str) {
+            if (!str) return '';
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+        
+        function truncate(str, length) {
+            if (!str) return '';
+            return str.length > length ? str.substring(0, length) + '...' : str;
+        }
+        
+        // Close modals on overlay click
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('visible');
+                }
+            });
+        });
+        
+        // Close modals on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('visible'));
+            }
+        });
+        
+        // Initialize
+        clearForm();
+        updateStats();
+        renderDecisions();
+        renderPendingReviews();
+        renderInsights();
+        
+        // Add sample decisions if empty (for demo)
+        if (decisions.length === 0) {
+            const sampleDecisions = [
+                {
+                    id: generateId(),
+                    title: "Switch payment processor from Stripe to Paddle",
+                    category: "business",
+                    reviewDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                    context: "Stripe's invoicing doesn't handle EU VAT well. Spending 2+ hours/month on tax compliance. Paddle handles all of this but takes a higher cut (5% vs 2.9%).",
+                    options: [
+                        "Option A: Stay with Stripe, use a tax service like Quaderno",
+                        "Option B: Switch to Paddle (handles everything)",
+                        "Option C: Build internal invoicing system"
+                    ],
+                    chosenOption: "Option B",
+                    reasoning: "The 2% extra fee is worth the ~4 hours/month saved. Plus legal protection is valuable. The migration pain is a one-time cost.",
+                    expectedOutcome: "Zero time spent on tax compliance. May see slight revenue decrease from the higher fees. Migration should take ~1 week.",
+                    confidence: "high",
+                    createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+                    reviewed: false,
+                    review: null
+                },
+                {
+                    id: generateId(),
+                    title: "Hire a part-time customer support person",
+                    category: "hiring",
+                    reviewDate: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                    context: "Support tickets taking 2 hours/day. This is time I should spend on product. Have enough revenue to afford $2k/month.",
+                    options: [
+                        "Option A: Keep doing it myself",
+                        "Option B: Hire part-time VA from Philippines",
+                        "Option C: Use AI chatbot first line"
+                    ],
+                    chosenOption: "Option B",
+                    reasoning: "AI chatbot couldn't handle the nuance of our support needs. A trained human will provide better customer experience.",
+                    expectedOutcome: "Free up 10+ hours/week. May need to invest time training initially (expect 2 weeks). Customer satisfaction should stay same or improve.",
+                    confidence: "medium",
+                    createdAt: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000).toISOString(),
+                    reviewed: true,
+                    review: {
+                        actualOutcome: "Hired Maria, took 3 weeks to fully train (longer than expected). Now handling 80% of tickets independently. I'm spending only 30 min/day on support escalations.",
+                        rating: "success",
+                        lessonsLearned: "Training takes longer than you think. Should have created SOPs before hiring. The quality of support actually improved because she has more patience than I did.",
+                        reviewedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString()
+                    }
+                }
+            ];
+            
+            decisions = sampleDecisions;
+            saveDecisions();
+        }
+    </script>
+</body>
+</html>
