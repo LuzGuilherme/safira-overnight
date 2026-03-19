@@ -1,7 +1,86 @@
 {
-  "generated": "2026-03-18T01:00:00.000000Z",
-  "count": 41,
+  "generated": "2026-03-19T01:00:00.000000Z",
+  "count": 44,
   "digests": [
+    {
+      "id": "2026-03-19-allin-travis-dell",
+      "filename": "2026-03-19-allin-travis-dell.md",
+      "date": "2026-03-19",
+      "title": "Travis Kalanick & Michael Dell: Physical AI, Atoms vs Bits",
+      "host": "All-In Podcast (Jason Calacanis)",
+      "guest": "Travis Kalanick (Uber, Atoms), Michael Dell (Dell Technologies)",
+      "duration": "~1h 15m",
+      "link": "https://www.youtube.com/watch?v=9y7TTU1jIvk",
+      "theme": "Physical AI, atoms-based computing, Atoms company reveal, Invest America",
+      "tldr": "Travis Kalanick sai de 7 anos de stealth para revelar Atoms - empresa de physical AI que trata átomos como bits. Opera em 30 países com cloud kitchens, mining automation, e robotics. Michael Dell fala sobre AI transformar empresas (cohort 2025 cresce 4x vs 2018) e anuncia doação de $6.25B para 25M crianças.",
+      "insights": [
+        {"insight": "Atoms vs Bits framework", "why": "Manufacturing=CPU, Real Estate=Storage, Logistics=Network para átomos"},
+        {"insight": "7 anos em stealth com milhares de funcionários", "why": "Nenhum empregado podia pôr empresa no LinkedIn, incluindo vendedores"},
+        {"insight": "Food computer: refeições ao preço de supermercado", "why": "Do to the kitchen what Uber did to the car"},
+        {"insight": "Cohort 2025 cresce 4x mais rápido que 2018", "why": "Dados do Stripe - AI tools acceleration"},
+        {"insight": "Incumbentes sem AI são expiring value assets", "why": "Michael Dell: change quickly or go out of business"}
+      ],
+      "quotes": [
+        "If you're digitizing the physical world, you're treating atoms like bits. You're building an atoms-based computer.",
+        "The 2025 cohort companies are growing about 4 times faster than the 2018 companies.",
+        "Those are expiring value assets. If it doesn't change quickly, it will go out of business."
+      ],
+      "rating": 5.0,
+      "tags": ["AllIn", "TravisKalanick", "MichaelDell", "PhysicalAI", "Atoms", "Uber", "CloudKitchens", "Mining", "InvestAmerica"]
+    },
+    {
+      "id": "2026-03-19-allin-fetterman",
+      "filename": "2026-03-19-allin-fetterman.md",
+      "date": "2026-03-19",
+      "title": "John Fetterman: The Only Democrat in Congress Saying This",
+      "host": "All-In Podcast (Jason Calacanis)",
+      "guest": "Senator John Fetterman (D-PA)",
+      "duration": "~45m",
+      "link": "https://www.youtube.com/watch?v=3ZVqcW6Wwmg",
+      "theme": "Political evolution, Israel support, anti-progressive, bipartisan appeal",
+      "tldr": "Senador Democrata com 72% aprovação de Republicanos e apenas 22% de Democratas defende posições controversas para o partido: apoio incondicional a Israel, contra fechar DHS/ICE, crítico da ala progressista. Argumenta que os seus valores não mudaram - foi o partido que se moveu.",
+      "insights": [
+        {"insight": "72% aprovação Republicanos, 22% Democratas", "why": "Fenómeno político raro - mais popular com partido oposto"},
+        {"insight": "Único Democrata a apoiar Israel publicamente", "why": "Moral clarity over polls - não segue sondagens"},
+        {"insight": "Recusa fechar DHS/ICE", "why": "Único Democrata a votar contra shutdown de security agencies"},
+        {"insight": "Anti-wealth tax: win a competitive state first", "why": "Crítica directa a Bernie Sanders"},
+        {"insight": "AI data centers: China loves it se pararem", "why": "Contra moratório em data centers proposto por progressistas"}
+      ],
+      "quotes": [
+        "I'm the only Democrat in Congress saying this.",
+        "What used to be a progressive is definitely not what a progressive started to turn into.",
+        "China loves it. Let's hand AI that race over to the Chinese.",
+        "Win a competitive state. Win one, then you can lecture me."
+      ],
+      "rating": 4.2,
+      "tags": ["AllIn", "Fetterman", "Politics", "Democrats", "Israel", "Immigration", "AI-Policy"]
+    },
+    {
+      "id": "2026-03-19-tim-random-show",
+      "filename": "2026-03-19-tim-random-show.md",
+      "date": "2026-03-19",
+      "title": "Tim Ferriss Random Show: Ketone Warning, HeartMath, Zen",
+      "host": "The Tim Ferriss Show (Tim Ferriss + Kevin Rose)",
+      "guest": "N/A (co-hosted format)",
+      "duration": "~1h 30m",
+      "link": "https://www.youtube.com/watch?v=1dsTfXILUsM",
+      "theme": "Biohacking, Zen meditation, vagus nerve, HRV, balance training",
+      "tldr": "Tim e Kevin fazem episódio casual cobrindo: ALERTA sobre ketone esters com 1,3 butanediol (pode causar fatty liver), Zen retreat com Henry Shukman, HeartMath para HRV tracking, vagus nerve stimulation DIY, slacklining para balance, e possível diagnóstico de Bertilotti syndrome para dor lombar do Tim.",
+      "insights": [
+        {"insight": "⚠️ Ketone esters (1,3 butanediol) = fatty liver risk", "why": "Animal studies mostram equivalente a fatty liver disease - treat like moonshine"},
+        {"insight": "HeartMath ($250) para HRV em real-time", "why": "Kevin adora - guia box breathing enquanto vês HRV subir"},
+        {"insight": "Just be still - técnica Zen para OCD/planners", "why": "Henry Shukman's fix quando labeling se torna interruptivo"},
+        {"insight": "Slacklining: poucos minutos/dia", "why": "Precisa sleep cycles para nervous system integrar"},
+        {"insight": "Vagus nerve DIY por $20-25", "why": "Devices caros ($900) não funcionaram para Tim"}
+      ],
+      "quotes": [
+        "Treat it like ethanol. Like moonshine. You wouldn't want to do that every day.",
+        "This is the coolest device I have owned in a while.",
+        "You need sleep cycles for your nervous system to try to integrate it."
+      ],
+      "rating": 4.0,
+      "tags": ["TimFerriss", "KevinRose", "RandomShow", "Ketones", "HeartMath", "HRV", "Zen", "VagusNerve", "Slacklining", "Biohacking"]
+    },
     {
       "id": "2026-03-18-mfm-dhh-bootstrapping",
       "filename": "mfm-806-dhh-bootstrapping-wisdom.md",
