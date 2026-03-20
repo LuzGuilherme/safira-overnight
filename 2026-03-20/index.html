@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1000 True Fans Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a12;
+            --bg-secondary: #12121f;
+            --bg-tertiary: #1a1a2e;
+            --neon-cyan: #00ffff;
+            --neon-pink: #ff00ff;
+            --neon-green: #00ff88;
+            --neon-yellow: #ffff00;
+            --text-primary: #e0e0ff;
+            --text-dim: #8888aa;
+            --grid-color: rgba(0, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* CRT scan lines effect */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Grid background */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .logo {
+            font-family: 'VT323', monospace;
+            font-size: 4rem;
+            color: var(--neon-cyan);
+            text-shadow: 
+                0 0 10px var(--neon-cyan),
+                0 0 20px var(--neon-cyan),
+                0 0 40px var(--neon-cyan);
+            margin-bottom: 10px;
+            animation: flicker 3s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0%, 90%, 100% { opacity: 1; }
+            91% { opacity: 0.8; }
+            92% { opacity: 1; }
+            93% { opacity: 0.9; }
+        }
+
+        .tagline {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .quote-box {
+            background: var(--bg-secondary);
+            border: 2px solid var(--neon-pink);
+            border-radius: 4px;
+            padding: 25px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .quote-box::before {
+            content: "KEVIN KELLY • 2008";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--bg-primary);
+            padding: 0 10px;
+            font-size: 0.75rem;
+            color: var(--neon-pink);
+            letter-spacing: 2px;
+        }
+
+        .quote {
+            font-style: italic;
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        .quote-highlight {
+            color: var(--neon-yellow);
+            font-weight: bold;
+        }
+
+        .calculator-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .section-title {
+            font-family: 'VT323', monospace;
+            font-size: 1.8rem;
+            color: var(--neon-green);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: "▸";
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .currency-symbol {
+            position: absolute;
+            left: 15px;
+            color: var(--neon-cyan);
+            font-size: 1.2rem;
+        }
+
+        input[type="number"], input[type="range"] {
+            width: 100%;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--text-dim);
+            border-radius: 4px;
+            padding: 15px 15px 15px 35px;
+            color: var(--text-primary);
+            font-family: 'Space Mono', monospace;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            padding: 0;
+            height: 8px;
+            background: linear-gradient(to right, var(--neon-pink), var(--neon-cyan));
+            border-radius: 4px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .slider-value {
+            text-align: center;
+            font-family: 'VT323', monospace;
+            font-size: 2rem;
+            color: var(--neon-yellow);
+            margin-top: 10px;
+        }
+
+        /* Results Section */
+        .results {
+            background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+            border: 2px solid var(--neon-green);
+            border-radius: 8px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .main-result {
+            margin-bottom: 30px;
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .result-number {
+            font-family: 'VT323', monospace;
+            font-size: 6rem;
+            color: var(--neon-cyan);
+            text-shadow: 
+                0 0 20px var(--neon-cyan),
+                0 0 40px var(--neon-cyan);
+            line-height: 1;
+        }
+
+        .result-subtitle {
+            font-size: 1.2rem;
+            color: var(--neon-pink);
+            margin-top: 10px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .metric-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--text-dim);
+            border-radius: 4px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .metric-value {
+            font-family: 'VT323', monospace;
+            font-size: 2.5rem;
+            color: var(--neon-yellow);
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        /* Progress visualization */
+        .progress-section {
+            margin: 40px 0;
+        }
+
+        .fan-tier {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            border-left: 4px solid var(--neon-cyan);
+        }
+
+        .tier-icon {
+            font-size: 2rem;
+            margin-right: 20px;
+            width: 50px;
+            text-align: center;
+        }
+
+        .tier-info {
+            flex: 1;
+        }
+
+        .tier-name {
+            font-weight: bold;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .tier-desc {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        .tier-value {
+            font-family: 'VT323', monospace;
+            font-size: 1.5rem;
+            color: var(--neon-green);
+        }
+
+        /* Breakdown table */
+        .breakdown-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+
+        .breakdown-table th,
+        .breakdown-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--text-dim);
+        }
+
+        .breakdown-table th {
+            color: var(--neon-pink);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .breakdown-table td {
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+        }
+
+        .breakdown-table tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        /* Reality check */
+        .reality-check {
+            background: var(--bg-secondary);
+            border: 2px dashed var(--neon-yellow);
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .reality-title {
+            font-family: 'VT323', monospace;
+            font-size: 1.5rem;
+            color: var(--neon-yellow);
+            margin-bottom: 15px;
+        }
+
+        .reality-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 10px 0;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .reality-icon {
+            margin-right: 10px;
+            color: var(--neon-pink);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px;
+            border-top: 1px solid var(--text-dim);
+        }
+
+        .footer-text {
+            color: var(--text-dim);
+            font-size: 0.8rem;
+        }
+
+        .footer-link {
+            color: var(--neon-cyan);
+            text-decoration: none;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .result-number {
+                font-size: 4rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Terminal style output */
+        .terminal-output {
+            background: #000;
+            border: 1px solid var(--neon-green);
+            border-radius: 4px;
+            padding: 20px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            margin: 20px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .terminal-line {
+            margin: 5px 0;
+            color: var(--neon-green);
+        }
+
+        .terminal-prompt {
+            color: var(--neon-cyan);
+        }
+
+        .terminal-output .highlight {
+            color: var(--neon-yellow);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">1000 TRUE FANS</div>
+            <p class="tagline">Calculate Your Path to Creative Freedom</p>
+        </header>
+
+        <div class="quote-box">
+            <p class="quote">
+                "To be a successful creator you don't need millions. You don't need millions of dollars or millions of customers, millions of clients or millions of fans. To make a living as a craftsperson, photographer, musician, designer, author, animator, app maker, entrepreneur, or inventor you need only <span class="quote-highlight">1,000 true fans</span>."
+            </p>
+        </div>
+
+        <div class="calculator-section">
+            <h2 class="section-title">CONFIGURE YOUR REALITY</h2>
+            
+            <div class="input-group">
+                <label>Target Annual Income (USD)</label>
+                <div class="input-wrapper">
+                    <span class="currency-symbol">$</span>
+                    <input type="number" id="targetIncome" value="100000" min="10000" max="1000000" step="5000">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Price Per Product/Service (USD)</label>
+                <div class="input-wrapper">
+                    <span class="currency-symbol">$</span>
+                    <input type="number" id="pricePerItem" value="100" min="1" max="10000" step="5">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Purchases Per Fan Per Year</label>
+                <input type="range" id="purchasesPerYear" value="1" min="1" max="12" step="1">
+                <div class="slider-value"><span id="purchasesDisplay">1</span>×/year</div>
+            </div>
+        </div>
+
+        <div class="results">
+            <div class="main-result">
+                <div class="result-label">You Need</div>
+                <div class="result-number" id="trueFansNeeded">1000</div>
+                <div class="result-subtitle">TRUE FANS</div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value" id="revenuePerFan">$100</div>
+                    <div class="metric-label">Revenue Per Fan/Year</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="fansPerMonth">83</div>
+                    <div class="metric-label">New Fans Needed/Month</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="fansPerWeek">21</div>
+                    <div class="metric-label">New Fans Needed/Week</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="casualFollowers">10K</div>
+                    <div class="metric-label">~Casual Followers Needed</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="calculator-section">
+            <h2 class="section-title">THE MATH BREAKDOWN</h2>
+            
+            <div class="terminal-output">
+                <div class="terminal-line"><span class="terminal-prompt">$</span> calculating true_fans.exe</div>
+                <div class="terminal-line">-----------------------------------</div>
+                <div class="terminal-line">TARGET_INCOME: <span class="highlight" id="termIncome">$100,000</span></div>
+                <div class="terminal-line">PRICE_PER_ITEM: <span class="highlight" id="termPrice">$100</span></div>
+                <div class="terminal-line">PURCHASES_PER_YEAR: <span class="highlight" id="termPurchases">1</span></div>
+                <div class="terminal-line">-----------------------------------</div>
+                <div class="terminal-line">REVENUE_PER_FAN = PRICE × PURCHASES</div>
+                <div class="terminal-line">REVENUE_PER_FAN = <span class="highlight" id="termRevPerFan">$100</span></div>
+                <div class="terminal-line">-----------------------------------</div>
+                <div class="terminal-line">TRUE_FANS = TARGET / REVENUE_PER_FAN</div>
+                <div class="terminal-line">TRUE_FANS = <span class="highlight" id="termFans">1,000</span></div>
+                <div class="terminal-line">-----------------------------------</div>
+                <div class="terminal-line"><span class="terminal-prompt">$</span> status: <span style="color: #00ff88;">ACHIEVABLE ✓</span></div>
+            </div>
+
+            <table class="breakdown-table">
+                <tr>
+                    <th>Milestone</th>
+                    <th>Fans</th>
+                    <th>Annual Revenue</th>
+                    <th>Monthly</th>
+                </tr>
+                <tr>
+                    <td>🌱 First Steps</td>
+                    <td id="m1Fans">100</td>
+                    <td id="m1Annual">$10,000</td>
+                    <td id="m1Monthly">$833</td>
+                </tr>
+                <tr>
+                    <td>🌿 Side Income</td>
+                    <td id="m2Fans">250</td>
+                    <td id="m2Annual">$25,000</td>
+                    <td id="m2Monthly">$2,083</td>
+                </tr>
+                <tr>
+                    <td>🌳 Part-Time</td>
+                    <td id="m3Fans">500</td>
+                    <td id="m3Annual">$50,000</td>
+                    <td id="m3Monthly">$4,167</td>
+                </tr>
+                <tr>
+                    <td>🎯 TARGET</td>
+                    <td id="m4Fans">1,000</td>
+                    <td id="m4Annual">$100,000</td>
+                    <td id="m4Monthly">$8,333</td>
+                </tr>
+                <tr>
+                    <td>🚀 Thriving</td>
+                    <td id="m5Fans">2,000</td>
+                    <td id="m5Annual">$200,000</td>
+                    <td id="m5Monthly">$16,667</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="reality-check">
+            <h3 class="reality-title">⚡ REALITY CHECK</h3>
+            <div class="reality-item">
+                <span class="reality-icon">→</span>
+                <span><strong>True Fans ≠ Followers.</strong> A true fan will buy everything you make. They're your superfans.</span>
+            </div>
+            <div class="reality-item">
+                <span class="reality-icon">→</span>
+                <span><strong>~10% conversion rate</strong> from casual followers to true fans is optimistic. Plan for 1-5%.</span>
+            </div>
+            <div class="reality-item">
+                <span class="reality-icon">→</span>
+                <span><strong>Relationship > Reach.</strong> 1,000 superfans beats 100,000 passive followers every time.</span>
+            </div>
+            <div class="reality-item">
+                <span class="reality-icon">→</span>
+                <span><strong>Multiple products help.</strong> More offerings = more revenue per fan = fewer fans needed.</span>
+            </div>
+            <div class="reality-item">
+                <span class="reality-icon">→</span>
+                <span><strong>Direct connection is key.</strong> Email lists, Discord, Patreon — own the relationship.</span>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <h2 class="section-title">THE FAN PYRAMID</h2>
+            
+            <div class="fan-tier" style="border-color: var(--neon-yellow);">
+                <span class="tier-icon">👤</span>
+                <div class="tier-info">
+                    <div class="tier-name">Casual Visitor</div>
+                    <div class="tier-desc">Found you once. Might forget you exist.</div>
+                </div>
+                <div class="tier-value" id="tierVisitors">~100K</div>
+            </div>
+
+            <div class="fan-tier" style="border-color: var(--neon-pink);">
+                <span class="tier-icon">📧</span>
+                <div class="tier-info">
+                    <div class="tier-name">Subscriber</div>
+                    <div class="tier-desc">Gave you their email. Reads sometimes.</div>
+                </div>
+                <div class="tier-value" id="tierSubscribers">~10K</div>
+            </div>
+
+            <div class="fan-tier" style="border-color: var(--neon-green);">
+                <span class="tier-icon">💳</span>
+                <div class="tier-info">
+                    <div class="tier-name">Customer</div>
+                    <div class="tier-desc">Bought once. Might buy again.</div>
+                </div>
+                <div class="tier-value" id="tierCustomers">~2K</div>
+            </div>
+
+            <div class="fan-tier" style="border-color: var(--neon-cyan); background: var(--bg-tertiary);">
+                <span class="tier-icon">⭐</span>
+                <div class="tier-info">
+                    <div class="tier-name" style="color: var(--neon-cyan);">TRUE FAN</div>
+                    <div class="tier-desc">Buys everything. Tells friends. Your superfan.</div>
+                </div>
+                <div class="tier-value" id="tierTrueFans" style="color: var(--neon-cyan);">1,000</div>
+            </div>
+        </div>
+
+        <footer>
+            <p class="footer-text">
+                Inspired by <a href="https://kk.org/thetechnium/1000-true-fans/" class="footer-link" target="_blank">Kevin Kelly's "1,000 True Fans" (2008)</a>
+            </p>
+            <p class="footer-text" style="margin-top: 10px;">
+                Built with ⚡ by <a href="https://github.com/LuzGuilherme" class="footer-link" target="_blank">Safira</a> • Overnight Build 2026-03-20
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Get DOM elements
+        const targetIncomeInput = document.getElementById('targetIncome');
+        const pricePerItemInput = document.getElementById('pricePerItem');
+        const purchasesPerYearInput = document.getElementById('purchasesPerYear');
+        const purchasesDisplay = document.getElementById('purchasesDisplay');
+
+        // Format number with commas
+        function formatNumber(num) {
+            return Math.round(num).toLocaleString('en-US');
+        }
+
+        // Format currency
+        function formatCurrency(num) {
+            return '$' + formatNumber(num);
+        }
+
+        // Format short numbers (1K, 10K, etc.)
+        function formatShort(num) {
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return Math.round(num / 1000) + 'K';
+            return num.toString();
+        }
+
+        // Main calculation function
+        function calculate() {
+            const targetIncome = parseFloat(targetIncomeInput.value) || 100000;
+            const pricePerItem = parseFloat(pricePerItemInput.value) || 100;
+            const purchasesPerYear = parseInt(purchasesPerYearInput.value) || 1;
+
+            // Core calculation
+            const revenuePerFan = pricePerItem * purchasesPerYear;
+            const trueFansNeeded = Math.ceil(targetIncome / revenuePerFan);
+
+            // Derived metrics
+            const fansPerMonth = Math.ceil(trueFansNeeded / 12);
+            const fansPerWeek = Math.ceil(trueFansNeeded / 52);
+            const casualFollowers = trueFansNeeded * 10; // Assume 10% conversion
+
+            // Update main result
+            document.getElementById('trueFansNeeded').textContent = formatNumber(trueFansNeeded);
+
+            // Update metric cards
+            document.getElementById('revenuePerFan').textContent = formatCurrency(revenuePerFan);
+            document.getElementById('fansPerMonth').textContent = formatNumber(fansPerMonth);
+            document.getElementById('fansPerWeek').textContent = formatNumber(fansPerWeek);
+            document.getElementById('casualFollowers').textContent = formatShort(casualFollowers);
+
+            // Update terminal output
+            document.getElementById('termIncome').textContent = formatCurrency(targetIncome);
+            document.getElementById('termPrice').textContent = formatCurrency(pricePerItem);
+            document.getElementById('termPurchases').textContent = purchasesPerYear;
+            document.getElementById('termRevPerFan').textContent = formatCurrency(revenuePerFan);
+            document.getElementById('termFans').textContent = formatNumber(trueFansNeeded);
+
+            // Update milestone table
+            const milestones = [0.1, 0.25, 0.5, 1, 2];
+            milestones.forEach((mult, i) => {
+                const fans = Math.ceil(trueFansNeeded * mult);
+                const annual = fans * revenuePerFan;
+                const monthly = annual / 12;
+                
+                document.getElementById(`m${i + 1}Fans`).textContent = formatNumber(fans);
+                document.getElementById(`m${i + 1}Annual`).textContent = formatCurrency(annual);
+                document.getElementById(`m${i + 1}Monthly`).textContent = formatCurrency(monthly);
+            });
+
+            // Update fan pyramid
+            document.getElementById('tierTrueFans').textContent = formatNumber(trueFansNeeded);
+            document.getElementById('tierCustomers').textContent = '~' + formatShort(trueFansNeeded * 2);
+            document.getElementById('tierSubscribers').textContent = '~' + formatShort(trueFansNeeded * 10);
+            document.getElementById('tierVisitors').textContent = '~' + formatShort(trueFansNeeded * 100);
+
+            // Update slider display
+            purchasesDisplay.textContent = purchasesPerYear;
+        }
+
+        // Event listeners
+        targetIncomeInput.addEventListener('input', calculate);
+        pricePerItemInput.addEventListener('input', calculate);
+        purchasesPerYearInput.addEventListener('input', calculate);
+
+        // Initial calculation
+        calculate();
+
+        // Easter egg: Konami code
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.key);
+            konamiCode = konamiCode.slice(-10);
+            
+            if (konamiCode.join(',') === konamiSequence.join(',')) {
+                document.body.style.animation = 'none';
+                document.body.offsetHeight; // Trigger reflow
+                document.body.style.animation = 'rainbow 2s ease';
+                
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes rainbow {
+                        0% { filter: hue-rotate(0deg); }
+                        100% { filter: hue-rotate(360deg); }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                setTimeout(() => {
+                    document.body.style.animation = '';
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
