@@ -1,7 +1,61 @@
 {
-  "generated": "2026-03-19T01:00:00.000000Z",
-  "count": 44,
+  "generated": "2026-03-20T01:00:00.000000Z",
+  "count": 46,
   "digests": [
+    {
+      "id": "2026-03-20-mfm-ai-company-records",
+      "filename": "2026-03-20-mfm-ai-company-records.md",
+      "date": "2026-03-20",
+      "title": "The AI Company Everyone Slept On Just Broke Every Record",
+      "host": "My First Million (Sam Parr + Shaan Puri)",
+      "guest": "N/A (analysis episode)",
+      "duration": "~45m",
+      "link": "https://www.youtube.com/watch?v=DXAeN0q3eOc",
+      "theme": "Palantir analysis, AI enterprise, SMB opportunity",
+      "tldr": "Palantir passou de pariah de Wall Street para quebrar todos os recordes (340% em 2024). Alex Karp + Peter Thiel construíram empresa de dados governamentais que agora domina enterprise AI. SMB market é greenfield para AI.",
+      "insights": [
+        {"insight": "Palantir ignorada por Wall Street 15 anos", "why": "Timing do AI wave validou a empresa"},
+        {"insight": "Alex Karp é anti-founder archetype", "why": "PhD filosofia, não-técnico, provou que leadership matters"},
+        {"insight": "AIP mudou tudo", "why": "Produto enterprise AI transformou revenue trajectory"},
+        {"insight": "Government relationships = moat", "why": "20 anos de trust impossível de replicar"},
+        {"insight": "SMB AI market é greenfield", "why": "Oportunidade para founders que não conseguem competir enterprise"}
+      ],
+      "quotes": [
+        "Palantir went from being the laughingstock of Wall Street to breaking every record.",
+        "Alex Karp is intentionally provocative. He forces conversations that other CEOs avoid.",
+        "The SMB market for AI is completely greenfield. That's where the opportunity is."
+      ],
+      "rating": 4.0,
+      "tags": ["MyFirstMillion", "Palantir", "AlexKarp", "EnterpriseAI", "SMBAI"]
+    },
+    {
+      "id": "2026-03-20-doac-chase-hughes-manipulation",
+      "filename": "2026-03-20-doac-chase-hughes-manipulation.md",
+      "date": "2026-03-20",
+      "title": "Behaviour Expert: 3 Subtle Signs You're Being Manipulated!",
+      "host": "Diary of a CEO (Steven Bartlett)",
+      "guest": "Chase Hughes (Behaviour Expert, Former Military Intelligence)",
+      "duration": "~2h",
+      "link": "https://www.youtube.com/watch?v=9uSXOr-AdAU",
+      "theme": "Manipulation techniques, PCP framework, childhood patterns, identity change",
+      "tldr": "Chase Hughes revela técnicas de manipulação de agências de inteligência. Framework PCP (Perception, Context, Permission) explica como qualquer pessoa pode ser manipulada. Identity language é 10x mais poderoso que goals. Micro compliance é como cults e hypnosis funcionam.",
+      "insights": [
+        {"insight": "PCP Framework", "why": "Percepção → Contexto → Permissão = qualquer manipulação"},
+        {"insight": "Identity > Behaviour", "why": "'I am the kind of person who...' é 10x mais poderoso que goals"},
+        {"insight": "Childhood scripts governam adultos", "why": "90% dos adultos operam com scripts de 8 anos"},
+        {"insight": "Two Legos technique", "why": "Colocar info separada para pessoa 'descobrir' - irresistível"},
+        {"insight": "Novelty hijacks attention", "why": "Impossível não responder a novidade - explica social media"},
+        {"insight": "FATE: Focus, Authority, Tribe, Emotion", "why": "Sequência de qualquer persuasão efectiva"}
+      ],
+      "quotes": [
+        "Any idea that you think came from your own mind, you have no ability to resist it.",
+        "Identity is the number one thing when it comes to persuasion.",
+        "We're hardwired for micro compliance. That's how hypnosis works, that's how cult recruiting works.",
+        "Separation is the greatest lie ever told to the entire world."
+      ],
+      "rating": 5.0,
+      "tags": ["DOAC", "ChaseHughes", "Manipulation", "Persuasion", "Psychology", "BehaviorScience", "IdentityChange"]
+    },
     {
       "id": "2026-03-19-allin-travis-dell",
       "filename": "2026-03-19-allin-travis-dell.md",
