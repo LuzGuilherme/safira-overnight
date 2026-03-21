@@ -1,7 +1,59 @@
 {
-  "generated": "2026-03-20T01:00:00.000000Z",
-  "count": 46,
+  "generated": "2026-03-21T01:00:00.000000Z",
+  "count": 48,
   "digests": [
+    {
+      "id": "2026-03-21-lex-paul-rosolie-uncontacted",
+      "filename": "2026-03-21-lex-fridman-paul-rosolie-uncontacted-tribes.md",
+      "date": "2026-03-21",
+      "title": "Paul Rosolie: Uncontacted Tribes & First Contact",
+      "host": "Lex Fridman Podcast (#489)",
+      "guest": "Paul Rosolie (Naturalist, Jungle Keepers founder)",
+      "duration": "~3h 6m",
+      "link": "https://www.youtube.com/watch?v=Z-FRe5AKmCU",
+      "theme": "Primeiro contacto documentado com tribo Mashco Piro, conservação Amazónia",
+      "tldr": "Paul Rosolie partilha footage NUNCA ANTES MOSTRADO de contacto com tribo não-contactada Mashco Piro (Namoles). Vivem em isolamento há séculos, usam arcos de 7 pés. Contacto pacífico com troca de bananas - mas atacaram no dia seguinte. Jungle Keepers protege 130,000 acres.",
+      "insights": [
+        {"insight": "Footage inédito de primeiro contacto", "why": "Única documentação visual do tipo no mundo"},
+        {"insight": "Namoles = auto-denominação da tribo", "why": "Significa 'irmãos' - primeira vez registado"},
+        {"insight": "Violência como primeira resposta", "why": "Séculos de trauma colonial moldaram defesa"},
+        {"insight": "Árvores = significado religioso", "why": "Cortar árvores antigas é ofensa espiritual"},
+        {"insight": "130K acres protegidos, faltam 200K", "why": "Sobrevivência da tribo depende de mais protecção"}
+      ],
+      "quotes": [
+        "They can hit a spider monkey out of the treetops at 40 meters.",
+        "They see us as the destroyers of worlds.",
+        "In order for any of this to make sense, I have to show you this footage. This is a world first."
+      ],
+      "rating": 5.0,
+      "tags": ["LexFridman", "PaulRosolie", "UncontactedTribes", "Amazon", "JungleKeepers", "Conservation", "FirstContact"]
+    },
+    {
+      "id": "2026-03-21-doac-david-bach-automatic-millionaire",
+      "filename": "2026-03-21-doac-david-bach-automatic-millionaire.md",
+      "date": "2026-03-21",
+      "title": "David Bach: The Automatic Millionaire (House vs Stocks)",
+      "host": "Diary of a CEO (Steven Bartlett)",
+      "guest": "David Bach (9x NYT Bestselling Author)",
+      "duration": "~1h 49m",
+      "link": "https://www.youtube.com/watch?v=99xyy1nUpug",
+      "theme": "Casa vs stocks, Latte Factor, automatizar finanças, wealth building",
+      "tldr": "David Bach explica porque comprar casa (mesmo com taxas altas) é melhor que alugar. Proprietários têm 40x mais riqueza que arrendatários. Latte Factor não é sobre café - é sobre dinheiro inconsciente. A chave: automatizar poupança ANTES de ver o dinheiro.",
+      "insights": [
+        {"insight": "Proprietários têm 40x mais riqueza", "why": "Estatística demolidora do argumento renting is smarter"},
+        {"insight": "Alavancagem 5:1 amplifica retornos", "why": "20% entrada transforma 4% em retornos maiores"},
+        {"insight": "Latte Factor = awareness", "why": "Não é sobre café, é sobre dinheiro inconsciente"},
+        {"insight": "40% ignoram employer matching", "why": "Free money literalmente não aproveitada"},
+        {"insight": "Timing impossível", "why": "Todos os maus momentos provaram-se bons para comprar"}
+      ],
+      "quotes": [
+        "You're either paying your mortgage or your landlord's mortgage.",
+        "97% of millionaires in America own their home. That's not a coincidence.",
+        "Make it automatic, make it boring, make it work for you while you sleep."
+      ],
+      "rating": 4.5,
+      "tags": ["DOAC", "DavidBach", "RealEstate", "LatteFactor", "AutomaticMillionaire", "Finance", "WealthBuilding"]
+    },
     {
       "id": "2026-03-20-mfm-ai-company-records",
       "filename": "2026-03-20-mfm-ai-company-records.md",
