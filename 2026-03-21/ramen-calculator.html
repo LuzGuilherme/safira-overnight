@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramen Profitability Calculator | When Can You Quit?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f1419;
+            --bg-secondary: #1a2332;
+            --bg-tertiary: #242d3d;
+            --text-primary: #e7e9ea;
+            --text-secondary: #8b98a5;
+            --text-muted: #536471;
+            --accent-green: #00ba7c;
+            --accent-green-dim: rgba(0, 186, 124, 0.15);
+            --accent-red: #f4212e;
+            --accent-red-dim: rgba(244, 33, 46, 0.15);
+            --accent-yellow: #ffd400;
+            --accent-yellow-dim: rgba(255, 212, 0, 0.15);
+            --accent-blue: #1d9bf0;
+            --border-color: #2f3336;
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-sans: 'Inter', -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 0 30px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Input Panel */
+        .input-panel {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .panel-header h2 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .section-title {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            margin-top: 20px;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .input-row:last-child {
+            border-bottom: none;
+        }
+
+        .input-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .input-field {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .currency {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        input[type="number"] {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 6px 10px;
+            width: 100px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--text-primary);
+            text-align: right;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+
+        input[type="range"] {
+            width: 80px;
+            margin-right: 8px;
+        }
+
+        .range-value {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--accent-blue);
+            min-width: 40px;
+            text-align: right;
+        }
+
+        /* Results Panel */
+        .results-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Status Card */
+        .status-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-card.profitable {
+            border-color: var(--accent-green);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--accent-green-dim) 100%);
+        }
+
+        .status-card.close {
+            border-color: var(--accent-yellow);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--accent-yellow-dim) 100%);
+        }
+
+        .status-card.far {
+            border-color: var(--accent-red);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--accent-red-dim) 100%);
+        }
+
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .status-label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .status-value {
+            font-size: 48px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+        }
+
+        .status-card.profitable .status-value { color: var(--accent-green); }
+        .status-card.close .status-value { color: var(--accent-yellow); }
+        .status-card.far .status-value { color: var(--accent-red); }
+
+        .status-message {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .status-card.profitable .status-badge {
+            background: var(--accent-green);
+            color: var(--bg-primary);
+        }
+
+        .status-card.close .status-badge {
+            background: var(--accent-yellow);
+            color: var(--bg-primary);
+        }
+
+        .status-card.far .status-badge {
+            background: var(--accent-red);
+            color: white;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin-top: 20px;
+        }
+
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .status-card.profitable .progress-fill { background: var(--accent-green); }
+        .status-card.close .progress-fill { background: var(--accent-yellow); }
+        .status-card.far .progress-fill { background: var(--accent-red); }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 900px) {
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .metric-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-family: var(--font-mono);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .metric-value.positive { color: var(--accent-green); }
+        .metric-value.negative { color: var(--accent-red); }
+        .metric-value.warning { color: var(--accent-yellow); }
+
+        .metric-subtext {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Scenarios */
+        .scenarios-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .scenarios-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .scenarios-header h3 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .scenarios-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .scenarios-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .scenario-card {
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .scenario-card.pessimistic { border-left: 3px solid var(--accent-red); }
+        .scenario-card.realistic { border-left: 3px solid var(--accent-yellow); }
+        .scenario-card.optimistic { border-left: 3px solid var(--accent-green); }
+
+        .scenario-name {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .scenario-growth {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .scenario-months {
+            font-family: var(--font-mono);
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .scenario-card.pessimistic .scenario-months { color: var(--accent-red); }
+        .scenario-card.realistic .scenario-months { color: var(--accent-yellow); }
+        .scenario-card.optimistic .scenario-months { color: var(--accent-green); }
+
+        .scenario-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .scenario-date {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            font-family: var(--font-mono);
+        }
+
+        /* Breakdown Table */
+        .breakdown-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .breakdown-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .breakdown-header h3 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .breakdown-table {
+            width: 100%;
+        }
+
+        .breakdown-row {
+            display: grid;
+            grid-template-columns: 1fr 100px 100px 80px;
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 13px;
+        }
+
+        .breakdown-row:last-child {
+            border-bottom: none;
+        }
+
+        .breakdown-row.header {
+            background: var(--bg-tertiary);
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .breakdown-row.total {
+            background: var(--bg-tertiary);
+            font-weight: 600;
+        }
+
+        .breakdown-cell {
+            display: flex;
+            align-items: center;
+        }
+
+        .breakdown-cell.right {
+            justify-content: flex-end;
+            font-family: var(--font-mono);
+        }
+
+        .bar-container {
+            width: 60px;
+            height: 6px;
+            background: var(--bg-primary);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: var(--accent-blue);
+            border-radius: 3px;
+        }
+
+        /* Tips Section */
+        .tips-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .tips-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .tips-header h3 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .tips-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .tips-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .tip-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+        }
+
+        .tip-icon {
+            font-size: 18px;
+        }
+
+        .tip-content {
+            flex: 1;
+        }
+
+        .tip-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .tip-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .footer-link {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        /* Runway Section */
+        .runway-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .runway-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .runway-header h3 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .runway-calculator {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .runway-calculator {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .runway-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .runway-input-label {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .runway-result {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .runway-months {
+            font-family: var(--font-mono);
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        .runway-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .runway-date {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            font-family: var(--font-mono);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Indie Hacker Tools</div>
+            <h1>🍜 Ramen Profitability Calculator</h1>
+            <p class="subtitle">When can you quit your job and go full-time on your project?</p>
+        </header>
+
+        <div class="main-grid">
+            <!-- Input Panel -->
+            <div class="input-panel">
+                <div class="panel-header">
+                    <span>⚙️</span>
+                    <h2>Your Numbers</h2>
+                </div>
+
+                <div class="section-title">Monthly Expenses</div>
+                
+                <div class="input-row">
+                    <span class="input-label">Rent/Mortgage</span>
+                    <div class="input-field">
+                        <span class="currency">€</span>
+                        <input type="number" id="rent" value="650" min="0" step="50">
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <span class="input-label">Food & Groceries</span>
+                    <div class="input-field">
+                        <span class="currency">€</span>
+                        <input type="number" id="food" value="350" min="0" step="25">
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <span class="input-label">Utilities</span>
+                    <div class="input-field">
+                        <span class="currency">€</span>
+                        <input type="number" id="utilities" value="120" min="0" step="10">
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <span class="input-label">Transport</span>
+                    <div class="input-field">
+                        <span class="currency">€</span>
+                        <input type="number" id="transport" value="100" min="0" step="25">
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <span class="input-label">Insurance/Health</span>
+                    <div class="input-field">
+                        <span class="currency">€</span>
+                        <input type="number" id="insurance" value="80" min="0" step="10">
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <span class="input-label">Subscriptions</span>
+                    <div class="input-field">
+                        <span class="currency">€</span>
+                        <input type="number" id="subscriptions" value="50" min="0" step="10">
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <span class="input-label">Other</span>
+                    <div class="input-field">
+                        <span class="currency">€</span>
+                        <input type="number" id="other" value="150" min="0" step="25">
+                    </div>
+                </div>
+
+                <div class="section-title">Project Revenue</div>
+
+                <div class="input-row">
+                    <span class="input-label">Current MRR</span>
+                    <div class="input-field">
+                        <span class="currency">€</span>
+                        <input type="number" id="mrr" value="800" min="0" step="100">
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <span class="input-label">Monthly Growth</span>
+                    <div class="input-field">
+                        <input type="range" id="growth" min="0" max="50" value="15">
+                        <span class="range-value" id="growthDisplay">15%</span>
+                    </div>
+                </div>
+
+                <div class="section-title">Safety Buffer</div>
+
+                <div class="input-row">
+                    <span class="input-label">Savings</span>
+                    <div class="input-field">
+                        <span class="currency">€</span>
+                        <input type="number" id="savings" value="5000" min="0" step="500">
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <span class="input-label">Buffer Months</span>
+                    <div class="input-field">
+                        <input type="range" id="bufferMonths" min="0" max="12" value="3">
+                        <span class="range-value" id="bufferDisplay">3 mo</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Panel -->
+            <div class="results-panel">
+                <!-- Status Card -->
+                <div class="status-card far" id="statusCard">
+                    <div class="status-header">
+                        <div>
+                            <div class="status-label">Ramen Profitability</div>
+                            <div class="status-value" id="profitPercent">53%</div>
+                            <div class="status-message" id="statusMessage">Keep building!</div>
+                        </div>
+                        <span class="status-badge" id="statusBadge">NOT YET</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-labels">
+                            <span>€0</span>
+                            <span id="targetLabel">Target: €1,500</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 53%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Metrics Grid -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Monthly Expenses</div>
+                        <div class="metric-value" id="totalExpenses">€1,500</div>
+                        <div class="metric-subtext">Your burn rate</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Current MRR</div>
+                        <div class="metric-value" id="currentMRR">€800</div>
+                        <div class="metric-subtext">Project revenue</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Monthly Gap</div>
+                        <div class="metric-value negative" id="monthlyGap">-€700</div>
+                        <div class="metric-subtext">Still need to cover</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">With Buffer</div>
+                        <div class="metric-value" id="withBuffer">€1,950</div>
+                        <div class="metric-subtext">Safe quit threshold</div>
+                    </div>
+                </div>
+
+                <!-- Scenarios -->
+                <div class="scenarios-section">
+                    <div class="scenarios-header">
+                        <span>📊</span>
+                        <h3>Time to Ramen Profitability</h3>
+                    </div>
+                    <div class="scenarios-grid">
+                        <div class="scenario-card pessimistic">
+                            <div class="scenario-name">Pessimistic</div>
+                            <div class="scenario-growth" id="pessGrowth">5% monthly</div>
+                            <div class="scenario-months" id="pessMonths">14</div>
+                            <div class="scenario-label">months</div>
+                            <div class="scenario-date" id="pessDate">May 2027</div>
+                        </div>
+                        <div class="scenario-card realistic">
+                            <div class="scenario-name">Realistic</div>
+                            <div class="scenario-growth" id="realGrowth">15% monthly</div>
+                            <div class="scenario-months" id="realMonths">5</div>
+                            <div class="scenario-label">months</div>
+                            <div class="scenario-date" id="realDate">Aug 2026</div>
+                        </div>
+                        <div class="scenario-card optimistic">
+                            <div class="scenario-name">Optimistic</div>
+                            <div class="scenario-growth" id="optGrowth">25% monthly</div>
+                            <div class="scenario-months" id="optMonths">3</div>
+                            <div class="scenario-label">months</div>
+                            <div class="scenario-date" id="optDate">Jun 2026</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Runway Calculator -->
+                <div class="runway-section">
+                    <div class="runway-header">
+                        <span>🛫</span>
+                        <h3>Runway Calculator (If You Quit Today)</h3>
+                    </div>
+                    <div class="runway-calculator">
+                        <div class="runway-input-group">
+                            <div class="runway-input-label">With your current savings and MRR gap:</div>
+                            <p style="font-size: 13px; color: var(--text-secondary); margin-top: 8px;">
+                                This shows how long your savings would last if you quit today, 
+                                accounting for your current MRR partially covering expenses.
+                            </p>
+                        </div>
+                        <div class="runway-result">
+                            <div class="runway-months" id="runwayMonths">7</div>
+                            <div class="runway-label">months of runway</div>
+                            <div class="runway-date" id="runwayDate">Until Oct 2026</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expense Breakdown -->
+                <div class="breakdown-section">
+                    <div class="breakdown-header">
+                        <span>📋</span>
+                        <h3>Expense Breakdown</h3>
+                    </div>
+                    <div class="breakdown-table">
+                        <div class="breakdown-row header">
+                            <div class="breakdown-cell">Category</div>
+                            <div class="breakdown-cell right">Amount</div>
+                            <div class="breakdown-cell right">% of Total</div>
+                            <div class="breakdown-cell right"></div>
+                        </div>
+                        <div id="breakdownRows"></div>
+                        <div class="breakdown-row total">
+                            <div class="breakdown-cell">TOTAL</div>
+                            <div class="breakdown-cell right" id="breakdownTotal">€1,500</div>
+                            <div class="breakdown-cell right">100%</div>
+                            <div class="breakdown-cell right"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tips -->
+                <div class="tips-section">
+                    <div class="tips-header">
+                        <span>💡</span>
+                        <h3>Getting to Ramen Profitability Faster</h3>
+                    </div>
+                    <div class="tips-list">
+                        <div class="tip-item">
+                            <span class="tip-icon">🎯</span>
+                            <div class="tip-content">
+                                <div class="tip-title">Focus on MRR, not revenue</div>
+                                <div class="tip-desc">Recurring revenue is more predictable than one-time sales</div>
+                            </div>
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">✂️</span>
+                            <div class="tip-content">
+                                <div class="tip-title">Cut expenses ruthlessly</div>
+                                <div class="tip-desc">Every €100 saved is €100 less you need to earn</div>
+                            </div>
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">🌍</span>
+                            <div class="tip-content">
+                                <div class="tip-title">Geographic arbitrage</div>
+                                <div class="tip-desc">Consider lower cost-of-living locations while building</div>
+                            </div>
+                        </div>
+                        <div class="tip-item">
+                            <span class="tip-icon">🔄</span>
+                            <div class="tip-content">
+                                <div class="tip-title">Keep the day job (for now)</div>
+                                <div class="tip-desc">Part-time consulting can extend your runway significantly</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p class="footer-text">
+                Built with 🍜 by <a href="https://github.com/luzguilherme" class="footer-link">Safira</a> • 
+                Part of the <a href="https://luzguilherme.github.io/safira-overnight/" class="footer-link">Overnight Builds</a> collection
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // DOM Elements
+        const inputs = {
+            rent: document.getElementById('rent'),
+            food: document.getElementById('food'),
+            utilities: document.getElementById('utilities'),
+            transport: document.getElementById('transport'),
+            insurance: document.getElementById('insurance'),
+            subscriptions: document.getElementById('subscriptions'),
+            other: document.getElementById('other'),
+            mrr: document.getElementById('mrr'),
+            growth: document.getElementById('growth'),
+            savings: document.getElementById('savings'),
+            bufferMonths: document.getElementById('bufferMonths')
+        };
+
+        const expenseLabels = {
+            rent: 'Rent/Mortgage',
+            food: 'Food & Groceries',
+            utilities: 'Utilities',
+            transport: 'Transport',
+            insurance: 'Insurance/Health',
+            subscriptions: 'Subscriptions',
+            other: 'Other'
+        };
+
+        // Update display values for ranges
+        inputs.growth.addEventListener('input', () => {
+            document.getElementById('growthDisplay').textContent = inputs.growth.value + '%';
+            calculate();
+        });
+
+        inputs.bufferMonths.addEventListener('input', () => {
+            document.getElementById('bufferDisplay').textContent = inputs.bufferMonths.value + ' mo';
+            calculate();
+        });
+
+        // Add event listeners to all inputs
+        Object.values(inputs).forEach(input => {
+            input.addEventListener('input', calculate);
+        });
+
+        function getValues() {
+            return {
+                rent: parseFloat(inputs.rent.value) || 0,
+                food: parseFloat(inputs.food.value) || 0,
+                utilities: parseFloat(inputs.utilities.value) || 0,
+                transport: parseFloat(inputs.transport.value) || 0,
+                insurance: parseFloat(inputs.insurance.value) || 0,
+                subscriptions: parseFloat(inputs.subscriptions.value) || 0,
+                other: parseFloat(inputs.other.value) || 0,
+                mrr: parseFloat(inputs.mrr.value) || 0,
+                growth: parseFloat(inputs.growth.value) || 0,
+                savings: parseFloat(inputs.savings.value) || 0,
+                bufferMonths: parseFloat(inputs.bufferMonths.value) || 0
+            };
+        }
+
+        function formatCurrency(amount) {
+            return '€' + amount.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        }
+
+        function calculateMonthsToTarget(currentMRR, targetMRR, monthlyGrowthPercent) {
+            if (currentMRR >= targetMRR) return 0;
+            if (monthlyGrowthPercent <= 0) return Infinity;
+            
+            const growthRate = 1 + (monthlyGrowthPercent / 100);
+            return Math.ceil(Math.log(targetMRR / currentMRR) / Math.log(growthRate));
+        }
+
+        function addMonths(date, months) {
+            const result = new Date(date);
+            result.setMonth(result.getMonth() + months);
+            return result;
+        }
+
+        function formatDate(date) {
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return months[date.getMonth()] + ' ' + date.getFullYear();
+        }
+
+        function calculate() {
+            const v = getValues();
+            
+            // Calculate totals
+            const totalExpenses = v.rent + v.food + v.utilities + v.transport + v.insurance + v.subscriptions + v.other;
+            const targetWithBuffer = totalExpenses * (1 + v.bufferMonths * 0.1); // 10% buffer per month
+            const profitPercent = totalExpenses > 0 ? Math.min(100, Math.round((v.mrr / totalExpenses) * 100)) : 0;
+            const monthlyGap = v.mrr - totalExpenses;
+            
+            // Update status card
+            const statusCard = document.getElementById('statusCard');
+            const profitPercentEl = document.getElementById('profitPercent');
+            const statusMessage = document.getElementById('statusMessage');
+            const statusBadge = document.getElementById('statusBadge');
+            const progressFill = document.getElementById('progressFill');
+            const targetLabel = document.getElementById('targetLabel');
+            
+            profitPercentEl.textContent = profitPercent + '%';
+            targetLabel.textContent = 'Target: ' + formatCurrency(totalExpenses);
+            progressFill.style.width = Math.min(100, profitPercent) + '%';
+            
+            statusCard.classList.remove('profitable', 'close', 'far');
+            
+            if (profitPercent >= 100) {
+                statusCard.classList.add('profitable');
+                statusMessage.textContent = '🎉 You\'re ramen profitable!';
+                statusBadge.textContent = 'READY TO QUIT';
+            } else if (profitPercent >= 70) {
+                statusCard.classList.add('close');
+                statusMessage.textContent = 'Almost there! Keep pushing.';
+                statusBadge.textContent = 'GETTING CLOSE';
+            } else {
+                statusCard.classList.add('far');
+                statusMessage.textContent = 'Keep building, you\'ll get there!';
+                statusBadge.textContent = 'NOT YET';
+            }
+            
+            // Update metrics
+            document.getElementById('totalExpenses').textContent = formatCurrency(totalExpenses);
+            document.getElementById('currentMRR').textContent = formatCurrency(v.mrr);
+            
+            const monthlyGapEl = document.getElementById('monthlyGap');
+            monthlyGapEl.textContent = (monthlyGap >= 0 ? '+' : '') + formatCurrency(monthlyGap);
+            monthlyGapEl.className = 'metric-value ' + (monthlyGap >= 0 ? 'positive' : 'negative');
+            
+            document.getElementById('withBuffer').textContent = formatCurrency(Math.round(targetWithBuffer));
+            
+            // Calculate scenarios
+            const now = new Date();
+            const scenarios = [
+                { growth: Math.max(5, v.growth - 10), el: 'pess' },
+                { growth: v.growth, el: 'real' },
+                { growth: v.growth + 10, el: 'opt' }
+            ];
+            
+            scenarios.forEach(s => {
+                const months = calculateMonthsToTarget(v.mrr, totalExpenses, s.growth);
+                const targetDate = addMonths(now, months);
+                
+                document.getElementById(s.el + 'Growth').textContent = s.growth + '% monthly';
+                document.getElementById(s.el + 'Months').textContent = months === Infinity ? '∞' : months;
+                document.getElementById(s.el + 'Date').textContent = months === Infinity ? 'Never' : formatDate(targetDate);
+            });
+            
+            // Calculate runway
+            if (monthlyGap < 0) {
+                const runwayMonths = Math.floor(v.savings / Math.abs(monthlyGap));
+                const runwayDate = addMonths(now, runwayMonths);
+                document.getElementById('runwayMonths').textContent = runwayMonths;
+                document.getElementById('runwayDate').textContent = 'Until ' + formatDate(runwayDate);
+            } else {
+                document.getElementById('runwayMonths').textContent = '∞';
+                document.getElementById('runwayDate').textContent = 'Indefinite runway!';
+            }
+            
+            // Update breakdown table
+            const breakdownRows = document.getElementById('breakdownRows');
+            const expenses = [
+                { key: 'rent', value: v.rent },
+                { key: 'food', value: v.food },
+                { key: 'utilities', value: v.utilities },
+                { key: 'transport', value: v.transport },
+                { key: 'insurance', value: v.insurance },
+                { key: 'subscriptions', value: v.subscriptions },
+                { key: 'other', value: v.other }
+            ].filter(e => e.value > 0).sort((a, b) => b.value - a.value);
+            
+            const maxExpense = Math.max(...expenses.map(e => e.value));
+            
+            breakdownRows.innerHTML = expenses.map(e => {
+                const percent = totalExpenses > 0 ? Math.round((e.value / totalExpenses) * 100) : 0;
+                const barWidth = maxExpense > 0 ? Math.round((e.value / maxExpense) * 100) : 0;
+                return `
+                    <div class="breakdown-row">
+                        <div class="breakdown-cell">${expenseLabels[e.key]}</div>
+                        <div class="breakdown-cell right">${formatCurrency(e.value)}</div>
+                        <div class="breakdown-cell right">${percent}%</div>
+                        <div class="breakdown-cell right">
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: ${barWidth}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('breakdownTotal').textContent = formatCurrency(totalExpenses);
+        }
+
+        // Initial calculation
+        calculate();
+    </script>
+</body>
+</html>

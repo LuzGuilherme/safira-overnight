@@ -104,3 +104,4 @@ Ver `/root/clawd/data/STYLE_LIBRARY.md` para detalhes completos.
 | 2026-03-18 | Profit First Calculator 💰 | Business/Finanças | **Swiss Minimal** 🏛️ |
 | 2026-03-19 | The Decision Journal 📓 | Produtividade/Founder Tools | **Editorial Clean** ☀️ |
 | 2026-03-20 | 1000 True Fans Calculator 🎯 | Business/Creator Economy | **Retro Tech** ⚡ |
+| 2026-03-21 | Ramen Profitability Calculator 🍜 | Business/Indie Hackers | **Data Dense** 📊 |
