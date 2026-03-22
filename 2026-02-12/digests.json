@@ -1,7 +1,34 @@
 {
-  "generated": "2026-03-21T01:00:00.000000Z",
-  "count": 48,
+  "generated": "2026-03-22T01:00:00.000000Z",
+  "count": 49,
   "digests": [
+    {
+      "id": "2026-03-22-allin-jensen-huang-nvidia",
+      "filename": "2026-03-22-allin-jensen-huang-nvidia.md",
+      "date": "2026-03-22",
+      "title": "Jensen Huang: NVIDIA's Future, Physical AI, Rise of the Agent",
+      "host": "All-In Podcast (Jason, Chamath, Friedberg, Sacks)",
+      "guest": "Jensen Huang (CEO NVIDIA)",
+      "duration": "~2h",
+      "link": "https://www.youtube.com/watch?v=gwW8GKwHB3I",
+      "theme": "NVIDIA as AI factory company, Groq acquisition, Open Claude revolution, token economics",
+      "tldr": "NVIDIA deixou de ser empresa de chips para AI factory company. Groq acquisition adiciona 25% capacidade. Open Claude é novo sistema operativo com memory, skills, scheduling e I/O. Jensen defende que engenheiro $500K deve gastar $250K em tokens/ano. Physical AI é $50T opportunity.",
+      "insights": [
+        {"insight": "Engenheiro $500K deve gastar $250K em tokens/ano", "why": "Define novo standard de produtividade AI"},
+        {"insight": "Open Claude é novo sistema operativo", "why": "Paradigm shift - não é chatbot, é computer architecture"},
+        {"insight": "10,000X mais compute em 2 anos", "why": "Generative → Reasoning → Agentic explosion"},
+        {"insight": "Physical AI é $50T industry void of tech", "why": "Maior TAM da história da indústria tech"},
+        {"insight": "95% market share China → 0%", "why": "Geopolítica a redefinir estratégia NVIDIA"},
+        {"insight": "Cada engenheiro terá 100 agents", "why": "Futuro do trabalho completamente transformado"}
+      ],
+      "quotes": [
+        "If that $500K engineer did not consume at least $250K worth of tokens, I am going to be deeply alarmed.",
+        "Everything that's too big, too heavy, takes too long - those thoughts are all gone. You're reduced to creativity.",
+        "Warning is good, scaring is less good. This technology is too important to us."
+      ],
+      "rating": 5.0,
+      "tags": ["AllIn", "JensenHuang", "NVIDIA", "AI", "PhysicalAI", "Groq", "OpenClaw", "Tokens", "Productivity"]
+    },
     {
       "id": "2026-03-21-lex-paul-rosolie-uncontacted",
       "filename": "2026-03-21-lex-fridman-paul-rosolie-uncontacted-tribes.md",
