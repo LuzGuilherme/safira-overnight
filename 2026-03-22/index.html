@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Energy Audit 🔋 | Know Where Your Energy Goes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --energy-high: #22c55e;
+            --energy-medium: #f59e0b;
+            --energy-low: #ef4444;
+            --energy-drain: #dc2626;
+            --bg-primary: #0f0f0f;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #252525;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1a1;
+            --accent-yellow: #facc15;
+            --accent-orange: #f97316;
+            --accent-pink: #ec4899;
+            --accent-cyan: #06b6d4;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Bold Maximalist Background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(250, 204, 21, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(6, 182, 212, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Section - Bold Maximalist */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-yellow), var(--accent-orange));
+            color: #000;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-yellow) 50%, var(--accent-orange) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Cards Grid */
+        .audit-section {
+            margin-top: 4rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+        }
+
+        /* Activity Cards */
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .activity-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .activity-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-yellow), var(--accent-orange));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .activity-card:hover {
+            border-color: var(--accent-yellow);
+            transform: translateY(-4px);
+        }
+
+        .activity-card:hover::before {
+            opacity: 1;
+        }
+
+        .activity-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .activity-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+        }
+
+        .activity-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Energy Slider */
+        .energy-slider-container {
+            margin-top: 1.5rem;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.75rem;
+        }
+
+        .label-drain {
+            color: var(--energy-drain);
+            font-weight: 600;
+        }
+
+        .label-give {
+            color: var(--energy-high);
+            font-weight: 600;
+        }
+
+        .energy-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 12px;
+            border-radius: 6px;
+            background: linear-gradient(90deg, 
+                var(--energy-drain) 0%, 
+                var(--energy-low) 25%,
+                var(--energy-medium) 50%, 
+                var(--energy-high) 100%);
+            outline: none;
+            cursor: pointer;
+        }
+
+        .energy-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            border: 4px solid var(--accent-yellow);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .energy-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        .energy-value {
+            text-align: center;
+            margin-top: 0.75rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .energy-value.positive {
+            color: var(--energy-high);
+        }
+
+        .energy-value.negative {
+            color: var(--energy-drain);
+        }
+
+        .energy-value.neutral {
+            color: var(--energy-medium);
+        }
+
+        /* Hours input */
+        .hours-input {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .hours-input label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .hours-input input {
+            width: 60px;
+            padding: 0.5rem;
+            border: 2px solid var(--bg-secondary);
+            border-radius: 8px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .hours-input input:focus {
+            outline: none;
+            border-color: var(--accent-yellow);
+        }
+
+        /* Results Section */
+        .results-section {
+            margin-top: 4rem;
+            display: none;
+        }
+
+        .results-section.visible {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .result-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-card.energy-balance {
+            background: linear-gradient(135deg, var(--bg-card), rgba(34, 197, 94, 0.1));
+            border: 2px solid var(--energy-high);
+        }
+
+        .result-card.energy-balance.negative {
+            background: linear-gradient(135deg, var(--bg-card), rgba(239, 68, 68, 0.1));
+            border-color: var(--energy-drain);
+        }
+
+        .result-card-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .result-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .result-value.positive {
+            color: var(--energy-high);
+        }
+
+        .result-value.negative {
+            color: var(--energy-drain);
+        }
+
+        .result-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        /* Energy Bar Chart */
+        .energy-bar-chart {
+            margin-top: 2rem;
+        }
+
+        .energy-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+
+        .bar-label {
+            width: 120px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
+
+        .bar-container {
+            flex: 1;
+            height: 24px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 12px;
+            transition: width 0.5s ease;
+        }
+
+        .bar-fill.positive {
+            background: linear-gradient(90deg, var(--energy-medium), var(--energy-high));
+        }
+
+        .bar-fill.negative {
+            background: linear-gradient(90deg, var(--energy-low), var(--energy-drain));
+        }
+
+        .bar-value {
+            width: 60px;
+            text-align: right;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        /* Recommendations */
+        .recommendations {
+            margin-top: 3rem;
+        }
+
+        .recommendation-card {
+            background: linear-gradient(135deg, var(--bg-card), rgba(6, 182, 212, 0.1));
+            border: 2px solid var(--accent-cyan);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .recommendation-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .recommendation-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-pink));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .recommendation-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .recommendation-text {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .recommendation-action {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-pink));
+            color: #000;
+            font-weight: 700;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+
+        .recommendation-action:hover {
+            transform: scale(1.05);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--accent-yellow), var(--accent-orange));
+            color: #000;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(250, 204, 21, 0.3);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: 2px solid var(--text-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-yellow);
+            color: var(--accent-yellow);
+        }
+
+        /* Add Custom Activity */
+        .add-activity {
+            background: var(--bg-secondary);
+            border: 2px dashed var(--text-secondary);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-activity:hover {
+            border-color: var(--accent-yellow);
+            background: rgba(250, 204, 21, 0.05);
+        }
+
+        .add-activity-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .add-activity-text {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.visible .modal {
+            transform: scale(1);
+        }
+
+        .modal-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 2px solid var(--bg-secondary);
+            border-radius: 12px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        .modal-input:focus {
+            outline: none;
+            border-color: var(--accent-yellow);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 4rem 0 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: var(--accent-yellow);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .activities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                gap: 1.5rem;
+            }
+
+            .result-value {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-badge">⚡ For Solo Founders</div>
+            <h1>The Energy Audit</h1>
+            <p>Stop tracking time. Start tracking energy. Discover which activities drain you and which ones fuel your best work.</p>
+            
+            <div class="hero-stats" id="heroStats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value" id="totalActivities">0</div>
+                    <div class="hero-stat-label">Activities Tracked</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value" id="totalHours">0h</div>
+                    <div class="hero-stat-label">Weekly Hours</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value" id="netEnergy">0</div>
+                    <div class="hero-stat-label">Net Energy</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Audit Section -->
+        <section class="audit-section">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Your Weekly Activities</h2>
+                    <p class="section-subtitle">Rate each activity from -5 (drains you) to +5 (energizes you)</p>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button class="btn-secondary" onclick="resetAll()">↺ Reset</button>
+                    <button class="btn-primary" onclick="calculateResults()">
+                        ⚡ Analyze Energy
+                    </button>
+                </div>
+            </div>
+
+            <div class="activities-grid" id="activitiesGrid">
+                <!-- Activities will be inserted here -->
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section" id="resultsSection">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Your Energy Report</h2>
+                    <p class="section-subtitle">Here's where your energy is really going</p>
+                </div>
+            </div>
+
+            <div class="results-grid">
+                <div class="result-card energy-balance" id="balanceCard">
+                    <div class="result-card-title">Weekly Energy Balance</div>
+                    <div class="result-value positive" id="balanceValue">+24</div>
+                    <div class="result-label" id="balanceLabel">Energy units per week</div>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-card-title">Biggest Energy Drain</div>
+                    <div class="result-value negative" id="biggestDrain">-</div>
+                    <div class="result-label" id="drainLabel">-</div>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-card-title">Biggest Energy Source</div>
+                    <div class="result-value positive" id="biggestSource">-</div>
+                    <div class="result-label" id="sourceLabel">-</div>
+                </div>
+            </div>
+
+            <!-- Energy Distribution -->
+            <div class="result-card" style="margin-top: 2rem;">
+                <div class="result-card-title">Energy Distribution by Activity</div>
+                <div class="energy-bar-chart" id="energyChart">
+                    <!-- Bars will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Recommendations -->
+            <div class="recommendations" id="recommendations">
+                <!-- Recommendations will be inserted here -->
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Built with 🔋 by <a href="https://twitter.com/GuilhermeLu7_" target="_blank">Safira</a> for solo founders who want to work sustainably.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem;">Time is finite. Energy is renewable — if managed well.</p>
+        </footer>
+    </div>
+
+    <!-- Add Activity Modal -->
+    <div class="modal-overlay" id="addModal">
+        <div class="modal">
+            <h3 class="modal-title">Add Custom Activity</h3>
+            <input type="text" class="modal-input" id="customActivityName" placeholder="Activity name (e.g., 'Client calls')">
+            <input type="text" class="modal-input" id="customActivityEmoji" placeholder="Emoji (e.g., '📞')" maxlength="2">
+            <div class="modal-buttons">
+                <button class="btn-secondary" onclick="closeModal()" style="flex: 1;">Cancel</button>
+                <button class="btn-primary" onclick="addCustomActivity()" style="flex: 1;">Add Activity</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Default activities for solo founders
+        const defaultActivities = [
+            { id: 'coding', name: 'Building/Coding', desc: 'Creating the product', icon: '💻', energy: 0, hours: 0 },
+            { id: 'meetings', name: 'Meetings', desc: 'Calls, syncs, discussions', icon: '📞', energy: 0, hours: 0 },
+            { id: 'email', name: 'Email & Messages', desc: 'Inbox management', icon: '📧', energy: 0, hours: 0 },
+            { id: 'marketing', name: 'Marketing', desc: 'Content, social, outreach', icon: '📢', energy: 0, hours: 0 },
+            { id: 'support', name: 'Customer Support', desc: 'Helping users', icon: '🎧', energy: 0, hours: 0 },
+            { id: 'admin', name: 'Admin Work', desc: 'Invoices, legal, ops', icon: '📋', energy: 0, hours: 0 },
+            { id: 'learning', name: 'Learning', desc: 'Reading, courses, research', icon: '📚', energy: 0, hours: 0 },
+            { id: 'networking', name: 'Networking', desc: 'Events, community', icon: '🤝', energy: 0, hours: 0 },
+            { id: 'planning', name: 'Planning & Strategy', desc: 'Thinking, roadmapping', icon: '🎯', energy: 0, hours: 0 },
+            { id: 'exercise', name: 'Exercise', desc: 'Physical activity', icon: '🏃', energy: 0, hours: 0 },
+            { id: 'rest', name: 'Rest & Recovery', desc: 'Breaks, naps, downtime', icon: '😴', energy: 0, hours: 0 },
+        ];
+
+        let activities = [...defaultActivities];
+
+        // Load saved data
+        function loadData() {
+            const saved = localStorage.getItem('energyAudit');
+            if (saved) {
+                activities = JSON.parse(saved);
+            }
+            renderActivities();
+            updateStats();
+        }
+
+        // Save data
+        function saveData() {
+            localStorage.setItem('energyAudit', JSON.stringify(activities));
+        }
+
+        // Render activities
+        function renderActivities() {
+            const grid = document.getElementById('activitiesGrid');
+            grid.innerHTML = '';
+
+            activities.forEach((activity, index) => {
+                const card = document.createElement('div');
+                card.className = 'activity-card';
+                card.innerHTML = `
+                    <div class="activity-header">
+                        <div>
+                            <div class="activity-name">${activity.name}</div>
+                            <div class="activity-desc">${activity.desc}</div>
+                        </div>
+                        <div class="activity-icon">${activity.icon}</div>
+                    </div>
+                    <div class="energy-slider-container">
+                        <div class="slider-labels">
+                            <span class="label-drain">⚡ Drains</span>
+                            <span class="label-give">Energizes ⚡</span>
+                        </div>
+                        <input type="range" class="energy-slider" 
+                            min="-5" max="5" value="${activity.energy}" 
+                            oninput="updateEnergy(${index}, this.value)">
+                        <div class="energy-value ${getEnergyClass(activity.energy)}" id="value-${index}">
+                            ${formatEnergy(activity.energy)}
+                        </div>
+                    </div>
+                    <div class="hours-input">
+                        <label>Hours/week:</label>
+                        <input type="number" min="0" max="80" value="${activity.hours}" 
+                            onchange="updateHours(${index}, this.value)">
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            // Add "Add Custom" card
+            const addCard = document.createElement('div');
+            addCard.className = 'add-activity';
+            addCard.onclick = openModal;
+            addCard.innerHTML = `
+                <div class="add-activity-icon">➕</div>
+                <div class="add-activity-text">Add Custom Activity</div>
+            `;
+            grid.appendChild(addCard);
+        }
+
+        function getEnergyClass(value) {
+            if (value > 0) return 'positive';
+            if (value < 0) return 'negative';
+            return 'neutral';
+        }
+
+        function formatEnergy(value) {
+            if (value > 0) return `+${value}`;
+            return value.toString();
+        }
+
+        function updateEnergy(index, value) {
+            activities[index].energy = parseInt(value);
+            const valueEl = document.getElementById(`value-${index}`);
+            valueEl.textContent = formatEnergy(value);
+            valueEl.className = `energy-value ${getEnergyClass(value)}`;
+            saveData();
+            updateStats();
+        }
+
+        function updateHours(index, value) {
+            activities[index].hours = parseFloat(value) || 0;
+            saveData();
+            updateStats();
+        }
+
+        function updateStats() {
+            const activeActivities = activities.filter(a => a.hours > 0);
+            const totalHours = activities.reduce((sum, a) => sum + a.hours, 0);
+            const netEnergy = activities.reduce((sum, a) => sum + (a.energy * a.hours), 0);
+
+            document.getElementById('totalActivities').textContent = activeActivities.length;
+            document.getElementById('totalHours').textContent = `${totalHours}h`;
+            document.getElementById('netEnergy').textContent = formatEnergy(Math.round(netEnergy));
+        }
+
+        function calculateResults() {
+            const activeActivities = activities.filter(a => a.hours > 0);
+            
+            if (activeActivities.length === 0) {
+                alert('Please add hours to at least one activity first!');
+                return;
+            }
+
+            // Calculate net energy
+            const netEnergy = activities.reduce((sum, a) => sum + (a.energy * a.hours), 0);
+            
+            // Find biggest drain and source
+            const sortedByImpact = [...activeActivities].sort((a, b) => 
+                (a.energy * a.hours) - (b.energy * b.hours)
+            );
+            
+            const biggestDrain = sortedByImpact[0];
+            const biggestSource = sortedByImpact[sortedByImpact.length - 1];
+
+            // Update results
+            const balanceCard = document.getElementById('balanceCard');
+            const balanceValue = document.getElementById('balanceValue');
+            
+            balanceValue.textContent = formatEnergy(Math.round(netEnergy));
+            balanceValue.className = `result-value ${netEnergy >= 0 ? 'positive' : 'negative'}`;
+            balanceCard.className = `result-card energy-balance ${netEnergy < 0 ? 'negative' : ''}`;
+
+            if (biggestDrain && biggestDrain.energy < 0) {
+                document.getElementById('biggestDrain').textContent = `${biggestDrain.icon} ${Math.round(biggestDrain.energy * biggestDrain.hours)}`;
+                document.getElementById('drainLabel').textContent = `${biggestDrain.name} (${biggestDrain.hours}h/week)`;
+            }
+
+            if (biggestSource && biggestSource.energy > 0) {
+                document.getElementById('biggestSource').textContent = `${biggestSource.icon} +${Math.round(biggestSource.energy * biggestSource.hours)}`;
+                document.getElementById('sourceLabel').textContent = `${biggestSource.name} (${biggestSource.hours}h/week)`;
+            }
+
+            // Render energy chart
+            renderEnergyChart(activeActivities);
+
+            // Generate recommendations
+            generateRecommendations(activeActivities, netEnergy);
+
+            // Show results
+            document.getElementById('resultsSection').classList.add('visible');
+            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function renderEnergyChart(activeActivities) {
+            const chart = document.getElementById('energyChart');
+            const maxImpact = Math.max(...activeActivities.map(a => Math.abs(a.energy * a.hours)));
+
+            const sortedActivities = [...activeActivities].sort((a, b) => 
+                (b.energy * b.hours) - (a.energy * a.hours)
+            );
+
+            chart.innerHTML = sortedActivities.map(a => {
+                const impact = a.energy * a.hours;
+                const width = Math.abs(impact) / maxImpact * 100;
+                const isPositive = impact >= 0;
+
+                return `
+                    <div class="energy-bar">
+                        <div class="bar-label">${a.icon} ${a.name}</div>
+                        <div class="bar-container">
+                            <div class="bar-fill ${isPositive ? 'positive' : 'negative'}" 
+                                style="width: ${width}%"></div>
+                        </div>
+                        <div class="bar-value" style="color: ${isPositive ? 'var(--energy-high)' : 'var(--energy-drain)'}">
+                            ${formatEnergy(Math.round(impact))}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function generateRecommendations(activeActivities, netEnergy) {
+            const recommendations = document.getElementById('recommendations');
+            const recs = [];
+
+            // Find draining activities with high hours
+            const drainers = activeActivities.filter(a => a.energy < 0 && a.hours >= 5);
+            const energizers = activeActivities.filter(a => a.energy > 0);
+
+            if (netEnergy < 0) {
+                recs.push({
+                    icon: '🚨',
+                    title: 'Energy Deficit Alert',
+                    text: `You're running at a ${Math.abs(Math.round(netEnergy))} energy unit deficit per week. This is unsustainable and leads to burnout. Consider delegating or reducing time on your biggest drainers.`,
+                    action: 'Review your schedule',
+                    color: 'var(--energy-drain)'
+                });
+            }
+
+            if (drainers.length > 0) {
+                const topDrainer = drainers.reduce((max, a) => 
+                    (a.energy * a.hours) < (max.energy * max.hours) ? a : max
+                );
+                recs.push({
+                    icon: '💡',
+                    title: `Optimize: ${topDrainer.name}`,
+                    text: `This activity drains ${Math.abs(Math.round(topDrainer.energy * topDrainer.hours))} energy units weekly. Could you automate parts of it? Delegate? Batch it into focused blocks? Set boundaries?`,
+                    action: 'Find alternatives',
+                    color: 'var(--accent-orange)'
+                });
+            }
+
+            if (energizers.length > 0) {
+                const topEnergizer = energizers.reduce((max, a) => 
+                    (a.energy * a.hours) > (max.energy * max.hours) ? a : max
+                );
+                recs.push({
+                    icon: '⚡',
+                    title: `Protect: ${topEnergizer.name}`,
+                    text: `This is your superpower! It gives you +${Math.round(topEnergizer.energy * topEnergizer.hours)} energy units weekly. Schedule it first thing in the day. Protect it from meetings. Consider increasing this time.`,
+                    action: 'Block time',
+                    color: 'var(--energy-high)'
+                });
+            }
+
+            // Check for recovery activities
+            const hasRecovery = activeActivities.some(a => 
+                ['exercise', 'rest'].includes(a.id) && a.hours >= 5
+            );
+            if (!hasRecovery) {
+                recs.push({
+                    icon: '🧘',
+                    title: 'Add Recovery Time',
+                    text: 'You have limited recovery activities in your schedule. Even high performers need rest. Consider adding exercise, breaks, or dedicated downtime to recharge.',
+                    action: 'Schedule recovery',
+                    color: 'var(--accent-cyan)'
+                });
+            }
+
+            recommendations.innerHTML = recs.map(r => `
+                <div class="recommendation-card" style="border-color: ${r.color}">
+                    <div class="recommendation-header">
+                        <div class="recommendation-icon">${r.icon}</div>
+                        <div class="recommendation-title">${r.title}</div>
+                    </div>
+                    <p class="recommendation-text">${r.text}</p>
+                </div>
+            `).join('');
+        }
+
+        function openModal() {
+            document.getElementById('addModal').classList.add('visible');
+        }
+
+        function closeModal() {
+            document.getElementById('addModal').classList.remove('visible');
+            document.getElementById('customActivityName').value = '';
+            document.getElementById('customActivityEmoji').value = '';
+        }
+
+        function addCustomActivity() {
+            const name = document.getElementById('customActivityName').value.trim();
+            const emoji = document.getElementById('customActivityEmoji').value.trim() || '📌';
+
+            if (!name) {
+                alert('Please enter an activity name');
+                return;
+            }
+
+            activities.push({
+                id: `custom-${Date.now()}`,
+                name: name,
+                desc: 'Custom activity',
+                icon: emoji,
+                energy: 0,
+                hours: 0
+            });
+
+            saveData();
+            renderActivities();
+            closeModal();
+        }
+
+        function resetAll() {
+            if (confirm('Reset all activities to defaults? This will clear your data.')) {
+                activities = [...defaultActivities];
+                saveData();
+                renderActivities();
+                updateStats();
+                document.getElementById('resultsSection').classList.remove('visible');
+            }
+        }
+
+        // Initialize
+        loadData();
+    </script>
+</body>
+</html>
