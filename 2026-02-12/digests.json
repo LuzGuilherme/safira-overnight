@@ -1,7 +1,61 @@
 {
-  "generated": "2026-03-22T01:00:00.000000Z",
-  "count": 49,
+  "generated": "2026-03-23T01:05:00.000000Z",
+  "count": 51,
   "digests": [
+    {
+      "id": "2026-03-23-allin-sec-cftc-crypto-ipos",
+      "filename": "2026-03-23-all-in-sec-cftc.md",
+      "date": "2026-03-23",
+      "title": "SEC & CFTC on Crypto, IPOs & Future of American Markets",
+      "host": "All-In Podcast (Jason, Chamath)",
+      "guest": "Paul Atkins (SEC Chair), Michael Selig (CFTC Chair)",
+      "duration": "~60 min",
+      "link": "https://www.youtube.com/watch?v=el6ObB60Fb4",
+      "theme": "SEC-CFTC harmonization, IPO reform, crypto regulation, accredited investor reform",
+      "tldr": "Historic joint interview with both financial regulators. Major policy shift: harmonizing SEC/CFTC regulations, opening IPO markets, reforming accredited investor rules (knowledge-based test coming), and creating clear crypto frameworks. End of 'regulation by enforcement'.",
+      "insights": [
+        {"insight": "IPO drought: Apple/Microsoft went public at 1,000 employees", "why": "Today's private market dominance hurts public investors"},
+        {"insight": "SEC-CFTC ending 'two fortresses' rivalry", "why": "MOU being drafted, super app vision for blurred lines"},
+        {"insight": "Accredited investor knowledge-based test coming", "why": "Finance professor can't invest but heiress can - absurd"},
+        {"insight": "Crypto: Capital raise regulated, tokens may be goods", "why": "Clear framework emerging for compliance"},
+        {"insight": "Quarterly reporting reform possible", "why": "Trump advocating semi-annual, Barry Diller doing monthly"},
+        {"insight": "AI trading bots acknowledged - guardrails not blocking", "why": "Purpose-fit regulation for autonomous systems"}
+      ],
+      "quotes": [
+        "Thomas Edison didn't have to go ask for permission to go innovate.",
+        "We need spring cleaning - clean out the attic, basement, and garage with focus on materiality.",
+        "A finance professor who makes $100K can't invest, but an heiress who just inherited $10M can?"
+      ],
+      "rating": 4.8,
+      "tags": ["AllIn", "SEC", "CFTC", "Crypto", "IPO", "Regulation", "AccreditedInvestor", "AITrading"]
+    },
+    {
+      "id": "2026-03-23-allin-graham-allison-global",
+      "filename": "2026-03-23-all-in-graham-allison.md",
+      "date": "2026-03-23",
+      "title": "Graham Allison: Global Realignment (Iran, China, Israel, Greenland)",
+      "host": "All-In Podcast (Friedberg, Jason, Chamath)",
+      "guest": "Graham Allison (Harvard Kennedy School)",
+      "duration": "~63 min",
+      "link": "https://www.youtube.com/watch?v=yAHfG6jU2qA",
+      "theme": "Iran 'Bibi's War', Taiwan invasion probability, 80-80-9 framework, wealth inequality",
+      "tldr": "Harvard's legendary foreign policy expert unpacks the Iran conflict (calling it 'Bibi's War'), explains why China won't invade Taiwan soon (5% probability), introduces his 80-80-9 framework (80 years no great power war, 80 years no nukes, 9 nuclear states), and warns about wealth inequality threatening democracy.",
+      "insights": [
+        {"insight": "Iran War = 'Bibi's War'", "why": "Netanyahu mesmerized Trump despite previous skepticism"},
+        {"insight": "Taiwan invasion ~5% probability 2026-2027", "why": "China's peaceful reunification theory, military purge, Trump accommodating"},
+        {"insight": "80-80-9 framework", "why": "We're living in abnormally peaceful times - actively maintained, fragile"},
+        {"insight": "China GDP 25% larger than US (PPP)", "why": "Never has a country risen so far so fast"},
+        {"insight": "Top 10-20% taking 80% of pie", "why": "Not stable in a democracy - invitation for populism"},
+        {"insight": "Greenland: 99-year lease solution", "why": "We can get everything we want without invading"}
+      ],
+      "quotes": [
+        "This is Bibi's war... For the last two decades, that's been Bibi's number one agenda.",
+        "Breaking something is a lot easier than building something.",
+        "The top 10-20% taking 80% of the pie is not stable and sustainable."
+      ],
+      "rating": 4.7,
+      "tags": ["AllIn", "GrahamAllison", "Iran", "China", "Taiwan", "Geopolitics", "WealthInequality", "NuclearProliferation"]
+    },
     {
       "id": "2026-03-22-allin-jensen-huang-nvidia",
       "filename": "2026-03-22-allin-jensen-huang-nvidia.md",
