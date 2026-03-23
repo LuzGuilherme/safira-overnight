@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Anti-To-Do List | Stop Doing What Doesn't Matter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fffef5;
+            --black: #0a0a0a;
+            --red: #ff3333;
+            --yellow: #ffdd00;
+            --blue: #0066ff;
+            --green: #00cc66;
+            --border: 3px solid var(--black);
+            --border-thick: 4px solid var(--black);
+            --shadow: 6px 6px 0 var(--black);
+            --shadow-sm: 4px 4px 0 var(--black);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--black);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 2rem;
+            border: var(--border-thick);
+            background: var(--yellow);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .quote-box {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: var(--bg);
+            border: var(--border);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .quote-box cite {
+            display: block;
+            margin-top: 0.5rem;
+            font-style: normal;
+            font-weight: 700;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            border: var(--border);
+            padding: 1rem;
+            text-align: center;
+            background: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-card.highlight {
+            background: var(--red);
+            color: white;
+        }
+
+        .stat-card.success {
+            background: var(--green);
+        }
+
+        .stat-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.25rem;
+            font-weight: 600;
+        }
+
+        /* Add Task Section */
+        .add-section {
+            border: var(--border-thick);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .add-section h2 {
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 1rem;
+            align-items: end;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .form-group label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        input, select {
+            font-family: inherit;
+            font-size: 1rem;
+            padding: 0.75rem;
+            border: var(--border);
+            background: var(--bg);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            background: var(--yellow);
+        }
+
+        button {
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border: var(--border);
+            background: var(--black);
+            color: white;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: transform 0.1s, box-shadow 0.1s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        button:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0 var(--black);
+        }
+
+        button:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 var(--black);
+        }
+
+        button.secondary {
+            background: white;
+            color: var(--black);
+        }
+
+        button.danger {
+            background: var(--red);
+        }
+
+        /* Task List */
+        .task-list {
+            margin-bottom: 2rem;
+        }
+
+        .task-list h2 {
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            padding: 0.75rem;
+            background: var(--black);
+            color: white;
+        }
+
+        .task-item {
+            border: var(--border);
+            border-top: none;
+            padding: 1rem;
+            background: white;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .task-item:first-of-type {
+            border-top: var(--border);
+        }
+
+        .task-item.waste-high {
+            border-left: 6px solid var(--red);
+        }
+
+        .task-item.waste-medium {
+            border-left: 6px solid var(--yellow);
+        }
+
+        .task-item.waste-low {
+            border-left: 6px solid var(--green);
+        }
+
+        .task-info h3 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .task-meta {
+            font-size: 0.8rem;
+            color: #666;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .task-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: 2px solid currentColor;
+        }
+
+        .badge.eliminate {
+            color: var(--red);
+            background: #fff0f0;
+        }
+
+        .badge.delegate {
+            color: var(--blue);
+            background: #f0f5ff;
+        }
+
+        .badge.automate {
+            color: #9900cc;
+            background: #f9f0ff;
+        }
+
+        /* Action Plan */
+        .action-plan {
+            border: var(--border-thick);
+            padding: 1.5rem;
+            background: var(--yellow);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .action-plan h2 {
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .action-list {
+            list-style: none;
+        }
+
+        .action-list li {
+            padding: 0.75rem;
+            background: white;
+            border: var(--border);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .action-list li::before {
+            content: "✕";
+            font-weight: 700;
+            color: var(--red);
+            font-size: 1.2rem;
+        }
+
+        .action-list li.delegate::before {
+            content: "→";
+            color: var(--blue);
+        }
+
+        .action-list li.automate::before {
+            content: "⚡";
+            color: #9900cc;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            border: var(--border);
+            border-style: dashed;
+            background: white;
+        }
+
+        .empty-state h3 {
+            font-family: 'Space Mono', monospace;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            border: var(--border);
+            background: var(--black);
+            color: white;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+        }
+
+        footer a {
+            color: var(--yellow);
+        }
+
+        /* Animations */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .shake {
+            animation: shake 0.3s ease-in-out;
+        }
+
+        /* Detail form (shows after adding task) */
+        .detail-form {
+            display: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px dashed var(--black);
+        }
+
+        .detail-form.active {
+            display: block;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 1.25rem;
+            height: 1.25rem;
+            cursor: pointer;
+        }
+
+        /* Modal for editing */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border: var(--border-thick);
+            box-shadow: var(--shadow);
+            max-width: 500px;
+            width: 100%;
+            padding: 1.5rem;
+        }
+
+        .modal h3 {
+            font-family: 'Space Mono', monospace;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>The Anti-To-Do List</h1>
+            <p class="tagline">Stop Doing What Doesn't Matter</p>
+            <div class="quote-box">
+                "The difference between successful people and really successful people is that really successful people say no to almost everything."
+                <cite>— Warren Buffett</cite>
+            </div>
+        </header>
+
+        <div class="stats-bar">
+            <div class="stat-card highlight">
+                <div class="stat-value" id="wastedHours">0</div>
+                <div class="stat-label">Hours Wasted / Week</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="taskCount">0</div>
+                <div class="stat-label">Tasks to Eliminate</div>
+            </div>
+            <div class="stat-card success">
+                <div class="stat-value" id="freedHours">0</div>
+                <div class="stat-label">Hours You Could Free</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="yearlyHours">0</div>
+                <div class="stat-label">Hours / Year</div>
+            </div>
+        </div>
+
+        <section class="add-section">
+            <h2>➕ Add a Task You Shouldn't Be Doing</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="taskName">What are you doing that's a waste of time?</label>
+                    <input type="text" id="taskName" placeholder="e.g., Checking emails constantly, attending status meetings...">
+                </div>
+                <div class="form-group">
+                    <label for="taskHours">Hours / Week</label>
+                    <input type="number" id="taskHours" min="0.5" step="0.5" value="1" style="width: 100px;">
+                </div>
+                <button onclick="showDetailForm()">Add Task</button>
+            </div>
+            
+            <div class="detail-form" id="detailForm">
+                <h4 style="margin-bottom: 1rem; font-family: 'Space Mono', monospace;">EVALUATE THIS TASK:</h4>
+                <div class="detail-grid">
+                    <div class="form-group">
+                        <label for="taskValue">Value Generated (1-5)</label>
+                        <select id="taskValue">
+                            <option value="1">1 - Zero value</option>
+                            <option value="2">2 - Minimal value</option>
+                            <option value="3" selected>3 - Some value</option>
+                            <option value="4">4 - Good value</option>
+                            <option value="5">5 - Essential</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskEnergy">Energy Drain (1-5)</label>
+                        <select id="taskEnergy">
+                            <option value="1">1 - Energizing</option>
+                            <option value="2">2 - Neutral</option>
+                            <option value="3" selected>3 - Tiring</option>
+                            <option value="4">4 - Draining</option>
+                            <option value="5">5 - Soul-crushing</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="canEliminate"> Can be eliminated entirely</label>
+                    <label><input type="checkbox" id="canDelegate"> Can be delegated</label>
+                    <label><input type="checkbox" id="canAutomate"> Can be automated</label>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <button onclick="addTask()">✕ Add to Anti-List</button>
+                    <button class="secondary" onclick="hideDetailForm()">Cancel</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="task-list" id="taskListSection">
+            <h2>📋 Your Anti-To-Do List</h2>
+            <div id="taskList">
+                <div class="empty-state">
+                    <h3>Nothing here yet!</h3>
+                    <p>Add tasks you should STOP doing to reclaim your time.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="action-plan" id="actionPlan" style="display: none;">
+            <h2>🎯 Your Action Plan</h2>
+            <ul class="action-list" id="actionList">
+            </ul>
+        </section>
+
+        <footer>
+            <p>Built overnight by <a href="https://twitter.com/GuilhermeLu7_" target="_blank">@GuilhermeLu7_</a> • Less is more.</p>
+        </footer>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <h3>Edit Task</h3>
+            <input type="hidden" id="editIndex">
+            <div class="form-group" style="margin-bottom: 1rem;">
+                <label for="editName">Task Name</label>
+                <input type="text" id="editName" style="width: 100%;">
+            </div>
+            <div class="detail-grid">
+                <div class="form-group">
+                    <label for="editHours">Hours / Week</label>
+                    <input type="number" id="editHours" min="0.5" step="0.5">
+                </div>
+                <div class="form-group">
+                    <label for="editValue">Value (1-5)</label>
+                    <select id="editValue">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editEnergy">Energy Drain (1-5)</label>
+                    <select id="editEnergy">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+            <div class="checkbox-group">
+                <label><input type="checkbox" id="editEliminate"> Eliminate</label>
+                <label><input type="checkbox" id="editDelegate"> Delegate</label>
+                <label><input type="checkbox" id="editAutomate"> Automate</label>
+            </div>
+            <div class="modal-buttons">
+                <button class="secondary" onclick="closeModal()">Cancel</button>
+                <button onclick="saveEdit()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let tasks = JSON.parse(localStorage.getItem('antiTodoTasks') || '[]');
+
+        function showDetailForm() {
+            const name = document.getElementById('taskName').value.trim();
+            const hours = parseFloat(document.getElementById('taskHours').value);
+            
+            if (!name) {
+                document.getElementById('taskName').classList.add('shake');
+                setTimeout(() => document.getElementById('taskName').classList.remove('shake'), 300);
+                return;
+            }
+            
+            document.getElementById('detailForm').classList.add('active');
+        }
+
+        function hideDetailForm() {
+            document.getElementById('detailForm').classList.remove('active');
+        }
+
+        function addTask() {
+            const name = document.getElementById('taskName').value.trim();
+            const hours = parseFloat(document.getElementById('taskHours').value) || 1;
+            const value = parseInt(document.getElementById('taskValue').value);
+            const energy = parseInt(document.getElementById('taskEnergy').value);
+            const canEliminate = document.getElementById('canEliminate').checked;
+            const canDelegate = document.getElementById('canDelegate').checked;
+            const canAutomate = document.getElementById('canAutomate').checked;
+
+            if (!name) return;
+
+            // Calculate waste score (higher = worse)
+            // Low value + high energy drain + high hours = high waste
+            const wasteScore = ((6 - value) + energy) * hours / 2;
+
+            tasks.push({
+                name,
+                hours,
+                value,
+                energy,
+                canEliminate,
+                canDelegate,
+                canAutomate,
+                wasteScore,
+                dateAdded: new Date().toISOString()
+            });
+
+            saveTasks();
+            renderTasks();
+            updateStats();
+            
+            // Reset form
+            document.getElementById('taskName').value = '';
+            document.getElementById('taskHours').value = '1';
+            document.getElementById('taskValue').value = '3';
+            document.getElementById('taskEnergy').value = '3';
+            document.getElementById('canEliminate').checked = false;
+            document.getElementById('canDelegate').checked = false;
+            document.getElementById('canAutomate').checked = false;
+            hideDetailForm();
+        }
+
+        function saveTasks() {
+            localStorage.setItem('antiTodoTasks', JSON.stringify(tasks));
+        }
+
+        function deleteTask(index) {
+            if (confirm('Remove this task from your anti-list?')) {
+                tasks.splice(index, 1);
+                saveTasks();
+                renderTasks();
+                updateStats();
+            }
+        }
+
+        function editTask(index) {
+            const task = tasks[index];
+            document.getElementById('editIndex').value = index;
+            document.getElementById('editName').value = task.name;
+            document.getElementById('editHours').value = task.hours;
+            document.getElementById('editValue').value = task.value;
+            document.getElementById('editEnergy').value = task.energy;
+            document.getElementById('editEliminate').checked = task.canEliminate;
+            document.getElementById('editDelegate').checked = task.canDelegate;
+            document.getElementById('editAutomate').checked = task.canAutomate;
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('editModal').classList.remove('active');
+        }
+
+        function saveEdit() {
+            const index = parseInt(document.getElementById('editIndex').value);
+            const hours = parseFloat(document.getElementById('editHours').value) || 1;
+            const value = parseInt(document.getElementById('editValue').value);
+            const energy = parseInt(document.getElementById('editEnergy').value);
+            
+            tasks[index] = {
+                ...tasks[index],
+                name: document.getElementById('editName').value.trim(),
+                hours,
+                value,
+                energy,
+                canEliminate: document.getElementById('editEliminate').checked,
+                canDelegate: document.getElementById('editDelegate').checked,
+                canAutomate: document.getElementById('editAutomate').checked,
+                wasteScore: ((6 - value) + energy) * hours / 2
+            };
+            
+            saveTasks();
+            renderTasks();
+            updateStats();
+            closeModal();
+        }
+
+        function getWasteLevel(score, hours) {
+            const normalizedScore = score / hours;
+            if (normalizedScore >= 4) return 'high';
+            if (normalizedScore >= 2.5) return 'medium';
+            return 'low';
+        }
+
+        function renderTasks() {
+            const container = document.getElementById('taskList');
+            
+            if (tasks.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>Nothing here yet!</h3>
+                        <p>Add tasks you should STOP doing to reclaim your time.</p>
+                    </div>
+                `;
+                document.getElementById('actionPlan').style.display = 'none';
+                return;
+            }
+
+            // Sort by waste score (highest first)
+            const sortedTasks = [...tasks].sort((a, b) => b.wasteScore - a.wasteScore);
+            
+            container.innerHTML = sortedTasks.map((task, i) => {
+                const originalIndex = tasks.indexOf(task);
+                const wasteLevel = getWasteLevel(task.wasteScore, task.hours);
+                const badges = [];
+                if (task.canEliminate) badges.push('<span class="badge eliminate">Eliminate</span>');
+                if (task.canDelegate) badges.push('<span class="badge delegate">Delegate</span>');
+                if (task.canAutomate) badges.push('<span class="badge automate">Automate</span>');
+                
+                return `
+                    <div class="task-item waste-${wasteLevel}">
+                        <div class="task-info">
+                            <h3>${task.name}</h3>
+                            <div class="task-meta">
+                                <span>⏱️ ${task.hours}h/week</span>
+                                <span>💎 Value: ${task.value}/5</span>
+                                <span>🔋 Drain: ${task.energy}/5</span>
+                                ${badges.length ? badges.join(' ') : ''}
+                            </div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="secondary" onclick="editTask(${originalIndex})" style="padding: 0.5rem 0.75rem; font-size: 0.8rem;">Edit</button>
+                            <button class="danger" onclick="deleteTask(${originalIndex})" style="padding: 0.5rem 0.75rem; font-size: 0.8rem;">✕</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Update action plan
+            updateActionPlan(sortedTasks);
+        }
+
+        function updateActionPlan(sortedTasks) {
+            const actionableTasks = sortedTasks.filter(t => t.canEliminate || t.canDelegate || t.canAutomate);
+            
+            if (actionableTasks.length === 0) {
+                document.getElementById('actionPlan').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('actionPlan').style.display = 'block';
+            
+            const actionList = document.getElementById('actionList');
+            actionList.innerHTML = actionableTasks.map(task => {
+                let action = '';
+                let className = '';
+                
+                if (task.canEliminate) {
+                    action = `STOP doing "${task.name}" → Save ${task.hours}h/week`;
+                    className = '';
+                } else if (task.canDelegate) {
+                    action = `DELEGATE "${task.name}" → Free up ${task.hours}h/week`;
+                    className = 'delegate';
+                } else if (task.canAutomate) {
+                    action = `AUTOMATE "${task.name}" → Recover ${task.hours}h/week`;
+                    className = 'automate';
+                }
+                
+                return `<li class="${className}">${action}</li>`;
+            }).join('');
+        }
+
+        function updateStats() {
+            const totalHours = tasks.reduce((sum, t) => sum + t.hours, 0);
+            const actionableHours = tasks
+                .filter(t => t.canEliminate || t.canDelegate || t.canAutomate)
+                .reduce((sum, t) => sum + t.hours, 0);
+            const taskCount = tasks.filter(t => t.canEliminate || t.canDelegate || t.canAutomate).length;
+
+            document.getElementById('wastedHours').textContent = totalHours.toFixed(1);
+            document.getElementById('taskCount').textContent = taskCount;
+            document.getElementById('freedHours').textContent = actionableHours.toFixed(1);
+            document.getElementById('yearlyHours').textContent = Math.round(actionableHours * 52);
+        }
+
+        // Close modal on overlay click
+        document.getElementById('editModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+            if (e.key === 'Enter' && document.getElementById('taskName') === document.activeElement) {
+                showDetailForm();
+            }
+        });
+
+        // Initial render
+        renderTasks();
+        updateStats();
+    </script>
+</body>
+</html>

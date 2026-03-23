@@ -106,3 +106,4 @@ Ver `/root/clawd/data/STYLE_LIBRARY.md` para detalhes completos.
 | 2026-03-20 | 1000 True Fans Calculator 🎯 | Business/Creator Economy | **Retro Tech** ⚡ |
 | 2026-03-21 | Ramen Profitability Calculator 🍜 | Business/Indie Hackers | **Data Dense** 📊 |
 | 2026-03-22 | The Energy Audit 🔋 | Productivity/Founder Tools | **Bold Maximalist** 🎨 |
+| 2026-03-23 | The Anti-To-Do List 🚫 | Produtividade/Founder Tools | **Neo Brutalist** 🔲 |
