@@ -1,7 +1,38 @@
 {
-  "generated": "2026-03-23T01:05:00.000000Z",
-  "count": 51,
+  "generated": "2026-03-24T01:15:00.000000Z",
+  "count": 52,
   "digests": [
+    {
+      "id": "2026-03-24-lex-fridman-494-jensen-huang",
+      "filename": "2026-03-24-lex-fridman-494-jensen-huang.md",
+      "date": "2026-03-24",
+      "title": "Jensen Huang: NVIDIA - The $4 Trillion Company & the AI Revolution",
+      "host": "Lex Fridman Podcast (#494)",
+      "guest": "Jensen Huang (CEO, NVIDIA)",
+      "duration": "~4-5h",
+      "link": "https://www.youtube.com/watch?v=vif8NQcjVf0",
+      "theme": "Extreme co-design, 4 scaling laws, CUDA decision, OpenClaw revolution, supply chain, manifestando o futuro",
+      "tldr": "Jensen Huang revela a filosofia por trás da NVIDIA: extreme co-design de chips/networking/cooling/racks, a decisão existencial de CUDA no GeForce que custou 80% do market cap, as 4 leis de escala (pre-training, post-training, test-time, agentic), e como ele 'manifesta o futuro' preparando a indústria incrementalmente. OpenClaw comparado ao ChatGPT para agentes.",
+      "insights": [
+        {"insight": "60+ reports directos, zero one-on-ones", "why": "Reuniões colectivas permitem extreme co-design constante"},
+        {"insight": "CUDA no GeForce = market cap $7B → $1.5B", "why": "Decisão existencial que criou a base do deep learning"},
+        {"insight": "Install base defines an architecture", "why": "x86 é feio mas ganhou contra RISC - adoção > elegância técnica"},
+        {"insight": "4 scaling laws: pre/post/test-time/agentic", "why": "Loop contínuo: agentes criam dados → voltam ao training"},
+        {"insight": "OpenClaw = ChatGPT dos agentes", "why": "Paradigm shift para sistemas agentic acessíveis a todos"},
+        {"insight": "1M× progressão vs 100× Moore's Law", "why": "Extreme co-design supera hardware isolado"},
+        {"insight": "99% do tempo grid power subusado", "why": "Data centers deviam aceitar graceful degradation"},
+        {"insight": "Jensen convenceu DRAM CEOs sobre HBM", "why": "Manifesta o futuro preparando supply chain"}
+      ],
+      "quotes": [
+        "Install base defines an architecture. Everything else is secondary.",
+        "Inference is thinking, and I think thinking is hard. Thinking is way harder than reading.",
+        "OpenClaw did for agentic systems what ChatGPT did for generative systems.",
+        "I manifest a future and that future is so convincing, there's no way it won't happen.",
+        "NVIDIA is the house that GeForce built."
+      ],
+      "rating": 5.0,
+      "tags": ["LexFridman", "JensenHuang", "NVIDIA", "AI", "ScalingLaws", "CUDA", "ExtremeCodesign", "OpenClaw", "SupplyChain", "Leadership"]
+    },
     {
       "id": "2026-03-23-allin-sec-cftc-crypto-ipos",
       "filename": "2026-03-23-all-in-sec-cftc.md",
