@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recovery Score — Should You Train Today?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-cream: #faf8f5;
+            --bg-warm: #f5f0e8;
+            --text-primary: #2d3a2d;
+            --text-secondary: #5a6b5a;
+            --text-muted: #8a9b8a;
+            --green-soft: #6b9b6b;
+            --green-light: #a8d4a8;
+            --green-pale: #d4e8d4;
+            --amber-soft: #d4a86b;
+            --amber-light: #f0d4a8;
+            --red-soft: #c47c6b;
+            --red-light: #f0c4b8;
+            --border-soft: #e0dbd4;
+            --shadow-soft: rgba(45, 58, 45, 0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 540px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        
+        .header-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.75rem;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 2px 12px var(--shadow-soft);
+            border: 1px solid var(--border-soft);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+        
+        .card-icon {
+            font-size: 1.5rem;
+        }
+        
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        /* Input Groups */
+        .input-group {
+            margin-bottom: 1.25rem;
+        }
+        
+        .input-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .input-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .label-text {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        
+        .label-value {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--green-soft);
+            background: var(--green-pale);
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+        }
+        
+        /* Range Sliders */
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 8px;
+            background: var(--bg-warm);
+            outline: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--green-soft);
+            border: 3px solid white;
+            box-shadow: 0 2px 8px var(--shadow-soft);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--green-soft);
+            border: 3px solid white;
+            box-shadow: 0 2px 8px var(--shadow-soft);
+            cursor: pointer;
+        }
+        
+        /* Number Input */
+        .number-input {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .number-input input {
+            width: 80px;
+            padding: 0.6rem 1rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Nunito', sans-serif;
+            text-align: center;
+            border: 2px solid var(--border-soft);
+            border-radius: 12px;
+            background: var(--bg-cream);
+            color: var(--text-primary);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        .number-input input:focus {
+            border-color: var(--green-soft);
+        }
+        
+        .number-hint {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        /* Checkbox Group */
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .checkbox-item {
+            flex: 1;
+            min-width: 45%;
+        }
+        
+        .checkbox-item input {
+            display: none;
+        }
+        
+        .checkbox-item label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: var(--bg-cream);
+            border: 2px solid var(--border-soft);
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+        
+        .checkbox-item input:checked + label {
+            background: var(--green-pale);
+            border-color: var(--green-soft);
+            color: var(--text-primary);
+        }
+        
+        .checkbox-icon {
+            font-size: 1.1rem;
+        }
+        
+        /* Yesterday's Workout */
+        .workout-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+        
+        .workout-option {
+            text-align: center;
+        }
+        
+        .workout-option input {
+            display: none;
+        }
+        
+        .workout-option label {
+            display: block;
+            padding: 0.75rem 0.5rem;
+            background: var(--bg-cream);
+            border: 2px solid var(--border-soft);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .workout-option input:checked + label {
+            background: var(--green-pale);
+            border-color: var(--green-soft);
+        }
+        
+        .workout-emoji {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        
+        .workout-text {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        
+        /* Calculate Button */
+        .calculate-btn {
+            width: 100%;
+            padding: 1.25rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Nunito', sans-serif;
+            background: var(--green-soft);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(107, 155, 107, 0.3);
+            margin-bottom: 1.5rem;
+        }
+        
+        .calculate-btn:hover {
+            background: #5a8a5a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107, 155, 107, 0.4);
+        }
+        
+        .calculate-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Result Card */
+        .result-card {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .result-card.visible {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .score-circle {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+        
+        .score-circle svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+        
+        .score-bg {
+            fill: none;
+            stroke: var(--bg-warm);
+            stroke-width: 12;
+        }
+        
+        .score-progress {
+            fill: none;
+            stroke-width: 12;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s ease, stroke 0.5s ease;
+        }
+        
+        .score-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+        
+        .result-status {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        
+        .result-message {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        .result-recommendation {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        
+        .result-recommendation.train {
+            background: var(--green-pale);
+            color: var(--green-soft);
+        }
+        
+        .result-recommendation.active {
+            background: var(--amber-light);
+            color: var(--amber-soft);
+        }
+        
+        .result-recommendation.rest {
+            background: var(--red-light);
+            color: var(--red-soft);
+        }
+        
+        /* Details Breakdown */
+        .breakdown {
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+        
+        .breakdown-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+        }
+        
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--border-soft);
+        }
+        
+        .breakdown-item:last-child {
+            border-bottom: none;
+        }
+        
+        .breakdown-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .breakdown-value {
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+        
+        .breakdown-value.good {
+            color: var(--green-soft);
+        }
+        
+        .breakdown-value.warning {
+            color: var(--amber-soft);
+        }
+        
+        .breakdown-value.bad {
+            color: var(--red-soft);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-soft);
+        }
+        
+        .footer p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        .footer a {
+            color: var(--green-soft);
+            text-decoration: none;
+        }
+        
+        /* Tips Section */
+        .tips {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            background: var(--bg-warm);
+            border-radius: 16px;
+        }
+        
+        .tips-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+        }
+        
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .tip-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .tip-icon {
+            flex-shrink: 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem 1rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .card {
+                padding: 1.25rem;
+            }
+            
+            .workout-options {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .checkbox-item {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <span class="header-icon">🌿</span>
+            <h1>Recovery Score</h1>
+            <p class="subtitle">Should you train today? Let's find out.</p>
+        </div>
+        
+        <!-- Sleep Card -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-icon">😴</span>
+                <span class="card-title">Sleep</span>
+            </div>
+            
+            <div class="input-group">
+                <div class="input-label">
+                    <span class="label-text">Hours of sleep</span>
+                </div>
+                <div class="number-input">
+                    <input type="number" id="sleepHours" value="7" min="0" max="12" step="0.5">
+                    <span class="number-hint">Last night</span>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <div class="input-label">
+                    <span class="label-text">Sleep quality</span>
+                    <span class="label-value" id="sleepQualityValue">7</span>
+                </div>
+                <input type="range" id="sleepQuality" min="1" max="10" value="7">
+            </div>
+        </div>
+        
+        <!-- Body Card -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-icon">💪</span>
+                <span class="card-title">Body</span>
+            </div>
+            
+            <div class="input-group">
+                <div class="input-label">
+                    <span class="label-text">Muscle soreness</span>
+                    <span class="label-value" id="sorenessValue">3</span>
+                </div>
+                <input type="range" id="soreness" min="1" max="10" value="3">
+            </div>
+            
+            <div class="input-group">
+                <div class="input-label">
+                    <span class="label-text">Energy level</span>
+                    <span class="label-value" id="energyValue">7</span>
+                </div>
+                <input type="range" id="energy" min="1" max="10" value="7">
+            </div>
+        </div>
+        
+        <!-- Mind Card -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-icon">🧠</span>
+                <span class="card-title">Mind</span>
+            </div>
+            
+            <div class="input-group">
+                <div class="input-label">
+                    <span class="label-text">Stress level</span>
+                    <span class="label-value" id="stressValue">4</span>
+                </div>
+                <input type="range" id="stress" min="1" max="10" value="4">
+            </div>
+            
+            <div class="input-group">
+                <div class="input-label">
+                    <span class="label-text">Motivation to train</span>
+                    <span class="label-value" id="motivationValue">7</span>
+                </div>
+                <input type="range" id="motivation" min="1" max="10" value="7">
+            </div>
+        </div>
+        
+        <!-- Training History Card -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-icon">📊</span>
+                <span class="card-title">Training History</span>
+            </div>
+            
+            <div class="input-group">
+                <div class="input-label">
+                    <span class="label-text">Yesterday's workout</span>
+                </div>
+                <div class="workout-options">
+                    <div class="workout-option">
+                        <input type="radio" name="yesterday" id="rest" value="rest">
+                        <label for="rest">
+                            <span class="workout-emoji">🛋️</span>
+                            <span class="workout-text">Rest day</span>
+                        </label>
+                    </div>
+                    <div class="workout-option">
+                        <input type="radio" name="yesterday" id="light" value="light">
+                        <label for="light">
+                            <span class="workout-emoji">🚶</span>
+                            <span class="workout-text">Light</span>
+                        </label>
+                    </div>
+                    <div class="workout-option">
+                        <input type="radio" name="yesterday" id="moderate" value="moderate" checked>
+                        <label for="moderate">
+                            <span class="workout-emoji">🏃</span>
+                            <span class="workout-text">Moderate</span>
+                        </label>
+                    </div>
+                    <div class="workout-option">
+                        <input type="radio" name="yesterday" id="hard" value="hard">
+                        <label for="hard">
+                            <span class="workout-emoji">🔥</span>
+                            <span class="workout-text">Hard</span>
+                        </label>
+                    </div>
+                    <div class="workout-option">
+                        <input type="radio" name="yesterday" id="intense" value="intense">
+                        <label for="intense">
+                            <span class="workout-emoji">💀</span>
+                            <span class="workout-text">Intense</span>
+                        </label>
+                    </div>
+                    <div class="workout-option">
+                        <input type="radio" name="yesterday" id="race" value="race">
+                        <label for="race">
+                            <span class="workout-emoji">🏆</span>
+                            <span class="workout-text">Race</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <div class="input-label">
+                    <span class="label-text">Days since last rest day</span>
+                </div>
+                <div class="number-input">
+                    <input type="number" id="daysSinceRest" value="2" min="0" max="14">
+                    <span class="number-hint">Including today</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Extras Card -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-icon">✨</span>
+                <span class="card-title">Extras</span>
+            </div>
+            
+            <div class="input-group">
+                <div class="input-label">
+                    <span class="label-text">Any of these apply?</span>
+                </div>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="illness">
+                        <label for="illness">
+                            <span class="checkbox-icon">🤒</span>
+                            <span>Feeling sick</span>
+                        </label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="injury">
+                        <label for="injury">
+                            <span class="checkbox-icon">🩹</span>
+                            <span>Minor injury</span>
+                        </label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="travel">
+                        <label for="travel">
+                            <span class="checkbox-icon">✈️</span>
+                            <span>Travelled today</span>
+                        </label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="dehydrated">
+                        <label for="dehydrated">
+                            <span class="checkbox-icon">💧</span>
+                            <span>Dehydrated</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Calculate Button -->
+        <button class="calculate-btn" onclick="calculateScore()">
+            🌱 Calculate My Recovery Score
+        </button>
+        
+        <!-- Result Card -->
+        <div class="card result-card" id="resultCard">
+            <div class="score-circle">
+                <svg viewBox="0 0 100 100">
+                    <circle class="score-bg" cx="50" cy="50" r="42"></circle>
+                    <circle class="score-progress" id="scoreProgress" cx="50" cy="50" r="42" 
+                            stroke-dasharray="264" stroke-dashoffset="264"></circle>
+                </svg>
+                <span class="score-value" id="scoreValue">0</span>
+            </div>
+            
+            <div class="result-status" id="resultStatus">Calculating...</div>
+            <p class="result-message" id="resultMessage">Your body is ready for action.</p>
+            
+            <div class="result-recommendation" id="resultRecommendation">
+                <span id="recIcon">🏃</span>
+                <span id="recText">Train Hard</span>
+            </div>
+            
+            <div class="breakdown">
+                <div class="breakdown-title">Score Breakdown</div>
+                <div class="breakdown-item">
+                    <span class="breakdown-label">Sleep Score</span>
+                    <span class="breakdown-value" id="sleepScore">+20</span>
+                </div>
+                <div class="breakdown-item">
+                    <span class="breakdown-label">Body Score</span>
+                    <span class="breakdown-value" id="bodyScore">+20</span>
+                </div>
+                <div class="breakdown-item">
+                    <span class="breakdown-label">Mind Score</span>
+                    <span class="breakdown-value" id="mindScore">+20</span>
+                </div>
+                <div class="breakdown-item">
+                    <span class="breakdown-label">Training Load</span>
+                    <span class="breakdown-value" id="loadScore">+20</span>
+                </div>
+                <div class="breakdown-item">
+                    <span class="breakdown-label">Extras</span>
+                    <span class="breakdown-value" id="extrasScore">+0</span>
+                </div>
+            </div>
+            
+            <div class="tips" id="tipsSection">
+                <div class="tips-title">💡 Today's Tips</div>
+                <div id="tipsList"></div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>Built with 🌿 for endurance athletes</p>
+            <p style="margin-top: 0.5rem;">Recovery is training too.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Update slider values
+        document.querySelectorAll('input[type="range"]').forEach(slider => {
+            slider.addEventListener('input', function() {
+                const valueSpan = document.getElementById(this.id + 'Value');
+                if (valueSpan) {
+                    valueSpan.textContent = this.value;
+                }
+            });
+        });
+        
+        function calculateScore() {
+            // Gather inputs
+            const sleepHours = parseFloat(document.getElementById('sleepHours').value) || 7;
+            const sleepQuality = parseInt(document.getElementById('sleepQuality').value);
+            const soreness = parseInt(document.getElementById('soreness').value);
+            const energy = parseInt(document.getElementById('energy').value);
+            const stress = parseInt(document.getElementById('stress').value);
+            const motivation = parseInt(document.getElementById('motivation').value);
+            const yesterday = document.querySelector('input[name="yesterday"]:checked')?.value || 'moderate';
+            const daysSinceRest = parseInt(document.getElementById('daysSinceRest').value) || 2;
+            
+            const illness = document.getElementById('illness').checked;
+            const injury = document.getElementById('injury').checked;
+            const travel = document.getElementById('travel').checked;
+            const dehydrated = document.getElementById('dehydrated').checked;
+            
+            // Calculate component scores
+            
+            // Sleep Score (0-25)
+            let sleepScore = 0;
+            // Hours component (0-15)
+            if (sleepHours >= 8) sleepScore += 15;
+            else if (sleepHours >= 7) sleepScore += 12;
+            else if (sleepHours >= 6) sleepScore += 8;
+            else if (sleepHours >= 5) sleepScore += 4;
+            else sleepScore += 0;
+            
+            // Quality component (0-10)
+            sleepScore += sleepQuality;
+            
+            // Body Score (0-25)
+            let bodyScore = 0;
+            // Soreness (inverted, 0-12)
+            bodyScore += Math.round((11 - soreness) * 1.2);
+            // Energy (0-13)
+            bodyScore += Math.round(energy * 1.3);
+            
+            // Mind Score (0-25)
+            let mindScore = 0;
+            // Stress (inverted, 0-12)
+            mindScore += Math.round((11 - stress) * 1.2);
+            // Motivation (0-13)
+            mindScore += Math.round(motivation * 1.3);
+            
+            // Training Load Score (0-25)
+            let loadScore = 25;
+            const yesterdayPenalty = {
+                'rest': 0,
+                'light': 3,
+                'moderate': 6,
+                'hard': 10,
+                'intense': 15,
+                'race': 20
+            };
+            loadScore -= yesterdayPenalty[yesterday] || 6;
+            
+            // Days since rest penalty
+            if (daysSinceRest >= 7) loadScore -= 10;
+            else if (daysSinceRest >= 5) loadScore -= 6;
+            else if (daysSinceRest >= 4) loadScore -= 3;
+            else if (daysSinceRest >= 3) loadScore -= 1;
+            
+            loadScore = Math.max(0, loadScore);
+            
+            // Extras penalties
+            let extrasScore = 0;
+            if (illness) extrasScore -= 15;
+            if (injury) extrasScore -= 10;
+            if (travel) extrasScore -= 5;
+            if (dehydrated) extrasScore -= 5;
+            
+            // Total score
+            let totalScore = sleepScore + bodyScore + mindScore + loadScore + extrasScore;
+            totalScore = Math.max(0, Math.min(100, totalScore));
+            
+            // Determine recommendation
+            let status, message, recIcon, recText, recClass, tips = [];
+            
+            if (totalScore >= 80) {
+                status = "Fully Recovered! 🌟";
+                message = "Your body and mind are primed. It's a great day to push hard.";
+                recIcon = "🏃";
+                recText = "Train Hard";
+                recClass = "train";
+                tips = [
+                    "Perfect day for high-intensity or long sessions",
+                    "Your body can handle the stress — make it count",
+                    "Stay hydrated and fuel properly"
+                ];
+            } else if (totalScore >= 65) {
+                status = "Well Recovered ✨";
+                message = "You're in good shape. Train normally but listen to your body.";
+                recIcon = "💪";
+                recText = "Train Normal";
+                recClass = "train";
+                tips = [
+                    "Good day for structured training",
+                    "Keep intensity moderate to high",
+                    "Pay attention to form when fatigued"
+                ];
+            } else if (totalScore >= 50) {
+                status = "Moderate Recovery 🌤️";
+                message = "You're okay to train, but consider dialing it back a bit.";
+                recIcon = "🚴";
+                recText = "Easy to Moderate";
+                recClass = "active";
+                tips = [
+                    "Focus on technique over intensity",
+                    "Keep it aerobic — stay in Zone 2",
+                    "Consider shorter duration"
+                ];
+            } else if (totalScore >= 35) {
+                status = "Needs Recovery 🌙";
+                message = "Your body is asking for rest. Active recovery or rest recommended.";
+                recIcon = "🧘";
+                recText = "Active Recovery";
+                recClass = "active";
+                tips = [
+                    "Light movement: walking, stretching, yoga",
+                    "Focus on sleep tonight",
+                    "Nutrition and hydration are key today"
+                ];
+            } else {
+                status = "Rest Day 💤";
+                message = "Your body is signaling clearly. Take the day off.";
+                recIcon = "🛋️";
+                recText = "Full Rest";
+                recClass = "rest";
+                tips = [
+                    "Complete rest is sometimes the best training",
+                    "Sleep, nourish, recover",
+                    "Address any illness or injury properly"
+                ];
+            }
+            
+            // Display results
+            const resultCard = document.getElementById('resultCard');
+            resultCard.classList.add('visible');
+            
+            // Animate score
+            const scoreProgress = document.getElementById('scoreProgress');
+            const circumference = 264;
+            const offset = circumference - (totalScore / 100) * circumference;
+            
+            // Set color based on score
+            let strokeColor;
+            if (totalScore >= 65) strokeColor = '#6b9b6b';
+            else if (totalScore >= 35) strokeColor = '#d4a86b';
+            else strokeColor = '#c47c6b';
+            
+            scoreProgress.style.stroke = strokeColor;
+            
+            // Animate with delay
+            setTimeout(() => {
+                scoreProgress.style.strokeDashoffset = offset;
+            }, 100);
+            
+            // Update values
+            document.getElementById('scoreValue').textContent = Math.round(totalScore);
+            document.getElementById('scoreValue').style.color = strokeColor;
+            document.getElementById('resultStatus').textContent = status;
+            document.getElementById('resultMessage').textContent = message;
+            
+            const recommendation = document.getElementById('resultRecommendation');
+            recommendation.className = 'result-recommendation ' + recClass;
+            document.getElementById('recIcon').textContent = recIcon;
+            document.getElementById('recText').textContent = recText;
+            
+            // Update breakdown
+            updateBreakdown('sleepScore', sleepScore, 25);
+            updateBreakdown('bodyScore', bodyScore, 25);
+            updateBreakdown('mindScore', mindScore, 25);
+            updateBreakdown('loadScore', loadScore, 25);
+            updateBreakdown('extrasScore', extrasScore, 0, true);
+            
+            // Update tips
+            const tipsList = document.getElementById('tipsList');
+            tipsList.innerHTML = tips.map(tip => `
+                <div class="tip-item">
+                    <span class="tip-icon">→</span>
+                    <span>${tip}</span>
+                </div>
+            `).join('');
+            
+            // Scroll to result
+            resultCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        function updateBreakdown(id, value, max, isExtra = false) {
+            const element = document.getElementById(id);
+            const sign = value >= 0 ? '+' : '';
+            element.textContent = sign + Math.round(value);
+            
+            if (isExtra) {
+                element.className = 'breakdown-value ' + (value < 0 ? 'bad' : 'good');
+            } else {
+                const percentage = value / max;
+                if (percentage >= 0.7) element.className = 'breakdown-value good';
+                else if (percentage >= 0.4) element.className = 'breakdown-value warning';
+                else element.className = 'breakdown-value bad';
+            }
+        }
+    </script>
+</body>
+</html>
