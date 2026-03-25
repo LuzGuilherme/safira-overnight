@@ -108,3 +108,4 @@ Ver `/root/clawd/data/STYLE_LIBRARY.md` para detalhes completos.
 | 2026-03-22 | The Energy Audit 🔋 | Productivity/Founder Tools | **Bold Maximalist** 🎨 |
 | 2026-03-23 | The Anti-To-Do List 🚫 | Produtividade/Founder Tools | **Neo Brutalist** 🔲 |
 | 2026-03-24 | Recovery Score 🌿 | Fitness/Wellness | **Organic Soft** 🌿 |
+| 2026-03-25 | IndieHeadlines 📰 | Indie Hackers/Social | **Newspaper** 📰 |

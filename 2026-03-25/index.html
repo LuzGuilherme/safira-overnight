@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndieHeadlines — Turn Your Milestones Into Newspaper Headlines</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --paper-bg: #f5f0e6;
+            --paper-dark: #e8e0d0;
+            --ink-black: #1a1a1a;
+            --ink-gray: #4a4a4a;
+            --accent-red: #8b0000;
+            --rule-color: #2a2a2a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Libre Baskerville', Georgia, serif;
+            background: #2a2a2a;
+            min-height: 100vh;
+            padding: 2rem;
+            color: var(--ink-black);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .site-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--paper-bg);
+        }
+
+        .site-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        .site-header p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Input Section */
+        .input-section {
+            background: var(--paper-bg);
+            padding: 2rem;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .input-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--ink-black);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 1rem;
+            border: 2px solid var(--ink-black);
+            background: white;
+            border-radius: 0;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-red);
+        }
+
+        .tone-selector {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tone-btn {
+            padding: 0.5rem 1rem;
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 0.85rem;
+            border: 2px solid var(--ink-black);
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tone-btn:hover {
+            background: var(--paper-dark);
+        }
+
+        .tone-btn.active {
+            background: var(--ink-black);
+            color: white;
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 1rem 2rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: var(--ink-black);
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.2s;
+        }
+
+        .generate-btn:hover {
+            background: var(--accent-red);
+        }
+
+        .generate-btn:disabled {
+            background: var(--ink-gray);
+            cursor: not-allowed;
+        }
+
+        /* Newspaper Preview */
+        .newspaper-container {
+            margin-bottom: 2rem;
+        }
+
+        .newspaper {
+            background: var(--paper-bg);
+            padding: 2rem 2.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 
+                0 0 0 1px rgba(0,0,0,0.1),
+                0 20px 60px rgba(0,0,0,0.4),
+                inset 0 0 80px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .newspaper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        /* Newspaper Header */
+        .newspaper-header {
+            text-align: center;
+            padding-bottom: 1rem;
+            border-bottom: 3px double var(--rule-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .masthead {
+            font-family: 'UnifrakturMaguntia', serif;
+            font-size: 3.5rem;
+            letter-spacing: 0.02em;
+            line-height: 1;
+            color: var(--ink-black);
+        }
+
+        .tagline {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            margin-top: 0.25rem;
+            color: var(--ink-gray);
+        }
+
+        .dateline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--rule-color);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .edition-number {
+            color: var(--accent-red);
+            font-weight: 700;
+        }
+
+        /* Main Headline */
+        .main-headline {
+            text-align: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--rule-color);
+        }
+
+        .headline-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.75rem;
+            font-weight: 900;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            color: var(--ink-black);
+            margin-bottom: 0.75rem;
+        }
+
+        .subheadline {
+            font-family: 'Libre Baskerville', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--ink-gray);
+            max-width: 80%;
+            margin: 0 auto;
+        }
+
+        /* Article Body */
+        .article-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            padding: 1.5rem 0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .article-column {
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        .article-column p {
+            text-indent: 1.5em;
+            margin-bottom: 0.75rem;
+        }
+
+        .article-column p:first-child {
+            text-indent: 0;
+        }
+
+        .article-column p:first-child::first-letter {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            float: left;
+            line-height: 1;
+            padding-right: 0.5rem;
+            font-weight: 700;
+        }
+
+        .byline {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        .newspaper-footer {
+            border-top: 3px double var(--rule-color);
+            padding-top: 1rem;
+            margin-top: 1rem;
+            text-align: center;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--ink-gray);
+        }
+
+        .price {
+            color: var(--accent-red);
+            font-weight: 700;
+        }
+
+        /* Actions */
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .action-btn {
+            padding: 0.75rem 1.5rem;
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 0.9rem;
+            border: 2px solid var(--paper-bg);
+            background: transparent;
+            color: var(--paper-bg);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            background: var(--paper-bg);
+            color: var(--ink-black);
+        }
+
+        .action-btn.primary {
+            background: var(--paper-bg);
+            color: var(--ink-black);
+        }
+
+        .action-btn.primary:hover {
+            background: white;
+        }
+
+        /* Archive */
+        .archive-section {
+            background: var(--paper-bg);
+            padding: 2rem;
+            border-radius: 4px;
+            margin-top: 2rem;
+        }
+
+        .archive-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--ink-black);
+        }
+
+        .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .archive-item {
+            background: white;
+            padding: 1rem;
+            border: 1px solid var(--ink-black);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .archive-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .archive-item .date {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--ink-gray);
+        }
+
+        .archive-item .title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-top: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .archive-item .edition {
+            font-size: 0.75rem;
+            color: var(--accent-red);
+            margin-top: 0.5rem;
+        }
+
+        .empty-archive {
+            text-align: center;
+            padding: 2rem;
+            color: var(--ink-gray);
+            font-style: italic;
+        }
+
+        .clear-archive {
+            display: block;
+            margin: 1rem auto 0;
+            padding: 0.5rem 1rem;
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 0.8rem;
+            background: transparent;
+            border: 1px solid var(--ink-gray);
+            color: var(--ink-gray);
+            cursor: pointer;
+        }
+
+        .clear-archive:hover {
+            background: var(--accent-red);
+            border-color: var(--accent-red);
+            color: white;
+        }
+
+        /* Hidden state */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--paper-bg);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--paper-bg);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .masthead {
+                font-size: 2.5rem;
+            }
+
+            .headline-text {
+                font-size: 1.75rem;
+            }
+
+            .subheadline {
+                font-size: 0.95rem;
+                max-width: 100%;
+            }
+
+            .article-body {
+                grid-template-columns: 1fr;
+            }
+
+            .newspaper {
+                padding: 1.5rem;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                width: 100%;
+            }
+        }
+
+        /* Print styles for clean export */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .site-header,
+            .input-section,
+            .actions,
+            .archive-section {
+                display: none;
+            }
+
+            .newspaper {
+                box-shadow: none;
+                max-width: 100%;
+            }
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--ink-black);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            font-family: 'Libre Baskerville', Georgia, serif;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Credits */
+        .credits {
+            text-align: center;
+            margin-top: 3rem;
+            color: var(--paper-bg);
+            opacity: 0.6;
+            font-size: 0.8rem;
+        }
+
+        .credits a {
+            color: var(--paper-bg);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <h1>📰 IndieHeadlines</h1>
+            <p>Turn your milestones into newspaper headlines worth celebrating</p>
+        </header>
+
+        <section class="input-section">
+            <h2>What's your milestone?</h2>
+            <div class="form-group">
+                <label for="milestone">Your Achievement</label>
+                <input type="text" id="milestone" placeholder="e.g., Just hit $1,000 MRR after 6 months" maxlength="100">
+            </div>
+
+            <div class="form-group">
+                <label for="context">Quick Context (optional)</label>
+                <textarea id="context" placeholder="e.g., Started as a side project in my basement. Never thought it would work." maxlength="300"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Tone</label>
+                <div class="tone-selector">
+                    <button class="tone-btn active" data-tone="epic">🔥 Epic</button>
+                    <button class="tone-btn" data-tone="humble">😌 Humble</button>
+                    <button class="tone-btn" data-tone="dramatic">🎭 Dramatic</button>
+                    <button class="tone-btn" data-tone="funny">😂 Funny</button>
+                </div>
+            </div>
+
+            <button class="generate-btn" id="generate">Generate Headline</button>
+        </section>
+
+        <div class="loading hidden" id="loading">
+            <div class="loading-spinner"></div>
+            <p>Setting the type...</p>
+        </div>
+
+        <div class="newspaper-container hidden" id="newspaper-container">
+            <div class="newspaper" id="newspaper">
+                <header class="newspaper-header">
+                    <div class="masthead">The Indie Times</div>
+                    <div class="tagline">All the news that's fit to ship</div>
+                </header>
+
+                <div class="dateline">
+                    <span class="date" id="paper-date">March 25, 2026</span>
+                    <span class="weather">Fair skies for building</span>
+                    <span class="edition-number" id="edition">Edition #1</span>
+                </div>
+
+                <article class="main-headline">
+                    <h1 class="headline-text" id="headline">SOLO FOUNDER DEFIES ODDS, REACHES HISTORIC MILESTONE</h1>
+                    <p class="subheadline" id="subheadline">"I almost gave up a hundred times," admits triumphant maker</p>
+                </article>
+
+                <div class="article-body">
+                    <div class="article-column">
+                        <p class="byline">By The IndieHeadlines Staff</p>
+                        <p id="article-p1">In what industry insiders are calling a "remarkable achievement," a solo founder has accomplished what many thought impossible.</p>
+                        <p id="article-p2">The milestone, reached after months of dedication and countless late nights, stands as a testament to the power of persistence.</p>
+                    </div>
+                    <div class="article-column">
+                        <p id="article-p3">"This is just the beginning," the founder stated, eyes fixed on even greater horizons.</p>
+                        <p id="article-p4">Fellow builders have taken to social media to offer their congratulations, with many noting that such achievements inspire the entire community.</p>
+                    </div>
+                </div>
+
+                <footer class="newspaper-footer">
+                    <span class="price">Free</span> · Made with IndieHeadlines · For builders, by builders
+                </footer>
+            </div>
+
+            <div class="actions">
+                <button class="action-btn primary" id="download">📥 Download Image</button>
+                <button class="action-btn" id="copy-headline">📋 Copy Headline</button>
+                <button class="action-btn" id="regenerate">🔄 New Variation</button>
+            </div>
+        </div>
+
+        <section class="archive-section" id="archive-section">
+            <h2>📚 Your Archive</h2>
+            <div class="archive-grid" id="archive-grid">
+                <div class="empty-archive">No headlines yet. Create your first!</div>
+            </div>
+            <button class="clear-archive hidden" id="clear-archive">Clear Archive</button>
+        </section>
+
+        <footer class="credits">
+            An overnight build by <a href="https://luzguilherme.github.io/safira-overnight/" target="_blank">Safira</a> · March 2026
+        </footer>
+    </div>
+
+    <div class="toast" id="toast">Copied to clipboard!</div>
+
+    <script>
+        // State
+        let currentTone = 'epic';
+        let currentMilestone = '';
+        let currentContext = '';
+        let archive = JSON.parse(localStorage.getItem('indieheadlines-archive') || '[]');
+        let editionCount = archive.length + 1;
+
+        // Elements
+        const milestoneInput = document.getElementById('milestone');
+        const contextInput = document.getElementById('context');
+        const toneButtons = document.querySelectorAll('.tone-btn');
+        const generateBtn = document.getElementById('generate');
+        const loading = document.getElementById('loading');
+        const newspaperContainer = document.getElementById('newspaper-container');
+        const downloadBtn = document.getElementById('download');
+        const copyBtn = document.getElementById('copy-headline');
+        const regenerateBtn = document.getElementById('regenerate');
+        const archiveGrid = document.getElementById('archive-grid');
+        const clearArchiveBtn = document.getElementById('clear-archive');
+        const toast = document.getElementById('toast');
+
+        // Headlines templates by tone
+        const headlineTemplates = {
+            epic: [
+                { headline: "{{MILESTONE}} — A TRIUMPH FOR THE AGES", sub: "History will remember this day" },
+                { headline: "AGAINST ALL ODDS: {{MILESTONE}}", sub: "Skeptics left speechless as founder delivers" },
+                { headline: "BREAKING: {{MILESTONE}} ACHIEVED", sub: "The indie world watches in awe" },
+                { headline: "LEGENDARY: FOUNDER {{ACTION}} TO GLORY", sub: "A milestone that will echo through time" },
+                { headline: "{{MILESTONE}}: THE MOMENT EVERYTHING CHANGED", sub: "One small step for a maker, one giant leap for indie-kind" }
+            ],
+            humble: [
+                { headline: "QUIETLY, A FOUNDER REACHES {{MILESTONE}}", sub: "No fanfare needed — the numbers speak for themselves" },
+                { headline: "SMALL WINS ADD UP: {{MILESTONE}}", sub: "A gentle reminder that consistency pays off" },
+                { headline: "ONE STEP AT A TIME: {{MILESTONE}}", sub: "The marathon continues, one milestone at a time" },
+                { headline: "{{MILESTONE}} — AND THE JOURNEY CONTINUES", sub: "A moment to pause, reflect, and keep building" },
+                { headline: "STEADY PROGRESS YIELDS {{MILESTONE}}", sub: "No shortcuts, just honest work" }
+            ],
+            dramatic: [
+                { headline: "THE IMPOSSIBLE BECOMES POSSIBLE: {{MILESTONE}}", sub: "What they said couldn't be done... was done" },
+                { headline: "FROM THE ASHES: {{MILESTONE}}", sub: "After setbacks that would break most, a phoenix rises" },
+                { headline: "{{MILESTONE}} — BUT AT WHAT COST?", sub: "The untold story of sacrifice behind the success" },
+                { headline: "THEY LAUGHED. THEY DOUBTED. THEN: {{MILESTONE}}", sub: "The vindication is complete" },
+                { headline: "MIDNIGHT OIL BURNS BRIGHT: {{MILESTONE}}", sub: "The grueling path to victory" }
+            ],
+            funny: [
+                { headline: "LOCAL FOUNDER STILL SHOCKED BY {{MILESTONE}}", sub: "\"I thought it was a bug,\" admits bewildered maker" },
+                { headline: "{{MILESTONE}} — MOM STILL DOESN'T UNDERSTAND", sub: "\"That's nice, dear. But when are you getting a real job?\"" },
+                { headline: "FOUNDER ACHIEVES {{MILESTONE}}, FORGETS TO CELEBRATE", sub: "Too busy fixing bugs to pop champagne" },
+                { headline: "{{MILESTONE}} REACHED — STILL NO WORK-LIFE BALANCE", sub: "Therapist reportedly not surprised" },
+                { headline: "BREAKING: {{MILESTONE}} — DOG STILL UNIMPRESSED", sub: "\"You could have spent that time on walks,\" sources suggest" }
+            ]
+        };
+
+        // Article templates by tone
+        const articleTemplates = {
+            epic: [
+                "In a stunning display of determination and skill, this achievement marks a defining moment in indie history.",
+                "Industry observers are calling this one of the most significant milestones of the year.",
+                "\"This is what happens when you refuse to quit,\" the founder declared, already planning the next conquest.",
+                "The achievement has sparked widespread celebration across the maker community."
+            ],
+            humble: [
+                "The milestone, reached without much fanfare, represents months of steady, focused work.",
+                "\"It's not about the big moments,\" the founder reflected. \"It's about showing up every day.\"",
+                "While some might celebrate loudly, this achievement speaks for itself — quietly, confidently.",
+                "The path forward remains clear: keep building, keep learning, keep growing."
+            ],
+            dramatic: [
+                "The road here was paved with doubt, rejection, and countless sleepless nights. But darkness gives way to dawn.",
+                "\"There were moments I wanted to give up,\" the founder admitted, voice heavy with emotion.",
+                "This milestone didn't come easy. It was earned through sweat, tears, and an unbreakable will.",
+                "The world may never know the full weight of sacrifice behind these numbers."
+            ],
+            funny: [
+                "\"Honestly, I have no idea what I'm doing,\" the founder confessed while nervously checking analytics.",
+                "When asked about the secret to success, the response was simple: \"Coffee. Lots of coffee.\"",
+                "The celebration was reportedly cut short when a critical bug was discovered in production.",
+                "Friends and family have issued a joint statement: \"We still don't understand what you actually do.\""
+            ]
+        };
+
+        // Helper functions
+        function formatDate(date = new Date()) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        function extractAction(milestone) {
+            const actions = {
+                'mrr': 'BUILDS',
+                'revenue': 'EARNS',
+                'users': 'GROWS',
+                'customers': 'CONVERTS',
+                'launch': 'LAUNCHES',
+                'shipped': 'SHIPS',
+                'first': 'PIONEERS',
+                'sold': 'SELLS',
+                'hit': 'REACHES',
+                'reached': 'ACHIEVES'
+            };
+            
+            const lowerMilestone = milestone.toLowerCase();
+            for (const [keyword, action] of Object.entries(actions)) {
+                if (lowerMilestone.includes(keyword)) return action;
+            }
+            return 'ACHIEVES';
+        }
+
+        function cleanMilestone(text) {
+            // Remove common filler words for headline
+            let clean = text.replace(/^(just |i |we |finally |just hit |hit |reached |got |made )/gi, '');
+            return clean.charAt(0).toUpperCase() + clean.slice(1);
+        }
+
+        function generateHeadline() {
+            const templates = headlineTemplates[currentTone];
+            const template = templates[Math.floor(Math.random() * templates.length)];
+            
+            const cleanedMilestone = cleanMilestone(currentMilestone);
+            const action = extractAction(currentMilestone);
+            
+            const headline = template.headline
+                .replace('{{MILESTONE}}', cleanedMilestone.toUpperCase())
+                .replace('{{ACTION}}', action);
+            
+            let subheadline = template.sub;
+            if (currentContext) {
+                // Sometimes incorporate context into subheadline
+                if (Math.random() > 0.5) {
+                    const contextSnippets = [
+                        `"${currentContext.slice(0, 60)}${currentContext.length > 60 ? '...' : ''}"`,
+                        `Sources close to the founder reveal: "${currentContext.slice(0, 50)}..."`
+                    ];
+                    subheadline = contextSnippets[Math.floor(Math.random() * contextSnippets.length)];
+                }
+            }
+            
+            return { headline, subheadline };
+        }
+
+        function generateArticle() {
+            const articles = articleTemplates[currentTone];
+            // Shuffle and pick
+            const shuffled = [...articles].sort(() => Math.random() - 0.5);
+            return shuffled;
+        }
+
+        function updateNewspaper(data) {
+            document.getElementById('paper-date').textContent = formatDate();
+            document.getElementById('edition').textContent = `Edition #${editionCount}`;
+            document.getElementById('headline').textContent = data.headline;
+            document.getElementById('subheadline').textContent = data.subheadline;
+            
+            const articles = generateArticle();
+            document.getElementById('article-p1').textContent = articles[0];
+            document.getElementById('article-p2').textContent = articles[1];
+            document.getElementById('article-p3').textContent = articles[2];
+            document.getElementById('article-p4').textContent = articles[3];
+        }
+
+        function saveToArchive(headline) {
+            const entry = {
+                id: Date.now(),
+                date: formatDate(),
+                headline: headline,
+                milestone: currentMilestone,
+                tone: currentTone,
+                edition: editionCount
+            };
+            archive.unshift(entry);
+            localStorage.setItem('indieheadlines-archive', JSON.stringify(archive));
+            editionCount++;
+            renderArchive();
+        }
+
+        function renderArchive() {
+            if (archive.length === 0) {
+                archiveGrid.innerHTML = '<div class="empty-archive">No headlines yet. Create your first!</div>';
+                clearArchiveBtn.classList.add('hidden');
+                return;
+            }
+
+            clearArchiveBtn.classList.remove('hidden');
+            archiveGrid.innerHTML = archive.map(item => `
+                <div class="archive-item" data-id="${item.id}">
+                    <div class="date">${item.date}</div>
+                    <div class="title">${item.headline.substring(0, 60)}${item.headline.length > 60 ? '...' : ''}</div>
+                    <div class="edition">Edition #${item.edition}</div>
+                </div>
+            `).join('');
+
+            // Add click handlers
+            document.querySelectorAll('.archive-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const id = parseInt(item.dataset.id);
+                    const entry = archive.find(a => a.id === id);
+                    if (entry) {
+                        milestoneInput.value = entry.milestone;
+                        currentMilestone = entry.milestone;
+                        currentTone = entry.tone;
+                        
+                        toneButtons.forEach(btn => {
+                            btn.classList.toggle('active', btn.dataset.tone === entry.tone);
+                        });
+                        
+                        updateNewspaper({ 
+                            headline: entry.headline, 
+                            subheadline: '"A moment worth remembering"'
+                        });
+                        newspaperContainer.classList.remove('hidden');
+                        newspaperContainer.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        }
+
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        // Event Listeners
+        toneButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                toneButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentTone = btn.dataset.tone;
+            });
+        });
+
+        generateBtn.addEventListener('click', () => {
+            currentMilestone = milestoneInput.value.trim();
+            currentContext = contextInput.value.trim();
+
+            if (!currentMilestone) {
+                milestoneInput.focus();
+                return;
+            }
+
+            generateBtn.disabled = true;
+            loading.classList.remove('hidden');
+            newspaperContainer.classList.add('hidden');
+
+            // Simulate generation time for effect
+            setTimeout(() => {
+                const { headline, subheadline } = generateHeadline();
+                updateNewspaper({ headline, subheadline });
+                saveToArchive(headline);
+
+                loading.classList.add('hidden');
+                newspaperContainer.classList.remove('hidden');
+                generateBtn.disabled = false;
+
+                newspaperContainer.scrollIntoView({ behavior: 'smooth' });
+            }, 800);
+        });
+
+        regenerateBtn.addEventListener('click', () => {
+            if (!currentMilestone) return;
+            
+            const { headline, subheadline } = generateHeadline();
+            updateNewspaper({ headline, subheadline });
+        });
+
+        copyBtn.addEventListener('click', () => {
+            const headline = document.getElementById('headline').textContent;
+            navigator.clipboard.writeText(headline).then(() => {
+                showToast('Headline copied!');
+            });
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            const newspaper = document.getElementById('newspaper');
+            
+            downloadBtn.disabled = true;
+            downloadBtn.textContent = '⏳ Generating...';
+
+            html2canvas(newspaper, {
+                backgroundColor: '#f5f0e6',
+                scale: 2,
+                logging: false,
+                useCORS: true
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `indie-headline-${Date.now()}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                
+                downloadBtn.disabled = false;
+                downloadBtn.textContent = '📥 Download Image';
+                showToast('Image downloaded!');
+            }).catch(err => {
+                console.error('Download failed:', err);
+                downloadBtn.disabled = false;
+                downloadBtn.textContent = '📥 Download Image';
+                showToast('Download failed. Try again.');
+            });
+        });
+
+        clearArchiveBtn.addEventListener('click', () => {
+            if (confirm('Clear all archived headlines?')) {
+                archive = [];
+                localStorage.removeItem('indieheadlines-archive');
+                editionCount = 1;
+                renderArchive();
+            }
+        });
+
+        // Handle Enter key
+        milestoneInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                generateBtn.click();
+            }
+        });
+
+        // Initialize
+        renderArchive();
+    </script>
+</body>
+</html>
