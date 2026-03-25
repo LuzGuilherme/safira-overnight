@@ -1,7 +1,56 @@
 {
-  "generated": "2026-03-24T01:15:00.000000Z",
-  "count": 52,
+  "generated": "2026-03-25T01:00:00.000000Z",
+  "count": 53,
   "digests": [
+    {
+      "id": "2026-03-25-allin-matt-mahan",
+      "filename": "2026-03-25-allin-matt-mahan.md",
+      "date": "2026-03-25",
+      "title": "Matt Mahan: Can Tech Fix Local Government?",
+      "host": "All-In Podcast (Jason, Chamath, Friedberg, Sacks)",
+      "guest": "Matt Mahan (Mayor of San Jose)",
+      "duration": "~1h 15m",
+      "link": "https://www.youtube.com/watch?v=blBlD-mrIoE",
+      "theme": "Tech executive mindset in local government, homelessness solution, YIMBY wins",
+      "tldr": "Mayor of San Jose (1M+ population, capital of Silicon Valley) brings tech exec mindset to government. Reduced street homelessness 23% with shelter-or-consequences model. Fires underperformers, uses public KPI dashboards. Local government is 90% of daily life impact but 10% of attention - massive arbitrage.",
+      "insights": [
+        {
+          "insight": "90% impact on daily life / 10% attention = opportunity",
+          "why": "Local government is massive leverage point"
+        },
+        {
+          "insight": "Shelter-or-consequences works",
+          "why": "San Jose -23% homeless vs LA/SF increases"
+        },
+        {
+          "insight": "Government has no product management",
+          "why": "Why everything feels broken"
+        },
+        {
+          "insight": "Fire underperformers visibly",
+          "why": "Culture change requires consequences"
+        },
+        {
+          "insight": "Tech founders have exact skills gov needs",
+          "why": "Stop complaining on Twitter, run for office"
+        }
+      ],
+      "quotes": [
+        "Local government is 90% of what affects your daily life but gets 10% of attention.",
+        "Compassion without boundaries is not compassion. Its enabling.",
+        "When I fired the first department head, everyone said you cant do that in government. I said watch me."
+      ],
+      "rating": 5.0,
+      "tags": [
+        "AllIn",
+        "CivicTech",
+        "LocalGovernment",
+        "Homelessness",
+        "YIMBY",
+        "Housing",
+        "TechInPolitics"
+      ]
+    },
     {
       "id": "2026-03-24-lex-fridman-494-jensen-huang",
       "filename": "2026-03-24-lex-fridman-494-jensen-huang.md",
@@ -14,14 +63,38 @@
       "theme": "Extreme co-design, 4 scaling laws, CUDA decision, OpenClaw revolution, supply chain, manifestando o futuro",
       "tldr": "Jensen Huang revela a filosofia por trás da NVIDIA: extreme co-design de chips/networking/cooling/racks, a decisão existencial de CUDA no GeForce que custou 80% do market cap, as 4 leis de escala (pre-training, post-training, test-time, agentic), e como ele 'manifesta o futuro' preparando a indústria incrementalmente. OpenClaw comparado ao ChatGPT para agentes.",
       "insights": [
-        {"insight": "60+ reports directos, zero one-on-ones", "why": "Reuniões colectivas permitem extreme co-design constante"},
-        {"insight": "CUDA no GeForce = market cap $7B → $1.5B", "why": "Decisão existencial que criou a base do deep learning"},
-        {"insight": "Install base defines an architecture", "why": "x86 é feio mas ganhou contra RISC - adoção > elegância técnica"},
-        {"insight": "4 scaling laws: pre/post/test-time/agentic", "why": "Loop contínuo: agentes criam dados → voltam ao training"},
-        {"insight": "OpenClaw = ChatGPT dos agentes", "why": "Paradigm shift para sistemas agentic acessíveis a todos"},
-        {"insight": "1M× progressão vs 100× Moore's Law", "why": "Extreme co-design supera hardware isolado"},
-        {"insight": "99% do tempo grid power subusado", "why": "Data centers deviam aceitar graceful degradation"},
-        {"insight": "Jensen convenceu DRAM CEOs sobre HBM", "why": "Manifesta o futuro preparando supply chain"}
+        {
+          "insight": "60+ reports directos, zero one-on-ones",
+          "why": "Reuniões colectivas permitem extreme co-design constante"
+        },
+        {
+          "insight": "CUDA no GeForce = market cap $7B → $1.5B",
+          "why": "Decisão existencial que criou a base do deep learning"
+        },
+        {
+          "insight": "Install base defines an architecture",
+          "why": "x86 é feio mas ganhou contra RISC - adoção > elegância técnica"
+        },
+        {
+          "insight": "4 scaling laws: pre/post/test-time/agentic",
+          "why": "Loop contínuo: agentes criam dados → voltam ao training"
+        },
+        {
+          "insight": "OpenClaw = ChatGPT dos agentes",
+          "why": "Paradigm shift para sistemas agentic acessíveis a todos"
+        },
+        {
+          "insight": "1M× progressão vs 100× Moore's Law",
+          "why": "Extreme co-design supera hardware isolado"
+        },
+        {
+          "insight": "99% do tempo grid power subusado",
+          "why": "Data centers deviam aceitar graceful degradation"
+        },
+        {
+          "insight": "Jensen convenceu DRAM CEOs sobre HBM",
+          "why": "Manifesta o futuro preparando supply chain"
+        }
       ],
       "quotes": [
         "Install base defines an architecture. Everything else is secondary.",
@@ -31,7 +104,18 @@
         "NVIDIA is the house that GeForce built."
       ],
       "rating": 5.0,
-      "tags": ["LexFridman", "JensenHuang", "NVIDIA", "AI", "ScalingLaws", "CUDA", "ExtremeCodesign", "OpenClaw", "SupplyChain", "Leadership"]
+      "tags": [
+        "LexFridman",
+        "JensenHuang",
+        "NVIDIA",
+        "AI",
+        "ScalingLaws",
+        "CUDA",
+        "ExtremeCodesign",
+        "OpenClaw",
+        "SupplyChain",
+        "Leadership"
+      ]
     },
     {
       "id": "2026-03-23-allin-sec-cftc-crypto-ipos",
@@ -45,12 +129,30 @@
       "theme": "SEC-CFTC harmonization, IPO reform, crypto regulation, accredited investor reform",
       "tldr": "Historic joint interview with both financial regulators. Major policy shift: harmonizing SEC/CFTC regulations, opening IPO markets, reforming accredited investor rules (knowledge-based test coming), and creating clear crypto frameworks. End of 'regulation by enforcement'.",
       "insights": [
-        {"insight": "IPO drought: Apple/Microsoft went public at 1,000 employees", "why": "Today's private market dominance hurts public investors"},
-        {"insight": "SEC-CFTC ending 'two fortresses' rivalry", "why": "MOU being drafted, super app vision for blurred lines"},
-        {"insight": "Accredited investor knowledge-based test coming", "why": "Finance professor can't invest but heiress can - absurd"},
-        {"insight": "Crypto: Capital raise regulated, tokens may be goods", "why": "Clear framework emerging for compliance"},
-        {"insight": "Quarterly reporting reform possible", "why": "Trump advocating semi-annual, Barry Diller doing monthly"},
-        {"insight": "AI trading bots acknowledged - guardrails not blocking", "why": "Purpose-fit regulation for autonomous systems"}
+        {
+          "insight": "IPO drought: Apple/Microsoft went public at 1,000 employees",
+          "why": "Today's private market dominance hurts public investors"
+        },
+        {
+          "insight": "SEC-CFTC ending 'two fortresses' rivalry",
+          "why": "MOU being drafted, super app vision for blurred lines"
+        },
+        {
+          "insight": "Accredited investor knowledge-based test coming",
+          "why": "Finance professor can't invest but heiress can - absurd"
+        },
+        {
+          "insight": "Crypto: Capital raise regulated, tokens may be goods",
+          "why": "Clear framework emerging for compliance"
+        },
+        {
+          "insight": "Quarterly reporting reform possible",
+          "why": "Trump advocating semi-annual, Barry Diller doing monthly"
+        },
+        {
+          "insight": "AI trading bots acknowledged - guardrails not blocking",
+          "why": "Purpose-fit regulation for autonomous systems"
+        }
       ],
       "quotes": [
         "Thomas Edison didn't have to go ask for permission to go innovate.",
@@ -58,7 +160,16 @@
         "A finance professor who makes $100K can't invest, but an heiress who just inherited $10M can?"
       ],
       "rating": 4.8,
-      "tags": ["AllIn", "SEC", "CFTC", "Crypto", "IPO", "Regulation", "AccreditedInvestor", "AITrading"]
+      "tags": [
+        "AllIn",
+        "SEC",
+        "CFTC",
+        "Crypto",
+        "IPO",
+        "Regulation",
+        "AccreditedInvestor",
+        "AITrading"
+      ]
     },
     {
       "id": "2026-03-23-allin-graham-allison-global",
@@ -72,12 +183,30 @@
       "theme": "Iran 'Bibi's War', Taiwan invasion probability, 80-80-9 framework, wealth inequality",
       "tldr": "Harvard's legendary foreign policy expert unpacks the Iran conflict (calling it 'Bibi's War'), explains why China won't invade Taiwan soon (5% probability), introduces his 80-80-9 framework (80 years no great power war, 80 years no nukes, 9 nuclear states), and warns about wealth inequality threatening democracy.",
       "insights": [
-        {"insight": "Iran War = 'Bibi's War'", "why": "Netanyahu mesmerized Trump despite previous skepticism"},
-        {"insight": "Taiwan invasion ~5% probability 2026-2027", "why": "China's peaceful reunification theory, military purge, Trump accommodating"},
-        {"insight": "80-80-9 framework", "why": "We're living in abnormally peaceful times - actively maintained, fragile"},
-        {"insight": "China GDP 25% larger than US (PPP)", "why": "Never has a country risen so far so fast"},
-        {"insight": "Top 10-20% taking 80% of pie", "why": "Not stable in a democracy - invitation for populism"},
-        {"insight": "Greenland: 99-year lease solution", "why": "We can get everything we want without invading"}
+        {
+          "insight": "Iran War = 'Bibi's War'",
+          "why": "Netanyahu mesmerized Trump despite previous skepticism"
+        },
+        {
+          "insight": "Taiwan invasion ~5% probability 2026-2027",
+          "why": "China's peaceful reunification theory, military purge, Trump accommodating"
+        },
+        {
+          "insight": "80-80-9 framework",
+          "why": "We're living in abnormally peaceful times - actively maintained, fragile"
+        },
+        {
+          "insight": "China GDP 25% larger than US (PPP)",
+          "why": "Never has a country risen so far so fast"
+        },
+        {
+          "insight": "Top 10-20% taking 80% of pie",
+          "why": "Not stable in a democracy - invitation for populism"
+        },
+        {
+          "insight": "Greenland: 99-year lease solution",
+          "why": "We can get everything we want without invading"
+        }
       ],
       "quotes": [
         "This is Bibi's war... For the last two decades, that's been Bibi's number one agenda.",
@@ -85,7 +214,16 @@
         "The top 10-20% taking 80% of the pie is not stable and sustainable."
       ],
       "rating": 4.7,
-      "tags": ["AllIn", "GrahamAllison", "Iran", "China", "Taiwan", "Geopolitics", "WealthInequality", "NuclearProliferation"]
+      "tags": [
+        "AllIn",
+        "GrahamAllison",
+        "Iran",
+        "China",
+        "Taiwan",
+        "Geopolitics",
+        "WealthInequality",
+        "NuclearProliferation"
+      ]
     },
     {
       "id": "2026-03-22-allin-jensen-huang-nvidia",
@@ -99,12 +237,30 @@
       "theme": "NVIDIA as AI factory company, Groq acquisition, Open Claude revolution, token economics",
       "tldr": "NVIDIA deixou de ser empresa de chips para AI factory company. Groq acquisition adiciona 25% capacidade. Open Claude é novo sistema operativo com memory, skills, scheduling e I/O. Jensen defende que engenheiro $500K deve gastar $250K em tokens/ano. Physical AI é $50T opportunity.",
       "insights": [
-        {"insight": "Engenheiro $500K deve gastar $250K em tokens/ano", "why": "Define novo standard de produtividade AI"},
-        {"insight": "Open Claude é novo sistema operativo", "why": "Paradigm shift - não é chatbot, é computer architecture"},
-        {"insight": "10,000X mais compute em 2 anos", "why": "Generative → Reasoning → Agentic explosion"},
-        {"insight": "Physical AI é $50T industry void of tech", "why": "Maior TAM da história da indústria tech"},
-        {"insight": "95% market share China → 0%", "why": "Geopolítica a redefinir estratégia NVIDIA"},
-        {"insight": "Cada engenheiro terá 100 agents", "why": "Futuro do trabalho completamente transformado"}
+        {
+          "insight": "Engenheiro $500K deve gastar $250K em tokens/ano",
+          "why": "Define novo standard de produtividade AI"
+        },
+        {
+          "insight": "Open Claude é novo sistema operativo",
+          "why": "Paradigm shift - não é chatbot, é computer architecture"
+        },
+        {
+          "insight": "10,000X mais compute em 2 anos",
+          "why": "Generative → Reasoning → Agentic explosion"
+        },
+        {
+          "insight": "Physical AI é $50T industry void of tech",
+          "why": "Maior TAM da história da indústria tech"
+        },
+        {
+          "insight": "95% market share China → 0%",
+          "why": "Geopolítica a redefinir estratégia NVIDIA"
+        },
+        {
+          "insight": "Cada engenheiro terá 100 agents",
+          "why": "Futuro do trabalho completamente transformado"
+        }
       ],
       "quotes": [
         "If that $500K engineer did not consume at least $250K worth of tokens, I am going to be deeply alarmed.",
@@ -112,7 +268,17 @@
         "Warning is good, scaring is less good. This technology is too important to us."
       ],
       "rating": 5.0,
-      "tags": ["AllIn", "JensenHuang", "NVIDIA", "AI", "PhysicalAI", "Groq", "OpenClaw", "Tokens", "Productivity"]
+      "tags": [
+        "AllIn",
+        "JensenHuang",
+        "NVIDIA",
+        "AI",
+        "PhysicalAI",
+        "Groq",
+        "OpenClaw",
+        "Tokens",
+        "Productivity"
+      ]
     },
     {
       "id": "2026-03-21-lex-paul-rosolie-uncontacted",
@@ -126,11 +292,26 @@
       "theme": "Primeiro contacto documentado com tribo Mashco Piro, conservação Amazónia",
       "tldr": "Paul Rosolie partilha footage NUNCA ANTES MOSTRADO de contacto com tribo não-contactada Mashco Piro (Namoles). Vivem em isolamento há séculos, usam arcos de 7 pés. Contacto pacífico com troca de bananas - mas atacaram no dia seguinte. Jungle Keepers protege 130,000 acres.",
       "insights": [
-        {"insight": "Footage inédito de primeiro contacto", "why": "Única documentação visual do tipo no mundo"},
-        {"insight": "Namoles = auto-denominação da tribo", "why": "Significa 'irmãos' - primeira vez registado"},
-        {"insight": "Violência como primeira resposta", "why": "Séculos de trauma colonial moldaram defesa"},
-        {"insight": "Árvores = significado religioso", "why": "Cortar árvores antigas é ofensa espiritual"},
-        {"insight": "130K acres protegidos, faltam 200K", "why": "Sobrevivência da tribo depende de mais protecção"}
+        {
+          "insight": "Footage inédito de primeiro contacto",
+          "why": "Única documentação visual do tipo no mundo"
+        },
+        {
+          "insight": "Namoles = auto-denominação da tribo",
+          "why": "Significa 'irmãos' - primeira vez registado"
+        },
+        {
+          "insight": "Violência como primeira resposta",
+          "why": "Séculos de trauma colonial moldaram defesa"
+        },
+        {
+          "insight": "Árvores = significado religioso",
+          "why": "Cortar árvores antigas é ofensa espiritual"
+        },
+        {
+          "insight": "130K acres protegidos, faltam 200K",
+          "why": "Sobrevivência da tribo depende de mais protecção"
+        }
       ],
       "quotes": [
         "They can hit a spider monkey out of the treetops at 40 meters.",
@@ -138,7 +319,15 @@
         "In order for any of this to make sense, I have to show you this footage. This is a world first."
       ],
       "rating": 5.0,
-      "tags": ["LexFridman", "PaulRosolie", "UncontactedTribes", "Amazon", "JungleKeepers", "Conservation", "FirstContact"]
+      "tags": [
+        "LexFridman",
+        "PaulRosolie",
+        "UncontactedTribes",
+        "Amazon",
+        "JungleKeepers",
+        "Conservation",
+        "FirstContact"
+      ]
     },
     {
       "id": "2026-03-21-doac-david-bach-automatic-millionaire",
@@ -152,11 +341,26 @@
       "theme": "Casa vs stocks, Latte Factor, automatizar finanças, wealth building",
       "tldr": "David Bach explica porque comprar casa (mesmo com taxas altas) é melhor que alugar. Proprietários têm 40x mais riqueza que arrendatários. Latte Factor não é sobre café - é sobre dinheiro inconsciente. A chave: automatizar poupança ANTES de ver o dinheiro.",
       "insights": [
-        {"insight": "Proprietários têm 40x mais riqueza", "why": "Estatística demolidora do argumento renting is smarter"},
-        {"insight": "Alavancagem 5:1 amplifica retornos", "why": "20% entrada transforma 4% em retornos maiores"},
-        {"insight": "Latte Factor = awareness", "why": "Não é sobre café, é sobre dinheiro inconsciente"},
-        {"insight": "40% ignoram employer matching", "why": "Free money literalmente não aproveitada"},
-        {"insight": "Timing impossível", "why": "Todos os maus momentos provaram-se bons para comprar"}
+        {
+          "insight": "Proprietários têm 40x mais riqueza",
+          "why": "Estatística demolidora do argumento renting is smarter"
+        },
+        {
+          "insight": "Alavancagem 5:1 amplifica retornos",
+          "why": "20% entrada transforma 4% em retornos maiores"
+        },
+        {
+          "insight": "Latte Factor = awareness",
+          "why": "Não é sobre café, é sobre dinheiro inconsciente"
+        },
+        {
+          "insight": "40% ignoram employer matching",
+          "why": "Free money literalmente não aproveitada"
+        },
+        {
+          "insight": "Timing impossível",
+          "why": "Todos os maus momentos provaram-se bons para comprar"
+        }
       ],
       "quotes": [
         "You're either paying your mortgage or your landlord's mortgage.",
@@ -164,7 +368,15 @@
         "Make it automatic, make it boring, make it work for you while you sleep."
       ],
       "rating": 4.5,
-      "tags": ["DOAC", "DavidBach", "RealEstate", "LatteFactor", "AutomaticMillionaire", "Finance", "WealthBuilding"]
+      "tags": [
+        "DOAC",
+        "DavidBach",
+        "RealEstate",
+        "LatteFactor",
+        "AutomaticMillionaire",
+        "Finance",
+        "WealthBuilding"
+      ]
     },
     {
       "id": "2026-03-20-mfm-ai-company-records",
@@ -178,11 +390,26 @@
       "theme": "Palantir analysis, AI enterprise, SMB opportunity",
       "tldr": "Palantir passou de pariah de Wall Street para quebrar todos os recordes (340% em 2024). Alex Karp + Peter Thiel construíram empresa de dados governamentais que agora domina enterprise AI. SMB market é greenfield para AI.",
       "insights": [
-        {"insight": "Palantir ignorada por Wall Street 15 anos", "why": "Timing do AI wave validou a empresa"},
-        {"insight": "Alex Karp é anti-founder archetype", "why": "PhD filosofia, não-técnico, provou que leadership matters"},
-        {"insight": "AIP mudou tudo", "why": "Produto enterprise AI transformou revenue trajectory"},
-        {"insight": "Government relationships = moat", "why": "20 anos de trust impossível de replicar"},
-        {"insight": "SMB AI market é greenfield", "why": "Oportunidade para founders que não conseguem competir enterprise"}
+        {
+          "insight": "Palantir ignorada por Wall Street 15 anos",
+          "why": "Timing do AI wave validou a empresa"
+        },
+        {
+          "insight": "Alex Karp é anti-founder archetype",
+          "why": "PhD filosofia, não-técnico, provou que leadership matters"
+        },
+        {
+          "insight": "AIP mudou tudo",
+          "why": "Produto enterprise AI transformou revenue trajectory"
+        },
+        {
+          "insight": "Government relationships = moat",
+          "why": "20 anos de trust impossível de replicar"
+        },
+        {
+          "insight": "SMB AI market é greenfield",
+          "why": "Oportunidade para founders que não conseguem competir enterprise"
+        }
       ],
       "quotes": [
         "Palantir went from being the laughingstock of Wall Street to breaking every record.",
@@ -190,7 +417,13 @@
         "The SMB market for AI is completely greenfield. That's where the opportunity is."
       ],
       "rating": 4.0,
-      "tags": ["MyFirstMillion", "Palantir", "AlexKarp", "EnterpriseAI", "SMBAI"]
+      "tags": [
+        "MyFirstMillion",
+        "Palantir",
+        "AlexKarp",
+        "EnterpriseAI",
+        "SMBAI"
+      ]
     },
     {
       "id": "2026-03-20-doac-chase-hughes-manipulation",
@@ -204,12 +437,30 @@
       "theme": "Manipulation techniques, PCP framework, childhood patterns, identity change",
       "tldr": "Chase Hughes revela técnicas de manipulação de agências de inteligência. Framework PCP (Perception, Context, Permission) explica como qualquer pessoa pode ser manipulada. Identity language é 10x mais poderoso que goals. Micro compliance é como cults e hypnosis funcionam.",
       "insights": [
-        {"insight": "PCP Framework", "why": "Percepção → Contexto → Permissão = qualquer manipulação"},
-        {"insight": "Identity > Behaviour", "why": "'I am the kind of person who...' é 10x mais poderoso que goals"},
-        {"insight": "Childhood scripts governam adultos", "why": "90% dos adultos operam com scripts de 8 anos"},
-        {"insight": "Two Legos technique", "why": "Colocar info separada para pessoa 'descobrir' - irresistível"},
-        {"insight": "Novelty hijacks attention", "why": "Impossível não responder a novidade - explica social media"},
-        {"insight": "FATE: Focus, Authority, Tribe, Emotion", "why": "Sequência de qualquer persuasão efectiva"}
+        {
+          "insight": "PCP Framework",
+          "why": "Percepção → Contexto → Permissão = qualquer manipulação"
+        },
+        {
+          "insight": "Identity > Behaviour",
+          "why": "'I am the kind of person who...' é 10x mais poderoso que goals"
+        },
+        {
+          "insight": "Childhood scripts governam adultos",
+          "why": "90% dos adultos operam com scripts de 8 anos"
+        },
+        {
+          "insight": "Two Legos technique",
+          "why": "Colocar info separada para pessoa 'descobrir' - irresistível"
+        },
+        {
+          "insight": "Novelty hijacks attention",
+          "why": "Impossível não responder a novidade - explica social media"
+        },
+        {
+          "insight": "FATE: Focus, Authority, Tribe, Emotion",
+          "why": "Sequência de qualquer persuasão efectiva"
+        }
       ],
       "quotes": [
         "Any idea that you think came from your own mind, you have no ability to resist it.",
@@ -218,7 +469,15 @@
         "Separation is the greatest lie ever told to the entire world."
       ],
       "rating": 5.0,
-      "tags": ["DOAC", "ChaseHughes", "Manipulation", "Persuasion", "Psychology", "BehaviorScience", "IdentityChange"]
+      "tags": [
+        "DOAC",
+        "ChaseHughes",
+        "Manipulation",
+        "Persuasion",
+        "Psychology",
+        "BehaviorScience",
+        "IdentityChange"
+      ]
     },
     {
       "id": "2026-03-19-allin-travis-dell",
@@ -232,11 +491,26 @@
       "theme": "Physical AI, atoms-based computing, Atoms company reveal, Invest America",
       "tldr": "Travis Kalanick sai de 7 anos de stealth para revelar Atoms - empresa de physical AI que trata átomos como bits. Opera em 30 países com cloud kitchens, mining automation, e robotics. Michael Dell fala sobre AI transformar empresas (cohort 2025 cresce 4x vs 2018) e anuncia doação de $6.25B para 25M crianças.",
       "insights": [
-        {"insight": "Atoms vs Bits framework", "why": "Manufacturing=CPU, Real Estate=Storage, Logistics=Network para átomos"},
-        {"insight": "7 anos em stealth com milhares de funcionários", "why": "Nenhum empregado podia pôr empresa no LinkedIn, incluindo vendedores"},
-        {"insight": "Food computer: refeições ao preço de supermercado", "why": "Do to the kitchen what Uber did to the car"},
-        {"insight": "Cohort 2025 cresce 4x mais rápido que 2018", "why": "Dados do Stripe - AI tools acceleration"},
-        {"insight": "Incumbentes sem AI são expiring value assets", "why": "Michael Dell: change quickly or go out of business"}
+        {
+          "insight": "Atoms vs Bits framework",
+          "why": "Manufacturing=CPU, Real Estate=Storage, Logistics=Network para átomos"
+        },
+        {
+          "insight": "7 anos em stealth com milhares de funcionários",
+          "why": "Nenhum empregado podia pôr empresa no LinkedIn, incluindo vendedores"
+        },
+        {
+          "insight": "Food computer: refeições ao preço de supermercado",
+          "why": "Do to the kitchen what Uber did to the car"
+        },
+        {
+          "insight": "Cohort 2025 cresce 4x mais rápido que 2018",
+          "why": "Dados do Stripe - AI tools acceleration"
+        },
+        {
+          "insight": "Incumbentes sem AI são expiring value assets",
+          "why": "Michael Dell: change quickly or go out of business"
+        }
       ],
       "quotes": [
         "If you're digitizing the physical world, you're treating atoms like bits. You're building an atoms-based computer.",
@@ -244,7 +518,17 @@
         "Those are expiring value assets. If it doesn't change quickly, it will go out of business."
       ],
       "rating": 5.0,
-      "tags": ["AllIn", "TravisKalanick", "MichaelDell", "PhysicalAI", "Atoms", "Uber", "CloudKitchens", "Mining", "InvestAmerica"]
+      "tags": [
+        "AllIn",
+        "TravisKalanick",
+        "MichaelDell",
+        "PhysicalAI",
+        "Atoms",
+        "Uber",
+        "CloudKitchens",
+        "Mining",
+        "InvestAmerica"
+      ]
     },
     {
       "id": "2026-03-19-allin-fetterman",
@@ -258,11 +542,26 @@
       "theme": "Political evolution, Israel support, anti-progressive, bipartisan appeal",
       "tldr": "Senador Democrata com 72% aprovação de Republicanos e apenas 22% de Democratas defende posições controversas para o partido: apoio incondicional a Israel, contra fechar DHS/ICE, crítico da ala progressista. Argumenta que os seus valores não mudaram - foi o partido que se moveu.",
       "insights": [
-        {"insight": "72% aprovação Republicanos, 22% Democratas", "why": "Fenómeno político raro - mais popular com partido oposto"},
-        {"insight": "Único Democrata a apoiar Israel publicamente", "why": "Moral clarity over polls - não segue sondagens"},
-        {"insight": "Recusa fechar DHS/ICE", "why": "Único Democrata a votar contra shutdown de security agencies"},
-        {"insight": "Anti-wealth tax: win a competitive state first", "why": "Crítica directa a Bernie Sanders"},
-        {"insight": "AI data centers: China loves it se pararem", "why": "Contra moratório em data centers proposto por progressistas"}
+        {
+          "insight": "72% aprovação Republicanos, 22% Democratas",
+          "why": "Fenómeno político raro - mais popular com partido oposto"
+        },
+        {
+          "insight": "Único Democrata a apoiar Israel publicamente",
+          "why": "Moral clarity over polls - não segue sondagens"
+        },
+        {
+          "insight": "Recusa fechar DHS/ICE",
+          "why": "Único Democrata a votar contra shutdown de security agencies"
+        },
+        {
+          "insight": "Anti-wealth tax: win a competitive state first",
+          "why": "Crítica directa a Bernie Sanders"
+        },
+        {
+          "insight": "AI data centers: China loves it se pararem",
+          "why": "Contra moratório em data centers proposto por progressistas"
+        }
       ],
       "quotes": [
         "I'm the only Democrat in Congress saying this.",
@@ -271,7 +570,15 @@
         "Win a competitive state. Win one, then you can lecture me."
       ],
       "rating": 4.2,
-      "tags": ["AllIn", "Fetterman", "Politics", "Democrats", "Israel", "Immigration", "AI-Policy"]
+      "tags": [
+        "AllIn",
+        "Fetterman",
+        "Politics",
+        "Democrats",
+        "Israel",
+        "Immigration",
+        "AI-Policy"
+      ]
     },
     {
       "id": "2026-03-19-tim-random-show",
@@ -285,11 +592,26 @@
       "theme": "Biohacking, Zen meditation, vagus nerve, HRV, balance training",
       "tldr": "Tim e Kevin fazem episódio casual cobrindo: ALERTA sobre ketone esters com 1,3 butanediol (pode causar fatty liver), Zen retreat com Henry Shukman, HeartMath para HRV tracking, vagus nerve stimulation DIY, slacklining para balance, e possível diagnóstico de Bertilotti syndrome para dor lombar do Tim.",
       "insights": [
-        {"insight": "⚠️ Ketone esters (1,3 butanediol) = fatty liver risk", "why": "Animal studies mostram equivalente a fatty liver disease - treat like moonshine"},
-        {"insight": "HeartMath ($250) para HRV em real-time", "why": "Kevin adora - guia box breathing enquanto vês HRV subir"},
-        {"insight": "Just be still - técnica Zen para OCD/planners", "why": "Henry Shukman's fix quando labeling se torna interruptivo"},
-        {"insight": "Slacklining: poucos minutos/dia", "why": "Precisa sleep cycles para nervous system integrar"},
-        {"insight": "Vagus nerve DIY por $20-25", "why": "Devices caros ($900) não funcionaram para Tim"}
+        {
+          "insight": "⚠️ Ketone esters (1,3 butanediol) = fatty liver risk",
+          "why": "Animal studies mostram equivalente a fatty liver disease - treat like moonshine"
+        },
+        {
+          "insight": "HeartMath ($250) para HRV em real-time",
+          "why": "Kevin adora - guia box breathing enquanto vês HRV subir"
+        },
+        {
+          "insight": "Just be still - técnica Zen para OCD/planners",
+          "why": "Henry Shukman's fix quando labeling se torna interruptivo"
+        },
+        {
+          "insight": "Slacklining: poucos minutos/dia",
+          "why": "Precisa sleep cycles para nervous system integrar"
+        },
+        {
+          "insight": "Vagus nerve DIY por $20-25",
+          "why": "Devices caros ($900) não funcionaram para Tim"
+        }
       ],
       "quotes": [
         "Treat it like ethanol. Like moonshine. You wouldn't want to do that every day.",
@@ -297,7 +619,18 @@
         "You need sleep cycles for your nervous system to try to integrate it."
       ],
       "rating": 4.0,
-      "tags": ["TimFerriss", "KevinRose", "RandomShow", "Ketones", "HeartMath", "HRV", "Zen", "VagusNerve", "Slacklining", "Biohacking"]
+      "tags": [
+        "TimFerriss",
+        "KevinRose",
+        "RandomShow",
+        "Ketones",
+        "HeartMath",
+        "HRV",
+        "Zen",
+        "VagusNerve",
+        "Slacklining",
+        "Biohacking"
+      ]
     },
     {
       "id": "2026-03-18-mfm-dhh-bootstrapping",
