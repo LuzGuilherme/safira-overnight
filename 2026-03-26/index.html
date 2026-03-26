@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solo Founder Scorecard</title>
+    <style>
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --gray-100: #f5f5f5;
+            --gray-200: #e5e5e5;
+            --gray-400: #a3a3a3;
+            --gray-600: #525252;
+            --gray-800: #262626;
+            --accent: #000000;
+            --green: #22c55e;
+            --yellow: #eab308;
+            --red: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        header {
+            margin-bottom: 80px;
+            border-bottom: 1px solid var(--black);
+            padding-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: var(--gray-600);
+            max-width: 600px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+
+        @media (max-width: 900px) {
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            .container {
+                padding: 40px 24px;
+            }
+            h1 {
+                font-size: 32px;
+            }
+        }
+
+        .input-section h2,
+        .results-section h2 {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 40px;
+            color: var(--gray-600);
+        }
+
+        .input-group {
+            margin-bottom: 32px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .input-group .hint {
+            font-size: 12px;
+            color: var(--gray-400);
+            margin-bottom: 8px;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px 0;
+            font-size: 24px;
+            font-weight: 300;
+            border: none;
+            border-bottom: 1px solid var(--gray-200);
+            background: transparent;
+            transition: border-color 0.2s;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-bottom-color: var(--black);
+        }
+
+        .input-group input::placeholder {
+            color: var(--gray-400);
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        button.calculate {
+            width: 100%;
+            padding: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            background: var(--black);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            margin-top: 40px;
+            transition: background 0.2s;
+        }
+
+        button.calculate:hover {
+            background: var(--gray-800);
+        }
+
+        /* Results */
+        .results-section {
+            display: none;
+        }
+
+        .results-section.visible {
+            display: block;
+        }
+
+        .overall-score {
+            text-align: center;
+            padding: 60px 0;
+            border: 1px solid var(--black);
+            margin-bottom: 40px;
+        }
+
+        .score-number {
+            font-size: 120px;
+            font-weight: 200;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .score-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray-600);
+        }
+
+        .score-verdict {
+            font-size: 18px;
+            margin-top: 16px;
+            font-weight: 500;
+        }
+
+        .category-scores {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .category {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .category-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .category-score {
+            font-size: 24px;
+            font-weight: 300;
+            width: 60px;
+            text-align: right;
+        }
+
+        .category-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-left: 16px;
+        }
+
+        .indicator-green { background: var(--green); }
+        .indicator-yellow { background: var(--yellow); }
+        .indicator-red { background: var(--red); }
+
+        .recommendations {
+            border-top: 1px solid var(--black);
+            padding-top: 40px;
+        }
+
+        .recommendations h3 {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 24px;
+            color: var(--gray-600);
+        }
+
+        .recommendation {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .recommendation:last-child {
+            border-bottom: none;
+        }
+
+        .recommendation-priority {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .priority-high { color: var(--red); }
+        .priority-medium { color: var(--yellow); }
+        .priority-low { color: var(--green); }
+
+        .recommendation-text {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        footer {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid var(--gray-200);
+            font-size: 12px;
+            color: var(--gray-400);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .hidden-initially {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .hidden-initially.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Solo Founder Scorecard</h1>
+            <p class="subtitle">A diagnostic tool for indie hackers. Enter your metrics, get an honest assessment of your project's health.</p>
+        </header>
+
+        <div class="grid">
+            <div class="input-section">
+                <h2>Your Metrics</h2>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>MRR ($)</label>
+                        <div class="hint">Monthly recurring revenue</div>
+                        <input type="number" id="mrr" placeholder="0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Customers</label>
+                        <div class="hint">Paying customers</div>
+                        <input type="number" id="customers" placeholder="0" min="0">
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>MoM Growth (%)</label>
+                        <div class="hint">Month-over-month growth</div>
+                        <input type="number" id="growth" placeholder="0" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label>Churn (%)</label>
+                        <div class="hint">Monthly churn rate</div>
+                        <input type="number" id="churn" placeholder="0" min="0" step="0.1">
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Hours/Week</label>
+                        <div class="hint">Time invested weekly</div>
+                        <input type="number" id="hours" placeholder="0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Runway (months)</label>
+                        <div class="hint">How long can you sustain this</div>
+                        <input type="number" id="runway" placeholder="0" min="0">
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Months Active</label>
+                        <div class="hint">Since launch</div>
+                        <input type="number" id="months" placeholder="0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Burnout (1-10)</label>
+                        <div class="hint">1 = fresh, 10 = exhausted</div>
+                        <input type="number" id="burnout" placeholder="5" min="1" max="10">
+                    </div>
+                </div>
+
+                <button class="calculate" onclick="calculateScore()">Calculate Score</button>
+            </div>
+
+            <div class="results-section" id="results">
+                <h2>Assessment</h2>
+
+                <div class="overall-score hidden-initially" id="overallScore">
+                    <div class="score-number" id="scoreNumber">—</div>
+                    <div class="score-label">Overall Health Score</div>
+                    <div class="score-verdict" id="scoreVerdict"></div>
+                </div>
+
+                <div class="category-scores hidden-initially" id="categoryScores">
+                    <div class="category">
+                        <span class="category-name">Revenue Health</span>
+                        <span class="category-score" id="revenueScore">—</span>
+                        <span class="category-indicator" id="revenueIndicator"></span>
+                    </div>
+                    <div class="category">
+                        <span class="category-name">Growth Trajectory</span>
+                        <span class="category-score" id="growthScore">—</span>
+                        <span class="category-indicator" id="growthIndicator"></span>
+                    </div>
+                    <div class="category">
+                        <span class="category-name">Efficiency</span>
+                        <span class="category-score" id="efficiencyScore">—</span>
+                        <span class="category-indicator" id="efficiencyIndicator"></span>
+                    </div>
+                    <div class="category">
+                        <span class="category-name">Sustainability</span>
+                        <span class="category-score" id="sustainabilityScore">—</span>
+                        <span class="category-indicator" id="sustainabilityIndicator"></span>
+                    </div>
+                </div>
+
+                <div class="recommendations hidden-initially" id="recommendations">
+                    <h3>Recommendations</h3>
+                    <div id="recommendationsList"></div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <span>Solo Founder Scorecard — March 2026</span>
+            <span>Built overnight by Safira ✨</span>
+        </footer>
+    </div>
+
+    <script>
+        function calculateScore() {
+            // Get inputs
+            const mrr = parseFloat(document.getElementById('mrr').value) || 0;
+            const customers = parseFloat(document.getElementById('customers').value) || 0;
+            const growth = parseFloat(document.getElementById('growth').value) || 0;
+            const churn = parseFloat(document.getElementById('churn').value) || 0;
+            const hours = parseFloat(document.getElementById('hours').value) || 0;
+            const runway = parseFloat(document.getElementById('runway').value) || 0;
+            const months = parseFloat(document.getElementById('months').value) || 0;
+            const burnout = parseFloat(document.getElementById('burnout').value) || 5;
+
+            // Calculate category scores (0-100)
+            
+            // Revenue Health: Based on MRR and ARPU
+            let revenueScore = 0;
+            const arpu = customers > 0 ? mrr / customers : 0;
+            if (mrr >= 10000) revenueScore = 100;
+            else if (mrr >= 5000) revenueScore = 85;
+            else if (mrr >= 1000) revenueScore = 70;
+            else if (mrr >= 500) revenueScore = 55;
+            else if (mrr >= 100) revenueScore = 40;
+            else if (mrr > 0) revenueScore = 25;
+            else revenueScore = 10;
+            
+            // Bonus for good ARPU
+            if (arpu >= 100) revenueScore = Math.min(100, revenueScore + 10);
+            else if (arpu >= 50) revenueScore = Math.min(100, revenueScore + 5);
+
+            // Growth Trajectory: Based on MoM growth and net growth (growth - churn)
+            let growthScore = 0;
+            const netGrowth = growth - churn;
+            if (netGrowth >= 20) growthScore = 100;
+            else if (netGrowth >= 10) growthScore = 85;
+            else if (netGrowth >= 5) growthScore = 70;
+            else if (netGrowth >= 0) growthScore = 50;
+            else if (netGrowth >= -5) growthScore = 30;
+            else growthScore = 15;
+            
+            // Early stage bonus (pre-revenue projects get more credit for any growth)
+            if (months < 6 && growth > 0) {
+                growthScore = Math.min(100, growthScore + 15);
+            }
+
+            // Efficiency: Revenue per hour
+            let efficiencyScore = 0;
+            const revenuePerHour = hours > 0 ? (mrr / (hours * 4)) : 0; // Monthly hours
+            if (revenuePerHour >= 50) efficiencyScore = 100;
+            else if (revenuePerHour >= 25) efficiencyScore = 85;
+            else if (revenuePerHour >= 10) efficiencyScore = 70;
+            else if (revenuePerHour >= 5) efficiencyScore = 55;
+            else if (revenuePerHour >= 1) efficiencyScore = 40;
+            else if (hours <= 10) efficiencyScore = 50; // Low hours = sustainable side project
+            else efficiencyScore = 25;
+
+            // Sustainability: Runway, burnout, churn
+            let sustainabilityScore = 0;
+            // Runway component (0-40 points)
+            if (runway >= 24) sustainabilityScore += 40;
+            else if (runway >= 12) sustainabilityScore += 35;
+            else if (runway >= 6) sustainabilityScore += 25;
+            else if (runway >= 3) sustainabilityScore += 15;
+            else sustainabilityScore += 5;
+            
+            // Burnout component (0-30 points)
+            sustainabilityScore += Math.round((10 - burnout) * 3);
+            
+            // Churn component (0-30 points)
+            if (churn <= 2) sustainabilityScore += 30;
+            else if (churn <= 5) sustainabilityScore += 25;
+            else if (churn <= 10) sustainabilityScore += 15;
+            else sustainabilityScore += 5;
+
+            // Overall score (weighted average)
+            const overallScore = Math.round(
+                revenueScore * 0.30 +
+                growthScore * 0.25 +
+                efficiencyScore * 0.20 +
+                sustainabilityScore * 0.25
+            );
+
+            // Generate recommendations
+            const recommendations = [];
+            
+            // Revenue recommendations
+            if (mrr === 0) {
+                recommendations.push({
+                    priority: 'high',
+                    text: 'You have no revenue yet. Focus on getting your first paying customer before building more features. Talk to 10 potential customers this week.'
+                });
+            } else if (mrr < 500) {
+                recommendations.push({
+                    priority: 'medium',
+                    text: 'Early revenue is promising. Double down on what\'s working. Can you 10x your current acquisition channel?'
+                });
+            }
+            
+            // Growth recommendations
+            if (netGrowth < 0) {
+                recommendations.push({
+                    priority: 'high',
+                    text: 'You\'re shrinking. This is unsustainable. Before adding features, understand why customers are leaving. Exit interviews are critical.'
+                });
+            } else if (growth < 5 && months > 3) {
+                recommendations.push({
+                    priority: 'medium',
+                    text: 'Growth has stalled. Consider: new channels, pricing experiments, or a positioning pivot. Status quo won\'t work.'
+                });
+            }
+            
+            // Churn recommendations
+            if (churn > 10) {
+                recommendations.push({
+                    priority: 'high',
+                    text: 'Churn over 10% is a leaky bucket. No amount of acquisition fixes retention problems. Focus on onboarding and early value delivery.'
+                });
+            } else if (churn > 5) {
+                recommendations.push({
+                    priority: 'medium',
+                    text: 'Churn is elevated. Segment your churned users—is there a pattern? Fix the root cause before scaling.'
+                });
+            }
+            
+            // Efficiency recommendations
+            if (hours > 30 && mrr < 1000) {
+                recommendations.push({
+                    priority: 'high',
+                    text: 'You\'re working full-time hours for part-time pay. Either reduce scope drastically or validate that customers will pay more.'
+                });
+            } else if (hours > 20 && revenuePerHour < 5) {
+                recommendations.push({
+                    priority: 'medium',
+                    text: 'Low revenue per hour. Automate more, delegate, or raise prices. Your time is the scarcest resource.'
+                });
+            }
+            
+            // Burnout recommendations
+            if (burnout >= 8) {
+                recommendations.push({
+                    priority: 'high',
+                    text: 'Burnout level is critical. Take a break before you crash. No business is worth your health. Consider: smaller scope, longer timeline, or a co-founder.'
+                });
+            } else if (burnout >= 6) {
+                recommendations.push({
+                    priority: 'medium',
+                    text: 'You\'re running hot. Schedule recovery time. The marathon analogy is real—pace yourself or you won\'t finish.'
+                });
+            }
+            
+            // Runway recommendations
+            if (runway < 3 && mrr < 1000) {
+                recommendations.push({
+                    priority: 'high',
+                    text: 'Runway is dangerously short with insufficient revenue. You need a forcing function: either ship and monetize in 30 days, or pause the project.'
+                });
+            }
+            
+            // Positive reinforcement
+            if (overallScore >= 70) {
+                recommendations.push({
+                    priority: 'low',
+                    text: 'Strong fundamentals. Keep doing what\'s working. Consider documenting your playbook—it might be more valuable than you think.'
+                });
+            }
+            
+            // If no recommendations, add a generic one
+            if (recommendations.length === 0) {
+                recommendations.push({
+                    priority: 'low',
+                    text: 'Your metrics look balanced. Focus on the one thing that would make the biggest difference to revenue or sustainability.'
+                });
+            }
+
+            // Display results
+            document.getElementById('results').classList.add('visible');
+            
+            // Animate score display
+            setTimeout(() => {
+                document.getElementById('overallScore').classList.add('show');
+                animateNumber('scoreNumber', overallScore);
+                document.getElementById('scoreVerdict').textContent = getVerdict(overallScore);
+            }, 100);
+            
+            setTimeout(() => {
+                document.getElementById('categoryScores').classList.add('show');
+                
+                document.getElementById('revenueScore').textContent = revenueScore;
+                document.getElementById('revenueIndicator').className = 'category-indicator ' + getIndicatorClass(revenueScore);
+                
+                document.getElementById('growthScore').textContent = growthScore;
+                document.getElementById('growthIndicator').className = 'category-indicator ' + getIndicatorClass(growthScore);
+                
+                document.getElementById('efficiencyScore').textContent = efficiencyScore;
+                document.getElementById('efficiencyIndicator').className = 'category-indicator ' + getIndicatorClass(efficiencyScore);
+                
+                document.getElementById('sustainabilityScore').textContent = sustainabilityScore;
+                document.getElementById('sustainabilityIndicator').className = 'category-indicator ' + getIndicatorClass(sustainabilityScore);
+            }, 400);
+            
+            setTimeout(() => {
+                document.getElementById('recommendations').classList.add('show');
+                
+                const recList = document.getElementById('recommendationsList');
+                recList.innerHTML = recommendations.map(rec => `
+                    <div class="recommendation">
+                        <div class="recommendation-priority priority-${rec.priority}">${rec.priority} priority</div>
+                        <div class="recommendation-text">${rec.text}</div>
+                    </div>
+                `).join('');
+            }, 700);
+            
+            // Scroll to results on mobile
+            if (window.innerWidth < 900) {
+                document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        function animateNumber(elementId, target) {
+            const element = document.getElementById(elementId);
+            let current = 0;
+            const duration = 1000;
+            const steps = 30;
+            const increment = target / steps;
+            const stepTime = duration / steps;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.round(current);
+                }
+            }, stepTime);
+        }
+        
+        function getVerdict(score) {
+            if (score >= 80) return 'Excellent — You\'re on track';
+            if (score >= 65) return 'Good — Room for optimization';
+            if (score >= 50) return 'Fair — Address the gaps';
+            if (score >= 35) return 'Struggling — Pivot or persist?';
+            return 'Critical — Reassess fundamentals';
+        }
+        
+        function getIndicatorClass(score) {
+            if (score >= 60) return 'indicator-green';
+            if (score >= 40) return 'indicator-yellow';
+            return 'indicator-red';
+        }
+    </script>
+</body>
+</html>
