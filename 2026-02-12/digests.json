@@ -1,7 +1,59 @@
 {
-  "generated": "2026-03-25T01:00:00.000000Z",
-  "count": 53,
+  "generated": "2026-03-26T01:00:00.000000Z",
+  "count": 54,
   "digests": [
+    {
+      "id": "2026-03-26-doac-david-sinclair-aging",
+      "filename": "2026-03-26-doac-david-sinclair-aging.md",
+      "date": "2026-03-26",
+      "title": "Dr David Sinclair: Can Aging Be Reversed?",
+      "host": "Diary of a CEO (Steven Bartlett)",
+      "guest": "Dr David Sinclair (Harvard Professor, 30 anos a estudar longevidade)",
+      "duration": "~2h 29m",
+      "link": "https://www.youtube.com/watch?v=DnvWAP99r3Y",
+      "theme": "Information theory of aging, gene therapy, reverting age, NAD, sirtuins",
+      "tldr": "David Sinclair explica Information Theory of Aging: envelhecemos porque perdemos informação epigenética, não DNA. Existe backup copy que pode ser reinstalado. Em ratos, já reverteram idade de olhos, pele, cérebro. Primeiro trial humano para reverter cegueira começa Abril 2026.",
+      "insights": [
+        {
+          "insight": "Envelhecimento = perda de informação, não desgaste",
+          "why": "Pode ser revertido reinstalando software"
+        },
+        {
+          "insight": "Backup copy existe em todas as células",
+          "why": "Pessoa velha = pessoa jovem à espera de reset"
+        },
+        {
+          "insight": "Trial humano em Abril 2026",
+          "why": "Se funcionar, muda história da medicina"
+        },
+        {
+          "insight": "Jejum ativa sirtuins via NAD",
+          "why": "Hack gratuito e imediato"
+        },
+        {
+          "insight": "Doenças são sintomas de aging",
+          "why": "Reverter idade = prevenir/curar doenças"
+        }
+      ],
+      "quotes": [
+        "I reject the idea that aging, just because its natural, is acceptable.",
+        "Every old person is someone who needs a reset. Inside that person is a young person waiting to come out.",
+        "Youre probably going to live into the 22nd century if you do all the right things."
+      ],
+      "rating": 5.0,
+      "tags": [
+        "DOAC",
+        "DavidSinclair",
+        "Longevity",
+        "Aging",
+        "Epigenetics",
+        "GeneTherapy",
+        "NAD",
+        "Sirtuins",
+        "Health",
+        "Harvard"
+      ]
+    },
     {
       "id": "2026-03-25-allin-matt-mahan",
       "filename": "2026-03-25-allin-matt-mahan.md",
