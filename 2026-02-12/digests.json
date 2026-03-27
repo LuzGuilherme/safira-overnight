@@ -1,7 +1,59 @@
 {
-  "generated": "2026-03-26T01:00:00.000000Z",
-  "count": 54,
+  "generated": "2026-03-27T01:05:00.000000Z",
+  "count": 56,
   "digests": [
+    {
+      "id": "2026-03-27-doac-karen-hao",
+      "filename": "2026-03-27-doac-karen-hao.md",
+      "date": "2026-03-27",
+      "title": "AI Whistleblower: Karen Hao on Empire of AI",
+      "host": "Diary of a CEO (Steven Bartlett)",
+      "guest": "Karen Hao (jornalista, autora Empire of AI)",
+      "duration": "~2h",
+      "link": "https://www.youtube.com/watch?v=Cn8HBj8QAbk",
+      "theme": "Inside story of OpenAI, Sam Altman manipulation, AI as empire",
+      "tldr": "Karen Hao expõe como empresas de AI operam como impérios coloniais - capturando recursos (dados), explorando trabalhadores, monopolizando conhecimento. Sam Altman adapta narrativa para cada audiência. 250+ entrevistas, 90 de funcionários OpenAI revelam manipulação e controlo.",
+      "insights": [
+        {"insight": "AI companies = colonial empires", "why": "Land grab, labor exploitation, knowledge monopoly"},
+        {"insight": "AGI undefined by design", "why": "Allows moving goalposts per audience"},
+        {"insight": "Access as control mechanism", "why": "Journalists/podcasters controlled by promise of interviews"},
+        {"insight": "Most AI researchers captured", "why": "Industry bankrolled like fossil fuels on climate"},
+        {"insight": "40 pages of questions, zero answers", "why": "OpenAI refused to participate in critical book"}
+      ],
+      "quotes": [
+        "So much of what's happening today in the AI industry is extremely inhumane.",
+        "If most climate scientists were bankrolled by fossil fuel companies, would we get an accurate picture? No.",
+        "They are gaslighting the public."
+      ],
+      "rating": 5.0,
+      "tags": ["DOAC", "KarenHao", "OpenAI", "SamAltman", "AIEthics", "Empire", "Journalism"]
+    },
+    {
+      "id": "2026-03-27-allin-gtc",
+      "filename": "2026-03-27-allin-gtc.md",
+      "date": "2026-03-27",
+      "title": "NVIDIA GTC: AI CEOs Panel",
+      "host": "All-In Podcast (Jason Calacanis)",
+      "guest": "Michael Intrator (CoreWeave), Aravind Srinivas (Perplexity), Arthur Mensch (Mistral)",
+      "duration": "~1h 30m",
+      "link": "https://www.youtube.com/watch?v=-JBhTBu9ZbA",
+      "theme": "GPU infrastructure, financing models, AI demand at scale",
+      "tldr": "CoreWeave raised $35B in 18 months using 'box' SPV structure. GPU depreciation debate is 'nonsense' - 5-year contracts, prices appreciating. Cost of capital dropped 600 bps. Demand still overwhelms global capacity.",
+      "insights": [
+        {"insight": "Box model for capex financing", "why": "Isolated SPVs per contract reduce risk"},
+        {"insight": "GPU depreciation FUD is short selling", "why": "5-year contracts prove value"},
+        {"insight": "600 bps cost of capital drop", "why": "Approaching hyperscaler rates"},
+        {"insight": "Payback at 2.5 years of 5-year deal", "why": "Extremely profitable structure"},
+        {"insight": "Memory is new throttle", "why": "Not just GPUs - full supply chain matters"}
+      ],
+      "quotes": [
+        "Computing decommoditizes at scale. Anyone can run a GPU, but can you run a cluster large enough to change the world?",
+        "My take on GPU depreciation debate is that it's nonsense.",
+        "Within 2.5 years of a 5-year deal, we have paid for everything."
+      ],
+      "rating": 4.5,
+      "tags": ["AllIn", "GTC", "NVIDIA", "CoreWeave", "Perplexity", "Mistral", "Infrastructure", "GPUs"]
+    },
     {
       "id": "2026-03-26-doac-david-sinclair-aging",
       "filename": "2026-03-26-doac-david-sinclair-aging.md",
