@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRR Reverse Engineer | Work Backwards From Your Goal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #fafafa;
+            --surface: #ffffff;
+            --border: #e0e0e0;
+            --text: #1a1a1a;
+            --text-muted: #666;
+            --accent: #2563eb;
+            --green: #16a34a;
+            --yellow: #ca8a04;
+            --red: #dc2626;
+            --code-bg: #f3f4f6;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Mono', 'Roboto Mono', monospace;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            border-bottom: 2px solid var(--text);
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 16px;
+        }
+
+        .panel-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        .input-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-muted);
+        }
+
+        input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid var(--border);
+            font-family: inherit;
+            font-size: 14px;
+            background: var(--code-bg);
+        }
+
+        input:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: -2px;
+        }
+
+        .unit {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 16px;
+        }
+
+        .metric-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 4px 0;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .metric-detail {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .metric-value.green { color: var(--green); }
+        .metric-value.yellow { color: var(--yellow); }
+        .metric-value.red { color: var(--red); }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 8px 12px;
+            text-align: left;
+            border: 1px solid var(--border);
+        }
+
+        .data-table th {
+            background: var(--code-bg);
+            font-weight: 600;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table td {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .data-table tr:nth-child(even) {
+            background: var(--code-bg);
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .highlight {
+            background: #fef3c7 !important;
+            font-weight: 600;
+        }
+
+        .section {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .formula {
+            background: var(--code-bg);
+            padding: 12px;
+            font-family: 'SF Mono', 'Roboto Mono', monospace;
+            font-size: 11px;
+            border-left: 3px solid var(--accent);
+            margin: 12px 0;
+            overflow-x: auto;
+        }
+
+        .bottleneck-box {
+            background: #fef2f2;
+            border: 2px solid var(--red);
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .bottleneck-title {
+            font-weight: 700;
+            color: var(--red);
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .opportunity-box {
+            background: #f0fdf4;
+            border: 2px solid var(--green);
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .opportunity-title {
+            font-weight: 700;
+            color: var(--green);
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-bar {
+            display: flex;
+            height: 24px;
+            border: 1px solid var(--border);
+            margin: 12px 0;
+            overflow: hidden;
+        }
+
+        .timeline-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .preset-buttons {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .preset-btn {
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            font-size: 11px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .preset-btn:hover {
+            background: var(--code-bg);
+        }
+
+        footer {
+            margin-top: 40px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            font-size: 11px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .reality-check {
+            margin-top: 16px;
+            padding: 12px;
+            border: 1px dashed var(--border);
+            font-size: 11px;
+        }
+
+        .reality-check strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 6px;
+            font-size: 10px;
+            font-weight: 600;
+            border-radius: 2px;
+        }
+
+        .tag-easy { background: #dcfce7; color: #166534; }
+        .tag-medium { background: #fef3c7; color: #92400e; }
+        .tag-hard { background: #fee2e2; color: #991b1b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MRR REVERSE ENGINEER</h1>
+            <div class="subtitle">Work backwards from your revenue goal. See exactly what you need.</div>
+        </header>
+
+        <div class="grid">
+            <div class="sidebar">
+                <div class="panel">
+                    <div class="panel-title">📊 Your Inputs</div>
+                    
+                    <div class="preset-buttons">
+                        <button class="preset-btn" onclick="loadPreset('starter')">$1K Goal</button>
+                        <button class="preset-btn" onclick="loadPreset('ramen')">$5K Goal</button>
+                        <button class="preset-btn" onclick="loadPreset('indie')">$10K Goal</button>
+                        <button class="preset-btn" onclick="loadPreset('scale')">$50K Goal</button>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Target MRR ($)</label>
+                        <input type="number" id="targetMrr" value="10000" oninput="calculate()">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Average Revenue Per User ($)</label>
+                        <input type="number" id="arpu" value="49" oninput="calculate()">
+                        <div class="unit">Monthly subscription price</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Visitor → Trial Rate (%)</label>
+                        <input type="number" id="visitorToTrial" value="3" step="0.1" oninput="calculate()">
+                        <div class="unit">Industry avg: 2-5%</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Trial → Paid Rate (%)</label>
+                        <input type="number" id="trialToPaid" value="15" step="0.1" oninput="calculate()">
+                        <div class="unit">Industry avg: 10-25%</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Monthly Churn Rate (%)</label>
+                        <input type="number" id="churn" value="5" step="0.1" oninput="calculate()">
+                        <div class="unit">Industry avg: 3-8%</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Current MRR ($)</label>
+                        <input type="number" id="currentMrr" value="0" oninput="calculate()">
+                        <div class="unit">Leave 0 if starting fresh</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Current Monthly Visitors</label>
+                        <input type="number" id="currentVisitors" value="0" oninput="calculate()">
+                        <div class="unit">Leave 0 to calculate requirement</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main">
+                <div class="results-grid" id="primaryMetrics">
+                    <!-- Filled by JS -->
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📈 The Math Behind Your Goal</div>
+                    <div class="formula" id="formulaBreakdown">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <div class="two-col">
+                    <div class="section">
+                        <div class="section-title">🎯 Funnel Requirements</div>
+                        <table class="data-table" id="funnelTable">
+                            <!-- Filled by JS -->
+                        </table>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">⚡ Sensitivity Analysis</div>
+                        <table class="data-table" id="sensitivityTable">
+                            <!-- Filled by JS -->
+                        </table>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">⏱️ Timeline Scenarios</div>
+                    <table class="data-table" id="timelineTable">
+                        <!-- Filled by JS -->
+                    </table>
+                </div>
+
+                <div class="two-col">
+                    <div id="bottleneckBox">
+                        <!-- Filled by JS -->
+                    </div>
+                    <div id="opportunityBox">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📊 Monthly Milestones to Goal</div>
+                    <table class="data-table" id="milestoneTable">
+                        <!-- Filled by JS -->
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            Built overnight by Safira 🌙 | 27 Mar 2026 | 
+            <a href="https://github.com/luzguilherme/safira-overnight">View Source</a>
+        </footer>
+    </div>
+
+    <script>
+        function calculate() {
+            const targetMrr = parseFloat(document.getElementById('targetMrr').value) || 0;
+            const arpu = parseFloat(document.getElementById('arpu').value) || 1;
+            const visitorToTrial = (parseFloat(document.getElementById('visitorToTrial').value) || 0) / 100;
+            const trialToPaid = (parseFloat(document.getElementById('trialToPaid').value) || 0) / 100;
+            const churn = (parseFloat(document.getElementById('churn').value) || 0) / 100;
+            const currentMrr = parseFloat(document.getElementById('currentMrr').value) || 0;
+            const currentVisitors = parseFloat(document.getElementById('currentVisitors').value) || 0;
+
+            // Core calculations
+            const customersNeeded = Math.ceil(targetMrr / arpu);
+            const currentCustomers = Math.ceil(currentMrr / arpu);
+            const customersToAdd = customersNeeded - currentCustomers;
+            
+            // Funnel math
+            const overallConversion = visitorToTrial * trialToPaid;
+            const visitorsPerCustomer = 1 / overallConversion;
+            const trialsPerCustomer = 1 / trialToPaid;
+            
+            // Monthly requirements (accounting for churn)
+            const monthlyChurnedCustomers = customersNeeded * churn;
+            const netCustomersNeededMonthly = monthlyChurnedCustomers; // To maintain
+            const newTrialsNeededMonthly = Math.ceil(netCustomersNeededMonthly / trialToPaid);
+            const visitorsNeededMonthly = Math.ceil(newTrialsNeededMonthly / visitorToTrial);
+            const dailyVisitors = Math.ceil(visitorsNeededMonthly / 30);
+
+            // To reach goal (one-time ramp)
+            const trialsToReachGoal = Math.ceil(customersToAdd / trialToPaid);
+            const visitorsToReachGoal = Math.ceil(trialsToReachGoal / visitorToTrial);
+
+            // Timeline calculations
+            const newCustomersPerMonth = (currentVisitors > 0) 
+                ? Math.floor(currentVisitors * overallConversion)
+                : Math.floor(visitorsNeededMonthly * overallConversion);
+            
+            const netGrowthPerMonth = newCustomersPerMonth - (currentCustomers * churn);
+            const monthsToGoal = (netGrowthPerMonth > 0) 
+                ? Math.ceil(customersToAdd / netGrowthPerMonth)
+                : Infinity;
+
+            // Render primary metrics
+            const primaryMetrics = document.getElementById('primaryMetrics');
+            primaryMetrics.innerHTML = `
+                <div class="metric-card">
+                    <div class="metric-label">Customers Needed</div>
+                    <div class="metric-value">${customersNeeded.toLocaleString()}</div>
+                    <div class="metric-detail">at $${arpu}/mo each</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Monthly Visitors Required</div>
+                    <div class="metric-value ${visitorsNeededMonthly > 50000 ? 'red' : visitorsNeededMonthly > 10000 ? 'yellow' : 'green'}">${visitorsNeededMonthly.toLocaleString()}</div>
+                    <div class="metric-detail">${dailyVisitors.toLocaleString()}/day to maintain</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Effective Conversion</div>
+                    <div class="metric-value ${overallConversion > 0.005 ? 'green' : overallConversion > 0.002 ? 'yellow' : 'red'}">${(overallConversion * 100).toFixed(2)}%</div>
+                    <div class="metric-detail">visitor → paying customer</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Monthly Churn Loss</div>
+                    <div class="metric-value ${churn < 0.03 ? 'green' : churn < 0.07 ? 'yellow' : 'red'}">$${Math.round(targetMrr * churn).toLocaleString()}</div>
+                    <div class="metric-detail">${Math.ceil(monthlyChurnedCustomers)} customers/mo</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Time to Goal</div>
+                    <div class="metric-value ${monthsToGoal <= 6 ? 'green' : monthsToGoal <= 12 ? 'yellow' : 'red'}">${monthsToGoal === Infinity ? '∞' : monthsToGoal + ' mo'}</div>
+                    <div class="metric-detail">${currentVisitors > 0 ? 'at current traffic' : 'at required traffic'}</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Customer LTV</div>
+                    <div class="metric-value">$${Math.round(arpu / churn).toLocaleString()}</div>
+                    <div class="metric-detail">${Math.round(1/churn)} months avg lifetime</div>
+                </div>
+            `;
+
+            // Formula breakdown
+            const formulaBreakdown = document.getElementById('formulaBreakdown');
+            formulaBreakdown.innerHTML = `
+$${targetMrr.toLocaleString()} MRR ÷ $${arpu}/customer = <strong>${customersNeeded} customers needed</strong>
+
+${customersNeeded} customers × ${(churn * 100).toFixed(1)}% churn = ${Math.ceil(monthlyChurnedCustomers)} lost/month → need ${Math.ceil(monthlyChurnedCustomers)} new customers/month just to maintain
+
+${Math.ceil(monthlyChurnedCustomers)} new customers ÷ ${(trialToPaid * 100).toFixed(1)}% trial-to-paid = ${newTrialsNeededMonthly.toLocaleString()} trials/month needed
+${newTrialsNeededMonthly.toLocaleString()} trials ÷ ${(visitorToTrial * 100).toFixed(1)}% visitor-to-trial = <strong>${visitorsNeededMonthly.toLocaleString()} visitors/month</strong> (${dailyVisitors}/day)
+            `;
+
+            // Funnel table
+            const funnelTable = document.getElementById('funnelTable');
+            funnelTable.innerHTML = `
+                <tr><th>Stage</th><th class="text-right">To Reach Goal</th><th class="text-right">Monthly (Maintain)</th></tr>
+                <tr><td>Visitors</td><td class="text-right">${visitorsToReachGoal.toLocaleString()}</td><td class="text-right">${visitorsNeededMonthly.toLocaleString()}</td></tr>
+                <tr><td>Trials</td><td class="text-right">${trialsToReachGoal.toLocaleString()}</td><td class="text-right">${newTrialsNeededMonthly.toLocaleString()}</td></tr>
+                <tr><td>Customers</td><td class="text-right">${customersToAdd.toLocaleString()}</td><td class="text-right">${Math.ceil(monthlyChurnedCustomers).toLocaleString()}</td></tr>
+                <tr class="highlight"><td>Revenue</td><td class="text-right">$${targetMrr.toLocaleString()}</td><td class="text-right">$${Math.round(targetMrr * churn).toLocaleString()} (churn cost)</td></tr>
+            `;
+
+            // Sensitivity analysis
+            const sensitivityTable = document.getElementById('sensitivityTable');
+            const improvements = [
+                { name: '+10% ARPU', newVal: arpu * 1.1, effect: calculateVisitors(targetMrr, arpu * 1.1, visitorToTrial, trialToPaid, churn) },
+                { name: '+10% Visitor→Trial', newVal: visitorToTrial * 1.1, effect: calculateVisitors(targetMrr, arpu, visitorToTrial * 1.1, trialToPaid, churn) },
+                { name: '+10% Trial→Paid', newVal: trialToPaid * 1.1, effect: calculateVisitors(targetMrr, arpu, visitorToTrial, trialToPaid * 1.1, churn) },
+                { name: '-10% Churn', newVal: churn * 0.9, effect: calculateVisitors(targetMrr, arpu, visitorToTrial, trialToPaid, churn * 0.9) },
+            ];
+
+            const bestImprovement = improvements.reduce((best, curr) => 
+                (visitorsNeededMonthly - curr.effect) > (visitorsNeededMonthly - best.effect) ? curr : best
+            );
+
+            sensitivityTable.innerHTML = `
+                <tr><th>If You Improve</th><th class="text-right">Visitors Needed</th><th class="text-right">Reduction</th></tr>
+                ${improvements.map(imp => `
+                    <tr class="${imp.name === bestImprovement.name ? 'highlight' : ''}">
+                        <td>${imp.name}</td>
+                        <td class="text-right">${imp.effect.toLocaleString()}</td>
+                        <td class="text-right" style="color: var(--green)">-${((visitorsNeededMonthly - imp.effect) / visitorsNeededMonthly * 100).toFixed(1)}%</td>
+                    </tr>
+                `).join('')}
+            `;
+
+            // Timeline scenarios
+            const timelineTable = document.getElementById('timelineTable');
+            const scenarios = [
+                { traffic: 1000, label: '1K visitors/mo' },
+                { traffic: 5000, label: '5K visitors/mo' },
+                { traffic: 10000, label: '10K visitors/mo' },
+                { traffic: 25000, label: '25K visitors/mo' },
+                { traffic: 50000, label: '50K visitors/mo' },
+            ];
+
+            timelineTable.innerHTML = `
+                <tr><th>Traffic Scenario</th><th class="text-right">New Customers/Mo</th><th class="text-right">Net Growth</th><th class="text-right">Time to Goal</th><th>Difficulty</th></tr>
+                ${scenarios.map(s => {
+                    const newCust = Math.floor(s.traffic * overallConversion);
+                    const netGrowth = newCust - (currentCustomers * churn);
+                    const timeToGoal = netGrowth > 0 ? Math.ceil(customersToAdd / netGrowth) : Infinity;
+                    const difficulty = s.traffic <= 5000 ? 'easy' : s.traffic <= 20000 ? 'medium' : 'hard';
+                    return `
+                        <tr>
+                            <td>${s.label}</td>
+                            <td class="text-right">${newCust}</td>
+                            <td class="text-right" style="color: ${netGrowth > 0 ? 'var(--green)' : 'var(--red)'}">${netGrowth > 0 ? '+' : ''}${netGrowth}</td>
+                            <td class="text-right">${timeToGoal === Infinity ? '—' : timeToGoal + ' months'}</td>
+                            <td><span class="tag tag-${difficulty}">${difficulty.toUpperCase()}</span></td>
+                        </tr>
+                    `;
+                }).join('')}
+            `;
+
+            // Bottleneck analysis
+            const bottleneckBox = document.getElementById('bottleneckBox');
+            const metrics = [
+                { name: 'Visitor→Trial Rate', value: visitorToTrial * 100, benchmark: 3, impact: 'high' },
+                { name: 'Trial→Paid Rate', value: trialToPaid * 100, benchmark: 15, impact: 'high' },
+                { name: 'Churn Rate', value: churn * 100, benchmark: 5, inverted: true, impact: 'medium' },
+                { name: 'ARPU', value: arpu, benchmark: 49, impact: 'medium' },
+            ];
+
+            const bottleneck = metrics.reduce((worst, curr) => {
+                const currScore = curr.inverted 
+                    ? curr.value / curr.benchmark 
+                    : curr.benchmark / curr.value;
+                const worstScore = worst.inverted 
+                    ? worst.value / worst.benchmark 
+                    : worst.benchmark / worst.value;
+                return currScore > worstScore ? curr : worst;
+            });
+
+            bottleneckBox.innerHTML = `
+                <div class="bottleneck-box">
+                    <div class="bottleneck-title">🚨 BIGGEST BOTTLENECK</div>
+                    <strong>${bottleneck.name}</strong>: ${bottleneck.value.toFixed(1)}${bottleneck.name.includes('Rate') ? '%' : ''}
+                    <br><br>
+                    ${bottleneck.name === 'Visitor→Trial Rate' ? 
+                        'Focus on: Better landing page copy, clearer value prop, stronger CTA, social proof above the fold.' :
+                    bottleneck.name === 'Trial→Paid Rate' ?
+                        'Focus on: Better onboarding, quicker time-to-value, in-app guidance, activation emails.' :
+                    bottleneck.name === 'Churn Rate' ?
+                        'Focus on: Feature stickiness, customer success, usage-based nudges, win-back campaigns.' :
+                        'Focus on: Premium tier, annual pricing, add-ons, usage-based pricing.'}
+                </div>
+            `;
+
+            // Opportunity box
+            const opportunityBox = document.getElementById('opportunityBox');
+            opportunityBox.innerHTML = `
+                <div class="opportunity-box">
+                    <div class="opportunity-title">💡 BIGGEST OPPORTUNITY</div>
+                    <strong>Improving ${bestImprovement.name}</strong> has the biggest impact.
+                    <br><br>
+                    This would reduce your required monthly traffic from <strong>${visitorsNeededMonthly.toLocaleString()}</strong> to <strong>${bestImprovement.effect.toLocaleString()}</strong> visitors — a ${((visitorsNeededMonthly - bestImprovement.effect) / visitorsNeededMonthly * 100).toFixed(1)}% reduction.
+                </div>
+            `;
+
+            // Milestone table (month by month projection)
+            const milestoneTable = document.getElementById('milestoneTable');
+            let projectedCustomers = currentCustomers;
+            let projectedMrr = currentMrr;
+            const milestones = [];
+            
+            const monthlyNewCustomers = Math.floor(visitorsNeededMonthly * overallConversion);
+            
+            for (let month = 1; month <= Math.min(monthsToGoal + 2, 24); month++) {
+                const churned = Math.floor(projectedCustomers * churn);
+                const added = monthlyNewCustomers;
+                projectedCustomers = projectedCustomers - churned + added;
+                projectedMrr = projectedCustomers * arpu;
+                
+                if (month <= 6 || month === monthsToGoal || projectedMrr >= targetMrr) {
+                    milestones.push({
+                        month,
+                        customers: projectedCustomers,
+                        mrr: projectedMrr,
+                        progress: Math.min(100, (projectedMrr / targetMrr) * 100),
+                        churned,
+                        added
+                    });
+                }
+                
+                if (projectedMrr >= targetMrr) break;
+            }
+
+            milestoneTable.innerHTML = `
+                <tr><th>Month</th><th class="text-right">Customers</th><th class="text-right">MRR</th><th class="text-right">Progress</th><th class="text-right">Churned</th><th class="text-right">Added</th></tr>
+                ${milestones.map(m => `
+                    <tr class="${m.mrr >= targetMrr ? 'highlight' : ''}">
+                        <td>Month ${m.month}</td>
+                        <td class="text-right">${m.customers.toLocaleString()}</td>
+                        <td class="text-right">$${m.mrr.toLocaleString()}</td>
+                        <td class="text-right">${m.progress.toFixed(1)}%</td>
+                        <td class="text-right" style="color: var(--red)">-${m.churned}</td>
+                        <td class="text-right" style="color: var(--green)">+${m.added}</td>
+                    </tr>
+                `).join('')}
+            `;
+        }
+
+        function calculateVisitors(targetMrr, arpu, v2t, t2p, churn) {
+            const customersNeeded = Math.ceil(targetMrr / arpu);
+            const monthlyChurned = customersNeeded * churn;
+            const trialsNeeded = Math.ceil(monthlyChurned / t2p);
+            return Math.ceil(trialsNeeded / v2t);
+        }
+
+        function loadPreset(type) {
+            const presets = {
+                starter: { target: 1000, arpu: 29, v2t: 3, t2p: 12, churn: 6 },
+                ramen: { target: 5000, arpu: 39, v2t: 3, t2p: 15, churn: 5 },
+                indie: { target: 10000, arpu: 49, v2t: 3, t2p: 15, churn: 5 },
+                scale: { target: 50000, arpu: 99, v2t: 4, t2p: 20, churn: 3 }
+            };
+            
+            const p = presets[type];
+            document.getElementById('targetMrr').value = p.target;
+            document.getElementById('arpu').value = p.arpu;
+            document.getElementById('visitorToTrial').value = p.v2t;
+            document.getElementById('trialToPaid').value = p.t2p;
+            document.getElementById('churn').value = p.churn;
+            calculate();
+        }
+
+        // Initial calculation
+        calculate();
+    </script>
+</body>
+</html>
