@@ -111,3 +111,4 @@ Ver `/root/clawd/data/STYLE_LIBRARY.md` para detalhes completos.
 | 2026-03-25 | IndieHeadlines 📰 | Indie Hackers/Social | **Newspaper** 📰 |
 | 2026-03-26 | Solo Founder Scorecard 🏛️ | Business/Founder Tools | **Swiss Minimal** 🏛️ |
 | 2026-03-27 | MRR Reverse Engineer 🔢 | Business/Calculadoras | **Data Dense** 📊 |
+| 2026-03-28 | Founder Hourly Reality Check 💰 | Business/Founder Tools | **Bold Maximalist** 🎨 |

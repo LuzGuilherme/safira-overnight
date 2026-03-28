@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Founder Hourly Reality Check 💰</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-card: #12121a;
+            --accent-orange: #ff6b35;
+            --accent-purple: #a855f7;
+            --accent-cyan: #06b6d4;
+            --accent-green: #22c55e;
+            --accent-red: #ef4444;
+            --accent-yellow: #fbbf24;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --border: #2a2a3a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated gradient background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(255, 107, 53, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(6, 182, 212, 0.1) 0%, transparent 60%);
+            z-index: -1;
+            animation: pulse 10s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 0 3rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-purple), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid var(--accent-purple);
+            border-radius: 999px;
+            font-size: 0.875rem;
+            color: var(--accent-purple);
+            margin-bottom: 2rem;
+        }
+
+        /* Main Calculator */
+        .calculator {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .calculator {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-purple));
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Results */
+        .results-card {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(255, 107, 53, 0.1));
+        }
+
+        .results-card::before {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+        }
+
+        .result-item {
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .result-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .result-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .result-value.positive {
+            color: var(--accent-green);
+        }
+
+        .result-value.negative {
+            color: var(--accent-red);
+        }
+
+        .result-value.neutral {
+            color: var(--accent-cyan);
+        }
+
+        .result-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        /* Comparison Section */
+        .comparison {
+            margin-top: 3rem;
+        }
+
+        .comparison-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .comparison-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .comparison-card.highlight {
+            border-color: var(--accent-purple);
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), transparent);
+        }
+
+        .comparison-card.below {
+            border-color: var(--accent-red);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), transparent);
+        }
+
+        .comparison-card.above {
+            border-color: var(--accent-green);
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), transparent);
+        }
+
+        .comparison-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-rate {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .comparison-status {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        .comparison-status.above {
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--accent-green);
+        }
+
+        .comparison-status.below {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--accent-red);
+        }
+
+        .comparison-status.match {
+            background: rgba(168, 85, 247, 0.2);
+            color: var(--accent-purple);
+        }
+
+        /* Reality Check Section */
+        .reality-check {
+            margin-top: 3rem;
+        }
+
+        .verdict {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .verdict.crushing {
+            border-color: var(--accent-green);
+        }
+
+        .verdict.crushing::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(34, 197, 94, 0.15), transparent 70%);
+            z-index: 0;
+        }
+
+        .verdict.struggling {
+            border-color: var(--accent-yellow);
+        }
+
+        .verdict.struggling::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(251, 191, 36, 0.15), transparent 70%);
+            z-index: 0;
+        }
+
+        .verdict.rethink {
+            border-color: var(--accent-red);
+        }
+
+        .verdict.rethink::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(239, 68, 68, 0.15), transparent 70%);
+            z-index: 0;
+        }
+
+        .verdict-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .verdict-emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .verdict-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .verdict-text {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.6;
+        }
+
+        .target-mrr {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: inline-block;
+        }
+
+        .target-mrr-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .target-mrr-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        /* Insights Section */
+        .insights {
+            margin-top: 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .insight-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .insight-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .insight-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .insight-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .insight-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        footer a {
+            color: var(--accent-purple);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        /* Currency Toggle */
+        .currency-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .currency-btn {
+            padding: 0.5rem 1.5rem;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .currency-btn.active {
+            background: var(--accent-purple);
+            border-color: var(--accent-purple);
+            color: white;
+        }
+
+        .currency-btn:hover:not(.active) {
+            border-color: var(--accent-purple);
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    
+    <div class="container">
+        <header class="hero">
+            <div class="badge">
+                🎯 Reality Check for Founders
+            </div>
+            <h1>What's Your<br>REAL Hourly Rate?</h1>
+            <p>Stop lying to yourself. Calculate what you actually earn per hour worked — and see if the founder life is worth it (yet).</p>
+        </header>
+
+        <div class="currency-toggle">
+            <button class="currency-btn active" data-currency="USD">$ USD</button>
+            <button class="currency-btn" data-currency="EUR">€ EUR</button>
+            <button class="currency-btn" data-currency="GBP">£ GBP</button>
+        </div>
+
+        <div class="calculator">
+            <!-- Input Card -->
+            <div class="card">
+                <h2 class="card-title">📊 Your Numbers</h2>
+                
+                <div class="input-group">
+                    <label>Monthly Revenue (MRR)</label>
+                    <input type="number" id="mrr" placeholder="5000" value="5000">
+                </div>
+
+                <div class="input-group">
+                    <label>Monthly Business Costs (tools, hosting, etc.)</label>
+                    <input type="number" id="costs" placeholder="500" value="500">
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Hours/Week Working</label>
+                        <input type="number" id="hoursWeek" placeholder="50" value="50">
+                    </div>
+                    <div class="input-group">
+                        <label>Weeks Worked/Year</label>
+                        <input type="number" id="weeksYear" placeholder="48" value="48">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Your Target Hourly Rate (what you'd want to earn)</label>
+                    <input type="number" id="targetRate" placeholder="75" value="75">
+                </div>
+
+                <div class="input-group">
+                    <label>Tax Rate % (approximate)</label>
+                    <input type="number" id="taxRate" placeholder="25" value="25">
+                </div>
+            </div>
+
+            <!-- Results Card -->
+            <div class="card results-card">
+                <h2 class="card-title">💰 Your Reality</h2>
+                
+                <div class="result-item">
+                    <div class="result-label">Your Real Hourly Rate</div>
+                    <div class="result-value neutral" id="realHourlyRate">$0</div>
+                    <div class="result-subtitle">After costs, before tax</div>
+                </div>
+
+                <div class="result-item">
+                    <div class="result-label">After-Tax Hourly Rate</div>
+                    <div class="result-value" id="afterTaxRate">$0</div>
+                    <div class="result-subtitle">What actually hits your pocket</div>
+                </div>
+
+                <div class="result-item">
+                    <div class="result-label">vs. Your Target</div>
+                    <div class="result-value" id="vsTarGet">0%</div>
+                    <div class="result-subtitle" id="vsTargetText">of your goal</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Section -->
+        <section class="comparison">
+            <h2 class="comparison-title">📈 How You Compare</h2>
+            <div class="comparison-grid">
+                <div class="comparison-card" id="comp-minimum">
+                    <div class="comparison-icon">💵</div>
+                    <div class="comparison-name">Minimum Wage</div>
+                    <div class="comparison-rate" id="minWageRate">$15/hr</div>
+                    <div class="comparison-status" id="minWageStatus">-</div>
+                </div>
+                <div class="comparison-card" id="comp-employee">
+                    <div class="comparison-icon">👔</div>
+                    <div class="comparison-name">Tech Employee</div>
+                    <div class="comparison-rate" id="employeeRate">$50/hr</div>
+                    <div class="comparison-status" id="employeeStatus">-</div>
+                </div>
+                <div class="comparison-card highlight" id="comp-you">
+                    <div class="comparison-icon">🚀</div>
+                    <div class="comparison-name">You (Founder)</div>
+                    <div class="comparison-rate" id="youRate">$0/hr</div>
+                    <div class="comparison-status match">YOUR RATE</div>
+                </div>
+                <div class="comparison-card" id="comp-freelancer">
+                    <div class="comparison-icon">💼</div>
+                    <div class="comparison-name">Freelancer</div>
+                    <div class="comparison-rate" id="freelancerRate">$100/hr</div>
+                    <div class="comparison-status" id="freelancerStatus">-</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reality Check / Verdict -->
+        <section class="reality-check">
+            <div class="verdict" id="verdict">
+                <div class="verdict-content">
+                    <div class="verdict-emoji" id="verdictEmoji">🤔</div>
+                    <h3 class="verdict-title" id="verdictTitle">Enter your numbers...</h3>
+                    <p class="verdict-text" id="verdictText">
+                        Fill in the calculator to see your founder reality check.
+                    </p>
+                    <div class="target-mrr" id="targetMrrSection" style="display: none;">
+                        <div class="target-mrr-label">To hit your target rate, you need MRR of:</div>
+                        <div class="target-mrr-value" id="targetMrrValue">$0</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Insights -->
+        <section class="insights">
+            <div class="insight-card">
+                <div class="insight-icon">📅</div>
+                <div class="insight-title">Annual Take-Home</div>
+                <div class="insight-value" id="annualTakeHome">$0</div>
+                <div class="insight-desc">What you actually earn per year after tax</div>
+            </div>
+            <div class="insight-card">
+                <div class="insight-icon">⏰</div>
+                <div class="insight-title">Hours to First $1</div>
+                <div class="insight-value" id="hoursToFirst">0h</div>
+                <div class="insight-desc">Time before you start "earning" today</div>
+            </div>
+            <div class="insight-card">
+                <div class="insight-icon">🎯</div>
+                <div class="insight-title">Break-Even Weekly Hours</div>
+                <div class="insight-value" id="breakEvenHours">0h</div>
+                <div class="insight-desc">Hours to work to hit target rate at current MRR</div>
+            </div>
+            <div class="insight-card">
+                <div class="insight-icon">📈</div>
+                <div class="insight-title">MRR Growth Needed</div>
+                <div class="insight-value" id="mrrGrowthNeeded">0%</div>
+                <div class="insight-desc">To reach your target hourly rate</div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Built with 💜 by <a href="https://twitter.com/GuilhermeLu7_" target="_blank">Safira</a> • An overnight build for indie founders</p>
+            <p style="margin-top: 0.5rem; opacity: 0.7;">Remember: building equity has long-term value that hourly rates don't capture. Keep going! 🚀</p>
+        </footer>
+    </div>
+
+    <script>
+        // Currency settings
+        const currencies = {
+            USD: { symbol: '$', minWage: 15, employee: 50, freelancer: 100 },
+            EUR: { symbol: '€', minWage: 12, employee: 45, freelancer: 90 },
+            GBP: { symbol: '£', minWage: 11, employee: 40, freelancer: 85 }
+        };
+        
+        let currentCurrency = 'USD';
+
+        // Elements
+        const mrrInput = document.getElementById('mrr');
+        const costsInput = document.getElementById('costs');
+        const hoursWeekInput = document.getElementById('hoursWeek');
+        const weeksYearInput = document.getElementById('weeksYear');
+        const targetRateInput = document.getElementById('targetRate');
+        const taxRateInput = document.getElementById('taxRate');
+
+        // Currency toggle
+        document.querySelectorAll('.currency-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.currency-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentCurrency = btn.dataset.currency;
+                updateComparisons();
+                calculate();
+            });
+        });
+
+        function updateComparisons() {
+            const c = currencies[currentCurrency];
+            document.getElementById('minWageRate').textContent = `${c.symbol}${c.minWage}/hr`;
+            document.getElementById('employeeRate').textContent = `${c.symbol}${c.employee}/hr`;
+            document.getElementById('freelancerRate').textContent = `${c.symbol}${c.freelancer}/hr`;
+        }
+
+        function formatCurrency(amount) {
+            const c = currencies[currentCurrency];
+            return `${c.symbol}${Math.round(amount).toLocaleString()}`;
+        }
+
+        function calculate() {
+            const mrr = parseFloat(mrrInput.value) || 0;
+            const costs = parseFloat(costsInput.value) || 0;
+            const hoursWeek = parseFloat(hoursWeekInput.value) || 1;
+            const weeksYear = parseFloat(weeksYearInput.value) || 1;
+            const targetRate = parseFloat(targetRateInput.value) || 1;
+            const taxRate = parseFloat(taxRateInput.value) || 0;
+
+            const c = currencies[currentCurrency];
+
+            // Calculations
+            const monthlyProfit = mrr - costs;
+            const yearlyProfit = monthlyProfit * 12;
+            const totalHoursYear = hoursWeek * weeksYear;
+            const realHourlyRate = yearlyProfit / totalHoursYear;
+            const afterTaxRate = realHourlyRate * (1 - taxRate / 100);
+            const afterTaxYearly = yearlyProfit * (1 - taxRate / 100);
+
+            // Target calculations
+            const percentOfTarget = (afterTaxRate / targetRate) * 100;
+            const targetYearlyGross = (targetRate * totalHoursYear) / (1 - taxRate / 100);
+            const targetMonthlyProfit = targetYearlyGross / 12;
+            const targetMrr = targetMonthlyProfit + costs;
+            const mrrGrowthNeeded = mrr > 0 ? ((targetMrr - mrr) / mrr) * 100 : 0;
+
+            // Break-even hours (to hit target at current MRR)
+            const breakEvenHoursYear = yearlyProfit > 0 ? targetYearlyGross / realHourlyRate : 0;
+            const breakEvenHoursWeek = breakEvenHoursYear / weeksYear;
+
+            // Hours until first $1 today
+            const dailyProfit = monthlyProfit / 30;
+            const hoursPerDay = hoursWeek / 7;
+            const hoursToFirst = hoursPerDay > 0 && dailyProfit > 0 ? hoursPerDay - (dailyProfit / realHourlyRate) : hoursPerDay;
+
+            // Update results
+            document.getElementById('realHourlyRate').textContent = formatCurrency(realHourlyRate) + '/hr';
+            document.getElementById('realHourlyRate').className = 'result-value ' + (realHourlyRate >= targetRate ? 'positive' : realHourlyRate >= c.minWage ? 'neutral' : 'negative');
+
+            document.getElementById('afterTaxRate').textContent = formatCurrency(afterTaxRate) + '/hr';
+            document.getElementById('afterTaxRate').className = 'result-value ' + (afterTaxRate >= targetRate ? 'positive' : afterTaxRate >= c.minWage ? 'neutral' : 'negative');
+
+            document.getElementById('vsTarGet').textContent = Math.round(percentOfTarget) + '%';
+            document.getElementById('vsTarGet').className = 'result-value ' + (percentOfTarget >= 100 ? 'positive' : percentOfTarget >= 50 ? 'neutral' : 'negative');
+            document.getElementById('vsTargetText').textContent = percentOfTarget >= 100 ? '🎉 Above target!' : 'of your goal';
+
+            // Update comparison
+            document.getElementById('youRate').textContent = formatCurrency(afterTaxRate) + '/hr';
+            
+            updateComparisonCard('comp-minimum', 'minWageStatus', afterTaxRate, c.minWage);
+            updateComparisonCard('comp-employee', 'employeeStatus', afterTaxRate, c.employee);
+            updateComparisonCard('comp-freelancer', 'freelancerStatus', afterTaxRate, c.freelancer);
+
+            // Update insights
+            document.getElementById('annualTakeHome').textContent = formatCurrency(afterTaxYearly);
+            document.getElementById('hoursToFirst').textContent = hoursToFirst > 0 ? Math.round(hoursToFirst * 10) / 10 + 'h' : '0h';
+            document.getElementById('breakEvenHours').textContent = breakEvenHoursWeek > 0 && breakEvenHoursWeek < 168 ? Math.round(breakEvenHoursWeek) + 'h' : '∞';
+            document.getElementById('mrrGrowthNeeded').textContent = mrrGrowthNeeded > 0 ? '+' + Math.round(mrrGrowthNeeded) + '%' : '✓ Done!';
+
+            // Update verdict
+            updateVerdict(afterTaxRate, targetRate, targetMrr, percentOfTarget, c);
+        }
+
+        function updateComparisonCard(cardId, statusId, yourRate, compareRate) {
+            const card = document.getElementById(cardId);
+            const status = document.getElementById(statusId);
+            
+            card.classList.remove('above', 'below');
+            
+            if (yourRate >= compareRate) {
+                card.classList.add('above');
+                status.textContent = `You're ${Math.round((yourRate/compareRate - 1) * 100)}% above`;
+                status.className = 'comparison-status above';
+            } else {
+                card.classList.add('below');
+                status.textContent = `You're ${Math.round((1 - yourRate/compareRate) * 100)}% below`;
+                status.className = 'comparison-status below';
+            }
+        }
+
+        function updateVerdict(rate, target, targetMrr, percent, c) {
+            const verdict = document.getElementById('verdict');
+            const emoji = document.getElementById('verdictEmoji');
+            const title = document.getElementById('verdictTitle');
+            const text = document.getElementById('verdictText');
+            const targetSection = document.getElementById('targetMrrSection');
+            const targetValue = document.getElementById('targetMrrValue');
+
+            verdict.classList.remove('crushing', 'struggling', 'rethink');
+
+            if (rate < 0) {
+                verdict.classList.add('rethink');
+                emoji.textContent = '🔥';
+                title.textContent = 'You\'re Burning Money';
+                text.textContent = 'Your costs exceed your revenue. You\'re literally paying to work right now. Focus on cutting costs or boosting revenue ASAP.';
+                targetSection.style.display = 'block';
+                targetValue.textContent = formatCurrency(targetMrr);
+            } else if (percent >= 100) {
+                verdict.classList.add('crushing');
+                emoji.textContent = '🏆';
+                title.textContent = 'You\'re Crushing It!';
+                text.textContent = 'Your hourly rate beats your target. You\'ve built something valuable. Time to think about scaling, hiring, or just enjoying the freedom.';
+                targetSection.style.display = 'none';
+            } else if (percent >= 75) {
+                verdict.classList.add('crushing');
+                emoji.textContent = '🚀';
+                title.textContent = 'Almost There!';
+                text.textContent = 'You\'re within striking distance of your target. A few more customers or a small price increase could get you there.';
+                targetSection.style.display = 'block';
+                targetValue.textContent = formatCurrency(targetMrr);
+            } else if (percent >= 50) {
+                verdict.classList.add('struggling');
+                emoji.textContent = '💪';
+                title.textContent = 'Grinding Mode';
+                text.textContent = 'You\'re making progress but still under-earning for your time. This is normal for early-stage founders, but set a deadline for when this needs to change.';
+                targetSection.style.display = 'block';
+                targetValue.textContent = formatCurrency(targetMrr);
+            } else if (rate >= c.minWage) {
+                verdict.classList.add('struggling');
+                emoji.textContent = '⚠️';
+                title.textContent = 'Reality Check Needed';
+                text.textContent = 'You\'re earning above minimum wage, but way below your target. Ask yourself: is this sustainable? Is the equity/learning worth it? Set clear milestones.';
+                targetSection.style.display = 'block';
+                targetValue.textContent = formatCurrency(targetMrr);
+            } else {
+                verdict.classList.add('rethink');
+                emoji.textContent = '🤔';
+                title.textContent = 'Time for Tough Questions';
+                text.textContent = 'Your effective rate is below minimum wage. Unless you\'re very early-stage with clear traction, it might be time to reassess. Can you raise prices? Cut hours? Find a job to fund this?';
+                targetSection.style.display = 'block';
+                targetValue.textContent = formatCurrency(targetMrr);
+            }
+        }
+
+        // Add event listeners
+        [mrrInput, costsInput, hoursWeekInput, weeksYearInput, targetRateInput, taxRateInput].forEach(input => {
+            input.addEventListener('input', calculate);
+        });
+
+        // Initial calculation
+        updateComparisons();
+        calculate();
+    </script>
+</body>
+</html>
