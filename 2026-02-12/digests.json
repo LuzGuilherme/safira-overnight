@@ -1,7 +1,58 @@
 {
-  "generated": "2026-03-28T01:05:00.000000Z",
-  "count": 57,
+  "generated": "2026-03-29T01:05:00.000000Z",
+  "count": 59,
   "digests": [
+    {
+      "id": "2026-03-29-mfm-809-good-taste",
+      "filename": "2026-03-29-mfm-809-good-taste.md",
+      "date": "2026-03-29",
+      "title": "How To Get Ahead Of 90% Of People in 2026",
+      "host": "My First Million (Sam Parr)",
+      "guest": "Solo episode",
+      "duration": "~20 min",
+      "link": "https://www.youtube.com/watch?v=bkkwlEK6_hQ",
+      "theme": "Developing good taste - the most important moat in the AI era",
+      "tldr": "Com a ascensão da IA, taste tornou-se o maior diferenciador competitivo. Sam apresenta um processo de 4 passos: decidir o que dizer, copiar cegamente, aprender regras, estudar história. Aplicável a moda, design, escrita, tudo.",
+      "insights": [
+        {"insight": "Na era AI, taste > technical skills", "why": "O moat mudou de 'quem constrói' para 'quem apela'"},
+        {"insight": "Copiar é fundamental no início", "why": "Ninguém aprende guitarra compondo - aprende com covers"},
+        {"insight": "Good vs Great taste", "why": "Good = seguir regras; Great = quebrá-las com propósito"},
+        {"insight": "Bauhaus → iPod", "why": "Tradição flui através de gerações"},
+        {"insight": "Swiffer vs ReadyMop = $5B vs $200M", "why": "Mesmo produto, nome diferente"}
+      ],
+      "quotes": [
+        "With the rise of AI, taste is going to be one of the biggest moats that you could possibly have.",
+        "Being around beautiful stuff, stuff that sings to you, it honestly makes my life happier."
+      ],
+      "rating": 4.5,
+      "tags": ["MFM", "taste", "branding", "creativity", "AI", "design", "copywork"]
+    },
+    {
+      "id": "2026-03-29-allin-bryan-johnson-dmt",
+      "filename": "2026-03-29-allin-bryan-johnson-dmt.md",
+      "date": "2026-03-29",
+      "title": "Bryan Johnson: 5-MeO-DMT for Longevity",
+      "host": "All-In Podcast (David Friedberg)",
+      "guest": "Bryan Johnson (Blueprint, Kernel)",
+      "duration": "~35 min",
+      "link": "https://www.youtube.com/watch?v=Axpnkqd-Agk",
+      "theme": "5-MeO-DMT como terapia de longevidade quantificada, efeitos no cérebro, mitochondrial therapy",
+      "tldr": "Bryan fez 5-MeO-DMT (5-10x mais potente que DMT) com MRI, EEG e Kernel. A experiência aniquilou o default mode network, restaurando padrões cerebrais de criança - incluindo rir em sonhos e resolver conflitos sem escalação.",
+      "insights": [
+        {"insight": "5-MeO-DMT aniquila o Default Mode Network", "why": "Restaura padrões cerebrais de criança"},
+        {"insight": "Laughing in dreams = cérebro jovem", "why": "Bryan experienciou pela 1ª vez em décadas"},
+        {"insight": "Mais eficaz que dieta+exercício+sono combinados", "why": "Para 'reset' pessoal completo"},
+        {"insight": "Mitocôndrias passadas maternalmente", "why": "Pode buscar jovens a familiares da linha mãe"},
+        {"insight": "Investidores põem 'no psychedelics' em deals", "why": "Risco real de perder founder"}
+      ],
+      "quotes": [
+        "This was more efficacious than diet, exercise, sleep, sauna, and hyperbaric oxygen combined.",
+        "You have to say yes so thoroughly. You have to release all attachment, all preconditions, all want, all desire.",
+        "I woke up catching myself laughing in a dream. I don't remember when I've ever laughed in a dream."
+      ],
+      "rating": 5.0,
+      "tags": ["AllIn", "BryanJohnson", "longevity", "psychedelics", "5-MeO-DMT", "neuroscience", "mitochondria"]
+    },
     {
       "id": "2026-03-28-tim-ferriss-859",
       "filename": "2026-03-28-tim-ferriss-859-ai-tsunami-qa.md",
