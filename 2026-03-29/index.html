@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Rejection Wall 🧱 | Collect Your No's</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #f5f5f5;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --accent: #ef4444;
+            --accent-glow: rgba(239, 68, 68, 0.3);
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --border: #2a2a2a;
+            --border-hover: #3a3a3a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent) 0%, #f97316 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.25rem;
+        }
+
+        /* Main Layout */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Add Rejection Form */
+        .add-form {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        input, select, textarea {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            font-family: inherit;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.85rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        /* Rejection Wall */
+        .wall-section {
+            flex: 1;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .wall-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .rejection-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 1.25rem;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .rejection-card:hover {
+            border-color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .rejection-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--accent);
+        }
+
+        .rejection-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .rejection-source {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .rejection-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .rejection-type {
+            display: inline-block;
+            background: var(--bg-tertiary);
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+
+        .rejection-context {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .rejection-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.85rem;
+            transition: color 0.2s ease;
+        }
+
+        .action-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .action-btn.delete:hover {
+            color: var(--accent);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .sidebar-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 1.25rem;
+        }
+
+        .sidebar-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Achievements */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .achievement {
+            background: var(--bg-tertiary);
+            padding: 0.75rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .achievement.locked {
+            opacity: 0.4;
+        }
+
+        .achievement.unlocked {
+            border-color: var(--success);
+            box-shadow: 0 0 0 1px var(--success);
+        }
+
+        .achievement-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .achievement-name {
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .achievement-req {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+
+        /* Quotes */
+        .quote-card {
+            padding: 1.25rem;
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+            border-left: 3px solid var(--accent);
+        }
+
+        .quote-text {
+            font-style: italic;
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .quote-author {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .quote-context {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .refresh-quote {
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        /* Progress Bar */
+        .progress-section {
+            margin-top: 1rem;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-tertiary);
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), #f97316);
+            transition: width 0.3s ease;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .rejection-card {
+            animation: slideIn 0.3s ease;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--success);
+            color: white;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.show .modal {
+            transform: scale(1);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .modal-buttons .btn {
+            flex: 1;
+        }
+
+        /* Data Controls */
+        .data-controls {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🧱</div>
+            <h1>The Rejection Wall</h1>
+            <p class="tagline">Every "no" is a brick in the foundation of your success. Collect them. Celebrate them.</p>
+        </header>
+
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-value" id="totalRejections">0</div>
+                <div class="stat-label">Total Rejections</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="thisMonth">0</div>
+                <div class="stat-label">This Month</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="currentStreak">0</div>
+                <div class="stat-label">Day Streak 🔥</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="achievementsCount">0/12</div>
+                <div class="stat-label">Achievements</div>
+            </div>
+        </div>
+
+        <div class="add-form">
+            <div class="form-title">➕ Add New Rejection</div>
+            <form id="rejectionForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="source">Who said no?</label>
+                        <input type="text" id="source" placeholder="e.g., YC, Investor X, Potential Customer" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Type</label>
+                        <select id="type">
+                            <option value="investor">💰 Investor</option>
+                            <option value="accelerator">🚀 Accelerator</option>
+                            <option value="customer">👤 Customer</option>
+                            <option value="partnership">🤝 Partnership</option>
+                            <option value="job">💼 Job/Gig</option>
+                            <option value="media">📰 Media/PR</option>
+                            <option value="other">📦 Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>&nbsp;</label>
+                        <button type="submit" class="btn">Add to Wall 🧱</button>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="context">Context (optional)</label>
+                    <textarea id="context" placeholder="What did they say? What did you learn?"></textarea>
+                </div>
+            </form>
+        </div>
+
+        <div class="main-grid">
+            <div class="wall-section">
+                <div class="section-header">
+                    <h2 class="section-title">🧱 Your Wall</h2>
+                    <div class="data-controls">
+                        <button class="btn btn-secondary btn-small" onclick="exportData()">📤 Export</button>
+                        <button class="btn btn-secondary btn-small" onclick="importData()">📥 Import</button>
+                        <button class="btn btn-secondary btn-small" onclick="showClearModal()">🗑️ Clear</button>
+                    </div>
+                </div>
+                <div class="wall-grid" id="wallGrid">
+                    <!-- Rejection cards will be inserted here -->
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="sidebar-card">
+                    <div class="sidebar-title">🏆 Achievements</div>
+                    <div class="achievements-grid" id="achievementsGrid">
+                        <!-- Achievements will be inserted here -->
+                    </div>
+                    <div class="progress-section">
+                        <div class="progress-label">
+                            <span>Next: <span id="nextAchievement">First Blood</span></span>
+                            <span id="progressText">0/1</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-card quote-card">
+                    <div class="sidebar-title">💬 Rejection Wisdom</div>
+                    <p class="quote-text" id="quoteText">"I've missed more than 9,000 shots in my career. I've lost almost 300 games. Twenty-six times I've been trusted to take the game-winning shot and missed. I've failed over and over and over again in my life. And that is why I succeed."</p>
+                    <p class="quote-author" id="quoteAuthor">— Michael Jordan</p>
+                    <p class="quote-context" id="quoteContext">6× NBA Champion</p>
+                    <button class="btn btn-secondary refresh-quote" onclick="newQuote()">🔄 New Quote</button>
+                </div>
+
+                <div class="sidebar-card">
+                    <div class="sidebar-title">📊 Rejection Breakdown</div>
+                    <div id="breakdown">
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Start collecting rejections to see your breakdown.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Built for founders who understand that rejection is redirection. 💪</p>
+            <p style="margin-top: 0.5rem;">Every successful founder has a wall like this — most just don't display it.</p>
+            <p style="margin-top: 1rem; opacity: 0.6;">🌙 Overnight Build by <a href="https://github.com/LuzGuilherme">Safira</a> • March 2026</p>
+        </footer>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Clear Modal -->
+    <div class="modal-overlay" id="clearModal">
+        <div class="modal">
+            <div class="modal-title">⚠️ Clear All Data?</div>
+            <p>This will delete all your rejections and reset your achievements. This action cannot be undone.</p>
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" onclick="hideClearModal()">Cancel</button>
+                <button class="btn" onclick="clearAllData()">Yes, Clear Everything</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Modal -->
+    <div class="modal-overlay" id="importModal">
+        <div class="modal">
+            <div class="modal-title">📥 Import Data</div>
+            <p>Paste your exported JSON data below:</p>
+            <textarea id="importData" style="width: 100%; margin-top: 1rem; min-height: 150px;"></textarea>
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" onclick="hideImportModal()">Cancel</button>
+                <button class="btn" onclick="doImport()">Import</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data
+        const STORAGE_KEY = 'rejection-wall-data';
+        
+        const ACHIEVEMENTS = [
+            { id: 'first', name: 'First Blood', icon: '🩸', req: 1, desc: 'Log your first rejection' },
+            { id: 'five', name: 'High Five', icon: '🖐️', req: 5, desc: 'Collect 5 rejections' },
+            { id: 'ten', name: 'Double Digits', icon: '🔟', req: 10, desc: 'Reach 10 rejections' },
+            { id: 'quarter', name: 'Quarter Century', icon: '🎂', req: 25, desc: '25 rejections collected' },
+            { id: 'fifty', name: 'Half Century', icon: '🎯', req: 50, desc: '50 rejections strong' },
+            { id: 'hundred', name: 'Century Club', icon: '💯', req: 100, desc: 'Welcome to the 100 club' },
+            { id: 'investor', name: 'VC Survivor', icon: '💰', req: 10, type: 'investor', desc: '10 investor rejections' },
+            { id: 'customer', name: 'Market Tester', icon: '👤', req: 10, type: 'customer', desc: '10 customer rejections' },
+            { id: 'streak3', name: 'On Fire', icon: '🔥', req: 3, streak: true, desc: '3-day rejection streak' },
+            { id: 'streak7', name: 'Weekly Warrior', icon: '⚔️', req: 7, streak: true, desc: '7-day rejection streak' },
+            { id: 'diverse', name: 'Diversified', icon: '🌈', req: 4, diverse: true, desc: 'Rejections from 4+ types' },
+            { id: 'comeback', name: 'Comeback Kid', icon: '🦸', req: 1, comeback: true, desc: 'Add rejection after 30+ day gap' }
+        ];
+
+        const QUOTES = [
+            { text: "I've missed more than 9,000 shots in my career. I've lost almost 300 games. Twenty-six times I've been trusted to take the game-winning shot and missed. I've failed over and over and over again in my life. And that is why I succeed.", author: "Michael Jordan", context: "6× NBA Champion" },
+            { text: "I have not failed. I've just found 10,000 ways that won't work.", author: "Thomas Edison", context: "Inventor of the light bulb" },
+            { text: "Success is stumbling from failure to failure with no loss of enthusiasm.", author: "Winston Churchill", context: "British Prime Minister" },
+            { text: "Before Spotify, I got a lot of no's. We were turned down by every major label.", author: "Daniel Ek", context: "Spotify founder, now worth $4B+" },
+            { text: "We were rejected by all 15 investors we pitched to in our first round.", author: "Brian Chesky", context: "Airbnb CEO, company now worth $80B+" },
+            { text: "I was rejected by 30 publishers before Harry Potter was accepted.", author: "J.K. Rowling", context: "Harry Potter author, billionaire" },
+            { text: "Rejection is merely a redirection; a course correction to your destiny.", author: "Bryant McGill", context: "Author" },
+            { text: "Every rejection is incremental payment on your success.", author: "Naval Ravikant", context: "AngelList founder" },
+            { text: "The master has failed more times than the beginner has tried.", author: "Stephen McCranie", context: "Cartoonist" },
+            { text: "I knew that if I failed I wouldn't regret that, but I knew the one thing I might regret is not trying.", author: "Jeff Bezos", context: "Amazon founder" },
+            { text: "Most great people have attained their greatest success just one step beyond their greatest failure.", author: "Napoleon Hill", context: "Think and Grow Rich author" },
+            { text: "Failure is simply the opportunity to begin again, this time more intelligently.", author: "Henry Ford", context: "Ford Motor Company founder" }
+        ];
+
+        const TYPE_LABELS = {
+            investor: '💰 Investor',
+            accelerator: '🚀 Accelerator',
+            customer: '👤 Customer',
+            partnership: '🤝 Partnership',
+            job: '💼 Job/Gig',
+            media: '📰 Media/PR',
+            other: '📦 Other'
+        };
+
+        // State
+        let rejections = [];
+        let currentQuoteIndex = 0;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            setDefaultDate();
+            renderAll();
+            showRandomQuote();
+        });
+
+        function setDefaultDate() {
+            document.getElementById('date').valueAsDate = new Date();
+        }
+
+        function loadData() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    rejections = JSON.parse(saved);
+                }
+            } catch (e) {
+                console.error('Error loading data:', e);
+                rejections = [];
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(rejections));
+        }
+
+        // Form handling
+        document.getElementById('rejectionForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const rejection = {
+                id: Date.now(),
+                source: document.getElementById('source').value,
+                type: document.getElementById('type').value,
+                date: document.getElementById('date').value,
+                context: document.getElementById('context').value,
+                createdAt: new Date().toISOString()
+            };
+
+            rejections.unshift(rejection);
+            saveData();
+            renderAll();
+            
+            // Reset form
+            document.getElementById('source').value = '';
+            document.getElementById('context').value = '';
+            setDefaultDate();
+
+            // Show toast
+            showToast('🧱 Rejection added to your wall!');
+
+            // Check for new achievements
+            checkNewAchievements();
+        });
+
+        function deleteRejection(id) {
+            rejections = rejections.filter(r => r.id !== id);
+            saveData();
+            renderAll();
+            showToast('Rejection removed');
+        }
+
+        // Rendering
+        function renderAll() {
+            renderWall();
+            renderStats();
+            renderAchievements();
+            renderBreakdown();
+        }
+
+        function renderWall() {
+            const grid = document.getElementById('wallGrid');
+            
+            if (rejections.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🧱</div>
+                        <div class="empty-title">Your wall is empty</div>
+                        <p>Start collecting rejections. Every "no" is a step forward.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = rejections.map(r => `
+                <div class="rejection-card">
+                    <div class="rejection-header">
+                        <span class="rejection-source">${escapeHtml(r.source)}</span>
+                        <span class="rejection-date">${formatDate(r.date)}</span>
+                    </div>
+                    <span class="rejection-type">${TYPE_LABELS[r.type] || r.type}</span>
+                    ${r.context ? `<p class="rejection-context">"${escapeHtml(r.context)}"</p>` : ''}
+                    <div class="rejection-actions">
+                        <button class="action-btn delete" onclick="deleteRejection(${r.id})">🗑️ Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderStats() {
+            const total = rejections.length;
+            const thisMonth = rejections.filter(r => {
+                const date = new Date(r.date);
+                const now = new Date();
+                return date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear();
+            }).length;
+            const streak = calculateStreak();
+            const unlockedCount = ACHIEVEMENTS.filter(a => isAchievementUnlocked(a)).length;
+
+            document.getElementById('totalRejections').textContent = total;
+            document.getElementById('thisMonth').textContent = thisMonth;
+            document.getElementById('currentStreak').textContent = streak;
+            document.getElementById('achievementsCount').textContent = `${unlockedCount}/${ACHIEVEMENTS.length}`;
+        }
+
+        function renderAchievements() {
+            const grid = document.getElementById('achievementsGrid');
+            
+            grid.innerHTML = ACHIEVEMENTS.map(a => {
+                const unlocked = isAchievementUnlocked(a);
+                return `
+                    <div class="achievement ${unlocked ? 'unlocked' : 'locked'}" title="${a.desc}">
+                        <div class="achievement-icon">${a.icon}</div>
+                        <div class="achievement-name">${a.name}</div>
+                        <div class="achievement-req">${unlocked ? '✓' : getAchievementProgress(a)}</div>
+                    </div>
+                `;
+            }).join('');
+
+            // Update progress bar
+            const nextAchievement = ACHIEVEMENTS.find(a => !isAchievementUnlocked(a));
+            if (nextAchievement) {
+                document.getElementById('nextAchievement').textContent = nextAchievement.name;
+                const progress = getAchievementProgressValue(nextAchievement);
+                document.getElementById('progressText').textContent = `${progress.current}/${progress.total}`;
+                document.getElementById('progressFill').style.width = `${(progress.current / progress.total) * 100}%`;
+            } else {
+                document.getElementById('nextAchievement').textContent = 'All unlocked! 🎉';
+                document.getElementById('progressText').textContent = '🏆';
+                document.getElementById('progressFill').style.width = '100%';
+            }
+        }
+
+        function renderBreakdown() {
+            const breakdown = document.getElementById('breakdown');
+            
+            if (rejections.length === 0) {
+                breakdown.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">Start collecting rejections to see your breakdown.</p>';
+                return;
+            }
+
+            const counts = {};
+            rejections.forEach(r => {
+                counts[r.type] = (counts[r.type] || 0) + 1;
+            });
+
+            const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+            
+            breakdown.innerHTML = sorted.map(([type, count]) => {
+                const percentage = Math.round((count / rejections.length) * 100);
+                return `
+                    <div style="margin-bottom: 0.75rem;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.25rem;">
+                            <span>${TYPE_LABELS[type] || type}</span>
+                            <span style="color: var(--text-muted);">${count} (${percentage}%)</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${percentage}%"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Achievement logic
+        function isAchievementUnlocked(achievement) {
+            const total = rejections.length;
+            
+            if (achievement.type) {
+                const typeCount = rejections.filter(r => r.type === achievement.type).length;
+                return typeCount >= achievement.req;
+            }
+            
+            if (achievement.streak) {
+                return calculateStreak() >= achievement.req;
+            }
+            
+            if (achievement.diverse) {
+                const types = new Set(rejections.map(r => r.type));
+                return types.size >= achievement.req;
+            }
+            
+            if (achievement.comeback) {
+                if (rejections.length < 2) return false;
+                const sorted = [...rejections].sort((a, b) => new Date(a.date) - new Date(b.date));
+                for (let i = 1; i < sorted.length; i++) {
+                    const gap = (new Date(sorted[i].date) - new Date(sorted[i-1].date)) / (1000 * 60 * 60 * 24);
+                    if (gap >= 30) return true;
+                }
+                return false;
+            }
+            
+            return total >= achievement.req;
+        }
+
+        function getAchievementProgress(achievement) {
+            const progress = getAchievementProgressValue(achievement);
+            return `${progress.current}/${progress.total}`;
+        }
+
+        function getAchievementProgressValue(achievement) {
+            if (achievement.type) {
+                const typeCount = rejections.filter(r => r.type === achievement.type).length;
+                return { current: typeCount, total: achievement.req };
+            }
+            
+            if (achievement.streak) {
+                return { current: calculateStreak(), total: achievement.req };
+            }
+            
+            if (achievement.diverse) {
+                const types = new Set(rejections.map(r => r.type));
+                return { current: types.size, total: achievement.req };
+            }
+            
+            return { current: rejections.length, total: achievement.req };
+        }
+
+        function calculateStreak() {
+            if (rejections.length === 0) return 0;
+            
+            const dates = [...new Set(rejections.map(r => r.date))].sort().reverse();
+            const today = new Date().toISOString().split('T')[0];
+            const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+            
+            // Check if streak is active (today or yesterday has entry)
+            if (dates[0] !== today && dates[0] !== yesterday) return 0;
+            
+            let streak = 1;
+            for (let i = 1; i < dates.length; i++) {
+                const curr = new Date(dates[i-1]);
+                const prev = new Date(dates[i]);
+                const diff = (curr - prev) / (1000 * 60 * 60 * 24);
+                
+                if (diff === 1) {
+                    streak++;
+                } else {
+                    break;
+                }
+            }
+            
+            return streak;
+        }
+
+        function checkNewAchievements() {
+            // Could add celebration animation for newly unlocked achievements
+        }
+
+        // Quotes
+        function showRandomQuote() {
+            currentQuoteIndex = Math.floor(Math.random() * QUOTES.length);
+            displayQuote();
+        }
+
+        function newQuote() {
+            currentQuoteIndex = (currentQuoteIndex + 1) % QUOTES.length;
+            displayQuote();
+        }
+
+        function displayQuote() {
+            const quote = QUOTES[currentQuoteIndex];
+            document.getElementById('quoteText').textContent = `"${quote.text}"`;
+            document.getElementById('quoteAuthor').textContent = `— ${quote.author}`;
+            document.getElementById('quoteContext').textContent = quote.context;
+        }
+
+        // Data management
+        function exportData() {
+            const data = JSON.stringify(rejections, null, 2);
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `rejection-wall-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('Data exported!');
+        }
+
+        function importData() {
+            document.getElementById('importModal').classList.add('show');
+        }
+
+        function hideImportModal() {
+            document.getElementById('importModal').classList.remove('show');
+            document.getElementById('importData').value = '';
+        }
+
+        function doImport() {
+            try {
+                const data = JSON.parse(document.getElementById('importData').value);
+                if (Array.isArray(data)) {
+                    rejections = data;
+                    saveData();
+                    renderAll();
+                    hideImportModal();
+                    showToast('Data imported successfully!');
+                } else {
+                    showToast('Invalid data format');
+                }
+            } catch (e) {
+                showToast('Error parsing data');
+            }
+        }
+
+        function showClearModal() {
+            document.getElementById('clearModal').classList.add('show');
+        }
+
+        function hideClearModal() {
+            document.getElementById('clearModal').classList.remove('show');
+        }
+
+        function clearAllData() {
+            rejections = [];
+            saveData();
+            renderAll();
+            hideClearModal();
+            showToast('All data cleared');
+        }
+
+        // Helpers
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+    </script>
+</body>
+</html>
