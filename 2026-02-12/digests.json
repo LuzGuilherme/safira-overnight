@@ -1,7 +1,33 @@
 {
-  "generated": "2026-03-29T01:05:00.000000Z",
-  "count": 59,
+  "generated": "2026-03-30T01:05:00.000000Z",
+  "count": 60,
   "digests": [
+    {
+      "id": "2026-03-30-allin-anthropic-vs-openai",
+      "filename": "2026-03-30-allin-anthropic-vs-openai.md",
+      "date": "2026-03-30",
+      "title": "Anthropic vs OpenAI - The AI Market Battle",
+      "host": "All-In Podcast",
+      "guest": "The Besties (Chamath, Sacks, Friedberg, J-Cal)",
+      "duration": "~1h 10min",
+      "link": "https://www.youtube.com/watch?v=4Gmd5UTF4rk",
+      "theme": "AI market dynamics, enterprise focus, PCAST, US-China race",
+      "tldr": "Análise profunda da batalha Anthropic vs OpenAI. Anthropic em 'generational run' com Opus 4.6 e Claude Code, enquanto OpenAI perde market share consumer (100%→75%) e cancela Sora/Disney deal. Sacks nomeado co-chair PCAST. Alerta: China ultrapassou US em publicações científicas.",
+      "insights": [
+        {"insight": "Anthropic generational run: Opus 4.6, Claude Code, Co-work", "why": "Jensen e Dell chamaram de 'inflection point'"},
+        {"insight": "Revenue recognition diferente entre empresas", "why": "OpenAI net subscriptions vs Anthropic gross tonnage"},
+        {"insight": "OpenAI market share: 100%→85%→75%", "why": "Apple, Meta, Windows ainda não entraram a sério"},
+        {"insight": "Sora cancelado, Disney $1B deal morto", "why": "OpenAI pivota todo focus para enterprise"},
+        {"insight": "China publicou 50% MAIS papers que US", "why": "Há 10 anos era 50% menos - race acelerou"}
+      ],
+      "quotes": [
+        "Anthropic is the most AGI-pilled of all the frontier labs",
+        "Code is the gateway into enterprise IT budgets",
+        "10 years ago China published 50% of US papers. Last year they published 50% MORE"
+      ],
+      "rating": 4.7,
+      "tags": ["All-In", "Anthropic", "OpenAI", "enterprise", "PCAST", "China", "AI-race", "regulatory-capture"]
+    },
     {
       "id": "2026-03-29-mfm-809-good-taste",
       "filename": "2026-03-29-mfm-809-good-taste.md",
