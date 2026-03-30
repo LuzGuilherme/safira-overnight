@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indie Founder Archetype Quiz 🧠</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fef7f0;
+            --card: #ffffff;
+            --primary: #7c3aed;
+            --secondary: #f472b6;
+            --accent: #fbbf24;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --success: #10b981;
+            --border: #e5e7eb;
+            --shadow: 0 10px 40px -10px rgba(124, 58, 237, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(244, 114, 182, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(124, 58, 237, 0.1) 0%, transparent 50%);
+            min-height: 100vh;
+            color: var(--text);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: var(--muted);
+            font-size: 1.1rem;
+        }
+
+        .emoji-row {
+            font-size: 2rem;
+            margin: 15px 0;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Card */
+        .card {
+            background: var(--card);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Progress */
+        .progress-container {
+            margin-bottom: 30px;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        /* Question */
+        .question-container {
+            display: none;
+        }
+
+        .question-container.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-number {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        .question-scenario {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.05), rgba(244, 114, 182, 0.05));
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+            font-style: italic;
+            color: var(--muted);
+        }
+
+        /* Options */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .option:hover {
+            border-color: var(--primary);
+            background: white;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(244, 114, 182, 0.1));
+        }
+
+        .option-letter {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .option.selected .option-letter {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .option-text {
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 32px;
+            border-radius: 30px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(124, 58, 237, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        /* Start Screen */
+        #start-screen {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        #start-screen h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .features {
+            display: grid;
+            gap: 15px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--bg);
+            border-radius: 12px;
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Results */
+        #results-screen {
+            display: none;
+        }
+
+        .archetype-card {
+            text-align: center;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .archetype-emoji {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: pop 0.6s ease;
+        }
+
+        @keyframes pop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .archetype-name {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .archetype-tagline {
+            font-size: 1.2rem;
+            color: var(--muted);
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+
+        .archetype-description {
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .traits-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .trait-box {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .trait-box h4 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .trait-box.strengths h4 { color: var(--success); }
+        .trait-box.weaknesses h4 { color: var(--secondary); }
+
+        .trait-box ul {
+            list-style: none;
+            font-size: 0.95rem;
+        }
+
+        .trait-box li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .trait-box li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .advice-box {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(244, 114, 182, 0.1));
+            border-radius: 16px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 4px solid var(--primary);
+            text-align: left;
+        }
+
+        .advice-box h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        .advice-box p {
+            line-height: 1.6;
+        }
+
+        /* Score Breakdown */
+        .breakdown {
+            margin: 30px 0;
+        }
+
+        .breakdown h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .breakdown-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 0;
+        }
+
+        .breakdown-emoji {
+            font-size: 1.5rem;
+            width: 40px;
+            text-align: center;
+        }
+
+        .breakdown-bar {
+            flex: 1;
+            height: 24px;
+            background: var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .breakdown-fill {
+            height: 100%;
+            border-radius: 12px;
+            transition: width 1s ease;
+        }
+
+        .breakdown-label {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .breakdown-percent {
+            font-weight: 700;
+            width: 45px;
+            text-align: right;
+        }
+
+        /* Share */
+        .share-box {
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .share-text {
+            font-family: monospace;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            text-align: left;
+            border: 1px solid var(--border);
+        }
+
+        /* History */
+        .history-container {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .history-container h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background: var(--bg);
+            border-radius: 10px;
+            margin-bottom: 8px;
+        }
+
+        .history-archetype {
+            font-weight: 600;
+        }
+
+        .history-date {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Confetti container */
+        #confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .question-text {
+                font-size: 1.2rem;
+            }
+
+            .traits-container {
+                grid-template-columns: 1fr;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="confetti"></canvas>
+    
+    <div class="container">
+        <header class="header">
+            <div class="emoji-row">🚀 🧠 💻</div>
+            <h1>Indie Founder Archetype Quiz</h1>
+            <p>Discover your founder personality in 2 minutes</p>
+        </header>
+
+        <!-- Start Screen -->
+        <div class="card" id="start-screen">
+            <h2>What kind of indie hacker are you?</h2>
+            <p>Answer 12 quick questions to uncover your founder archetype and get personalized advice.</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <span class="feature-icon">⏱️</span>
+                    <span>Takes only 2 minutes</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">🎯</span>
+                    <span>6 unique archetypes based on real patterns</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">💡</span>
+                    <span>Actionable advice for your type</span>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="startQuiz()">
+                <span>Start Quiz</span>
+                <span>→</span>
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div class="card" id="quiz-screen" style="display: none;">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-text" id="progress-text">Question 1 of 12</div>
+            </div>
+
+            <div id="questions-container"></div>
+
+            <div class="btn-group">
+                <button class="btn btn-secondary" id="prev-btn" onclick="prevQuestion()" style="display: none;">
+                    ← Back
+                </button>
+                <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()" disabled>
+                    Next →
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div class="card archetype-card" id="results-screen">
+            <div class="archetype-emoji" id="result-emoji"></div>
+            <div class="archetype-name" id="result-name"></div>
+            <div class="archetype-tagline" id="result-tagline"></div>
+            <p class="archetype-description" id="result-description"></p>
+
+            <div class="traits-container">
+                <div class="trait-box strengths">
+                    <h4>💪 Strengths</h4>
+                    <ul id="result-strengths"></ul>
+                </div>
+                <div class="trait-box weaknesses">
+                    <h4>⚠️ Watch Out</h4>
+                    <ul id="result-weaknesses"></ul>
+                </div>
+            </div>
+
+            <div class="advice-box">
+                <h4>💡 Advice for You</h4>
+                <p id="result-advice"></p>
+            </div>
+
+            <div class="breakdown" id="breakdown">
+                <h3>Your Archetype Mix</h3>
+                <div id="breakdown-items"></div>
+            </div>
+
+            <div class="share-box">
+                <p style="font-weight: 600; margin-bottom: 10px;">📋 Share your result:</p>
+                <div class="share-text" id="share-text"></div>
+                <button class="btn btn-secondary" style="margin-top: 15px; width: 100%;" onclick="copyResult()">
+                    Copy to clipboard
+                </button>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="restartQuiz()">
+                    🔄 Take Again
+                </button>
+            </div>
+
+            <div class="history-container" id="history-container" style="display: none;">
+                <h3>📜 Your Quiz History</h3>
+                <div id="history-items"></div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Built with 💜 by <a href="https://twitter.com/GuilhermeLu7_" target="_blank">@GuilhermeLu7_</a></p>
+            <p style="margin-top: 5px; font-size: 0.8rem;">Night 58 of the Overnight Build Challenge 🌙</p>
+        </footer>
+    </div>
+
+    <script>
+        // Questions data
+        const questions = [
+            {
+                scenario: "You just had a new idea while showering...",
+                text: "What's your first move?",
+                options: [
+                    { text: "Buy the domain, make a logo, and tweet about it immediately", archetype: "launcher" },
+                    { text: "Open VS Code and start building the MVP", archetype: "builder" },
+                    { text: "Research the market size and competitors for 3 hours", archetype: "researcher" },
+                    { text: "Message 5 potential customers to validate the problem", archetype: "balanced" }
+                ]
+            },
+            {
+                scenario: "Your MVP is 'technically ready' but has some rough edges...",
+                text: "What do you do?",
+                options: [
+                    { text: "Launch immediately — real users will find the real bugs", archetype: "launcher" },
+                    { text: "Spend another week polishing the UI and fixing edge cases", archetype: "builder" },
+                    { text: "Create a waitlist first to gauge interest", archetype: "hype" },
+                    { text: "Ship to 5 beta users, fix what breaks, then launch publicly", archetype: "balanced" }
+                ]
+            },
+            {
+                scenario: "Someone builds something similar to your idea...",
+                text: "Your reaction?",
+                options: [
+                    { text: "Pivot! Time for a new idea anyway", archetype: "launcher" },
+                    { text: "Double down — my implementation will be better", archetype: "builder" },
+                    { text: "Great! This validates the market exists", archetype: "balanced" },
+                    { text: "Deep dive into why they're different and how to position", archetype: "researcher" }
+                ]
+            },
+            {
+                scenario: "You have 4 hours of free time this weekend...",
+                text: "How do you spend it?",
+                options: [
+                    { text: "Building the next feature users didn't ask for but will love", archetype: "builder" },
+                    { text: "Writing a Twitter thread about building in public", archetype: "hype" },
+                    { text: "Researching a new technology that could help someday", archetype: "researcher" },
+                    { text: "Talking to customers or improving what's already live", archetype: "balanced" }
+                ]
+            },
+            {
+                scenario: "Your landing page has zero signups after a week...",
+                text: "What's your diagnosis?",
+                options: [
+                    { text: "The market doesn't want this — next idea!", archetype: "launcher" },
+                    { text: "The product needs more features to be compelling", archetype: "builder" },
+                    { text: "Need to analyze the funnel data and run A/B tests", archetype: "researcher" },
+                    { text: "The copy probably sucks — time to talk to prospects", archetype: "balanced" }
+                ]
+            },
+            {
+                scenario: "A paying customer requests a feature you don't love...",
+                text: "Your move?",
+                options: [
+                    { text: "Build it anyway — revenue is revenue", archetype: "balanced" },
+                    { text: "Build it, but 10x better than they imagined", archetype: "builder" },
+                    { text: "Start researching if other customers want this too", archetype: "researcher" },
+                    { text: "Politely decline — this isn't the product's direction", archetype: "launcher" }
+                ]
+            },
+            {
+                scenario: "You're about to launch. What's keeping you up at night?",
+                text: "Your biggest worry?",
+                options: [
+                    { text: "Nothing! I'm excited to see what happens", archetype: "launcher" },
+                    { text: "That edge case in the checkout flow I didn't fully test", archetype: "builder" },
+                    { text: "That I haven't built enough hype beforehand", archetype: "hype" },
+                    { text: "What if nobody cares? (but I'll find out either way)", archetype: "balanced" }
+                ]
+            },
+            {
+                scenario: "You just hit your first $100 MRR milestone!",
+                text: "What's next?",
+                options: [
+                    { text: "Time to tell everyone! Thread incoming 🔥", archetype: "hype" },
+                    { text: "Now I can finally justify building that feature I've wanted", archetype: "builder" },
+                    { text: "Analyze what's working and double down on that channel", archetype: "balanced" },
+                    { text: "Nice! But I've got this other idea that might be even bigger...", archetype: "launcher" }
+                ]
+            },
+            {
+                scenario: "Someone criticizes your product publicly...",
+                text: "How do you handle it?",
+                options: [
+                    { text: "Engage thoughtfully — public criticism is free marketing", archetype: "hype" },
+                    { text: "Fix the issue they mentioned immediately", archetype: "builder" },
+                    { text: "Dig into whether this is a pattern or an outlier", archetype: "researcher" },
+                    { text: "Respond professionally, learn from it, move on", archetype: "balanced" }
+                ]
+            },
+            {
+                scenario: "Your friend wants advice on starting their own project...",
+                text: "What's your #1 tip?",
+                options: [
+                    { text: "Just ship something! Speed beats perfection", archetype: "launcher" },
+                    { text: "Make sure your tech foundation is solid first", archetype: "builder" },
+                    { text: "Build in public — the audience is the real product", archetype: "hype" },
+                    { text: "Talk to 10 potential customers before writing any code", archetype: "balanced" }
+                ]
+            },
+            {
+                scenario: "It's 11 PM and you're still at your desk...",
+                text: "What are you doing?",
+                options: [
+                    { text: "Browsing Product Hunt and HN for inspiration", archetype: "launcher" },
+                    { text: "Refactoring code that's 'good enough' but bothers me", archetype: "builder" },
+                    { text: "Writing tomorrow's Twitter content", archetype: "hype" },
+                    { text: "Replying to customer emails and planning tomorrow", archetype: "balanced" }
+                ]
+            },
+            {
+                scenario: "If you had to describe your entrepreneurial journey as a movie genre...",
+                text: "It would be:",
+                options: [
+                    { text: "Action — fast cuts, explosions, constant movement", archetype: "launcher" },
+                    { text: "Slow-burn drama — meticulous, detailed, building to something", archetype: "builder" },
+                    { text: "Documentary — lots of research, learning, observing", archetype: "researcher" },
+                    { text: "Indie film — quiet progress, authentic, sustainable", archetype: "balanced" }
+                ]
+            }
+        ];
+
+        // Archetype definitions
+        const archetypes = {
+            launcher: {
+                emoji: "🚀",
+                name: "The Serial Launcher",
+                tagline: "\"Ship it! Next!\"",
+                description: "You're a force of nature when it comes to starting things. Ideas flow through you like water, and you have the rare ability to actually execute on them — fast. Your launches are legendary, your energy is contagious, but sometimes your graveyard of half-finished projects is... impressive too.",
+                strengths: [
+                    "Rapid execution",
+                    "No fear of shipping",
+                    "Great at validating ideas quickly",
+                    "Adaptable and resilient"
+                ],
+                weaknesses: [
+                    "Shiny object syndrome",
+                    "May abandon things too early",
+                    "Can mistake launches for progress",
+                    "Depth sometimes sacrificed for breadth"
+                ],
+                advice: "Your superpower is speed, but your kryptonite is commitment. Try this: before starting anything new, commit to a 90-day 'no new projects' rule. One launch that grows beats ten that wither.",
+                color: "#f97316"
+            },
+            builder: {
+                emoji: "🔧",
+                name: "The Perfectionist Builder",
+                tagline: "\"Let me just fix one more thing...\"",
+                description: "You craft software like an artisan crafts furniture — with care, precision, and an eye for detail that most people miss. Your code is clean, your architecture is sound, and your products are genuinely well-made. The only problem? They sometimes never see the light of day.",
+                strengths: [
+                    "High-quality output",
+                    "Deep technical skills",
+                    "Attention to detail",
+                    "Products that 'just work'"
+                ],
+                weaknesses: [
+                    "Shipping paralysis",
+                    "Over-engineering simple solutions",
+                    "Perfectionism masking fear",
+                    "Building > talking to users"
+                ],
+                advice: "Perfect is the enemy of launched. Set hard deadlines and treat them like client deadlines. Ship with bugs — your users will tell you which ones actually matter. Your craft deserves to be seen.",
+                color: "#7c3aed"
+            },
+            hype: {
+                emoji: "📣",
+                name: "The Hype Master",
+                tagline: "\"Building in public, baby!\"",
+                description: "You understand that attention is the currency of the internet, and you know how to earn it. Your Twitter threads get engagement, your launches get upvotes, and you've monetized before the product was even ready. You're a marketer at heart, wearing a founder costume.",
+                strengths: [
+                    "Audience building skills",
+                    "Pre-launch validation",
+                    "Content creation machine",
+                    "Community engagement"
+                ],
+                weaknesses: [
+                    "Sometimes more hype than substance",
+                    "Can optimize for engagement over product",
+                    "Risk of burning audience trust",
+                    "Building a brand ≠ building a business"
+                ],
+                advice: "Your marketing skills are rare — now channel them into something worth marketing. For every thread you write, spend equal time building. Your audience is an asset; don't waste it on products that aren't ready.",
+                color: "#f472b6"
+            },
+            researcher: {
+                emoji: "📊",
+                name: "The Analyst",
+                tagline: "\"Let me do more research first...\"",
+                description: "You're methodical, data-driven, and thorough. Before you build, you know the market size, the competitors, the TAM/SAM/SOM. Your Notion databases are immaculate. You'd make an excellent VC... but you keep forgetting you're supposed to be a founder.",
+                strengths: [
+                    "Deep market understanding",
+                    "Risk-aware decision making",
+                    "Strategic thinking",
+                    "Excellent at due diligence"
+                ],
+                weaknesses: [
+                    "Analysis paralysis",
+                    "Research as procrastination",
+                    "Waiting for 'perfect' information",
+                    "Overthinking, under-executing"
+                ],
+                advice: "Set a 'research budget' — X hours max before you must ship something. Imperfect action beats perfect planning. You already know enough to start; the rest you'll learn by doing.",
+                color: "#6366f1"
+            },
+            balanced: {
+                emoji: "⚖️",
+                name: "The Balanced Builder",
+                tagline: "\"Ship, learn, iterate.\"",
+                description: "You're the unicorn. You validate before building, build what matters, ship on time, and iterate based on feedback. You talk to customers. You don't over-engineer. You've read the books, but more importantly, you've internalized the lessons. Keep going.",
+                strengths: [
+                    "Customer-centric approach",
+                    "Sustainable pace",
+                    "Good judgment calls",
+                    "Balances building and marketing"
+                ],
+                weaknesses: [
+                    "Sometimes too cautious",
+                    "May lack the 'crazy' that creates breakouts",
+                    "Can overthink small decisions",
+                    "Risk of being 'good' but not 'great'"
+                ],
+                advice: "You've got the fundamentals down — now it's time to take bigger swings. Your balanced approach is your moat, but occasionally, embrace a little chaos. The best companies weren't built by playing it safe.",
+                color: "#10b981"
+            }
+        };
+
+        // State
+        let currentQuestion = 0;
+        let answers = [];
+        let scores = {
+            launcher: 0,
+            builder: 0,
+            hype: 0,
+            researcher: 0,
+            balanced: 0
+        };
+
+        // Functions
+        function startQuiz() {
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('quiz-screen').style.display = 'block';
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const container = document.getElementById('questions-container');
+            const q = questions[currentQuestion];
+            
+            // Shuffle options for variety
+            const shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
+            
+            container.innerHTML = `
+                <div class="question-container active">
+                    <span class="question-number">Question ${currentQuestion + 1}</span>
+                    <div class="question-scenario">${q.scenario}</div>
+                    <h3 class="question-text">${q.text}</h3>
+                    <div class="options">
+                        ${shuffledOptions.map((opt, i) => `
+                            <div class="option" onclick="selectOption('${opt.archetype}', this)" data-archetype="${opt.archetype}">
+                                <span class="option-letter">${String.fromCharCode(65 + i)}</span>
+                                <span class="option-text">${opt.text}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Update progress
+            const progress = ((currentQuestion) / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = `${progress}%`;
+            document.getElementById('progress-text').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+
+            // Update buttons
+            document.getElementById('prev-btn').style.display = currentQuestion > 0 ? 'inline-flex' : 'none';
+            document.getElementById('next-btn').textContent = currentQuestion === questions.length - 1 ? 'See Results →' : 'Next →';
+            document.getElementById('next-btn').disabled = !answers[currentQuestion];
+
+            // Restore selection if exists
+            if (answers[currentQuestion]) {
+                const selected = container.querySelector(`[data-archetype="${answers[currentQuestion]}"]`);
+                if (selected) selected.classList.add('selected');
+            }
+        }
+
+        function selectOption(archetype, element) {
+            // Remove previous selection
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            
+            // Add new selection
+            element.classList.add('selected');
+            
+            // Save answer
+            answers[currentQuestion] = archetype;
+            
+            // Enable next button
+            document.getElementById('next-btn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion();
+            }
+        }
+
+        function calculateScores() {
+            // Reset scores
+            scores = { launcher: 0, builder: 0, hype: 0, researcher: 0, balanced: 0 };
+            
+            // Count answers
+            answers.forEach(answer => {
+                if (scores.hasOwnProperty(answer)) {
+                    scores[answer]++;
+                }
+            });
+
+            // Convert to percentages
+            const total = answers.length;
+            Object.keys(scores).forEach(key => {
+                scores[key] = Math.round((scores[key] / total) * 100);
+            });
+        }
+
+        function getWinningArchetype() {
+            let winner = 'balanced';
+            let maxScore = 0;
+            
+            Object.keys(scores).forEach(key => {
+                if (scores[key] > maxScore) {
+                    maxScore = scores[key];
+                    winner = key;
+                }
+            });
+
+            return winner;
+        }
+
+        function showResults() {
+            calculateScores();
+            const winner = getWinningArchetype();
+            const arch = archetypes[winner];
+
+            document.getElementById('quiz-screen').style.display = 'none';
+            document.getElementById('results-screen').style.display = 'block';
+
+            // Populate results
+            document.getElementById('result-emoji').textContent = arch.emoji;
+            document.getElementById('result-name').textContent = arch.name;
+            document.getElementById('result-tagline').textContent = arch.tagline;
+            document.getElementById('result-description').textContent = arch.description;
+            document.getElementById('result-advice').textContent = arch.advice;
+
+            // Strengths & Weaknesses
+            document.getElementById('result-strengths').innerHTML = 
+                arch.strengths.map(s => `<li>${s}</li>`).join('');
+            document.getElementById('result-weaknesses').innerHTML = 
+                arch.weaknesses.map(w => `<li>${w}</li>`).join('');
+
+            // Breakdown bars
+            const breakdownContainer = document.getElementById('breakdown-items');
+            breakdownContainer.innerHTML = '';
+            
+            // Sort by score
+            const sortedScores = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+            
+            sortedScores.forEach(([key, score]) => {
+                const a = archetypes[key];
+                breakdownContainer.innerHTML += `
+                    <div class="breakdown-item">
+                        <span class="breakdown-emoji">${a.emoji}</span>
+                        <div class="breakdown-bar">
+                            <div class="breakdown-fill" style="width: ${score}%; background: ${a.color};">
+                                <span class="breakdown-label">${a.name.split(' ').pop()}</span>
+                            </div>
+                        </div>
+                        <span class="breakdown-percent">${score}%</span>
+                    </div>
+                `;
+            });
+
+            // Share text
+            document.getElementById('share-text').textContent = 
+`${arch.emoji} I'm "${arch.name}" — ${arch.tagline}
+
+My Indie Founder Archetype Mix:
+${sortedScores.map(([key, score]) => `${archetypes[key].emoji} ${archetypes[key].name.split(' ').pop()}: ${score}%`).join('\n')}
+
+Take the quiz: ${window.location.href}`;
+
+            // Save to history
+            saveToHistory(winner);
+            renderHistory();
+
+            // Confetti!
+            launchConfetti();
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function saveToHistory(archetype) {
+            const history = JSON.parse(localStorage.getItem('founderQuizHistory') || '[]');
+            history.unshift({
+                archetype: archetype,
+                date: new Date().toISOString(),
+                scores: {...scores}
+            });
+            // Keep only last 10
+            localStorage.setItem('founderQuizHistory', JSON.stringify(history.slice(0, 10)));
+        }
+
+        function renderHistory() {
+            const history = JSON.parse(localStorage.getItem('founderQuizHistory') || '[]');
+            
+            if (history.length <= 1) {
+                document.getElementById('history-container').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('history-container').style.display = 'block';
+            const container = document.getElementById('history-items');
+            container.innerHTML = history.slice(1).map(item => {
+                const arch = archetypes[item.archetype];
+                const date = new Date(item.date).toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric',
+                    year: 'numeric'
+                });
+                return `
+                    <div class="history-item">
+                        <span class="history-archetype">${arch.emoji} ${arch.name}</span>
+                        <span class="history-date">${date}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            answers = [];
+            scores = { launcher: 0, builder: 0, hype: 0, researcher: 0, balanced: 0 };
+            
+            document.getElementById('results-screen').style.display = 'none';
+            document.getElementById('start-screen').style.display = 'block';
+        }
+
+        function copyResult() {
+            const text = document.getElementById('share-text').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => btn.textContent = originalText, 2000);
+            });
+        }
+
+        // Confetti effect
+        function launchConfetti() {
+            const canvas = document.getElementById('confetti');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const pieces = [];
+            const colors = ['#7c3aed', '#f472b6', '#fbbf24', '#10b981', '#f97316'];
+
+            for (let i = 0; i < 100; i++) {
+                pieces.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    size: Math.random() * 10 + 5,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    speed: Math.random() * 3 + 2,
+                    rotation: Math.random() * 360,
+                    rotationSpeed: Math.random() * 10 - 5
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                let allDone = true;
+                
+                pieces.forEach(p => {
+                    if (p.y < canvas.height + 50) {
+                        allDone = false;
+                        p.y += p.speed;
+                        p.rotation += p.rotationSpeed;
+                        
+                        ctx.save();
+                        ctx.translate(p.x, p.y);
+                        ctx.rotate(p.rotation * Math.PI / 180);
+                        ctx.fillStyle = p.color;
+                        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                        ctx.restore();
+                    }
+                });
+
+                if (!allDone) {
+                    requestAnimationFrame(animate);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+            }
+
+            animate();
+        }
+
+        // Handle resize for confetti canvas
+        window.addEventListener('resize', () => {
+            const canvas = document.getElementById('confetti');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>

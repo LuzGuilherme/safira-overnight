@@ -113,3 +113,4 @@ Ver `/root/clawd/data/STYLE_LIBRARY.md` para detalhes completos.
 | 2026-03-27 | MRR Reverse Engineer 🔢 | Business/Calculadoras | **Data Dense** 📊 |
 | 2026-03-28 | Founder Hourly Reality Check 💰 | Business/Founder Tools | **Bold Maximalist** 🎨 |
 | 2026-03-29 | The Rejection Wall 🧱 | Produtividade/Mindset | **Industrial Dark** 🌙 |
+| 2026-03-30 | Indie Founder Archetype Quiz 🧠 | Quiz/Self-discovery | **Playful** 🎭 |
