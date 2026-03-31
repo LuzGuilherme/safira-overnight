@@ -1,7 +1,191 @@
 {
-  "generated": "2026-03-30T01:05:00.000000Z",
-  "count": 60,
+  "generated": "2026-03-31T01:20:00.000000Z",
+  "count": 64,
   "digests": [
+    {
+      "id": "2026-03-31-tim-self-help-trap",
+      "filename": "2026-03-31-tim-self-help-trap.md",
+      "date": "2026-03-31",
+      "title": "The Self-Help Trap — What 20+ Years of Optimizing Taught Me",
+      "host": "The Tim Ferriss Show",
+      "guest": "Tim Ferriss (interviewed by Dan Harris)",
+      "duration": "~15-20 min",
+      "link": "https://www.youtube.com/watch?v=FkTH7cn1ZUI",
+      "theme": "Auto-optimização compulsiva vs execução real",
+      "tldr": "Tim alerta para a “self-help trap”: estudar crescimento pessoal sem viver experiências reais. A metáfora do futebol resume o problema — PhD em teoria sem entrar em campo. Solução: acção imperfeita, exposição progressiva e relações reais.",
+      "insights": [
+        {
+          "insight": "Self-help pode virar procrastinação sofisticada",
+          "why": "Sensação de progresso sem execução"
+        },
+        {
+          "insight": "Preparação não substitui prática",
+          "why": "Aprendizagem real exige campo"
+        },
+        {
+          "insight": "Perfeccionismo é defesa do ego",
+          "why": "Evita risco de falhar em público"
+        },
+        {
+          "insight": "Isolamento alimenta ruminação",
+          "why": "Relações reduzem loops mentais"
+        },
+        {
+          "insight": "Pequenas acções repetidas vencem planos perfeitos",
+          "why": "Constância gera transformação"
+        }
+      ],
+      "quotes": [
+        "You want to play soccer, but first you're going to read all the textbooks and get a master's degree and PhD in soccer."
+      ],
+      "rating": 4.2,
+      "tags": [
+        "TimFerriss",
+        "self-help",
+        "productivity",
+        "mental-health",
+        "action"
+      ]
+    },
+    {
+      "id": "2026-03-31-lex-coffeezilla-497",
+      "filename": "2026-03-31-lex-coffeezilla-497.md",
+      "date": "2026-03-31",
+      "title": "Coffeezilla: Scams, Fake Gurus, and the Attention Economy",
+      "host": "Lex Fridman Podcast",
+      "guest": "Coffeezilla",
+      "duration": "~4h",
+      "link": "https://www.youtube.com/watch?v=hi9Rf0oLdHk",
+      "theme": "Fraudes digitais, influência e defesa do consumidor",
+      "tldr": "Coffeezilla explica como scams modernos combinam hype, prova social falsa e opacidade financeira. Mostra porque a regulação costuma chegar tarde e como criadores sem transparência amplificam risco. Principal takeaway: due diligence sistemática antes de qualquer decisão financeira.",
+      "insights": [
+        {
+          "insight": "Scams vendem urgência e emoção",
+          "why": "FOMO substitui análise racional"
+        },
+        {
+          "insight": "Autoridade online pode ser fabricada",
+          "why": "Fama não é credibilidade"
+        },
+        {
+          "insight": "Conflitos de interesse sem disclosure são red flag",
+          "why": "Incentivos errados geram recomendações ruins"
+        },
+        {
+          "insight": "Freezing withdrawals é alerta crítico",
+          "why": "Problema de liquidez costuma estar escondido"
+        },
+        {
+          "insight": "Checklist anti-scam reduz perdas",
+          "why": "Processo vence impulso"
+        }
+      ],
+      "quotes": [
+        "They announced to all their investors that they're freezing withdrawals."
+      ],
+      "rating": 4.6,
+      "tags": [
+        "LexFridman",
+        "Coffeezilla",
+        "scams",
+        "finance",
+        "crypto",
+        "risk-management"
+      ]
+    },
+    {
+      "id": "2026-03-31-lex-michael-malice-496",
+      "filename": "2026-03-31-lex-michael-malice-496.md",
+      "date": "2026-03-31",
+      "title": "Michael Malice: The White Pill, Power, and Anti-Authoritarianism",
+      "host": "Lex Fridman Podcast",
+      "guest": "Michael Malice",
+      "duration": "~4h",
+      "link": "https://www.youtube.com/watch?v=NUkXluf3OYA",
+      "theme": "Autoritarismo, propaganda, dissidência e esperança operacional",
+      "tldr": "Malice descreve padrões de poder autoritário: criar inimigos, controlar narrativa e normalizar medo. A conversa usa história soviética para explicar como sistemas coercivos se mantêm. O “white pill” surge como esperança disciplinada baseada em acção concreta e comunidades fortes.",
+      "insights": [
+        {
+          "insight": "Regimes criam inimigos para manter controlo",
+          "why": "Sem ameaça constante, perdem legitimidade"
+        },
+        {
+          "insight": "Narrativa pública molda percepção mais do que factos isolados",
+          "why": "Comunicação define poder político"
+        },
+        {
+          "insight": "Autoritarismo escala por normalização gradual",
+          "why": "Pequenas cedências acumulam grandes perdas"
+        },
+        {
+          "insight": "Dissidência começa no indivíduo",
+          "why": "Resistência cultural é descentralizada"
+        },
+        {
+          "insight": "Esperança útil é operacional",
+          "why": "Acção local contínua vence fatalismo"
+        }
+      ],
+      "quotes": [
+        "You always have to have an enemy in order to hold on to power."
+      ],
+      "rating": 4.4,
+      "tags": [
+        "LexFridman",
+        "MichaelMalice",
+        "authoritarianism",
+        "propaganda",
+        "politics",
+        "history"
+      ]
+    },
+    {
+      "id": "2026-03-31-lex-randall-kennedy-495",
+      "filename": "2026-03-31-lex-randall-kennedy-495.md",
+      "date": "2026-03-31",
+      "title": "Randall Kennedy: Race, Identity, and American Law",
+      "host": "Lex Fridman Podcast",
+      "guest": "Randall Kennedy",
+      "duration": "~3h",
+      "link": "https://www.youtube.com/watch?v=iFXGpKf9VBU",
+      "theme": "Raça, liberdade de expressão, progresso histórico e justiça social",
+      "tldr": "Conversa sobre raça e direito com foco em nuance histórica: reconhecer progresso real sem negar desigualdades actuais. Kennedy defende rigor analítico em vez de slogans e insiste em separar liberdade de expressão de responsabilidade social. Episódio útil para pensamento crítico em temas polarizadores.",
+      "insights": [
+        {
+          "insight": "Progresso histórico é real, mas incompleto",
+          "why": "Evita cinismo e triunfalismo simultaneamente"
+        },
+        {
+          "insight": "Liberdade de expressão exige contexto",
+          "why": "Impacto social depende de enquadramento"
+        },
+        {
+          "insight": "Narrativas simples distorcem problemas complexos",
+          "why": "Decisões públicas pioram com simplificação"
+        },
+        {
+          "insight": "Dados históricos elevam o debate",
+          "why": "Menos tribalismo, mais análise"
+        },
+        {
+          "insight": "Liderança moral requer precisão e coragem",
+          "why": "Critério útil para avaliar figuras públicas"
+        }
+      ],
+      "quotes": [
+        "There has been a tremendous change.",
+        "The United States is still a place with serious racial problems."
+      ],
+      "rating": 4.3,
+      "tags": [
+        "LexFridman",
+        "RandallKennedy",
+        "race",
+        "civil-rights",
+        "free-speech",
+        "history"
+      ]
+    },
     {
       "id": "2026-03-30-allin-anthropic-vs-openai",
       "filename": "2026-03-30-allin-anthropic-vs-openai.md",
@@ -14,11 +198,26 @@
       "theme": "AI market dynamics, enterprise focus, PCAST, US-China race",
       "tldr": "Análise profunda da batalha Anthropic vs OpenAI. Anthropic em 'generational run' com Opus 4.6 e Claude Code, enquanto OpenAI perde market share consumer (100%→75%) e cancela Sora/Disney deal. Sacks nomeado co-chair PCAST. Alerta: China ultrapassou US em publicações científicas.",
       "insights": [
-        {"insight": "Anthropic generational run: Opus 4.6, Claude Code, Co-work", "why": "Jensen e Dell chamaram de 'inflection point'"},
-        {"insight": "Revenue recognition diferente entre empresas", "why": "OpenAI net subscriptions vs Anthropic gross tonnage"},
-        {"insight": "OpenAI market share: 100%→85%→75%", "why": "Apple, Meta, Windows ainda não entraram a sério"},
-        {"insight": "Sora cancelado, Disney $1B deal morto", "why": "OpenAI pivota todo focus para enterprise"},
-        {"insight": "China publicou 50% MAIS papers que US", "why": "Há 10 anos era 50% menos - race acelerou"}
+        {
+          "insight": "Anthropic generational run: Opus 4.6, Claude Code, Co-work",
+          "why": "Jensen e Dell chamaram de 'inflection point'"
+        },
+        {
+          "insight": "Revenue recognition diferente entre empresas",
+          "why": "OpenAI net subscriptions vs Anthropic gross tonnage"
+        },
+        {
+          "insight": "OpenAI market share: 100%→85%→75%",
+          "why": "Apple, Meta, Windows ainda não entraram a sério"
+        },
+        {
+          "insight": "Sora cancelado, Disney $1B deal morto",
+          "why": "OpenAI pivota todo focus para enterprise"
+        },
+        {
+          "insight": "China publicou 50% MAIS papers que US",
+          "why": "Há 10 anos era 50% menos - race acelerou"
+        }
       ],
       "quotes": [
         "Anthropic is the most AGI-pilled of all the frontier labs",
@@ -26,7 +225,16 @@
         "10 years ago China published 50% of US papers. Last year they published 50% MORE"
       ],
       "rating": 4.7,
-      "tags": ["All-In", "Anthropic", "OpenAI", "enterprise", "PCAST", "China", "AI-race", "regulatory-capture"]
+      "tags": [
+        "All-In",
+        "Anthropic",
+        "OpenAI",
+        "enterprise",
+        "PCAST",
+        "China",
+        "AI-race",
+        "regulatory-capture"
+      ]
     },
     {
       "id": "2026-03-29-mfm-809-good-taste",
@@ -40,18 +248,41 @@
       "theme": "Developing good taste - the most important moat in the AI era",
       "tldr": "Com a ascensão da IA, taste tornou-se o maior diferenciador competitivo. Sam apresenta um processo de 4 passos: decidir o que dizer, copiar cegamente, aprender regras, estudar história. Aplicável a moda, design, escrita, tudo.",
       "insights": [
-        {"insight": "Na era AI, taste > technical skills", "why": "O moat mudou de 'quem constrói' para 'quem apela'"},
-        {"insight": "Copiar é fundamental no início", "why": "Ninguém aprende guitarra compondo - aprende com covers"},
-        {"insight": "Good vs Great taste", "why": "Good = seguir regras; Great = quebrá-las com propósito"},
-        {"insight": "Bauhaus → iPod", "why": "Tradição flui através de gerações"},
-        {"insight": "Swiffer vs ReadyMop = $5B vs $200M", "why": "Mesmo produto, nome diferente"}
+        {
+          "insight": "Na era AI, taste > technical skills",
+          "why": "O moat mudou de 'quem constrói' para 'quem apela'"
+        },
+        {
+          "insight": "Copiar é fundamental no início",
+          "why": "Ninguém aprende guitarra compondo - aprende com covers"
+        },
+        {
+          "insight": "Good vs Great taste",
+          "why": "Good = seguir regras; Great = quebrá-las com propósito"
+        },
+        {
+          "insight": "Bauhaus → iPod",
+          "why": "Tradição flui através de gerações"
+        },
+        {
+          "insight": "Swiffer vs ReadyMop = $5B vs $200M",
+          "why": "Mesmo produto, nome diferente"
+        }
       ],
       "quotes": [
         "With the rise of AI, taste is going to be one of the biggest moats that you could possibly have.",
         "Being around beautiful stuff, stuff that sings to you, it honestly makes my life happier."
       ],
       "rating": 4.5,
-      "tags": ["MFM", "taste", "branding", "creativity", "AI", "design", "copywork"]
+      "tags": [
+        "MFM",
+        "taste",
+        "branding",
+        "creativity",
+        "AI",
+        "design",
+        "copywork"
+      ]
     },
     {
       "id": "2026-03-29-allin-bryan-johnson-dmt",
@@ -65,11 +296,26 @@
       "theme": "5-MeO-DMT como terapia de longevidade quantificada, efeitos no cérebro, mitochondrial therapy",
       "tldr": "Bryan fez 5-MeO-DMT (5-10x mais potente que DMT) com MRI, EEG e Kernel. A experiência aniquilou o default mode network, restaurando padrões cerebrais de criança - incluindo rir em sonhos e resolver conflitos sem escalação.",
       "insights": [
-        {"insight": "5-MeO-DMT aniquila o Default Mode Network", "why": "Restaura padrões cerebrais de criança"},
-        {"insight": "Laughing in dreams = cérebro jovem", "why": "Bryan experienciou pela 1ª vez em décadas"},
-        {"insight": "Mais eficaz que dieta+exercício+sono combinados", "why": "Para 'reset' pessoal completo"},
-        {"insight": "Mitocôndrias passadas maternalmente", "why": "Pode buscar jovens a familiares da linha mãe"},
-        {"insight": "Investidores põem 'no psychedelics' em deals", "why": "Risco real de perder founder"}
+        {
+          "insight": "5-MeO-DMT aniquila o Default Mode Network",
+          "why": "Restaura padrões cerebrais de criança"
+        },
+        {
+          "insight": "Laughing in dreams = cérebro jovem",
+          "why": "Bryan experienciou pela 1ª vez em décadas"
+        },
+        {
+          "insight": "Mais eficaz que dieta+exercício+sono combinados",
+          "why": "Para 'reset' pessoal completo"
+        },
+        {
+          "insight": "Mitocôndrias passadas maternalmente",
+          "why": "Pode buscar jovens a familiares da linha mãe"
+        },
+        {
+          "insight": "Investidores põem 'no psychedelics' em deals",
+          "why": "Risco real de perder founder"
+        }
       ],
       "quotes": [
         "This was more efficacious than diet, exercise, sleep, sauna, and hyperbaric oxygen combined.",
@@ -77,7 +323,15 @@
         "I woke up catching myself laughing in a dream. I don't remember when I've ever laughed in a dream."
       ],
       "rating": 5.0,
-      "tags": ["AllIn", "BryanJohnson", "longevity", "psychedelics", "5-MeO-DMT", "neuroscience", "mitochondria"]
+      "tags": [
+        "AllIn",
+        "BryanJohnson",
+        "longevity",
+        "psychedelics",
+        "5-MeO-DMT",
+        "neuroscience",
+        "mitochondria"
+      ]
     },
     {
       "id": "2026-03-28-tim-ferriss-859",
@@ -91,11 +345,26 @@
       "theme": "AI strategy, career pivots, networking, courage as learnable skill",
       "tldr": "Tim responde a perguntas sobre AI e desenvolvimento pessoal. Mensagem central: vantagem offline (IRL, relacional, táctil) será cada vez mais valiosa. Recomenda Leopold Aschenbrenner como AI Nostradamus. Courage é aprendível via progressive resistance.",
       "insights": [
-        {"insight": "Dull edge vs bleeding edge", "why": "Esperar timing certo como Jobs com iPod"},
-        {"insight": "Offline advantage is moat", "why": "LLMs slice the internet - offline info is rare"},
-        {"insight": "Never use AI for skills you want to preserve", "why": "Synthesis muscle atrophies with dependency"},
-        {"insight": "Courage via progressive resistance", "why": "Not a decision - must prove to subconscious"},
-        {"insight": "OpenClaw security first", "why": "Don't give access to email/cards"}
+        {
+          "insight": "Dull edge vs bleeding edge",
+          "why": "Esperar timing certo como Jobs com iPod"
+        },
+        {
+          "insight": "Offline advantage is moat",
+          "why": "LLMs slice the internet - offline info is rare"
+        },
+        {
+          "insight": "Never use AI for skills you want to preserve",
+          "why": "Synthesis muscle atrophies with dependency"
+        },
+        {
+          "insight": "Courage via progressive resistance",
+          "why": "Not a decision - must prove to subconscious"
+        },
+        {
+          "insight": "OpenClaw security first",
+          "why": "Don't give access to email/cards"
+        }
       ],
       "quotes": [
         "The relational, the tactile, anything IRL — that's the offline differentiator.",
@@ -103,7 +372,16 @@
         "Nobody's going to remember you. It's actually very freeing."
       ],
       "rating": 5.0,
-      "tags": ["tim-ferriss", "AI", "offline-advantage", "courage", "networking", "career", "Leopold-Aschenbrenner", "OpenClaw"]
+      "tags": [
+        "tim-ferriss",
+        "AI",
+        "offline-advantage",
+        "courage",
+        "networking",
+        "career",
+        "Leopold-Aschenbrenner",
+        "OpenClaw"
+      ]
     },
     {
       "id": "2026-03-27-doac-karen-hao",
@@ -117,11 +395,26 @@
       "theme": "Inside story of OpenAI, Sam Altman manipulation, AI as empire",
       "tldr": "Karen Hao expõe como empresas de AI operam como impérios coloniais - capturando recursos (dados), explorando trabalhadores, monopolizando conhecimento. Sam Altman adapta narrativa para cada audiência. 250+ entrevistas, 90 de funcionários OpenAI revelam manipulação e controlo.",
       "insights": [
-        {"insight": "AI companies = colonial empires", "why": "Land grab, labor exploitation, knowledge monopoly"},
-        {"insight": "AGI undefined by design", "why": "Allows moving goalposts per audience"},
-        {"insight": "Access as control mechanism", "why": "Journalists/podcasters controlled by promise of interviews"},
-        {"insight": "Most AI researchers captured", "why": "Industry bankrolled like fossil fuels on climate"},
-        {"insight": "40 pages of questions, zero answers", "why": "OpenAI refused to participate in critical book"}
+        {
+          "insight": "AI companies = colonial empires",
+          "why": "Land grab, labor exploitation, knowledge monopoly"
+        },
+        {
+          "insight": "AGI undefined by design",
+          "why": "Allows moving goalposts per audience"
+        },
+        {
+          "insight": "Access as control mechanism",
+          "why": "Journalists/podcasters controlled by promise of interviews"
+        },
+        {
+          "insight": "Most AI researchers captured",
+          "why": "Industry bankrolled like fossil fuels on climate"
+        },
+        {
+          "insight": "40 pages of questions, zero answers",
+          "why": "OpenAI refused to participate in critical book"
+        }
       ],
       "quotes": [
         "So much of what's happening today in the AI industry is extremely inhumane.",
@@ -129,7 +422,15 @@
         "They are gaslighting the public."
       ],
       "rating": 5.0,
-      "tags": ["DOAC", "KarenHao", "OpenAI", "SamAltman", "AIEthics", "Empire", "Journalism"]
+      "tags": [
+        "DOAC",
+        "KarenHao",
+        "OpenAI",
+        "SamAltman",
+        "AIEthics",
+        "Empire",
+        "Journalism"
+      ]
     },
     {
       "id": "2026-03-27-allin-gtc",
@@ -143,11 +444,26 @@
       "theme": "GPU infrastructure, financing models, AI demand at scale",
       "tldr": "CoreWeave raised $35B in 18 months using 'box' SPV structure. GPU depreciation debate is 'nonsense' - 5-year contracts, prices appreciating. Cost of capital dropped 600 bps. Demand still overwhelms global capacity.",
       "insights": [
-        {"insight": "Box model for capex financing", "why": "Isolated SPVs per contract reduce risk"},
-        {"insight": "GPU depreciation FUD is short selling", "why": "5-year contracts prove value"},
-        {"insight": "600 bps cost of capital drop", "why": "Approaching hyperscaler rates"},
-        {"insight": "Payback at 2.5 years of 5-year deal", "why": "Extremely profitable structure"},
-        {"insight": "Memory is new throttle", "why": "Not just GPUs - full supply chain matters"}
+        {
+          "insight": "Box model for capex financing",
+          "why": "Isolated SPVs per contract reduce risk"
+        },
+        {
+          "insight": "GPU depreciation FUD is short selling",
+          "why": "5-year contracts prove value"
+        },
+        {
+          "insight": "600 bps cost of capital drop",
+          "why": "Approaching hyperscaler rates"
+        },
+        {
+          "insight": "Payback at 2.5 years of 5-year deal",
+          "why": "Extremely profitable structure"
+        },
+        {
+          "insight": "Memory is new throttle",
+          "why": "Not just GPUs - full supply chain matters"
+        }
       ],
       "quotes": [
         "Computing decommoditizes at scale. Anyone can run a GPU, but can you run a cluster large enough to change the world?",
@@ -155,7 +471,16 @@
         "Within 2.5 years of a 5-year deal, we have paid for everything."
       ],
       "rating": 4.5,
-      "tags": ["AllIn", "GTC", "NVIDIA", "CoreWeave", "Perplexity", "Mistral", "Infrastructure", "GPUs"]
+      "tags": [
+        "AllIn",
+        "GTC",
+        "NVIDIA",
+        "CoreWeave",
+        "Perplexity",
+        "Mistral",
+        "Infrastructure",
+        "GPUs"
+      ]
     },
     {
       "id": "2026-03-26-doac-david-sinclair-aging",
