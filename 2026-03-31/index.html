@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Global Meeting Overlap Planner</title>
+  <style>
+    :root {
+      --bg: #f6f6f4;
+      --text: #111;
+      --muted: #666;
+      --line: #1f1f1f;
+      --accent: #0057ff;
+      --card: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 20px;
+    }
+
+    .panel, .main {
+      background: var(--card);
+      border: 2px solid var(--line);
+      padding: 18px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      letter-spacing: -0.03em;
+    }
+
+    .sub { color: var(--muted); margin: 0 0 16px; }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .field { margin-bottom: 12px; }
+    label {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 4px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid var(--line);
+      border-radius: 0;
+      background: #fff;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    button {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    button.secondary {
+      background: #fff;
+      color: var(--text);
+      border-color: var(--line);
+      margin-top: 8px;
+    }
+
+    .members { margin-top: 10px; }
+    .member {
+      border: 2px solid var(--line);
+      padding: 10px;
+      margin-bottom: 8px;
+      background: #fafafa;
+    }
+
+    .member strong { display: block; }
+    .member small { color: var(--muted); }
+
+    .grid {
+      margin-top: 12px;
+      overflow-x: auto;
+      border: 2px solid var(--line);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 680px;
+      font-size: 13px;
+    }
+
+    th, td {
+      border: 1px solid #bbb;
+      padding: 7px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    thead th {
+      background: #f0f0f0;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    td.good { background: #d4ffe5; }
+    td.bad { background: #ffe1e1; }
+    td.partial { background: #fff5cc; }
+
+    .summary {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .stat {
+      border: 2px solid var(--line);
+      padding: 10px;
+      background: #fff;
+    }
+
+    .stat .k { font-size: 11px; color: var(--muted); text-transform: uppercase; }
+    .stat .v { font-size: 22px; font-weight: 700; margin-top: 4px; }
+
+    .slots {
+      margin-top: 14px;
+      border-top: 2px solid var(--line);
+      padding-top: 12px;
+    }
+
+    .slot {
+      border: 2px solid var(--line);
+      padding: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .wrap { grid-template-columns: 1fr; }
+      .summary { grid-template-columns: 1fr; }
+      h1 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <aside class="panel">
+      <h2>Team Setup</h2>
+      <div class="field">
+        <label>Nome</label>
+        <input id="name" placeholder="Ex: Guilherme" />
+      </div>
+      <div class="field">
+        <label>Fuso Horário</label>
+        <select id="tz"></select>
+      </div>
+      <div class="field">
+        <label>Início do dia (local)</label>
+        <input id="start" type="time" value="09:00" />
+      </div>
+      <div class="field">
+        <label>Fim do dia (local)</label>
+        <input id="end" type="time" value="18:00" />
+      </div>
+      <button id="addBtn">Adicionar membro</button>
+      <button id="demoBtn" class="secondary">Carregar demo remota</button>
+
+      <div class="members" id="members"></div>
+    </aside>
+
+    <main class="main">
+      <h1>Global Meeting Overlap Planner</h1>
+      <p class="sub">Inspirado por ferramentas de timezone scheduling em destaque (HN Show + Product Hunt). Encontra slots justos para equipas distribuídas.</p>
+
+      <div class="summary">
+        <div class="stat"><div class="k">Membros</div><div class="v" id="teamCount">0</div></div>
+        <div class="stat"><div class="k">Slots ótimos (100%)</div><div class="v" id="perfectCount">0</div></div>
+        <div class="stat"><div class="k">Melhor hora UTC</div><div class="v" id="bestHour">—</div></div>
+      </div>
+
+      <div class="grid" id="gridWrap"></div>
+
+      <div class="slots">
+        <h2>Top 5 sugestões de reunião</h2>
+        <div id="topSlots"></div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const tzSelect = document.getElementById('tz');
+    const membersEl = document.getElementById('members');
+    const gridWrap = document.getElementById('gridWrap');
+    const topSlotsEl = document.getElementById('topSlots');
+
+    const teamCountEl = document.getElementById('teamCount');
+    const perfectCountEl = document.getElementById('perfectCount');
+    const bestHourEl = document.getElementById('bestHour');
+
+    const fmt = new Intl.DateTimeFormat('en-US', { timeZoneName: 'shortOffset' });
+
+    const commonTZ = [
+      'Europe/Lisbon','Europe/London','Europe/Berlin','Europe/Warsaw','Europe/Kyiv','America/New_York',
+      'America/Chicago','America/Denver','America/Los_Angeles','America/Sao_Paulo','Asia/Dubai',
+      'Asia/Kolkata','Asia/Singapore','Asia/Tokyo','Australia/Sydney'
+    ];
+
+    commonTZ.forEach(z => {
+      const o = document.createElement('option');
+      o.value = z;
+      o.textContent = z;
+      tzSelect.appendChild(o);
+    });
+
+    tzSelect.value = 'Europe/Lisbon';
+
+    const members = [];
+
+    function parseTime(t) {
+      const [h,m] = t.split(':').map(Number);
+      return h*60 + m;
+    }
+
+    function offsetMinutes(timeZone) {
+      const parts = fmt.formatToParts(new Date());
+      const z = parts.find(p => p.type === 'timeZoneName')?.value || 'GMT+0';
+      const match = z.match(/GMT([+-])(\d{1,2})(?::?(\d{2}))?/i);
+      if (!match) return 0;
+      const sign = match[1] === '-' ? -1 : 1;
+      const h = Number(match[2]);
+      const m = Number(match[3] || 0);
+      return sign * (h*60 + m);
+    }
+
+    function localHourForUTC(utcHour, member) {
+      const currentOffset = offsetMinutes(member.tz);
+      let mins = utcHour * 60 + currentOffset;
+      while (mins < 0) mins += 1440;
+      while (mins >= 1440) mins -= 1440;
+      return mins;
+    }
+
+    function isWorking(member, localMins) {
+      return localMins >= member.start && localMins < member.end;
+    }
+
+    function renderMembers() {
+      membersEl.innerHTML = '';
+      members.forEach((m, i) => {
+        const card = document.createElement('div');
+        card.className = 'member';
+        card.innerHTML = `<strong>${m.name}</strong><small>${m.tz} · ${String(Math.floor(m.start/60)).padStart(2,'0')}:${String(m.start%60).padStart(2,'0')}–${String(Math.floor(m.end/60)).padStart(2,'0')}:${String(m.end%60).padStart(2,'0')}</small>`;
+        const del = document.createElement('button');
+        del.textContent = 'Remover';
+        del.className = 'secondary';
+        del.style.marginTop = '8px';
+        del.onclick = () => { members.splice(i,1); renderAll(); };
+        card.appendChild(del);
+        membersEl.appendChild(card);
+      });
+      teamCountEl.textContent = members.length;
+    }
+
+    function renderGrid() {
+      if (members.length === 0) {
+        gridWrap.innerHTML = '<p style="padding:12px">Adiciona membros para calcular sobreposição.</p>';
+        topSlotsEl.innerHTML = '';
+        perfectCountEl.textContent = '0';
+        bestHourEl.textContent = '—';
+        return;
+      }
+
+      const hours = [...Array(24).keys()];
+      const scores = [];
+      let perfect = 0;
+
+      let html = '<table><thead><tr><th>UTC</th>';
+      members.forEach(m => html += `<th>${m.name}<br><span style="color:#666;font-weight:400">${m.tz}</span></th>`);
+      html += '<th>Coverage</th></tr></thead><tbody>';
+
+      for (const h of hours) {
+        let on = 0;
+        html += `<tr><td><strong>${String(h).padStart(2,'0')}:00</strong></td>`;
+
+        members.forEach(m => {
+          const local = localHourForUTC(h, m);
+          const ok = isWorking(m, local);
+          if (ok) on++;
+          const cls = ok ? 'good' : 'bad';
+          const hh = String(Math.floor(local/60)).padStart(2,'0');
+          const mm = String(local%60).padStart(2,'0');
+          html += `<td class="${cls}">${hh}:${mm}</td>`;
+        });
+
+        const ratio = on / members.length;
+        let c = 'bad';
+        if (ratio === 1) { c = 'good'; perfect++; }
+        else if (ratio >= 0.66) c = 'partial';
+
+        html += `<td class="${c}"><strong>${Math.round(ratio*100)}%</strong></td></tr>`;
+        scores.push({ hour: h, on, ratio });
+      }
+
+      html += '</tbody></table>';
+      gridWrap.innerHTML = html;
+
+      perfectCountEl.textContent = String(perfect);
+      const best = [...scores].sort((a,b) => b.on - a.on || Math.abs(a.hour-13)-Math.abs(b.hour-13))[0];
+      bestHourEl.textContent = `${String(best.hour).padStart(2,'0')}:00 UTC`;
+
+      const top = [...scores].sort((a,b) => b.ratio - a.ratio || a.hour - b.hour).slice(0,5);
+      topSlotsEl.innerHTML = top.map(s => {
+        const participants = members.filter(m => isWorking(m, localHourForUTC(s.hour, m))).map(m => m.name).join(', ');
+        return `<div class="slot"><span><strong>${String(s.hour).padStart(2,'0')}:00 UTC</strong> · cobertura ${Math.round(s.ratio*100)}%</span><span style="color:#666">${participants || 'Ninguém'}</span></div>`;
+      }).join('');
+    }
+
+    function renderAll() { renderMembers(); renderGrid(); }
+
+    document.getElementById('addBtn').addEventListener('click', () => {
+      const name = document.getElementById('name').value.trim();
+      const tz = tzSelect.value;
+      const start = parseTime(document.getElementById('start').value);
+      const end = parseTime(document.getElementById('end').value);
+
+      if (!name) return alert('Escreve um nome.');
+      if (end <= start) return alert('Fim do dia tem de ser depois do início.');
+
+      members.push({ name, tz, start, end });
+      document.getElementById('name').value = '';
+      renderAll();
+    });
+
+    document.getElementById('demoBtn').addEventListener('click', () => {
+      members.length = 0;
+      members.push(
+        { name: 'Guilherme', tz: 'Europe/Lisbon', start: 9*60, end: 18*60 },
+        { name: 'Alex', tz: 'America/New_York', start: 9*60, end: 17*60 },
+        { name: 'Priya', tz: 'Asia/Kolkata', start: 10*60, end: 19*60 },
+        { name: 'Kenji', tz: 'Asia/Tokyo', start: 9*60, end: 18*60 }
+      );
+      renderAll();
+    });
+
+    renderAll();
+  </script>
+</body>
+</html>
