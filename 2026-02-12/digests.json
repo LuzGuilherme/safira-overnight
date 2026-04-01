@@ -1,7 +1,143 @@
 {
-  "generated": "2026-03-31T01:20:00.000000Z",
-  "count": 64,
+  "generated": "2026-04-01T01:06:01.589541Z",
+  "count": 67,
   "digests": [
+    {
+      "id": "2026-04-01-lex-488-joel-hamkins-infinity",
+      "filename": "2026-04-01-lex-488-joel-hamkins-infinity.md",
+      "date": "2026-04-01",
+      "title": "#488 — Infinity, Paradoxes that Broke Mathematics, Gödel Incompleteness & the Multiverse",
+      "host": "Lex Fridman Podcast",
+      "guest": "Joel David Hamkins",
+      "duration": "~4h+",
+      "link": "https://www.youtube.com/watch?v=14OPT6CcsH4",
+      "theme": "Infinito, fundamentos matemáticos e multiverso set-teórico",
+      "tldr": "Conversa profunda sobre tamanhos de infinito, paradoxos da teoria de conjuntos e limites formais da matemática. Gödel e o continuum hypothesis mostram que nem tudo é decidível num único sistema axiomático. Hamkins argumenta por um multiverso matemático com múltiplos universos legítimos.",
+      "insights": [
+        {
+          "insight": "Existem múltiplos tamanhos de infinito",
+          "why": "Quebra intuição clássica sobre quantidade"
+        },
+        {
+          "insight": "Hilbert's Hotel torna infinito contável tangível",
+          "why": "Facilita compreensão conceptual"
+        },
+        {
+          "insight": "Paradoxos impulsionaram rigor fundacional",
+          "why": "Crises geram axiomatização mais forte"
+        },
+        {
+          "insight": "Incompletude impõe limites estruturais",
+          "why": "Nem toda verdade é provável internamente"
+        },
+        {
+          "insight": "Multiverso set-teórico amplia enquadramentos",
+          "why": "Permite estudar modelos alternativos coerentes"
+        }
+      ],
+      "quotes": [
+        "Hilbert's Hotel is a hotel with infinitely many rooms."
+      ],
+      "rating": 4.8,
+      "tags": [
+        "LexFridman",
+        "JoelDavidHamkins",
+        "mathematics",
+        "set-theory",
+        "godel",
+        "infinity"
+      ]
+    },
+    {
+      "id": "2026-04-01-mfm-tim-ferriss-strengths-weaknesses",
+      "filename": "2026-04-01-mfm-tim-ferriss-strengths-weaknesses.md",
+      "date": "2026-04-01",
+      "title": "Why Your Greatest Strengths Create Your Weaknesses",
+      "host": "My First Million",
+      "guest": "Tim Ferriss",
+      "duration": "~20-30 min",
+      "link": "https://www.youtube.com/watch?v=_UGKyesYrdo",
+      "theme": "Trade-offs de performance e autoconsciência",
+      "tldr": "Tim Ferriss mostra que forças pessoais carregam custos ocultos. Precisão e obsessão aumentam performance, mas podem gerar desgaste e fricção social. O caminho é calibrar intensidade por contexto, não eliminar o superpoder.",
+      "insights": [
+        {
+          "insight": "Superpoderes têm lado sombra",
+          "why": "Força e fragilidade vêm juntas"
+        },
+        {
+          "insight": "Precisão extrema é contextual",
+          "why": "Nem toda situação exige máximo rigor"
+        },
+        {
+          "insight": "Experimentação contínua acelera evolução",
+          "why": "Iteração vence perfeccionismo"
+        },
+        {
+          "insight": "Autenticidade melhora comunicação",
+          "why": "Conexão real supera pose intelectual"
+        },
+        {
+          "insight": "Recuperação social sustenta performance",
+          "why": "Energia emocional é activo estratégico"
+        }
+      ],
+      "quotes": [
+        "The biggest weaknesses are typically right next to the biggest strengths."
+      ],
+      "rating": 4.4,
+      "tags": [
+        "MyFirstMillion",
+        "TimFerriss",
+        "productivity",
+        "high-performance",
+        "self-awareness"
+      ]
+    },
+    {
+      "id": "2026-04-01-mfm-chris-voss-negotiation-mistakes",
+      "filename": "2026-04-01-mfm-chris-voss-negotiation-mistakes.md",
+      "date": "2026-04-01",
+      "title": "FBI Negotiator: \"Avoid the Most Common Negotiation Mistakes\"",
+      "host": "My First Million",
+      "guest": "Christopher Voss",
+      "duration": "~20-25 min",
+      "link": "https://www.youtube.com/watch?v=FG5B4AeyArE",
+      "theme": "Escuta activa e erros críticos em negociação",
+      "tldr": "Christopher Voss explica que negociar melhor começa por ouvir sem interromper. Os dois sabotadores centrais são corrigir cedo demais e fazer “story stealing”. Relações colaborativas geram acordos mais rápidos e mais lucro no longo prazo.",
+      "insights": [
+        {
+          "insight": "Escuta activa é vantagem competitiva",
+          "why": "Melhora informação e confiança"
+        },
+        {
+          "insight": "Interromper para corrigir destrói rapport",
+          "why": "Cria resistência imediata"
+        },
+        {
+          "insight": "Story stealing não é empatia real",
+          "why": "Desvia foco da outra pessoa"
+        },
+        {
+          "insight": "Validação emocional acelera acordo",
+          "why": "Reduz defensividade"
+        },
+        {
+          "insight": "Colaboração supera estilo cutthroat",
+          "why": "Maximiza LTV relacional"
+        }
+      ],
+      "quotes": [
+        "Just because you've been heard doesn't mean you feel heard."
+      ],
+      "rating": 4.5,
+      "tags": [
+        "MyFirstMillion",
+        "ChristopherVoss",
+        "negotiation",
+        "communication",
+        "sales"
+      ]
+    },
     {
       "id": "2026-03-31-tim-self-help-trap",
       "filename": "2026-03-31-tim-self-help-trap.md",
