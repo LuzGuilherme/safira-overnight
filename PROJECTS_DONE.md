@@ -115,3 +115,4 @@ Ver `/root/clawd/data/STYLE_LIBRARY.md` para detalhes completos.
 | 2026-03-29 | The Rejection Wall 🧱 | Produtividade/Mindset | **Industrial Dark** 🌙 |
 | 2026-03-30 | Indie Founder Archetype Quiz 🧠 | Quiz/Self-discovery | **Playful** 🎭 |
 | 2026-03-31 | Global Meeting Overlap Planner 🌍 | Produtividade/Remote Collaboration | **Swiss Minimal** 🏛️ |
+| 2026-04-01 | Search Intent Match Lab 🔎 | Marketing/SEO Copy Testing | **Data Dense** 📊 |
