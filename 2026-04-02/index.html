@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Subscription Graveyard 💀</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --red: #ff0000;
+            --yellow: #ffff00;
+            --blue: #0000ff;
+            --gray: #e5e5e5;
+            --dark-gray: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--white);
+            color: var(--black);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Neo Brutalist style */
+        .brutal-border {
+            border: 4px solid var(--black);
+            box-shadow: 8px 8px 0 var(--black);
+        }
+
+        .brutal-border-red {
+            border: 4px solid var(--black);
+            box-shadow: 8px 8px 0 var(--red);
+        }
+
+        .brutal-border-yellow {
+            border: 4px solid var(--black);
+            box-shadow: 8px 8px 0 var(--yellow);
+        }
+
+        /* Header */
+        header {
+            background: var(--black);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 8px solid var(--red);
+        }
+
+        header h1 {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        header h1 span {
+            font-size: 1.2em;
+        }
+
+        header p {
+            font-family: 'Space Mono', monospace;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Main container */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Stats bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-box {
+            background: var(--yellow);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-box.danger {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .stat-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-top: 0.5rem;
+        }
+
+        /* Input section */
+        .input-section {
+            background: var(--gray);
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .input-section h2 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .subscription-form {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr auto;
+            gap: 1rem;
+            align-items: end;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .subscription-form {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            border: 3px solid var(--black);
+            background: var(--white);
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            box-shadow: 4px 4px 0 var(--black);
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            border: 3px solid var(--black);
+            cursor: pointer;
+            transition: all 0.1s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--black);
+        }
+
+        .btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: none;
+        }
+
+        .btn-add {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .btn-danger {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        /* Quick add buttons */
+        .quick-add {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px dashed var(--black);
+        }
+
+        .quick-add span {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .quick-btn {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+            background: var(--white);
+            border: 2px solid var(--black);
+            cursor: pointer;
+            font-family: 'Space Mono', monospace;
+            transition: all 0.1s;
+        }
+
+        .quick-btn:hover {
+            background: var(--yellow);
+        }
+
+        /* Graveyard section */
+        .graveyard {
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 3rem 2rem;
+            margin: -2rem;
+            margin-top: 0;
+            min-height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .graveyard h2 {
+            color: var(--white);
+            font-size: 2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 0 var(--black);
+        }
+
+        .graves-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        /* Gravestone styles */
+        .grave {
+            position: relative;
+            animation: rise 0.5s ease-out;
+        }
+
+        @keyframes rise {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .tombstone {
+            background: linear-gradient(135deg, #808080 0%, #a0a0a0 50%, #707070 100%);
+            padding: 1.5rem 1rem;
+            min-width: 140px;
+            max-width: 180px;
+            text-align: center;
+            border-radius: 40% 40% 0 0;
+            border: 3px solid var(--dark-gray);
+            position: relative;
+            box-shadow: 
+                inset -5px -5px 15px rgba(0,0,0,0.3),
+                5px 5px 10px rgba(0,0,0,0.5);
+        }
+
+        .tombstone::before {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 15px;
+            background: #505050;
+            border: 3px solid var(--dark-gray);
+            border-top: none;
+        }
+
+        .tombstone .name {
+            font-weight: 800;
+            font-size: 1rem;
+            color: var(--black);
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+            word-break: break-word;
+        }
+
+        .tombstone .rip {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--dark-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .tombstone .cost {
+            font-weight: 900;
+            font-size: 1.4rem;
+            color: var(--red);
+            text-shadow: 1px 1px 0 var(--black);
+        }
+
+        .tombstone .period {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--dark-gray);
+        }
+
+        .tombstone .yearly {
+            font-size: 0.8rem;
+            color: var(--black);
+            margin-top: 0.3rem;
+            font-weight: 600;
+        }
+
+        .tombstone .usage {
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid var(--dark-gray);
+        }
+
+        .usage-bar {
+            height: 8px;
+            background: var(--dark-gray);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.3rem;
+        }
+
+        .usage-fill {
+            height: 100%;
+            transition: width 0.5s;
+        }
+
+        .usage-fill.low { background: var(--red); }
+        .usage-fill.medium { background: var(--yellow); }
+        .usage-fill.high { background: #00ff00; }
+
+        .usage-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--dark-gray);
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 28px;
+            height: 28px;
+            background: var(--red);
+            color: var(--white);
+            border: 2px solid var(--black);
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: 900;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .grave:hover .delete-btn {
+            opacity: 1;
+        }
+
+        /* Ground */
+        .ground {
+            height: 40px;
+            background: linear-gradient(90deg, #2d4a2d 0%, #3d5a3d 50%, #2d4a2d 100%);
+            margin: 0 -2rem;
+            margin-top: -20px;
+            border-top: 4px solid #1a3a1a;
+        }
+
+        /* Empty state */
+        .empty-graveyard {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #666;
+        }
+
+        .empty-graveyard .ghost {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .empty-graveyard p {
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+        }
+
+        /* Recommendations */
+        .recommendations {
+            background: var(--white);
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .recommendations h2 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rec-card {
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .rec-card.cut {
+            background: #ffe6e6;
+            border-left: 6px solid var(--red);
+        }
+
+        .rec-card.review {
+            background: #fffde6;
+            border-left: 6px solid var(--yellow);
+        }
+
+        .rec-card.keep {
+            background: #e6ffe6;
+            border-left: 6px solid #00aa00;
+        }
+
+        .rec-info h3 {
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .rec-info p {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--dark-gray);
+        }
+
+        .rec-savings {
+            font-weight: 900;
+            font-size: 1.5rem;
+        }
+
+        .rec-savings.red { color: var(--red); }
+        .rec-savings.green { color: #00aa00; }
+
+        /* Summary section */
+        .summary {
+            background: var(--black);
+            color: var(--white);
+            padding: 3rem 2rem;
+            margin: 3rem -2rem;
+            margin-bottom: -2rem;
+        }
+
+        .summary h2 {
+            font-size: 2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .summary-item {
+            text-align: center;
+            padding: 1.5rem;
+            border: 3px solid var(--white);
+        }
+
+        .summary-item .label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .summary-item .value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-top: 0.5rem;
+        }
+
+        .summary-item .value.highlight {
+            color: var(--red);
+            text-shadow: 2px 2px 0 #660000;
+        }
+
+        .summary-item .value.yellow {
+            color: var(--yellow);
+        }
+
+        .summary-item .subtext {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            opacity: 0.7;
+        }
+
+        /* The brutal truth */
+        .brutal-truth {
+            max-width: 700px;
+            margin: 2rem auto 0;
+            padding: 2rem;
+            background: var(--red);
+            text-align: center;
+        }
+
+        .brutal-truth h3 {
+            font-size: 1.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .brutal-truth p {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+            border-top: 4px solid var(--red);
+        }
+
+        footer p {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        footer a {
+            color: var(--yellow);
+        }
+
+        /* Animations */
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Hidden class */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .subscription-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-value {
+                font-size: 1.8rem;
+            }
+            
+            .tombstone {
+                min-width: 120px;
+                padding: 1rem 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span>💀</span> The Subscription Graveyard <span>💀</span></h1>
+        <p>Where your money goes to die. Add your subscriptions. Face the truth.</p>
+    </header>
+
+    <main>
+        <!-- Live Stats -->
+        <div class="stats-bar">
+            <div class="stat-box brutal-border">
+                <div class="stat-label">Monthly Burn</div>
+                <div class="stat-value" id="monthlyBurn">$0</div>
+            </div>
+            <div class="stat-box brutal-border">
+                <div class="stat-label">Yearly Cost</div>
+                <div class="stat-value" id="yearlyCost">$0</div>
+            </div>
+            <div class="stat-box danger brutal-border-red">
+                <div class="stat-label">5-Year Damage</div>
+                <div class="stat-value" id="fiveYearCost">$0</div>
+            </div>
+            <div class="stat-box brutal-border-yellow">
+                <div class="stat-label">Buried Subs</div>
+                <div class="stat-value" id="subCount">0</div>
+            </div>
+        </div>
+
+        <!-- Input Section -->
+        <section class="input-section brutal-border">
+            <h2>⚰️ Bury a Subscription</h2>
+            <div class="subscription-form">
+                <div class="form-group">
+                    <label>Service Name</label>
+                    <input type="text" id="subName" placeholder="Netflix, Spotify, etc.">
+                </div>
+                <div class="form-group">
+                    <label>Cost ($)</label>
+                    <input type="number" id="subCost" placeholder="9.99" step="0.01" min="0">
+                </div>
+                <div class="form-group">
+                    <label>Billing</label>
+                    <select id="subPeriod">
+                        <option value="monthly">Monthly</option>
+                        <option value="yearly">Yearly</option>
+                        <option value="weekly">Weekly</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Usage</label>
+                    <select id="subUsage">
+                        <option value="never">Never (0%)</option>
+                        <option value="rarely">Rarely (25%)</option>
+                        <option value="sometimes">Sometimes (50%)</option>
+                        <option value="often">Often (75%)</option>
+                        <option value="daily">Daily (100%)</option>
+                    </select>
+                </div>
+                <button class="btn btn-add" onclick="addSubscription()">+ Add</button>
+            </div>
+            
+            <div class="quick-add">
+                <span>Quick add:</span>
+                <button class="quick-btn" onclick="quickAdd('Netflix', 15.49, 'monthly')">Netflix</button>
+                <button class="quick-btn" onclick="quickAdd('Spotify', 10.99, 'monthly')">Spotify</button>
+                <button class="quick-btn" onclick="quickAdd('ChatGPT Plus', 20, 'monthly')">ChatGPT</button>
+                <button class="quick-btn" onclick="quickAdd('Adobe CC', 54.99, 'monthly')">Adobe CC</button>
+                <button class="quick-btn" onclick="quickAdd('Notion', 10, 'monthly')">Notion</button>
+                <button class="quick-btn" onclick="quickAdd('YouTube Premium', 13.99, 'monthly')">YouTube</button>
+                <button class="quick-btn" onclick="quickAdd('iCloud+', 2.99, 'monthly')">iCloud+</button>
+                <button class="quick-btn" onclick="quickAdd('Amazon Prime', 139, 'yearly')">Prime</button>
+                <button class="quick-btn" onclick="quickAdd('Gym', 30, 'monthly')">Gym</button>
+            </div>
+        </section>
+
+        <!-- The Graveyard -->
+        <section class="graveyard" id="graveyard">
+            <h2>🪦 Your Subscription Graveyard 🪦</h2>
+            <div class="graves-container" id="gravesContainer">
+                <div class="empty-graveyard" id="emptyState">
+                    <div class="ghost">👻</div>
+                    <p>No subscriptions buried yet...</p>
+                    <p>Add some above to see where your money dies.</p>
+                </div>
+            </div>
+            <div class="ground"></div>
+        </section>
+
+        <!-- Recommendations -->
+        <section class="recommendations brutal-border" id="recommendations">
+            <h2>🔪 Cut Recommendations</h2>
+            <div id="recContainer">
+                <p style="font-family: 'Space Mono', monospace; color: #666;">Add subscriptions to get personalized recommendations.</p>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section class="summary" id="summary">
+            <h2>💀 The Brutal Truth 💀</h2>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="label">Working Hours to Pay</div>
+                    <div class="value yellow" id="workingHours">0</div>
+                    <div class="subtext">at $25/hour</div>
+                </div>
+                <div class="summary-item">
+                    <div class="label">Potential Savings</div>
+                    <div class="value highlight" id="potentialSavings">$0</div>
+                    <div class="subtext">from low-usage subs</div>
+                </div>
+                <div class="summary-item">
+                    <div class="label">Money Wasted in 10 Years</div>
+                    <div class="value highlight" id="tenYearWaste">$0</div>
+                    <div class="subtext">if nothing changes</div>
+                </div>
+            </div>
+            
+            <div class="brutal-truth" id="brutalTruthBox">
+                <h3>⚠️ Reality Check</h3>
+                <p id="brutalTruthText">Add your subscriptions to see the brutal truth about your spending.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Built by <a href="https://github.com/LuzGuilherme" target="_blank">Safira</a> overnight. No subscriptions required. 💀</p>
+    </footer>
+
+    <script>
+        let subscriptions = [];
+
+        // Usage percentages
+        const usageMap = {
+            'never': 0,
+            'rarely': 25,
+            'sometimes': 50,
+            'often': 75,
+            'daily': 100
+        };
+
+        // Convert to monthly cost
+        function toMonthlyCost(cost, period) {
+            switch(period) {
+                case 'weekly': return cost * 4.33;
+                case 'yearly': return cost / 12;
+                default: return cost;
+            }
+        }
+
+        // Add subscription
+        function addSubscription() {
+            const name = document.getElementById('subName').value.trim();
+            const cost = parseFloat(document.getElementById('subCost').value);
+            const period = document.getElementById('subPeriod').value;
+            const usage = document.getElementById('subUsage').value;
+
+            if (!name || isNaN(cost) || cost <= 0) {
+                document.getElementById('subName').classList.add('shake');
+                setTimeout(() => document.getElementById('subName').classList.remove('shake'), 500);
+                return;
+            }
+
+            subscriptions.push({
+                id: Date.now(),
+                name,
+                cost,
+                period,
+                usage,
+                usagePercent: usageMap[usage],
+                monthlyCost: toMonthlyCost(cost, period)
+            });
+
+            // Clear form
+            document.getElementById('subName').value = '';
+            document.getElementById('subCost').value = '';
+            document.getElementById('subPeriod').value = 'monthly';
+            document.getElementById('subUsage').value = 'never';
+
+            renderGraveyard();
+            updateStats();
+            saveToLocalStorage();
+        }
+
+        // Quick add
+        function quickAdd(name, cost, period) {
+            document.getElementById('subName').value = name;
+            document.getElementById('subCost').value = cost;
+            document.getElementById('subPeriod').value = period;
+            document.getElementById('subUsage').focus();
+        }
+
+        // Delete subscription
+        function deleteSub(id) {
+            subscriptions = subscriptions.filter(s => s.id !== id);
+            renderGraveyard();
+            updateStats();
+            saveToLocalStorage();
+        }
+
+        // Render graveyard
+        function renderGraveyard() {
+            const container = document.getElementById('gravesContainer');
+            const emptyState = document.getElementById('emptyState');
+
+            if (subscriptions.length === 0) {
+                container.innerHTML = '';
+                container.appendChild(emptyState);
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            container.innerHTML = '';
+            
+            // Sort by monthly cost (highest first)
+            const sorted = [...subscriptions].sort((a, b) => b.monthlyCost - a.monthlyCost);
+
+            sorted.forEach((sub, index) => {
+                const grave = document.createElement('div');
+                grave.className = 'grave';
+                grave.style.animationDelay = `${index * 0.1}s`;
+
+                const usageClass = sub.usagePercent <= 25 ? 'low' : 
+                                   sub.usagePercent <= 50 ? 'medium' : 'high';
+
+                const yearlyCost = sub.monthlyCost * 12;
+
+                grave.innerHTML = `
+                    <div class="tombstone">
+                        <button class="delete-btn" onclick="deleteSub(${sub.id})">×</button>
+                        <div class="rip">R.I.P.</div>
+                        <div class="name">${sub.name}</div>
+                        <div class="cost">$${sub.cost.toFixed(2)}</div>
+                        <div class="period">/${sub.period}</div>
+                        <div class="yearly">$${yearlyCost.toFixed(0)}/yr</div>
+                        <div class="usage">
+                            <div class="usage-label">Usage: ${sub.usagePercent}%</div>
+                            <div class="usage-bar">
+                                <div class="usage-fill ${usageClass}" style="width: ${sub.usagePercent}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(grave);
+            });
+        }
+
+        // Update stats
+        function updateStats() {
+            const monthly = subscriptions.reduce((sum, s) => sum + s.monthlyCost, 0);
+            const yearly = monthly * 12;
+            const fiveYear = yearly * 5;
+            const tenYear = yearly * 10;
+
+            document.getElementById('monthlyBurn').textContent = `$${monthly.toFixed(0)}`;
+            document.getElementById('yearlyCost').textContent = `$${yearly.toFixed(0)}`;
+            document.getElementById('fiveYearCost').textContent = `$${fiveYear.toFixed(0)}`;
+            document.getElementById('subCount').textContent = subscriptions.length;
+
+            // Working hours (at $25/hour)
+            const workingHours = (yearly / 25).toFixed(0);
+            document.getElementById('workingHours').textContent = workingHours;
+
+            // Potential savings (subscriptions with <50% usage)
+            const lowUsage = subscriptions.filter(s => s.usagePercent < 50);
+            const potentialSavings = lowUsage.reduce((sum, s) => sum + s.monthlyCost, 0) * 12;
+            document.getElementById('potentialSavings').textContent = `$${potentialSavings.toFixed(0)}`;
+
+            document.getElementById('tenYearWaste').textContent = `$${tenYear.toFixed(0)}`;
+
+            // Update recommendations
+            updateRecommendations();
+
+            // Update brutal truth
+            updateBrutalTruth(monthly, yearly, potentialSavings);
+        }
+
+        // Update recommendations
+        function updateRecommendations() {
+            const container = document.getElementById('recContainer');
+            
+            if (subscriptions.length === 0) {
+                container.innerHTML = '<p style="font-family: \'Space Mono\', monospace; color: #666;">Add subscriptions to get personalized recommendations.</p>';
+                return;
+            }
+
+            // Sort by value ratio (usage % / monthly cost) - lower = worse value
+            const sorted = [...subscriptions].map(s => ({
+                ...s,
+                valueRatio: s.usagePercent / s.monthlyCost
+            })).sort((a, b) => a.valueRatio - b.valueRatio);
+
+            container.innerHTML = '';
+
+            sorted.forEach(sub => {
+                const yearlySavings = sub.monthlyCost * 12;
+                let recClass, recText, savingsClass;
+
+                if (sub.usagePercent === 0) {
+                    recClass = 'cut';
+                    recText = '🔪 CUT IT — You never use this!';
+                    savingsClass = 'red';
+                } else if (sub.usagePercent <= 25) {
+                    recClass = 'cut';
+                    recText = '🔪 CONSIDER CUTTING — Rarely used';
+                    savingsClass = 'red';
+                } else if (sub.usagePercent <= 50) {
+                    recClass = 'review';
+                    recText = '⚠️ REVIEW — Is it worth it?';
+                    savingsClass = 'red';
+                } else {
+                    recClass = 'keep';
+                    recText = '✅ KEEP — Good usage';
+                    savingsClass = 'green';
+                }
+
+                const card = document.createElement('div');
+                card.className = `rec-card ${recClass} brutal-border`;
+                card.innerHTML = `
+                    <div class="rec-info">
+                        <h3>${sub.name}</h3>
+                        <p>${recText}</p>
+                    </div>
+                    <div class="rec-savings ${savingsClass}">
+                        ${recClass === 'keep' ? '—' : `$${yearlySavings.toFixed(0)}/yr`}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Update brutal truth
+        function updateBrutalTruth(monthly, yearly, savings) {
+            const box = document.getElementById('brutalTruthBox');
+            const text = document.getElementById('brutalTruthText');
+
+            if (subscriptions.length === 0) {
+                text.textContent = 'Add your subscriptions to see the brutal truth about your spending.';
+                return;
+            }
+
+            const messages = [];
+
+            if (monthly > 200) {
+                messages.push(`You're burning $${monthly.toFixed(0)}/month on subscriptions. That's a car payment!`);
+            } else if (monthly > 100) {
+                messages.push(`$${monthly.toFixed(0)}/month might not sound bad. But that's $${yearly.toFixed(0)} per year gone.`);
+            } else if (monthly > 50) {
+                messages.push(`$${monthly.toFixed(0)}/month adds up to $${(yearly * 10).toFixed(0)} over a decade.`);
+            }
+
+            if (savings > yearly * 0.3) {
+                messages.push(`You could save $${savings.toFixed(0)}/year by cutting low-usage subscriptions. That's ${(savings/yearly*100).toFixed(0)}% of your total!`);
+            }
+
+            const unusedCount = subscriptions.filter(s => s.usagePercent === 0).length;
+            if (unusedCount > 0) {
+                messages.push(`You have ${unusedCount} subscription${unusedCount > 1 ? 's' : ''} you NEVER use. That's literal money in the trash.`);
+            }
+
+            const averageUsage = subscriptions.reduce((sum, s) => sum + s.usagePercent, 0) / subscriptions.length;
+            if (averageUsage < 40) {
+                messages.push(`Average usage: ${averageUsage.toFixed(0)}%. You're paying full price for quarter-used services.`);
+            }
+
+            text.textContent = messages.length > 0 ? messages.join(' ') : 
+                `${subscriptions.length} subscriptions totaling $${yearly.toFixed(0)}/year. Keep tracking your usage.`;
+        }
+
+        // Local storage
+        function saveToLocalStorage() {
+            localStorage.setItem('subscriptionGraveyard', JSON.stringify(subscriptions));
+        }
+
+        function loadFromLocalStorage() {
+            const saved = localStorage.getItem('subscriptionGraveyard');
+            if (saved) {
+                subscriptions = JSON.parse(saved);
+                renderGraveyard();
+                updateStats();
+            }
+        }
+
+        // Enter key to add
+        document.getElementById('subCost').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') addSubscription();
+        });
+
+        document.getElementById('subName').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') document.getElementById('subCost').focus();
+        });
+
+        // Load on page load
+        loadFromLocalStorage();
+    </script>
+</body>
+</html>
