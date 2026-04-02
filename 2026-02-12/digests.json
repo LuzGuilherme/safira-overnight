@@ -1,7 +1,101 @@
 {
-  "generated": "2026-04-01T01:06:01.589541Z",
-  "count": 67,
+  "generated": "2026-04-02T01:15:00.000000Z",
+  "count": 69,
   "digests": [
+    {
+      "id": "2026-04-02-mfm-811-chris-koerner-side-hustles",
+      "filename": "mfm-811-chris-koerner-side-hustles-2026.md",
+      "date": "2026-04-02",
+      "title": "5 Killer Businesses On Easy Mode In 2026",
+      "host": "My First Million",
+      "guest": "Chris Koerner",
+      "duration": "~45 min",
+      "link": "https://www.youtube.com/watch?v=SUYBggpA3ZU",
+      "theme": "Side hustles low-risk, AI consulting, snail mail subscriptions",
+      "tldr": "Chris Koerner partilha 5 negócios 'easy mode' para 2026: liquidation reselling (Btock.com), AI voice agents para pequenos negócios, snail mail subscriptions ($60K MRR em 7 meses!), tote rentals para mudanças, e wall printing. Todos com baixo investimento e validação rápida.",
+      "insights": [
+        {
+          "insight": "Liquidation reselling: Btock.com tem appliances a $34",
+          "why": "ROI brutal - comprar a $34, vender a $750+"
+        },
+        {
+          "insight": "AI Voice Agents são o 'novo website'",
+          "why": "Todo negócio precisa, poucos sabem implementar"
+        },
+        {
+          "insight": "Snail mail subs: $60K MRR em 7 meses",
+          "why": "Pessoas querem surpresas físicas, não mais emails"
+        },
+        {
+          "insight": "Wall printing: $8 custo, $800 venda",
+          "why": "99% gross margin em serviço visual"
+        },
+        {
+          "insight": "Facebook Marketplace tem liquidez absurda",
+          "why": "Listar antes de comprar para testar demand"
+        }
+      ],
+      "quotes": [
+        "Voice agents are what websites were 20 years ago. Everyone needs one but doesn't know it yet.",
+        "We're sick of emails. We want to go to the mailbox and open a surprise."
+      ],
+      "rating": 4.9,
+      "tags": [
+        "MyFirstMillion",
+        "ChrisKoerner",
+        "side-hustles",
+        "AI-consulting",
+        "reselling",
+        "low-risk"
+      ]
+    },
+    {
+      "id": "2026-04-02-mfm-810-oz-pearlman-mentalist",
+      "filename": "mfm-810-oz-pearlman-mentalist.md",
+      "date": "2026-04-02",
+      "title": "World's #1 Mentalist: How To Win Any Negotiation and Close Any Deal",
+      "host": "My First Million",
+      "guest": "Oz Pearlman",
+      "duration": "~60 min",
+      "link": "https://www.youtube.com/watch?v=Xe3sEIOvxQU",
+      "theme": "Persuasão, superar medo de rejeição, dissociação cognitiva",
+      "tldr": "Oz Pearlman revela que o seu superpoder não são truques - são habilidades de influência aprendíveis. A chave é superar o medo de rejeição através de dissociação cognitiva: separar 'tu' da 'persona profissional' para que rejeição não seja pessoal.",
+      "insights": [
+        {
+          "insight": "Dissociação cognitiva elimina dor de rejeição",
+          "why": "Separar eu pessoal de eu profissional liberta"
+        },
+        {
+          "insight": "Frameworks de 'The Game' aplicados a business",
+          "why": "Time constraints, social proof funcionam universalmente"
+        },
+        {
+          "insight": "Multiple outs - sempre ter planos B, C, D",
+          "why": "Audiência nunca sabe se falhaste se adaptares"
+        },
+        {
+          "insight": "ABC framework: A→B (foco), Z (inspiração)",
+          "why": "Não pensar na milha 100, só no próximo passo"
+        },
+        {
+          "insight": "Criar momentos memoráveis > 'fooling' pessoas",
+          "why": "O produto real é a experiência, não o truque"
+        }
+      ],
+      "quotes": [
+        "Fear of rejection is not even rejection - it's the FEAR of it. Most people keep one foot out.",
+        "Those three things are a cheat code in life: walk into a room, be remembered, engage with people, create deeper bonds."
+      ],
+      "rating": 4.6,
+      "tags": [
+        "MyFirstMillion",
+        "OzPearlman",
+        "persuasion",
+        "negotiation",
+        "psychology",
+        "fear-of-rejection"
+      ]
+    },
     {
       "id": "2026-04-01-lex-488-joel-hamkins-infinity",
       "filename": "2026-04-01-lex-488-joel-hamkins-infinity.md",
