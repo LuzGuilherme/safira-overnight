@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🥤 Batidos para Triatleta | Guilherme</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            color: #888;
+            font-size: 1.1rem;
+        }
+        
+        .goal-badge {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-radius: 30px;
+            font-weight: 600;
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        .category {
+            margin-bottom: 2.5rem;
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+        
+        .category-icon {
+            font-size: 2rem;
+        }
+        
+        .category-title {
+            font-size: 1.5rem;
+            color: #fff;
+        }
+        
+        .category-desc {
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .recipe-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .recipe-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .recipe-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+        
+        .recipe-name .emoji {
+            margin-right: 0.5rem;
+        }
+        
+        .ingredients {
+            display: grid;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .ingredient {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 0.75rem;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+        }
+        
+        .ingredient-name {
+            color: #e0e0e0;
+        }
+        
+        .ingredient-link {
+            color: #00d4ff;
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 0.25rem 0.75rem;
+            background: rgba(0,212,255,0.1);
+            border-radius: 20px;
+            transition: background 0.2s;
+        }
+        
+        .ingredient-link:hover {
+            background: rgba(0,212,255,0.2);
+        }
+        
+        .macros {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.75rem;
+        }
+        
+        .macro {
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .macro-cal { background: rgba(255,107,53,0.2); color: #ff6b35; }
+        .macro-protein { background: rgba(124,58,237,0.2); color: #a78bfa; }
+        .macro-carbs { background: rgba(34,197,94,0.2); color: #4ade80; }
+        
+        .timing {
+            font-size: 0.9rem;
+            color: #888;
+            font-style: italic;
+        }
+        
+        .shopping-section {
+            background: linear-gradient(135deg, rgba(34,197,94,0.1), rgba(34,197,94,0.05));
+            border: 1px solid rgba(34,197,94,0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .shopping-title {
+            font-size: 1.5rem;
+            color: #4ade80;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .shopping-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+        
+        .shopping-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+        
+        .shopping-item a {
+            color: #4ade80;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+        
+        .shopping-item a:hover {
+            text-decoration: underline;
+        }
+        
+        .tips {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            border-left: 4px solid #7c3aed;
+        }
+        
+        .tips h3 {
+            color: #a78bfa;
+            margin-bottom: 0.75rem;
+        }
+        
+        .tips ul {
+            list-style: none;
+            color: #aaa;
+        }
+        
+        .tips li {
+            padding: 0.25rem 0;
+        }
+        
+        .tips li::before {
+            content: "💡 ";
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            .macros { flex-direction: column; gap: 0.5rem; }
+            .ingredient { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🥤 Batidos para Triatleta</h1>
+            <p class="subtitle">Receitas naturais personalizadas • Sem proteína em pó</p>
+            <span class="goal-badge">🏊‍♂️🚴‍♂️🏃‍♂️ Ironman Outubro 2026</span>
+        </header>
+
+        <!-- PRÉ-TREINO -->
+        <section class="category">
+            <div class="category-header">
+                <span class="category-icon">🏃</span>
+                <div>
+                    <h2 class="category-title">Pré-Treino</h2>
+                    <p class="category-desc">30-60 minutos antes • Energia rápida + hidratação</p>
+                </div>
+            </div>
+
+            <div class="recipe-card">
+                <h3 class="recipe-name"><span class="emoji">🍌</span>Banana Power</h3>
+                <div class="ingredients">
+                    <div class="ingredient">
+                        <span class="ingredient-name">1 banana madura</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=banana" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">150g Skyr natural</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=skyr+natural" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">1 colher sopa aveia</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=aveia+flocos" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">200ml água de coco</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=agua+coco" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">1 colher chá mel</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=mel" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">Pitada de canela</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=canela" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                </div>
+                <div class="macros">
+                    <span class="macro macro-cal">~280 kcal</span>
+                    <span class="macro macro-protein">15g proteína</span>
+                    <span class="macro macro-carbs">50g carbs</span>
+                </div>
+                <p class="timing">⏰ Treinos de manhã cedo ou sessões longas</p>
+            </div>
+
+            <div class="recipe-card">
+                <h3 class="recipe-name"><span class="emoji">🍠</span>Batata Doce Energy</h3>
+                <div class="ingredients">
+                    <div class="ingredient">
+                        <span class="ingredient-name">100g batata doce cozida</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=batata+doce" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">1 banana</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=banana" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">150ml leite magro</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=leite+magro" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">1 colher sopa mel</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=mel" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">Canela a gosto</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=canela" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                </div>
+                <div class="macros">
+                    <span class="macro macro-cal">~300 kcal</span>
+                    <span class="macro macro-protein">8g proteína</span>
+                    <span class="macro macro-carbs">60g carbs</span>
+                </div>
+                <p class="timing">⏰ Antes de bike longas ou corridas >1h</p>
+            </div>
+        </section>
+
+        <!-- PÓS-TREINO -->
+        <section class="category">
+            <div class="category-header">
+                <span class="category-icon">💪</span>
+                <div>
+                    <h2 class="category-title">Pós-Treino</h2>
+                    <p class="category-desc">Até 30 minutos depois • Recuperação muscular</p>
+                </div>
+            </div>
+
+            <div class="recipe-card">
+                <h3 class="recipe-name"><span class="emoji">🍫</span>Recovery Chocolate</h3>
+                <div class="ingredients">
+                    <div class="ingredient">
+                        <span class="ingredient-name">200g Skyr natural</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=skyr+natural" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">1 banana</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=banana" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">1 colher sopa cacau em pó</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=cacau+po" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">200ml leite magro</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=leite+magro" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">1 colher sopa aveia</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=aveia+flocos" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">1 colher chá mel (opcional)</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=mel" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                </div>
+                <div class="macros">
+                    <span class="macro macro-cal">~350 kcal</span>
+                    <span class="macro macro-protein">28g proteína</span>
+                    <span class="macro macro-carbs">45g carbs</span>
+                </div>
+                <p class="timing">⏰ Depois de qualquer treino intenso</p>
+            </div>
+
+            <div class="recipe-card">
+                <h3 class="recipe-name"><span class="emoji">🫐</span>Berry Recovery</h3>
+                <div class="ingredients">
+                    <div class="ingredient">
+                        <span class="ingredient-name">150g Skyr natural</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=skyr+natural" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">100g frutos vermelhos congelados</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=frutos+vermelhos+congelados" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">1 banana</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=banana" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">200ml leite magro</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=leite+magro" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">1 colher sopa sementes de chia</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=sementes+chia" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                </div>
+                <div class="macros">
+                    <span class="macro macro-cal">~320 kcal</span>
+                    <span class="macro macro-protein">22g proteína</span>
+                    <span class="macro macro-carbs">40g carbs</span>
+                </div>
+                <p class="timing">⏰ Pós-natação ou treinos de técnica</p>
+            </div>
+        </section>
+
+        <!-- RECUPERAÇÃO -->
+        <section class="category">
+            <div class="category-header">
+                <span class="category-icon">😴</span>
+                <div>
+                    <h2 class="category-title">Recuperação / Noite</h2>
+                    <p class="category-desc">Reparação muscular • Anti-inflamatório • Sono</p>
+                </div>
+            </div>
+
+            <div class="recipe-card">
+                <h3 class="recipe-name"><span class="emoji">🌙</span>Golden Milk Smoothie</h3>
+                <div class="ingredients">
+                    <div class="ingredient">
+                        <span class="ingredient-name">200ml leite magro</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=leite+magro" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">100g Skyr natural</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=skyr+natural" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">1 banana pequena</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=banana" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">½ colher chá curcuma</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=curcuma" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">Pitada de pimenta preta</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=pimenta+preta" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">1 colher chá mel</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=mel" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                </div>
+                <div class="macros">
+                    <span class="macro macro-cal">~250 kcal</span>
+                    <span class="macro macro-protein">18g proteína</span>
+                    <span class="macro macro-carbs">35g carbs</span>
+                </div>
+                <p class="timing">⏰ 2-3h antes de dormir, especialmente após dias pesados</p>
+            </div>
+
+            <div class="recipe-card">
+                <h3 class="recipe-name"><span class="emoji">🌾</span>Aveia Nocturna</h3>
+                <div class="ingredients">
+                    <div class="ingredient">
+                        <span class="ingredient-name">200ml leite magro</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=leite+magro" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">100g Skyr natural</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=skyr+natural" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">2 colheres sopa aveia</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=aveia+flocos" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">1 maçã pequena</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=maca" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">Canela</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=canela" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                </div>
+                <div class="macros">
+                    <span class="macro macro-cal">~300 kcal</span>
+                    <span class="macro macro-protein">20g proteína</span>
+                    <span class="macro macro-carbs">45g carbs</span>
+                </div>
+                <p class="timing">⏰ Noites antes de treinos longos (carb loading suave)</p>
+            </div>
+        </section>
+
+        <!-- DIA DE DESCANSO -->
+        <section class="category">
+            <div class="category-header">
+                <span class="category-icon">🌿</span>
+                <div>
+                    <h2 class="category-title">Dia de Descanso</h2>
+                    <p class="category-desc">Nutrientes • Anti-inflamatório • Menos carbs</p>
+                </div>
+            </div>
+
+            <div class="recipe-card">
+                <h3 class="recipe-name"><span class="emoji">🥬</span>Green Power</h3>
+                <div class="ingredients">
+                    <div class="ingredient">
+                        <span class="ingredient-name">150g Skyr natural</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=skyr+natural" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">1 banana</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=banana" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">Punhado de espinafres frescos</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=espinafres" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">200ml água de coco</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=agua+coco" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                    <div class="ingredient">
+                        <span class="ingredient-name">1 colher sopa sementes de linhaça</span>
+                        <a href="https://www.continente.pt/pesquisa/?q=sementes+linhaca" target="_blank" class="ingredient-link">Continente →</a>
+                    </div>
+                </div>
+                <div class="macros">
+                    <span class="macro macro-cal">~280 kcal</span>
+                    <span class="macro macro-protein">18g proteína</span>
+                    <span class="macro macro-carbs">35g carbs</span>
+                </div>
+                <p class="timing">⏰ Manhãs de descanso activo</p>
+            </div>
+        </section>
+
+        <!-- LISTA DE COMPRAS -->
+        <section class="shopping-section">
+            <h2 class="shopping-title">🛒 Lista de Compras Continente</h2>
+            
+            <h4 style="color: #fff; margin: 1rem 0 0.5rem;">Base (ter sempre)</h4>
+            <div class="shopping-grid">
+                <div class="shopping-item">
+                    <span>Skyr natural</span>
+                    <a href="https://www.continente.pt/pesquisa/?q=skyr+natural" target="_blank">Comprar →</a>
+                </div>
+                <div class="shopping-item">
+                    <span>Bananas</span>
+                    <a href="https://www.continente.pt/pesquisa/?q=banana" target="_blank">Comprar →</a>
+                </div>
+                <div class="shopping-item">
+                    <span>Aveia flocos</span>
+                    <a href="https://www.continente.pt/pesquisa/?q=aveia+flocos" target="_blank">Comprar →</a>
+                </div>
+                <div class="shopping-item">
+                    <span>Leite magro</span>
+                    <a href="https://www.continente.pt/pesquisa/?q=leite+magro" target="_blank">Comprar →</a>
+                </div>
+                <div class="shopping-item">
+                    <span>Mel</span>
+                    <a href="https://www.continente.pt/pesquisa/?q=mel" target="_blank">Comprar →</a>
+                </div>
+            </div>
+            
+            <h4 style="color: #fff; margin: 1.5rem 0 0.5rem;">Extras</h4>
+            <div class="shopping-grid">
+                <div class="shopping-item">
+                    <span>Cacau em pó</span>
+                    <a href="https://www.continente.pt/pesquisa/?q=cacau+po" target="_blank">Comprar →</a>
+                </div>
+                <div class="shopping-item">
+                    <span>Frutos vermelhos congelados</span>
+                    <a href="https://www.continente.pt/pesquisa/?q=frutos+vermelhos+congelados" target="_blank">Comprar →</a>
+                </div>
+                <div class="shopping-item">
+                    <span>Água de coco</span>
+                    <a href="https://www.continente.pt/pesquisa/?q=agua+coco" target="_blank">Comprar →</a>
+                </div>
+                <div class="shopping-item">
+                    <span>Sementes de chia</span>
+                    <a href="https://www.continente.pt/pesquisa/?q=sementes+chia" target="_blank">Comprar →</a>
+                </div>
+                <div class="shopping-item">
+                    <span>Curcuma</span>
+                    <a href="https://www.continente.pt/pesquisa/?q=curcuma" target="_blank">Comprar →</a>
+                </div>
+                <div class="shopping-item">
+                    <span>Batata doce</span>
+                    <a href="https://www.continente.pt/pesquisa/?q=batata+doce" target="_blank">Comprar →</a>
+                </div>
+                <div class="shopping-item">
+                    <span>Espinafres</span>
+                    <a href="https://www.continente.pt/pesquisa/?q=espinafres" target="_blank">Comprar →</a>
+                </div>
+                <div class="shopping-item">
+                    <span>Sementes de linhaça</span>
+                    <a href="https://www.continente.pt/pesquisa/?q=sementes+linhaca" target="_blank">Comprar →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- DICAS -->
+        <div class="tips">
+            <h3>💡 Dicas</h3>
+            <ul>
+                <li>O Skyr é a tua melhor fonte de proteína natural (~11g por 100g)</li>
+                <li>Bananas maduras (com pintas) são mais fáceis de digerir</li>
+                <li>A batata doce cozida no dia anterior poupa tempo</li>
+                <li>Congela bananas descascadas para batidos mais cremosos</li>
+                <li>A curcuma precisa de pimenta preta para ser absorvida</li>
+            </ul>
+        </div>
+
+        <footer>
+            <p>Criado por Safira ✨ • Abril 2026</p>
+            <p>Personalizado para Guilherme • Ironman 2026</p>
+        </footer>
+    </div>
+</body>
+</html>
