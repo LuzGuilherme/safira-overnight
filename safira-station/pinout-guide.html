@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍓 Guia de Conexão - Safira Station</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #e0e0e0;
+            padding: 1rem;
+            line-height: 1.6;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { 
+            text-align: center; 
+            color: #00d4ff; 
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        h2 {
+            color: #7c3aed;
+            margin: 1.5rem 0 1rem;
+            font-size: 1.2rem;
+        }
+        .warning {
+            background: rgba(255,107,53,0.2);
+            border: 1px solid #ff6b35;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .warning strong { color: #ff6b35; }
+        
+        /* GPIO Diagram */
+        .gpio-container {
+            background: #2a2a4a;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        .gpio-label {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        .gpio-grid {
+            display: grid;
+            grid-template-columns: 1fr auto auto 1fr;
+            gap: 4px;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+        .pin {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.75rem;
+        }
+        .pin-label {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+        }
+        .pin-label-left { text-align: right; }
+        .pin-label-right { text-align: left; }
+        
+        /* Pin colors */
+        .pin-5v { background: #ff4444; color: white; }
+        .pin-gnd { background: #333; color: white; }
+        .pin-tx { background: #ffaa00; color: black; }
+        .pin-rx { background: #00cc00; color: black; }
+        .pin-gpio { background: #4488ff; color: white; }
+        .pin-other { background: #666; color: white; }
+        
+        /* Highlight pins we need */
+        .needed { 
+            box-shadow: 0 0 0 3px #00d4ff, 0 0 15px rgba(0,212,255,0.5);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 3px #00d4ff, 0 0 15px rgba(0,212,255,0.5); }
+            50% { box-shadow: 0 0 0 3px #00d4ff, 0 0 25px rgba(0,212,255,0.8); }
+        }
+        
+        .label-needed { 
+            color: #00d4ff; 
+            font-weight: bold;
+        }
+        
+        /* Connection table */
+        .connections {
+            background: #2a2a4a;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            background: #3a3a5a;
+            padding: 0.75rem;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #3a3a5a;
+        }
+        .wire-red { color: #ff4444; font-weight: bold; }
+        .wire-black { color: #888; font-weight: bold; }
+        .wire-yellow { color: #ffaa00; font-weight: bold; }
+        .wire-orange { color: #ff8800; font-weight: bold; }
+        .wire-green { color: #00cc00; font-weight: bold; }
+        
+        /* Steps */
+        .steps {
+            background: #2a2a4a;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .step {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #3a3a5a;
+        }
+        .step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .step-num {
+            background: #7c3aed;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .orientation {
+            background: linear-gradient(135deg, #2a4a2a, #1a3a1a);
+            border: 1px solid #4a8a4a;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .orientation strong { color: #4ade80; }
+        
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: #666;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍓 Guia de Conexão - Sensor LD2410C</h1>
+        
+        <div class="warning">
+            <strong>⚠️ IMPORTANTE:</strong> Desliga o Raspberry Pi da corrente antes de ligar os cabos!
+        </div>
+        
+        <h2>📍 Orientação do Raspberry Pi</h2>
+        <div class="orientation">
+            <strong>Como posicionar:</strong><br>
+            • Coloca o Pi com as <strong>portas USB e Ethernet viradas para ti</strong><br>
+            • O <strong>slot do cartão SD</strong> fica do lado oposto (longe de ti)<br>
+            • Os pinos GPIO ficam no lado direito<br>
+            • O <strong>Pin 1</strong> é o mais afastado de ti, no canto superior esquerdo dos pinos
+        </div>
+        
+        <h2>🔌 Diagrama GPIO (Pinos que vais usar)</h2>
+        <div class="gpio-container">
+            <div class="gpio-label">← USB/Ethernet deste lado | Cartão SD do lado oposto →</div>
+            <div class="gpio-grid">
+                <!-- Row 1 -->
+                <span class="pin-label pin-label-left">3.3V</span>
+                <div class="pin pin-other">1</div>
+                <div class="pin pin-5v needed">2</div>
+                <span class="pin-label pin-label-right label-needed">5V ← VCC</span>
+                
+                <!-- Row 2 -->
+                <span class="pin-label pin-label-left">GPIO2</span>
+                <div class="pin pin-gpio">3</div>
+                <div class="pin pin-5v">4</div>
+                <span class="pin-label pin-label-right">5V</span>
+                
+                <!-- Row 3 -->
+                <span class="pin-label pin-label-left">GPIO3</span>
+                <div class="pin pin-gpio">5</div>
+                <div class="pin pin-gnd needed">6</div>
+                <span class="pin-label pin-label-right label-needed">GND ← GND</span>
+                
+                <!-- Row 4 -->
+                <span class="pin-label pin-label-left">GPIO4</span>
+                <div class="pin pin-gpio">7</div>
+                <div class="pin pin-tx needed">8</div>
+                <span class="pin-label pin-label-right label-needed">TX (GPIO14) ← RX sensor</span>
+                
+                <!-- Row 5 -->
+                <span class="pin-label pin-label-left">GND</span>
+                <div class="pin pin-gnd">9</div>
+                <div class="pin pin-rx needed">10</div>
+                <span class="pin-label pin-label-right label-needed">RX (GPIO15) ← TX sensor</span>
+                
+                <!-- Row 6 -->
+                <span class="pin-label pin-label-left label-needed">OUT → GPIO17</span>
+                <div class="pin pin-gpio needed">11</div>
+                <div class="pin pin-gpio">12</div>
+                <span class="pin-label pin-label-right">GPIO18</span>
+                
+                <!-- More rows (not needed) -->
+                <span class="pin-label pin-label-left">...</span>
+                <div class="pin pin-other">...</div>
+                <div class="pin pin-other">...</div>
+                <span class="pin-label pin-label-right">...</span>
+            </div>
+            <div class="gpio-label" style="margin-top: 1rem;">
+                🔵 Pinos destacados = os que vais usar
+            </div>
+        </div>
+        
+        <h2>🔗 Tabela de Conexões</h2>
+        <div class="connections">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pino Sensor</th>
+                        <th>Cor do Fio</th>
+                        <th>Pino no Pi</th>
+                        <th>Posição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>VCC</strong></td>
+                        <td class="wire-red">🔴 Vermelho</td>
+                        <td>Pin 2 (5V)</td>
+                        <td>1ª fila, lado direito</td>
+                    </tr>
+                    <tr>
+                        <td><strong>GND</strong></td>
+                        <td class="wire-black">⚫ Preto</td>
+                        <td>Pin 6 (GND)</td>
+                        <td>3ª fila, lado direito</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TX</strong> (do sensor)</td>
+                        <td class="wire-yellow">🟡 Amarelo</td>
+                        <td>Pin 10 (RX do Pi)</td>
+                        <td>5ª fila, lado direito</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RX</strong> (do sensor)</td>
+                        <td class="wire-orange">🟠 Laranja</td>
+                        <td>Pin 8 (TX do Pi)</td>
+                        <td>4ª fila, lado direito</td>
+                    </tr>
+                    <tr>
+                        <td><strong>OUT</strong></td>
+                        <td class="wire-green">🟢 Verde</td>
+                        <td>Pin 11 (GPIO17)</td>
+                        <td>6ª fila, lado esquerdo</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <h2>📝 Passo a Passo</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div>
+                    <strong>Desliga o Pi da corrente</strong><br>
+                    Nunca ligar cabos com o Pi ligado!
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div>
+                    <strong>Posiciona o Pi</strong><br>
+                    USB/Ethernet virados para ti, cartão SD do lado oposto.
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div>
+                    <strong>Liga VCC (vermelho)</strong><br>
+                    Do sensor VCC → Pi Pin 2 (5V) — 1ª fila, lado direito
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">4</div>
+                <div>
+                    <strong>Liga GND (preto)</strong><br>
+                    Do sensor GND → Pi Pin 6 (GND) — 3ª fila, lado direito
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">5</div>
+                <div>
+                    <strong>Liga TX do sensor (amarelo)</strong><br>
+                    Do sensor TX → Pi Pin 10 (RX) — 5ª fila, lado direito
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">6</div>
+                <div>
+                    <strong>Liga RX do sensor (laranja)</strong><br>
+                    Do sensor RX → Pi Pin 8 (TX) — 4ª fila, lado direito
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">7</div>
+                <div>
+                    <strong>Liga OUT (verde)</strong><br>
+                    Do sensor OUT → Pi Pin 11 (GPIO17) — 6ª fila, lado esquerdo
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">8</div>
+                <div>
+                    <strong>Verifica tudo</strong><br>
+                    Confirma que nenhum fio está solto e que estão nos pinos certos.
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">9</div>
+                <div>
+                    <strong>Liga o Pi</strong><br>
+                    Agora podes ligar à corrente! 🎉
+                </div>
+            </div>
+        </div>
+        
+        <div class="warning" style="background: rgba(74,222,128,0.1); border-color: #4ade80;">
+            <strong style="color: #4ade80;">💡 Dica:</strong> Se tiveres dúvidas, envia foto à Safira antes de ligar à corrente!
+        </div>
+        
+        <footer>
+            Criado por Safira ✨ • Abril 2026<br>
+            Projecto Safira Station
+        </footer>
+    </div>
+</body>
+</html>
