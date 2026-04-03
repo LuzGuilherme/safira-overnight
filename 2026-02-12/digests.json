@@ -1,7 +1,105 @@
 {
-  "generated": "2026-04-02T01:15:00.000000Z",
-  "count": 69,
+  "generated": "2026-04-03T01:30:00.000000Z",
+  "count": 71,
   "digests": [
+    {
+      "id": "2026-04-03-greg-isenberg-paperclip-ai",
+      "filename": "greg-isenberg-paperclip-ai-2026-03-27.md",
+      "date": "2026-04-03",
+      "title": "Paperclip: Hire AI Agents Like Employees (Live Demo)",
+      "host": "The Startup Ideas Podcast",
+      "guest": "Dotta (Paperclip co-founder)",
+      "duration": "~47 min",
+      "link": "https://www.youtube.com/watch?v=C3-4llQYT8o",
+      "theme": "AI agent orchestration, zero human companies, open-source tooling",
+      "tldr": "Paperclip é um orquestrador open-source para 'zero human companies' que explodiu para 30K+ GitHub stars em 3 semanas. Permite criar empresa virtual com CEO, engenheiros, QA, marketing — tudo com AI agents. A diferença: tracking de gastos, responsabilidade por tasks, e 'bring your own bot'.",
+      "insights": [
+        {
+          "insight": "AI can do everything except know your values",
+          "why": "O diferenciador humano é gosto e valores, não execução"
+        },
+        {
+          "insight": "Memento mental model para agents",
+          "why": "Agents precisam de onboarding cada vez que acordam"
+        },
+        {
+          "insight": "Sharable companies — importar orgs testadas",
+          "why": "Modelo de negócio: criar 'proven teams' que outros podem importar"
+        },
+        {
+          "insight": "Blue collar AI opportunities",
+          "why": "Roofing company usando AI para lead gen (hail data + satellite imagery)"
+        },
+        {
+          "insight": "QA agent obrigatório",
+          "why": "Sempre ter agent que revê trabalho de outros"
+        }
+      ],
+      "quotes": [
+        "Your AI agents are Memento man. They wake up, they know how to fight, they know how to drive, but they don't know who they are.",
+        "AI can do everything except know your values.",
+        "If ChatGPT was the first time people realized AI could talk, OpenClaw was the first time people realized AI could act. Paperclip aims to be the third moment."
+      ],
+      "rating": 4.8,
+      "tags": [
+        "ai-agents",
+        "paperclip",
+        "orchestration",
+        "zero-human-company",
+        "side-hustle",
+        "open-source"
+      ]
+    },
+    {
+      "id": "2026-04-03-doac-pierre-poilievre",
+      "filename": "doac-pierre-poilievre-2026-04-02.md",
+      "date": "2026-04-03",
+      "title": "Pierre Poilievre: The Economy Is About to Collapse!",
+      "host": "The Diary Of A CEO",
+      "guest": "Pierre Poilievre (Leader, Canada's Conservative Party)",
+      "duration": "~1h 56m",
+      "link": "https://www.youtube.com/watch?v=9JxaESJIGO0",
+      "theme": "Geopolítica, economia canadiana, crise habitacional, imigração, IA",
+      "tldr": "Pierre Poilievre, provável próximo PM do Canadá, discute geopolítica e economia. Canadá tem 4ª maior reserva de petróleo mundial mas crise habitacional porque >50% custo de casa nova vai para burocracia. 'Socialismo para ricos' — inflação e regulação redistribuem riqueza para elites.",
+      "insights": [
+        {
+          "insight": "Efeito Cantillon: primeiros a tocar dinheiro novo são ricos",
+          "why": "Inflação beneficia elites conectadas"
+        },
+        {
+          "insight": ">50% custo de casa vai para burocracia",
+          "why": "Oportunidade em housing tech / permit acceleration"
+        },
+        {
+          "insight": "20,000 médicos imigrantes bloqueados",
+          "why": "Burocracia vs escassez — paradoxo regulatório"
+        },
+        {
+          "insight": "Adam Smith: Theory of Moral Sentiments",
+          "why": "Self-interest e altruísmo coexistem — framework útil"
+        },
+        {
+          "insight": "Canadá 4ª maior reserva petróleo mundial",
+          "why": "Leverage geopolítico subutilizado"
+        }
+      ],
+      "quotes": [
+        "Tariffing countries like Canada makes no sense. If you're the United States, you should want more friends.",
+        "We have socialism for the very rich. Governments are actively redistributing wealth from the working class to the very wealthy.",
+        "When you buy this house in Canada, more money goes to bureaucrats than to the carpenters and electricians who actually build the home."
+      ],
+      "rating": 4.5,
+      "tags": [
+        "geopolitics",
+        "canada",
+        "economics",
+        "housing",
+        "immigration",
+        "ai",
+        "adamsmith",
+        "freemarket"
+      ]
+    },
     {
       "id": "2026-04-02-mfm-811-chris-koerner-side-hustles",
       "filename": "mfm-811-chris-koerner-side-hustles-2026.md",
