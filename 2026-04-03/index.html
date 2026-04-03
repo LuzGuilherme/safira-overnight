@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Pricing Psychology Lab 🧠 | See How Pricing Tricks Work</title>
+    <meta name="description" content="Interactive simulator showing how pricing psychology principles affect buyer perception. Learn anchoring, decoy effect, charm pricing, and more.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #fafafa;
+            --bg-card: #ffffff;
+            --text: #1a1a1a;
+            --text-muted: #666666;
+            --accent: #2563eb;
+            --accent-light: #dbeafe;
+            --border: #e5e5e5;
+            --success: #16a34a;
+            --warning: #ca8a04;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            padding: 60px 0 40px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        header .emoji {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        main {
+            padding: 48px 0;
+        }
+
+        /* Intro */
+        .intro {
+            max-width: 700px;
+            margin: 0 auto 48px;
+            text-align: center;
+        }
+
+        .intro p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        /* Tab Navigation */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .tab:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .tab.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        /* Lab Section */
+        .lab-section {
+            display: none;
+        }
+
+        .lab-section.active {
+            display: block;
+        }
+
+        .lab-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .lab-card h2 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .lab-card .description {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+
+        /* Two Column Layout */
+        .lab-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .lab-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .controls h3, .preview h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        /* Form Controls */
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .control-group input[type="number"],
+        .control-group input[type="text"],
+        .control-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .control-group input:focus,
+        .control-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .control-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Toggle Switch */
+        .toggle-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .toggle {
+            position: relative;
+            width: 48px;
+            height: 26px;
+            background: var(--border);
+            border-radius: 13px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .toggle.active {
+            background: var(--accent);
+        }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+
+        .toggle.active::after {
+            transform: translateX(22px);
+        }
+
+        .toggle-label {
+            font-size: 0.9rem;
+        }
+
+        /* Preview Area */
+        .preview-box {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            min-height: 200px;
+        }
+
+        /* Pricing Display */
+        .pricing-display {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .price-card {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            min-width: 140px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .price-card.highlighted {
+            border-color: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.15);
+        }
+
+        .price-card.highlighted::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 12px;
+            white-space: nowrap;
+        }
+
+        .price-card.decoy {
+            opacity: 0.85;
+        }
+
+        .price-card .plan-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        .price-card .price {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .price-card .price .currency {
+            font-size: 1.2rem;
+            vertical-align: super;
+        }
+
+        .price-card .price .cents {
+            font-size: 1rem;
+        }
+
+        .price-card .period {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .price-card .original-price {
+            text-decoration: line-through;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .price-card .savings {
+            background: #dcfce7;
+            color: var(--success);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-top: 8px;
+            display: inline-block;
+        }
+
+        /* Insight Box */
+        .insight-box {
+            background: var(--accent-light);
+            border-left: 4px solid var(--accent);
+            padding: 16px 20px;
+            margin-top: 24px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .insight-box h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .insight-box p {
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        /* Comparison Styles */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+        }
+
+        .comparison-option {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .comparison-option:hover {
+            border-color: var(--accent);
+        }
+
+        .comparison-option.selected {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .comparison-option .option-price {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .comparison-option .option-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Psychology Principles List */
+        .principles-list {
+            display: grid;
+            gap: 16px;
+        }
+
+        .principle {
+            display: flex;
+            gap: 16px;
+            padding: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .principle-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .principle-content h4 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .principle-content p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer .credit {
+            margin-top: 8px;
+            font-size: 0.85rem;
+        }
+
+        /* Charm Pricing Demo */
+        .charm-demo {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .charm-price {
+            background: white;
+            padding: 24px 32px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid var(--border);
+        }
+
+        .charm-price.winning {
+            border-color: var(--success);
+            background: #f0fdf4;
+        }
+
+        .charm-price .big-price {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .charm-price .label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .charm-price .perception {
+            font-size: 0.8rem;
+            color: var(--success);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .vs {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* Bundle Demo */
+        .bundle-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .bundle-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .bundle-box {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .bundle-box.recommended {
+            border-color: var(--accent);
+        }
+
+        .bundle-box h4 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .bundle-items {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .bundle-items li {
+            margin-bottom: 4px;
+            list-style: none;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .bundle-items li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+        }
+
+        .bundle-total {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* Urgency Demo */
+        .urgency-demo {
+            text-align: center;
+        }
+
+        .countdown-display {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #dc2626;
+            margin-bottom: 8px;
+        }
+
+        .stock-display {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 12px;
+        }
+
+        .urgency-price {
+            margin-top: 20px;
+        }
+
+        .urgency-original {
+            text-decoration: line-through;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        .urgency-sale {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--success);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="emoji">🧠</div>
+            <h1>The Pricing Psychology Lab</h1>
+            <p class="subtitle">Interactive experiments showing how pricing tricks influence buyer perception. See the science behind the numbers.</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="intro">
+                <p>Every price you see is carefully designed to influence your perception. These aren't just numbers—they're psychological tools. Let's explore how they work.</p>
+            </div>
+
+            <div class="tabs">
+                <div class="tab active" data-tab="anchoring">⚓ Anchoring</div>
+                <div class="tab" data-tab="decoy">🎯 Decoy Effect</div>
+                <div class="tab" data-tab="charm">✨ Charm Pricing</div>
+                <div class="tab" data-tab="bundling">📦 Bundling</div>
+                <div class="tab" data-tab="urgency">⏰ Urgency</div>
+                <div class="tab" data-tab="reference">📚 All Principles</div>
+            </div>
+
+            <!-- Anchoring Section -->
+            <section class="lab-section active" id="anchoring">
+                <div class="lab-card">
+                    <h2>⚓ Price Anchoring</h2>
+                    <p class="description">The first price we see becomes our reference point. Everything else is judged against it. Show a high anchor first, and the real price feels like a bargain.</p>
+                    
+                    <div class="lab-grid">
+                        <div class="controls">
+                            <h3>Configure</h3>
+                            
+                            <div class="toggle-group">
+                                <div class="toggle active" id="showAnchor"></div>
+                                <span class="toggle-label">Show anchor price</span>
+                            </div>
+                            
+                            <div class="control-row">
+                                <div class="control-group">
+                                    <label>Anchor Price ($)</label>
+                                    <input type="number" id="anchorPrice" value="299" min="0">
+                                </div>
+                                <div class="control-group">
+                                    <label>Actual Price ($)</label>
+                                    <input type="number" id="actualPrice" value="99" min="0">
+                                </div>
+                            </div>
+                            
+                            <div class="control-group">
+                                <label>Product Name</label>
+                                <input type="text" id="productName" value="Pro Plan">
+                            </div>
+                        </div>
+                        
+                        <div class="preview">
+                            <h3>Preview</h3>
+                            <div class="preview-box" id="anchoringPreview">
+                                <!-- Dynamic content -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-box">
+                        <h4>💡 Why It Works</h4>
+                        <p>Studies show that arbitrary anchors—even random numbers—affect price perception. In one famous experiment, showing "Was $3,000, Now $999" increased conversions by 62% compared to just showing "$999".</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Decoy Effect Section -->
+            <section class="lab-section" id="decoy">
+                <div class="lab-card">
+                    <h2>🎯 The Decoy Effect</h2>
+                    <p class="description">Add a third option that's clearly worse than your target, and suddenly your target looks much better. The "decoy" exists only to make another option shine.</p>
+                    
+                    <div class="lab-grid">
+                        <div class="controls">
+                            <h3>Configure Plans</h3>
+                            
+                            <div class="toggle-group">
+                                <div class="toggle active" id="showDecoy"></div>
+                                <span class="toggle-label">Show decoy plan</span>
+                            </div>
+                            
+                            <div class="control-group">
+                                <label>Basic Plan Price</label>
+                                <input type="number" id="basicPrice" value="9" min="0">
+                            </div>
+                            
+                            <div class="control-group">
+                                <label>Decoy Plan Price (Close to Pro)</label>
+                                <input type="number" id="decoyPrice" value="24" min="0">
+                            </div>
+                            
+                            <div class="control-group">
+                                <label>Pro Plan Price (Target)</label>
+                                <input type="number" id="proPrice" value="29" min="0">
+                            </div>
+                        </div>
+                        
+                        <div class="preview">
+                            <h3>Preview</h3>
+                            <div class="preview-box" id="decoyPreview">
+                                <!-- Dynamic content -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-box">
+                        <h4>💡 The Classic Example</h4>
+                        <p>The Economist offered: Web-only ($59), Print-only ($125), Print+Web ($125). Nobody chose Print-only—but when it was removed, Print+Web subscriptions dropped by 30%. The decoy made the bundle look like a no-brainer.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Charm Pricing Section -->
+            <section class="lab-section" id="charm">
+                <div class="lab-card">
+                    <h2>✨ Charm Pricing (The .99 Effect)</h2>
+                    <p class="description">Our brains read left-to-right and anchor on the first digit. $9.99 registers as "nine-something" even though it's essentially $10.</p>
+                    
+                    <div class="lab-grid">
+                        <div class="controls">
+                            <h3>Compare Prices</h3>
+                            
+                            <div class="control-group">
+                                <label>Round Price ($)</label>
+                                <input type="number" id="roundPrice" value="100" min="0">
+                            </div>
+                            
+                            <div class="control-group">
+                                <label>Charm Price ($)</label>
+                                <input type="number" id="charmPrice" value="99" min="0" step="0.01">
+                            </div>
+                            
+                            <div class="control-group">
+                                <label>Cents Display</label>
+                                <select id="centsDisplay">
+                                    <option value="99">.99</option>
+                                    <option value="97">.97</option>
+                                    <option value="95">.95</option>
+                                    <option value="00">.00 (Round)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="preview">
+                            <h3>Perception Comparison</h3>
+                            <div class="preview-box" id="charmPreview">
+                                <!-- Dynamic content -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-box">
+                        <h4>💡 When to Use Round Numbers Instead</h4>
+                        <p>Charm pricing works for bargain seekers. But for luxury/premium products, round numbers ($100 vs $99) signal quality. Research shows people pay MORE when the price is round for emotional purchases.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bundling Section -->
+            <section class="lab-section" id="bundling">
+                <div class="lab-card">
+                    <h2>📦 Price Bundling</h2>
+                    <p class="description">Bundling hides individual prices, making it harder to compare and easier to perceive value. The "savings" feel real even when they're manufactured.</p>
+                    
+                    <div class="lab-grid">
+                        <div class="controls">
+                            <h3>Configure Bundle</h3>
+                            
+                            <div class="control-group">
+                                <label>Item 1 Price</label>
+                                <input type="number" id="item1Price" value="49" min="0">
+                            </div>
+                            
+                            <div class="control-group">
+                                <label>Item 2 Price</label>
+                                <input type="number" id="item2Price" value="29" min="0">
+                            </div>
+                            
+                            <div class="control-group">
+                                <label>Item 3 Price</label>
+                                <input type="number" id="item3Price" value="19" min="0">
+                            </div>
+                            
+                            <div class="control-group">
+                                <label>Bundle Discount (%)</label>
+                                <input type="number" id="bundleDiscount" value="30" min="0" max="90">
+                            </div>
+                        </div>
+                        
+                        <div class="preview">
+                            <h3>Side by Side</h3>
+                            <div class="preview-box" id="bundlePreview">
+                                <!-- Dynamic content -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-box">
+                        <h4>💡 The Psychology</h4>
+                        <p>Bundling triggers loss aversion—once items are grouped, separating them feels like losing something. McDonald's found that bundles (meals) outsell à la carte options 5:1, even when the bundle costs more per item.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Urgency Section -->
+            <section class="lab-section" id="urgency">
+                <div class="lab-card">
+                    <h2>⏰ Urgency & Scarcity</h2>
+                    <p class="description">Deadlines and limited availability trigger fear of missing out (FOMO). The perceived risk of loss motivates action faster than potential gain.</p>
+                    
+                    <div class="lab-grid">
+                        <div class="controls">
+                            <h3>Configure Urgency</h3>
+                            
+                            <div class="toggle-group">
+                                <div class="toggle active" id="showCountdown"></div>
+                                <span class="toggle-label">Show countdown timer</span>
+                            </div>
+                            
+                            <div class="toggle-group">
+                                <div class="toggle active" id="showStock"></div>
+                                <span class="toggle-label">Show limited stock</span>
+                            </div>
+                            
+                            <div class="control-group">
+                                <label>Stock Remaining</label>
+                                <input type="number" id="stockCount" value="3" min="1" max="100">
+                            </div>
+                            
+                            <div class="control-row">
+                                <div class="control-group">
+                                    <label>Original ($)</label>
+                                    <input type="number" id="urgencyOriginal" value="199" min="0">
+                                </div>
+                                <div class="control-group">
+                                    <label>Sale ($)</label>
+                                    <input type="number" id="urgencySale" value="79" min="0">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="preview">
+                            <h3>Preview</h3>
+                            <div class="preview-box" id="urgencyPreview">
+                                <!-- Dynamic content -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-box">
+                        <h4>💡 The Dark Side</h4>
+                        <p>Fake urgency is rampant—and increasingly illegal in some jurisdictions. Authentic scarcity works; manufactured urgency erodes trust. Consider: real launch discounts, genuinely limited editions, or cohort-based pricing.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reference Section -->
+            <section class="lab-section" id="reference">
+                <div class="lab-card">
+                    <h2>📚 Pricing Psychology Principles</h2>
+                    <p class="description">A quick reference guide to the psychology behind every pricing decision.</p>
+                    
+                    <div class="principles-list">
+                        <div class="principle">
+                            <div class="principle-icon">⚓</div>
+                            <div class="principle-content">
+                                <h4>Anchoring</h4>
+                                <p>The first number seen becomes the reference point. Show higher prices first to make your actual price feel like a deal.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="principle">
+                            <div class="principle-icon">🎯</div>
+                            <div class="principle-content">
+                                <h4>Decoy Effect</h4>
+                                <p>A third "dominated" option makes your target option look better by comparison. The decoy isn't meant to sell—it's meant to guide.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="principle">
+                            <div class="principle-icon">✨</div>
+                            <div class="principle-content">
+                                <h4>Charm Pricing</h4>
+                                <p>Prices ending in 9 are perceived as significantly lower. $9.99 feels more like $9 than $10. Use for bargains; avoid for luxury.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="principle">
+                            <div class="principle-icon">📦</div>
+                            <div class="principle-content">
+                                <h4>Bundling</h4>
+                                <p>Grouping products obscures individual value and creates perceived savings. Bundles feel like getting something "free."</p>
+                            </div>
+                        </div>
+                        
+                        <div class="principle">
+                            <div class="principle-icon">⏰</div>
+                            <div class="principle-content">
+                                <h4>Urgency & Scarcity</h4>
+                                <p>Limited time or quantity triggers FOMO and accelerates decisions. Works best when authentic; backfires when fake.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="principle">
+                            <div class="principle-icon">🏷️</div>
+                            <div class="principle-content">
+                                <h4>Price-Quality Heuristic</h4>
+                                <p>Higher prices signal higher quality. Sometimes raising your price increases conversions because buyers trust it more.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="principle">
+                            <div class="principle-icon">💳</div>
+                            <div class="principle-content">
+                                <h4>Payment Pain</h4>
+                                <p>Smaller recurring payments feel less painful than one-time costs. "$9/month" is easier to accept than "$108/year" even though it's the same.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="principle">
+                            <div class="principle-icon">🎁</div>
+                            <div class="principle-content">
+                                <h4>Free Premium</h4>
+                                <p>"Free" is powerful—but giving something free sets a reference price of $0. Consider "included" instead of "free" for valuable add-ons.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="principle">
+                            <div class="principle-icon">📊</div>
+                            <div class="principle-content">
+                                <h4>Comparative Pricing</h4>
+                                <p>Show price per day/week instead of monthly. "$2/day" feels cheaper than "$60/month" even though it's more expensive.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="principle">
+                            <div class="principle-icon">🎭</div>
+                            <div class="principle-content">
+                                <h4>Partitioned Pricing</h4>
+                                <p>Breaking down price components (base + shipping + tax) can either increase or decrease perceived value depending on context.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Built for indie hackers, founders, and the price-curious.</p>
+            <p class="credit">A <a href="https://luzguilherme.github.io/safira-overnight/" target="_blank">Safira Overnight</a> build 🌙</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tab Navigation
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.lab-section').forEach(s => s.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Toggle Switches
+        document.querySelectorAll('.toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                toggle.classList.toggle('active');
+                updateAllPreviews();
+            });
+        });
+
+        // Input Listeners
+        document.querySelectorAll('input, select').forEach(input => {
+            input.addEventListener('input', updateAllPreviews);
+        });
+
+        // Update Functions
+        function updateAllPreviews() {
+            updateAnchoringPreview();
+            updateDecoyPreview();
+            updateCharmPreview();
+            updateBundlePreview();
+            updateUrgencyPreview();
+        }
+
+        function updateAnchoringPreview() {
+            const showAnchor = document.getElementById('showAnchor').classList.contains('active');
+            const anchorPrice = document.getElementById('anchorPrice').value;
+            const actualPrice = document.getElementById('actualPrice').value;
+            const productName = document.getElementById('productName').value;
+            
+            const savings = Math.round((1 - actualPrice / anchorPrice) * 100);
+            
+            let html = `
+                <div class="pricing-display">
+                    <div class="price-card highlighted">
+                        <div class="plan-name">${productName}</div>
+                        ${showAnchor ? `<div class="original-price">$${anchorPrice}</div>` : ''}
+                        <div class="price">
+                            <span class="currency">$</span>${actualPrice}
+                        </div>
+                        <div class="period">/month</div>
+                        ${showAnchor && savings > 0 ? `<div class="savings">Save ${savings}%</div>` : ''}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('anchoringPreview').innerHTML = html;
+        }
+
+        function updateDecoyPreview() {
+            const showDecoy = document.getElementById('showDecoy').classList.contains('active');
+            const basicPrice = document.getElementById('basicPrice').value;
+            const decoyPrice = document.getElementById('decoyPrice').value;
+            const proPrice = document.getElementById('proPrice').value;
+            
+            let html = `
+                <div class="pricing-display">
+                    <div class="price-card">
+                        <div class="plan-name">Basic</div>
+                        <div class="price"><span class="currency">$</span>${basicPrice}</div>
+                        <div class="period">/month</div>
+                    </div>
+                    ${showDecoy ? `
+                    <div class="price-card decoy">
+                        <div class="plan-name">Plus</div>
+                        <div class="price"><span class="currency">$</span>${decoyPrice}</div>
+                        <div class="period">/month</div>
+                    </div>
+                    ` : ''}
+                    <div class="price-card highlighted">
+                        <div class="plan-name">Pro</div>
+                        <div class="price"><span class="currency">$</span>${proPrice}</div>
+                        <div class="period">/month</div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('decoyPreview').innerHTML = html;
+        }
+
+        function updateCharmPreview() {
+            const roundPrice = parseInt(document.getElementById('roundPrice').value);
+            const charmPrice = parseInt(document.getElementById('charmPrice').value);
+            const cents = document.getElementById('centsDisplay').value;
+            
+            const displayCharm = cents === '00' ? charmPrice : charmPrice + '.' + cents;
+            const diff = roundPrice - charmPrice;
+            
+            let html = `
+                <div class="charm-demo">
+                    <div class="charm-price">
+                        <div class="big-price">$${roundPrice}</div>
+                        <div class="label">Round Price</div>
+                    </div>
+                    <div class="vs">vs</div>
+                    <div class="charm-price winning">
+                        <div class="big-price">$${displayCharm}</div>
+                        <div class="label">Charm Price</div>
+                        <div class="perception">Feels ~$${Math.floor(charmPrice / 10) * 10}!</div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('charmPreview').innerHTML = html;
+        }
+
+        function updateBundlePreview() {
+            const item1 = parseInt(document.getElementById('item1Price').value) || 0;
+            const item2 = parseInt(document.getElementById('item2Price').value) || 0;
+            const item3 = parseInt(document.getElementById('item3Price').value) || 0;
+            const discount = parseInt(document.getElementById('bundleDiscount').value) || 0;
+            
+            const separate = item1 + item2 + item3;
+            const bundlePrice = Math.round(separate * (1 - discount / 100));
+            const savings = separate - bundlePrice;
+            
+            let html = `
+                <div class="bundle-comparison">
+                    <div class="bundle-box">
+                        <h4>Buy Separately</h4>
+                        <ul class="bundle-items">
+                            <li>Course 1: $${item1}</li>
+                            <li>Course 2: $${item2}</li>
+                            <li>Templates: $${item3}</li>
+                        </ul>
+                        <div class="bundle-total">Total: $${separate}</div>
+                    </div>
+                    <div class="bundle-box recommended">
+                        <h4>Complete Bundle</h4>
+                        <ul class="bundle-items">
+                            <li>All 3 courses included</li>
+                            <li>Bonus templates</li>
+                            <li>Lifetime access</li>
+                        </ul>
+                        <div class="bundle-total">Only $${bundlePrice}</div>
+                        <div class="savings">Save $${savings} (${discount}% off)</div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('bundlePreview').innerHTML = html;
+        }
+
+        function updateUrgencyPreview() {
+            const showCountdown = document.getElementById('showCountdown').classList.contains('active');
+            const showStock = document.getElementById('showStock').classList.contains('active');
+            const stockCount = document.getElementById('stockCount').value;
+            const original = document.getElementById('urgencyOriginal').value;
+            const sale = document.getElementById('urgencySale').value;
+            
+            let html = `
+                <div class="urgency-demo">
+                    ${showCountdown ? '<div class="countdown-display" id="countdown">02:59:47</div><div style="color: #dc2626; font-size: 0.9rem;">⚡ Flash Sale Ends Soon!</div>' : ''}
+                    ${showStock ? `<div class="stock-display">🔥 Only ${stockCount} left at this price!</div>` : ''}
+                    <div class="urgency-price">
+                        <div class="urgency-original">$${original}</div>
+                        <div class="urgency-sale">$${sale}</div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('urgencyPreview').innerHTML = html;
+            
+            if (showCountdown) {
+                startCountdown();
+            }
+        }
+
+        // Countdown Timer
+        let countdownInterval;
+        function startCountdown() {
+            if (countdownInterval) clearInterval(countdownInterval);
+            
+            let hours = 2, minutes = 59, seconds = 47;
+            
+            countdownInterval = setInterval(() => {
+                seconds--;
+                if (seconds < 0) {
+                    seconds = 59;
+                    minutes--;
+                }
+                if (minutes < 0) {
+                    minutes = 59;
+                    hours--;
+                }
+                if (hours < 0) {
+                    hours = 2; minutes = 59; seconds = 47; // Reset
+                }
+                
+                const el = document.getElementById('countdown');
+                if (el) {
+                    el.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        // Initial render
+        updateAllPreviews();
+    </script>
+</body>
+</html>

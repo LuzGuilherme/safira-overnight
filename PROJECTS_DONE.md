@@ -117,3 +117,4 @@ Ver `/root/clawd/data/STYLE_LIBRARY.md` para detalhes completos.
 | 2026-03-31 | Global Meeting Overlap Planner 🌍 | Produtividade/Remote Collaboration | **Swiss Minimal** 🏛️ |
 | 2026-04-01 | Search Intent Match Lab 🔎 | Marketing/SEO Copy Testing | **Data Dense** 📊 |
 | 2026-04-02 | The Subscription Graveyard 💀 | Finanças/Consumer Utility | **Neo Brutalist** 🔲 |
+| 2026-04-03 | The Pricing Psychology Lab 🧠 | Business/Pricing Strategy | **Editorial Clean** ☀️ |
