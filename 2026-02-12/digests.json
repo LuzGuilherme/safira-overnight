@@ -1,7 +1,59 @@
 {
-  "generated": "2026-04-03T01:30:00.000000Z",
-  "count": 71,
+  "generated": "2026-04-04T01:06:00.000000Z",
+  "count": 72,
   "digests": [
+    {
+      "id": "2026-04-04-allin-spacex-ipo",
+      "filename": "2026-04-04-allin-spacex-ipo.md",
+      "date": "2026-04-04",
+      "title": "SpaceX IPO, Moon Economy, AI Valuations",
+      "host": "All-In Podcast",
+      "guest": "The Besties (Chamath, Friedberg, J-Cal)",
+      "duration": "~80 min",
+      "link": "https://www.youtube.com/watch?v=N-pust8qtGI",
+      "theme": "SpaceX $1.75T IPO, Tesla merger, moon industrialization, AI IPO rush, quantum crypto risk",
+      "tldr": "SpaceX files for $1.75T IPO (largest ever), 99.9% chance of Tesla merger; moon industrialization coming via robotics; AI companies need to IPO fast before market appetite diminishes; Iran War updates and fertilizer crisis analysis.",
+      "insights": [
+        {
+          "insight": "SpaceX IPO: $1.75T valuation, $75B raise",
+          "why": "Largest IPO in history, 8th largest company globally"
+        },
+        {
+          "insight": "Tesla-SpaceX merger 99.99% chance",
+          "why": "Combined $3.1T company, ticker 'E'"
+        },
+        {
+          "insight": "Moon shipping cheaper than Earth logistics",
+          "why": "Mass driver + solar = zero marginal cost"
+        },
+        {
+          "insight": "AI IPOs: first 2-3 will do well, rest risky",
+          "why": "Market appetite will diminish quickly"
+        },
+        {
+          "insight": "Quantum computing 5-7 years, not 25-30",
+          "why": "Crypto has limited time to migrate to quantum-resistant"
+        }
+      ],
+      "quotes": [
+        "99.99% chance Tesla and SpaceX merge.",
+        "These two companies need to get out as quickly as possible.",
+        "You have 5 to 7 years to get your sh*t in order."
+      ],
+      "rating": 4.8,
+      "tags": [
+        "SpaceX",
+        "IPO",
+        "Tesla",
+        "MoonEconomy",
+        "AI",
+        "QuantumComputing",
+        "Crypto",
+        "IranWar",
+        "Fertilizer",
+        "AllIn"
+      ]
+    },
     {
       "id": "2026-04-03-greg-isenberg-paperclip-ai",
       "filename": "greg-isenberg-paperclip-ai-2026-03-27.md",
