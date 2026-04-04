@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Pre-Mortem Machine 💀</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f0f23;
+            --bg-panel: #1a1a2e;
+            --cyan: #00ffff;
+            --pink: #ff00ff;
+            --green: #00ff88;
+            --red: #ff3366;
+            --orange: #ff9933;
+            --yellow: #ffff00;
+            --text: #e0e0e0;
+            --text-dim: #888;
+            --border: #333355;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            overflow-x: hidden;
+        }
+
+        /* Scanline effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1),
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .glitch-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--cyan);
+            text-shadow: 
+                0 0 10px var(--cyan),
+                0 0 20px var(--cyan),
+                0 0 40px var(--cyan),
+                3px 3px 0 var(--pink);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan), 0 0 40px var(--cyan), 3px 3px 0 var(--pink); }
+            to { text-shadow: 0 0 15px var(--cyan), 0 0 30px var(--cyan), 0 0 60px var(--cyan), 3px 3px 0 var(--pink); }
+        }
+
+        .skull {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-top: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .tagline span {
+            color: var(--pink);
+        }
+
+        /* Panels */
+        .panel {
+            background: var(--bg-panel);
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--cyan), var(--pink), var(--cyan));
+        }
+
+        .panel-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--cyan);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .panel-title::before {
+            content: '>';
+            color: var(--pink);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--cyan);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            color: var(--text);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--cyan);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2300ffff' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1.5rem;
+        }
+
+        option {
+            background: var(--bg-dark);
+            color: var(--text);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        /* Buttons */
+        .btn {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            padding: 1rem 2rem;
+            border: 2px solid var(--cyan);
+            background: transparent;
+            color: var(--cyan);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover {
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background: var(--cyan);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary:hover {
+            background: var(--pink);
+            border-color: var(--pink);
+        }
+
+        .btn-danger {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .btn-danger:hover {
+            background: rgba(255, 51, 102, 0.2);
+            box-shadow: 0 0 20px rgba(255, 51, 102, 0.5);
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .loading-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--cyan);
+            margin-bottom: 1rem;
+            animation: blink 0.5s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .loading-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .loading-bar-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--cyan), var(--pink));
+            animation: loading 2s ease-in-out forwards;
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        .loading-steps {
+            margin-top: 1.5rem;
+            text-align: left;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .loading-step {
+            padding: 0.5rem 0;
+            color: var(--text-dim);
+            opacity: 0;
+            animation: fadeIn 0.3s forwards;
+        }
+
+        .loading-step.active {
+            color: var(--cyan);
+        }
+
+        .loading-step.done {
+            color: var(--green);
+        }
+
+        .loading-step.done::before {
+            content: '✓ ';
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Results */
+        #results {
+            display: none;
+        }
+
+        #results.active {
+            display: block;
+        }
+
+        .risk-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .project-info {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        .project-info strong {
+            color: var(--cyan);
+        }
+
+        .overall-risk {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .risk-meter {
+            width: 200px;
+            height: 20px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .risk-meter-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 1s ease;
+        }
+
+        .risk-meter-fill.low { background: var(--green); width: 25%; }
+        .risk-meter-fill.medium { background: var(--yellow); width: 50%; }
+        .risk-meter-fill.high { background: var(--orange); width: 75%; }
+        .risk-meter-fill.critical { background: var(--red); width: 100%; }
+
+        .risk-label {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .risk-label.low { color: var(--green); }
+        .risk-label.medium { color: var(--yellow); }
+        .risk-label.high { color: var(--orange); }
+        .risk-label.critical { color: var(--red); }
+
+        /* Risk Cards */
+        .risk-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .risk-card:hover {
+            border-color: var(--cyan);
+            transform: translateX(5px);
+        }
+
+        .risk-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            background: rgba(0, 255, 255, 0.03);
+        }
+
+        .risk-card-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .risk-icon {
+            font-size: 1.5rem;
+        }
+
+        .risk-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+        }
+
+        .risk-probability {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .probability-bar {
+            width: 100px;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .probability-fill {
+            height: 100%;
+            border-radius: 3px;
+        }
+
+        .probability-fill.low { background: var(--green); }
+        .probability-fill.medium { background: var(--yellow); }
+        .probability-fill.high { background: var(--orange); }
+        .probability-fill.critical { background: var(--red); }
+
+        .risk-card-body {
+            display: none;
+            padding: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .risk-card.expanded .risk-card-body {
+            display: block;
+        }
+
+        .expand-icon {
+            color: var(--cyan);
+            transition: transform 0.3s ease;
+        }
+
+        .risk-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .scenario {
+            margin-bottom: 1.5rem;
+        }
+
+        .scenario-title {
+            font-size: 0.85rem;
+            color: var(--pink);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .scenario-text {
+            color: var(--text);
+            line-height: 1.6;
+            padding-left: 1rem;
+            border-left: 2px solid var(--pink);
+        }
+
+        .mitigations {
+            margin-top: 1rem;
+        }
+
+        .mitigations-title {
+            font-size: 0.85rem;
+            color: var(--green);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .mitigation-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            color: var(--text);
+        }
+
+        .mitigation-item::before {
+            content: '→';
+            color: var(--green);
+            flex-shrink: 0;
+        }
+
+        /* Summary */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .summary-stat {
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--cyan);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer Actions */
+        .footer-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        /* Category Badges */
+        .category-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 2px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+
+        .category-market { background: rgba(255, 153, 51, 0.2); color: var(--orange); border: 1px solid var(--orange); }
+        .category-tech { background: rgba(0, 255, 255, 0.2); color: var(--cyan); border: 1px solid var(--cyan); }
+        .category-team { background: rgba(255, 0, 255, 0.2); color: var(--pink); border: 1px solid var(--pink); }
+        .category-timing { background: rgba(255, 255, 0, 0.2); color: var(--yellow); border: 1px solid var(--yellow); }
+        .category-resources { background: rgba(0, 255, 136, 0.2); color: var(--green); border: 1px solid var(--green); }
+        .category-execution { background: rgba(255, 51, 102, 0.2); color: var(--red); border: 1px solid var(--red); }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .panel {
+                padding: 1.5rem 1rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .risk-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .risk-meter {
+                width: 100%;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body::before { display: none; }
+            .btn { display: none; }
+            .risk-card-body { display: block !important; }
+        }
+
+        /* Terminal cursor effect */
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2em;
+            background: var(--cyan);
+            animation: blink 0.7s step-end infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span class="skull">💀</span>
+            <div class="glitch-wrapper">
+                <h1>Pre-Mortem Machine</h1>
+            </div>
+            <p class="tagline">Travel to the future where <span>your project failed</span>. Learn why.</p>
+        </header>
+
+        <!-- Input Form -->
+        <div id="input-section" class="panel">
+            <h2 class="panel-title">Initialize Simulation</h2>
+            
+            <form id="premortem-form">
+                <div class="form-group">
+                    <label for="project-name">Project Name</label>
+                    <input type="text" id="project-name" placeholder="e.g., My SaaS App" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="project-type">Project Type</label>
+                        <select id="project-type" required>
+                            <option value="">Select type...</option>
+                            <option value="saas">💻 SaaS Product</option>
+                            <option value="mobile">📱 Mobile App</option>
+                            <option value="extension">🧩 Browser Extension</option>
+                            <option value="api">⚡ API / Dev Tool</option>
+                            <option value="marketplace">🛒 Marketplace</option>
+                            <option value="content">📚 Content / Course</option>
+                            <option value="agency">🏢 Agency / Service</option>
+                            <option value="community">👥 Community / Network</option>
+                            <option value="ecommerce">🛍️ E-commerce</option>
+                            <option value="other">🔮 Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="timeline">Timeline to Launch</label>
+                        <select id="timeline" required>
+                            <option value="">Select timeline...</option>
+                            <option value="week">⚡ This week</option>
+                            <option value="month">📅 This month</option>
+                            <option value="quarter">📊 This quarter</option>
+                            <option value="year">🗓️ This year</option>
+                            <option value="launched">✅ Already launched</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="team-size">Team Size</label>
+                        <select id="team-size" required>
+                            <option value="">Select team size...</option>
+                            <option value="solo">👤 Solo founder</option>
+                            <option value="duo">👥 2 co-founders</option>
+                            <option value="small">👨‍👩‍👧 3-5 people</option>
+                            <option value="medium">🏢 6-15 people</option>
+                            <option value="large">🏛️ 15+ people</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="funding">Funding Status</label>
+                        <select id="funding" required>
+                            <option value="">Select funding...</option>
+                            <option value="bootstrapped">💪 Bootstrapped</option>
+                            <option value="savings">💰 Personal savings</option>
+                            <option value="preseed">🌱 Pre-seed</option>
+                            <option value="seed">🚀 Seed funded</option>
+                            <option value="series">📈 Series A+</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="market">Target Market</label>
+                    <select id="market" required>
+                        <option value="">Select market...</option>
+                        <option value="b2b-smb">🏪 B2B (SMBs)</option>
+                        <option value="b2b-enterprise">🏢 B2B (Enterprise)</option>
+                        <option value="b2c-mass">👥 B2C (Mass market)</option>
+                        <option value="b2c-niche">🎯 B2C (Niche)</option>
+                        <option value="developers">👩‍💻 Developers</option>
+                        <option value="creators">🎨 Creators</option>
+                        <option value="local">📍 Local/Regional</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Brief Description (optional)</label>
+                    <textarea id="description" placeholder="What does your project do? Who is it for?"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="concerns">Your Top Concern (optional)</label>
+                    <input type="text" id="concerns" placeholder="e.g., Competition, Technical complexity, Distribution">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    🔮 Run Pre-Mortem Simulation
+                </button>
+            </form>
+        </div>
+
+        <!-- Loading -->
+        <div id="loading" class="panel loading">
+            <div class="loading-text">SIMULATING FUTURE FAILURE<span class="cursor"></span></div>
+            <div class="loading-bar">
+                <div class="loading-bar-fill"></div>
+            </div>
+            <div class="loading-steps">
+                <div class="loading-step" style="animation-delay: 0.2s;">Initializing timeline projection...</div>
+                <div class="loading-step" style="animation-delay: 0.6s;">Analyzing market variables...</div>
+                <div class="loading-step" style="animation-delay: 1s;">Computing failure scenarios...</div>
+                <div class="loading-step" style="animation-delay: 1.4s;">Generating mitigation strategies...</div>
+                <div class="loading-step" style="animation-delay: 1.8s;">Compiling risk assessment...</div>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div id="results">
+            <div class="panel">
+                <div class="risk-header">
+                    <div class="project-info">
+                        <strong id="result-name">Project Name</strong><br>
+                        <span id="result-type">Type</span> • <span id="result-timeline">Timeline</span>
+                    </div>
+                    <div class="overall-risk">
+                        <div class="risk-meter">
+                            <div id="risk-meter-fill" class="risk-meter-fill"></div>
+                        </div>
+                        <span id="risk-label" class="risk-label">RISK LEVEL</span>
+                    </div>
+                </div>
+
+                <h2 class="panel-title">Failure Scenarios Detected</h2>
+                <div id="risks-container"></div>
+
+                <div class="summary-grid">
+                    <div class="summary-stat">
+                        <div class="stat-value" id="total-risks">0</div>
+                        <div class="stat-label">Risks Identified</div>
+                    </div>
+                    <div class="summary-stat">
+                        <div class="stat-value" id="critical-risks">0</div>
+                        <div class="stat-label">Critical Risks</div>
+                    </div>
+                    <div class="summary-stat">
+                        <div class="stat-value" id="mitigations-count">0</div>
+                        <div class="stat-label">Mitigations</div>
+                    </div>
+                    <div class="summary-stat">
+                        <div class="stat-value" id="survival-rate">0%</div>
+                        <div class="stat-label">Survival Rate</div>
+                    </div>
+                </div>
+
+                <div class="footer-actions">
+                    <button class="btn" onclick="exportResults()">📋 Copy Report</button>
+                    <button class="btn" onclick="window.print()">🖨️ Print</button>
+                    <button class="btn btn-danger" onclick="resetSimulation()">🔄 New Simulation</button>
+                </div>
+            </div>
+        </div>
+
+        <footer style="text-align: center; padding: 2rem; color: var(--text-dim); font-size: 0.8rem;">
+            <p>Based on the Pre-Mortem technique by <a href="https://www.gary-klein.com/premortem" style="color: var(--cyan);">Gary Klein</a></p>
+            <p style="margin-top: 0.5rem;">Built with 💀 by <a href="https://github.com/luzguilherme" style="color: var(--pink);">safira</a> | Overnight Build 2026-04-04</p>
+        </footer>
+    </div>
+
+    <script>
+        // Risk database by project type
+        const riskDatabase = {
+            // Market risks
+            market: [
+                {
+                    name: "No Real Problem",
+                    icon: "🎭",
+                    category: "market",
+                    scenario: "You launched to crickets. Nobody signed up. After talking to potential users, you realize the problem you're solving is a 'nice to have', not a 'must have'. People said they'd pay, but when the payment button appeared, they vanished.",
+                    mitigations: [
+                        "Interview 20 potential customers before writing code",
+                        "Get 3 people to pre-pay before building",
+                        "Start with a manual/concierge MVP to validate demand",
+                        "Look for alternatives people are already paying for"
+                    ],
+                    triggers: { market: ["b2c-mass", "b2c-niche"], timeline: ["week", "month"] }
+                },
+                {
+                    name: "Crowded Market",
+                    icon: "🏟️",
+                    category: "market",
+                    scenario: "By launch day, there were already 47 competitors doing the same thing. Users compared you to established players with more features, better pricing, and years of trust built. Your 'unique angle' wasn't unique enough to matter.",
+                    mitigations: [
+                        "Find a specific niche within the market to dominate",
+                        "Compete on a dimension incumbents can't (speed, simplicity, price)",
+                        "Build for a specific persona, not everyone",
+                        "Create switching costs early (integrations, data lock-in)"
+                    ],
+                    triggers: { type: ["saas", "mobile", "ecommerce"] }
+                },
+                {
+                    name: "Wrong Audience",
+                    icon: "🎯",
+                    category: "market",
+                    scenario: "You built for developers but marketed to business owners. The people who loved your product couldn't buy it. The people with budget couldn't use it. Product-market fit existed, but product-buyer fit didn't.",
+                    mitigations: [
+                        "Map your user vs buyer clearly before launch",
+                        "Validate willingness to pay with actual budget holders",
+                        "Build for the buyer's workflow, not just the user's",
+                        "Create ROI calculators and business case templates"
+                    ],
+                    triggers: { market: ["b2b-enterprise", "b2b-smb"] }
+                },
+                {
+                    name: "Timing Disaster",
+                    icon: "⏰",
+                    category: "timing",
+                    scenario: "The market wasn't ready. You were either too early (infrastructure wasn't there, behaviors hadn't shifted) or too late (the window closed, incumbents won). Being right isn't enough—you have to be right at the right time.",
+                    mitigations: [
+                        "Research adoption curves for similar products",
+                        "Look for enabling factors that make 'now' the moment",
+                        "Start smaller to reduce time-to-market",
+                        "Stay lean so you can pivot if timing is off"
+                    ],
+                    triggers: { timeline: ["quarter", "year"] }
+                }
+            ],
+            // Technical risks
+            tech: [
+                {
+                    name: "Technical Debt Avalanche",
+                    icon: "🏔️",
+                    category: "tech",
+                    scenario: "You shipped fast, but the codebase became a nightmare. Adding new features took 10x longer. Bugs multiplied. Your best developer quit. Eventually, customers churned because you couldn't ship what they needed.",
+                    mitigations: [
+                        "Schedule 20% time for refactoring from day one",
+                        "Write tests for critical paths before they break",
+                        "Document architecture decisions",
+                        "Set a 'tech debt budget' per sprint"
+                    ],
+                    triggers: { timeline: ["week", "month"], type: ["saas", "api"] }
+                },
+                {
+                    name: "Scale Wall",
+                    icon: "🧱",
+                    category: "tech",
+                    scenario: "You got featured on Hacker News. Traffic spiked 50x. The database crashed. The site was down for 6 hours. By the time it recovered, the moment had passed and your reputation was damaged.",
+                    mitigations: [
+                        "Load test before any major launch/PR push",
+                        "Use CDN and caching aggressively",
+                        "Have a 'traffic surge' playbook ready",
+                        "Design for horizontal scaling from the start"
+                    ],
+                    triggers: { type: ["saas", "marketplace", "api"] }
+                },
+                {
+                    name: "Integration Hell",
+                    icon: "🔗",
+                    category: "tech",
+                    scenario: "Your product depended on 5 external APIs. One changed without warning, breaking your core feature. Another deprecated their free tier. A third went down for 8 hours during your biggest demo.",
+                    mitigations: [
+                        "Build abstractions around external dependencies",
+                        "Have fallback providers for critical services",
+                        "Monitor API changes and deprecation notices",
+                        "Cache aggressively to reduce dependency on uptime"
+                    ],
+                    triggers: { type: ["saas", "api", "extension"] }
+                },
+                {
+                    name: "Security Breach",
+                    icon: "🔓",
+                    category: "tech",
+                    scenario: "Someone found a SQL injection vulnerability. User data leaked. You spent weeks on damage control instead of growth. Customers lost trust. Some enterprise deals fell through because you couldn't pass security reviews.",
+                    mitigations: [
+                        "Run security audit before launch",
+                        "Use battle-tested auth libraries (never roll your own)",
+                        "Implement rate limiting and input validation everywhere",
+                        "Have an incident response plan ready"
+                    ],
+                    triggers: { market: ["b2b-enterprise"], type: ["saas", "marketplace"] }
+                }
+            ],
+            // Team/execution risks
+            team: [
+                {
+                    name: "Founder Burnout",
+                    icon: "🔥",
+                    category: "team",
+                    scenario: "Month 8, you're working 80-hour weeks. Sleep is broken. Relationships suffer. The product feels like a prison. You start cutting corners. Eventually, you abandon the project—not because it failed, but because you couldn't continue.",
+                    mitigations: [
+                        "Set sustainable work hours from day one",
+                        "Build in breaks and vacations (even short ones)",
+                        "Delegate or automate the tasks you hate",
+                        "Find a co-founder or support group for accountability"
+                    ],
+                    triggers: { team: ["solo", "duo"] }
+                },
+                {
+                    name: "Co-Founder Conflict",
+                    icon: "⚔️",
+                    category: "team",
+                    scenario: "What started as friendly disagreements became bitter fights. You wanted to focus on product; they wanted growth at any cost. Communication broke down. One of you left, taking half the knowledge and momentum with them.",
+                    mitigations: [
+                        "Have explicit conversations about vision, values, and exit scenarios",
+                        "Define decision-making authority clearly",
+                        "Set up regular co-founder check-ins",
+                        "Get a vesting agreement with cliff in place"
+                    ],
+                    triggers: { team: ["duo", "small"] }
+                },
+                {
+                    name: "Hiring Mistakes",
+                    icon: "👻",
+                    category: "team",
+                    scenario: "The first hire looked great on paper but couldn't execute. The second was toxic and drove away two good people. By the time you fixed the team, 6 months were wasted and runway was running low.",
+                    mitigations: [
+                        "Use paid trial projects before committing",
+                        "Check references thoroughly (ask about weaknesses)",
+                        "Hire for culture fit AND skills",
+                        "Fire fast when it's clearly not working"
+                    ],
+                    triggers: { team: ["small", "medium", "large"] }
+                },
+                {
+                    name: "Scope Creep Monster",
+                    icon: "🐙",
+                    category: "execution",
+                    scenario: "Every week, you added 'just one more feature.' Launch kept slipping. By the time you shipped, the market had moved on. The product was bloated and confusing. Users didn't know what it actually did.",
+                    mitigations: [
+                        "Define MVP ruthlessly (cut until it hurts)",
+                        "Set a hard launch date and work backward",
+                        "Every feature request goes to a 'not now' list",
+                        "Ship to 10 users before building for 1000"
+                    ],
+                    triggers: { timeline: ["quarter", "year"] }
+                }
+            ],
+            // Resource risks
+            resources: [
+                {
+                    name: "Runway Crash",
+                    icon: "✈️",
+                    category: "resources",
+                    scenario: "You projected 18 months of runway. Reality was 9. Unexpected costs (legal, infrastructure, contractors) drained the bank. You had to shut down right when things were starting to work.",
+                    mitigations: [
+                        "Add 50% buffer to all financial projections",
+                        "Track burn rate weekly, not monthly",
+                        "Have a 'cut to survive' plan ready",
+                        "Generate revenue earlier than you think you need to"
+                    ],
+                    triggers: { funding: ["bootstrapped", "savings"] }
+                },
+                {
+                    name: "Distribution Black Hole",
+                    icon: "🕳️",
+                    category: "resources",
+                    scenario: "You built an amazing product but had no way to reach customers. Paid ads were too expensive. SEO would take years. Social media algorithms buried you. Without distribution, even the best product dies in obscurity.",
+                    mitigations: [
+                        "Build distribution into the product (viral loops, referrals)",
+                        "Start building audience before building product",
+                        "Partner with someone who has your target audience",
+                        "Focus on one channel and dominate it"
+                    ],
+                    triggers: { type: ["saas", "mobile", "content"] }
+                },
+                {
+                    name: "Key Person Dependency",
+                    icon: "🎭",
+                    category: "resources",
+                    scenario: "Your entire backend was in one developer's head. When they left (new job, burnout, life event), the project ground to a halt. Nobody else could deploy, fix bugs, or understand the architecture.",
+                    mitigations: [
+                        "Document everything critical (runbooks, architecture)",
+                        "Ensure at least 2 people understand each system",
+                        "Use standard tools and patterns",
+                        "Do regular knowledge-sharing sessions"
+                    ],
+                    triggers: { team: ["solo", "duo", "small"] }
+                }
+            ],
+            // External risks
+            external: [
+                {
+                    name: "Platform Risk",
+                    icon: "🏛️",
+                    category: "market",
+                    scenario: "Your business depended on [Google/Apple/Amazon/Shopify]. They changed the rules. Fees increased 40%. A policy update killed your primary acquisition channel. You had 30 days to adapt or die.",
+                    mitigations: [
+                        "Diversify platforms and channels",
+                        "Own your customer relationships (email, not followers)",
+                        "Build on open platforms where possible",
+                        "Have contingency plans for major policy changes"
+                    ],
+                    triggers: { type: ["extension", "mobile", "ecommerce", "marketplace"] }
+                },
+                {
+                    name: "Regulatory Surprise",
+                    icon: "⚖️",
+                    category: "market",
+                    scenario: "New regulations required compliance you couldn't afford. GDPR fines, accessibility lawsuits, industry-specific requirements you didn't know existed. Legal costs drained resources meant for growth.",
+                    mitigations: [
+                        "Research industry regulations before building",
+                        "Build compliance into the product architecture",
+                        "Budget for legal review before launch",
+                        "Follow regulatory news in your industry"
+                    ],
+                    triggers: { market: ["b2b-enterprise"], type: ["saas", "marketplace"] }
+                },
+                {
+                    name: "Copycat Attack",
+                    icon: "🐱",
+                    category: "market",
+                    scenario: "A larger competitor copied your product. They had 10x the marketing budget, existing distribution, and brand trust. They didn't need to be better—just 'good enough' and everywhere.",
+                    mitigations: [
+                        "Build moats (network effects, data, community)",
+                        "Move faster than they can copy",
+                        "Go deep into a niche they won't care about",
+                        "Create brand loyalty beyond features"
+                    ],
+                    triggers: { funding: ["bootstrapped", "savings", "preseed"] }
+                }
+            ]
+        };
+
+        // Form handling
+        document.getElementById('premortem-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            runSimulation();
+        });
+
+        function runSimulation() {
+            const formData = {
+                name: document.getElementById('project-name').value,
+                type: document.getElementById('project-type').value,
+                timeline: document.getElementById('timeline').value,
+                teamSize: document.getElementById('team-size').value,
+                funding: document.getElementById('funding').value,
+                market: document.getElementById('market').value,
+                description: document.getElementById('description').value,
+                concerns: document.getElementById('concerns').value
+            };
+
+            // Hide form, show loading
+            document.getElementById('input-section').style.display = 'none';
+            document.getElementById('loading').classList.add('active');
+
+            // Animate loading steps
+            const steps = document.querySelectorAll('.loading-step');
+            steps.forEach((step, i) => {
+                setTimeout(() => step.classList.add('active'), i * 400);
+                setTimeout(() => {
+                    step.classList.remove('active');
+                    step.classList.add('done');
+                }, (i * 400) + 300);
+            });
+
+            // Generate results after animation
+            setTimeout(() => {
+                generateResults(formData);
+            }, 2500);
+        }
+
+        function generateResults(formData) {
+            const risks = selectRisks(formData);
+            
+            // Hide loading, show results
+            document.getElementById('loading').classList.remove('active');
+            document.getElementById('results').classList.add('active');
+
+            // Update header
+            document.getElementById('result-name').textContent = formData.name;
+            document.getElementById('result-type').textContent = getTypeLabel(formData.type);
+            document.getElementById('result-timeline').textContent = getTimelineLabel(formData.timeline);
+
+            // Calculate overall risk
+            const criticalCount = risks.filter(r => r.probability >= 0.7).length;
+            const highCount = risks.filter(r => r.probability >= 0.5 && r.probability < 0.7).length;
+            let riskLevel = 'low';
+            if (criticalCount >= 2) riskLevel = 'critical';
+            else if (criticalCount >= 1 || highCount >= 3) riskLevel = 'high';
+            else if (highCount >= 1) riskLevel = 'medium';
+
+            const meterFill = document.getElementById('risk-meter-fill');
+            const riskLabel = document.getElementById('risk-label');
+            meterFill.className = 'risk-meter-fill ' + riskLevel;
+            riskLabel.className = 'risk-label ' + riskLevel;
+            riskLabel.textContent = riskLevel.toUpperCase() + ' RISK';
+
+            // Render risk cards
+            const container = document.getElementById('risks-container');
+            container.innerHTML = risks.map(risk => createRiskCard(risk)).join('');
+
+            // Add click handlers
+            document.querySelectorAll('.risk-card-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    this.parentElement.classList.toggle('expanded');
+                });
+            });
+
+            // Update stats
+            document.getElementById('total-risks').textContent = risks.length;
+            document.getElementById('critical-risks').textContent = criticalCount;
+            document.getElementById('mitigations-count').textContent = risks.reduce((sum, r) => sum + r.mitigations.length, 0);
+            
+            const survivalRate = Math.max(15, Math.min(85, 100 - (criticalCount * 20) - (highCount * 10) - (risks.length * 3)));
+            document.getElementById('survival-rate').textContent = survivalRate + '%';
+
+            // Store results for export
+            window.premortemResults = { formData, risks, riskLevel, survivalRate };
+        }
+
+        function selectRisks(formData) {
+            const allRisks = [
+                ...riskDatabase.market,
+                ...riskDatabase.tech,
+                ...riskDatabase.team,
+                ...riskDatabase.resources,
+                ...riskDatabase.external
+            ];
+
+            // Score risks based on relevance
+            const scoredRisks = allRisks.map(risk => {
+                let score = 0.3; // Base score
+
+                // Check triggers
+                if (risk.triggers) {
+                    if (risk.triggers.type && risk.triggers.type.includes(formData.type)) score += 0.3;
+                    if (risk.triggers.market && risk.triggers.market.includes(formData.market)) score += 0.25;
+                    if (risk.triggers.timeline && risk.triggers.timeline.includes(formData.timeline)) score += 0.2;
+                    if (risk.triggers.team && risk.triggers.team.includes(formData.teamSize)) score += 0.25;
+                    if (risk.triggers.funding && risk.triggers.funding.includes(formData.funding)) score += 0.2;
+                }
+
+                // Solo founder gets burnout risk bump
+                if (formData.teamSize === 'solo' && risk.name === 'Founder Burnout') score += 0.3;
+                
+                // Bootstrapped gets runway risk bump
+                if ((formData.funding === 'bootstrapped' || formData.funding === 'savings') && risk.name === 'Runway Crash') score += 0.3;
+
+                // Fast timeline gets tech debt bump
+                if (formData.timeline === 'week' && risk.name === 'Technical Debt Avalanche') score += 0.3;
+
+                // Add some randomness
+                score += Math.random() * 0.15;
+
+                return {
+                    ...risk,
+                    probability: Math.min(0.95, score)
+                };
+            });
+
+            // Sort by probability and take top 5-7
+            const sortedRisks = scoredRisks.sort((a, b) => b.probability - a.probability);
+            const numRisks = Math.min(7, Math.max(5, Math.floor(Math.random() * 3) + 5));
+            
+            return sortedRisks.slice(0, numRisks);
+        }
+
+        function createRiskCard(risk) {
+            const probLevel = risk.probability >= 0.7 ? 'critical' : 
+                              risk.probability >= 0.5 ? 'high' : 
+                              risk.probability >= 0.3 ? 'medium' : 'low';
+            
+            const probPercent = Math.round(risk.probability * 100);
+
+            return `
+                <div class="risk-card">
+                    <div class="risk-card-header">
+                        <div class="risk-card-title">
+                            <span class="risk-icon">${risk.icon}</span>
+                            <div>
+                                <span class="risk-name">${risk.name}</span>
+                                <span class="category-badge category-${risk.category}">${risk.category}</span>
+                            </div>
+                        </div>
+                        <div class="risk-probability">
+                            <div class="probability-bar">
+                                <div class="probability-fill ${probLevel}" style="width: ${probPercent}%"></div>
+                            </div>
+                            <span style="color: var(--${probLevel === 'critical' ? 'red' : probLevel === 'high' ? 'orange' : probLevel === 'medium' ? 'yellow' : 'green'})">${probPercent}%</span>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="risk-card-body">
+                        <div class="scenario">
+                            <div class="scenario-title">💀 The Failure Scenario</div>
+                            <div class="scenario-text">${risk.scenario}</div>
+                        </div>
+                        <div class="mitigations">
+                            <div class="mitigations-title">🛡️ Prevention Strategies</div>
+                            ${risk.mitigations.map(m => `<div class="mitigation-item">${m}</div>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getTypeLabel(type) {
+            const labels = {
+                'saas': '💻 SaaS',
+                'mobile': '📱 Mobile App',
+                'extension': '🧩 Extension',
+                'api': '⚡ API/Dev Tool',
+                'marketplace': '🛒 Marketplace',
+                'content': '📚 Content',
+                'agency': '🏢 Agency',
+                'community': '👥 Community',
+                'ecommerce': '🛍️ E-commerce',
+                'other': '🔮 Other'
+            };
+            return labels[type] || type;
+        }
+
+        function getTimelineLabel(timeline) {
+            const labels = {
+                'week': 'This week',
+                'month': 'This month',
+                'quarter': 'This quarter',
+                'year': 'This year',
+                'launched': 'Already launched'
+            };
+            return labels[timeline] || timeline;
+        }
+
+        function resetSimulation() {
+            document.getElementById('results').classList.remove('active');
+            document.getElementById('input-section').style.display = 'block';
+            document.getElementById('premortem-form').reset();
+            
+            // Reset loading animation
+            const steps = document.querySelectorAll('.loading-step');
+            steps.forEach(step => {
+                step.classList.remove('active', 'done');
+            });
+        }
+
+        function exportResults() {
+            if (!window.premortemResults) return;
+
+            const { formData, risks, riskLevel, survivalRate } = window.premortemResults;
+            
+            let report = `# Pre-Mortem Report: ${formData.name}\n\n`;
+            report += `**Type:** ${getTypeLabel(formData.type)}\n`;
+            report += `**Timeline:** ${getTimelineLabel(formData.timeline)}\n`;
+            report += `**Risk Level:** ${riskLevel.toUpperCase()}\n`;
+            report += `**Survival Rate:** ${survivalRate}%\n\n`;
+            report += `---\n\n## Failure Scenarios\n\n`;
+
+            risks.forEach(risk => {
+                report += `### ${risk.icon} ${risk.name} (${Math.round(risk.probability * 100)}%)\n\n`;
+                report += `**Scenario:** ${risk.scenario}\n\n`;
+                report += `**Prevention:**\n`;
+                risk.mitigations.forEach(m => {
+                    report += `- ${m}\n`;
+                });
+                report += `\n`;
+            });
+
+            report += `---\n\n*Generated by The Pre-Mortem Machine | ${new Date().toLocaleDateString()}*`;
+
+            navigator.clipboard.writeText(report).then(() => {
+                alert('Report copied to clipboard!');
+            }).catch(() => {
+                // Fallback
+                const textarea = document.createElement('textarea');
+                textarea.value = report;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert('Report copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+</html>
