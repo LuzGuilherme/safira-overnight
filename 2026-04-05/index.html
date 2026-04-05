@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signal Scout — Trend to Tool Validator</title>
+  <style>
+    :root {
+      --bg: #f8f7f2;
+      --paper: #fffdf8;
+      --ink: #121212;
+      --muted: #5a5a5a;
+      --line: #d9d2c5;
+      --accent: #8c1f1f;
+      --good: #1b7d31;
+      --warn: #a96800;
+      --bad: #9b1c1c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, 'Times New Roman', serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.45;
+    }
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    header {
+      border-top: 6px double var(--ink);
+      border-bottom: 3px solid var(--ink);
+      padding: 1rem 0;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .kicker {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    h1 {
+      margin: 0.25rem 0;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.1;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+
+    .panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 1rem;
+    }
+    h2 {
+      margin: 0 0 0.7rem;
+      font-size: 1.15rem;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 0.35rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 0.6rem;
+    }
+    @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+
+    label { font-size: 0.85rem; color: var(--muted); display: block; margin-bottom: 0.15rem; }
+    input, select {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 0.45rem 0.55rem;
+      font: inherit;
+      font-size: 0.95rem;
+    }
+    .actions { display: flex; gap: 0.5rem; margin-top: 0.7rem; flex-wrap: wrap; }
+    button {
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: #fff;
+      padding: 0.45rem 0.7rem;
+      font: inherit;
+      cursor: pointer;
+    }
+    button.secondary { background: #fff; color: var(--ink); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 0.45rem 0.35rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+
+    .score {
+      font-weight: 700;
+      padding: 0.12rem 0.35rem;
+      border: 1px solid;
+      display: inline-block;
+      min-width: 56px;
+      text-align: center;
+    }
+    .s-high { color: var(--good); border-color: var(--good); }
+    .s-mid { color: var(--warn); border-color: var(--warn); }
+    .s-low { color: var(--bad); border-color: var(--bad); }
+
+    .cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
+
+    .note {
+      font-size: 0.86rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+    .top {
+      border-left: 3px solid var(--accent);
+      padding-left: 0.5rem;
+      margin-bottom: 0.55rem;
+    }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="kicker">Sunday Edition · Founder Intelligence Desk</p>
+      <h1>Signal Scout</h1>
+      <p class="subtitle">Transforma ruído de Reddit / HN / Product Hunt em ideias com score de oportunidade.</p>
+    </header>
+
+    <div class="layout">
+      <section class="panel">
+        <h2>➕ Adicionar sinal</h2>
+        <div class="grid">
+          <div><label for="source">Fonte</label><select id="source"><option>Reddit</option><option>Hacker News</option><option>Product Hunt</option><option>Outro</option></select></div>
+          <div><label for="category">Categoria</label><select id="category"><option>Founder Tools</option><option>Marketing</option><option>Analytics</option><option>AI Agents</option><option>Dev Tools</option><option>Consumer Utility</option></select></div>
+          <div style="grid-column:1/-1"><label for="title">Título do sinal (post/produto)</label><input id="title" placeholder="Ex: Token budget enforcement across AI agents" /></div>
+          <div><label for="upvotes">Upvotes / points</label><input id="upvotes" type="number" min="0" value="100" /></div>
+          <div><label for="comments">Comentários</label><input id="comments" type="number" min="0" value="20" /></div>
+          <div><label for="buildHours">Build time (horas)</label><input id="buildHours" type="number" min="1" max="40" value="4" /></div>
+          <div><label for="saturation">Saturação percebida</label><select id="saturation"><option value="low">Baixa</option><option value="mid" selected>Média</option><option value="high">Alta</option></select></div>
+          <div><label for="personalFit">Fit com o teu contexto (1-10)</label><input id="personalFit" type="number" min="1" max="10" value="8" /></div>
+          <div><label for="urgency">Urgência da dor (1-10)</label><input id="urgency" type="number" min="1" max="10" value="7" /></div>
+        </div>
+        <div class="actions">
+          <button id="addBtn">Adicionar ao radar</button>
+          <button class="secondary" id="demoBtn">Repor exemplos desta noite</button>
+          <button class="secondary" id="clearBtn">Limpar tudo</button>
+        </div>
+        <p class="note">Fórmula: <span class="mono">0.30 demand + 0.25 conversation + 0.20 fit + 0.15 urgency + 0.10 speed</span> − penalização por saturação.</p>
+      </section>
+
+      <section class="panel">
+        <h2>🏁 Top oportunidades</h2>
+        <div id="topPicks"></div>
+        <h2 style="margin-top:1rem">📌 Recomendação imediata</h2>
+        <p id="nextMove" class="note">Adiciona sinais para gerar recomendação.</p>
+      </section>
+    </div>
+
+    <section class="panel" style="margin-top:1rem">
+      <h2>🗞️ Radar de sinais</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Score</th><th>Fonte</th><th>Título</th><th>Categoria</th><th>Sinais</th><th>Remover</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div class="cols" style="margin-top:1rem">
+        <div>
+          <h2>Como ler o score</h2>
+          <ul>
+            <li><strong>80-100:</strong> atacar já (janela clara).</li>
+            <li><strong>60-79:</strong> bom candidato para experimento curto.</li>
+            <li><strong>< 60:</strong> guardar em backlog.</li>
+          </ul>
+        </div>
+        <div>
+          <h2>Checklist de validação</h2>
+          <ul>
+            <li>A dor aparece em 2+ comunidades?</li>
+            <li>Consegues protótipo em 1-2 noites?</li>
+            <li>Já existe diferencial claro?</li>
+            <li>Consegues monetizar em 30 dias?</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const rowsEl = document.getElementById('rows');
+    const topPicksEl = document.getElementById('topPicks');
+    const nextMoveEl = document.getElementById('nextMove');
+
+    function computeScore(item) {
+      const demand = Math.min(100, Number(item.upvotes) / 8);
+      const conversation = Math.min(100, Number(item.comments) * 2.2);
+      const fit = Math.min(100, Number(item.personalFit) * 10);
+      const urgency = Math.min(100, Number(item.urgency) * 10);
+      const speed = Math.max(0, 100 - (Number(item.buildHours) - 1) * 12);
+      const satPenalty = item.saturation === 'high' ? 14 : (item.saturation === 'mid' ? 7 : 0);
+
+      const raw = (0.30 * demand) + (0.25 * conversation) + (0.20 * fit) + (0.15 * urgency) + (0.10 * speed) - satPenalty;
+      return Math.max(0, Math.min(100, Math.round(raw)));
+    }
+
+    function scoreClass(score) {
+      if (score >= 80) return 's-high';
+      if (score >= 60) return 's-mid';
+      return 's-low';
+    }
+
+    function readForm() {
+      return {
+        source: document.getElementById('source').value,
+        category: document.getElementById('category').value,
+        title: document.getElementById('title').value.trim(),
+        upvotes: Number(document.getElementById('upvotes').value || 0),
+        comments: Number(document.getElementById('comments').value || 0),
+        buildHours: Number(document.getElementById('buildHours').value || 1),
+        saturation: document.getElementById('saturation').value,
+        personalFit: Number(document.getElementById('personalFit').value || 1),
+        urgency: Number(document.getElementById('urgency').value || 1)
+      };
+    }
+
+    let signals = [];
+
+    function render() {
+      signals.forEach(item => item.score = computeScore(item));
+      signals.sort((a, b) => b.score - a.score);
+
+      rowsEl.innerHTML = signals.map((item, idx) => `
+        <tr>
+          <td><span class="score ${scoreClass(item.score)}">${item.score}</span></td>
+          <td>${item.source}</td>
+          <td>${item.title}</td>
+          <td>${item.category}</td>
+          <td>${item.upvotes} ▲ · ${item.comments} 💬 · ${item.buildHours}h</td>
+          <td><button class="secondary" data-i="${idx}">X</button></td>
+        </tr>
+      `).join('');
+
+      const top = signals.slice(0, 3);
+      topPicksEl.innerHTML = top.length
+        ? top.map((t, i) => `<div class="top"><strong>#${i + 1} ${t.title}</strong><br><span class="note">${t.source} · ${t.category} · score ${t.score}</span></div>`).join('')
+        : '<p class="note">Sem sinais ainda.</p>';
+
+      if (top.length) {
+        const best = top[0];
+        const action = best.score >= 80
+          ? 'Executar micro-MVP esta semana e validar com landing + waitlist.'
+          : (best.score >= 60
+            ? 'Fazer protótipo leve e recolher 5 feedbacks antes de investir.'
+            : 'Guardar no backlog e monitorizar por 2 semanas.');
+        nextMoveEl.textContent = `Melhor aposta: ${best.title} (${best.score}/100). ${action}`;
+      } else {
+        nextMoveEl.textContent = 'Adiciona sinais para gerar recomendação.';
+      }
+
+      rowsEl.querySelectorAll('button[data-i]').forEach(btn => {
+        btn.onclick = () => {
+          const i = Number(btn.getAttribute('data-i'));
+          signals.splice(i, 1);
+          render();
+        };
+      });
+    }
+
+    function loadDemo() {
+      signals = [
+        {
+          source: 'Hacker News',
+          category: 'AI Agents',
+          title: 'Token budget enforcement across your AI agents',
+          upvotes: 72,
+          comments: 31,
+          buildHours: 6,
+          saturation: 'low',
+          personalFit: 9,
+          urgency: 8
+        },
+        {
+          source: 'Reddit',
+          category: 'Founder Tools',
+          title: 'Founders struggle to find non-AI boring business ideas with real demand',
+          upvotes: 210,
+          comments: 45,
+          buildHours: 5,
+          saturation: 'mid',
+          personalFit: 8,
+          urgency: 7
+        },
+        {
+          source: 'Product Hunt',
+          category: 'Productivity',
+          title: 'AI copilots for workflow compression are still trending strongly',
+          upvotes: 130,
+          comments: 18,
+          buildHours: 7,
+          saturation: 'high',
+          personalFit: 6,
+          urgency: 6
+        }
+      ];
+      render();
+    }
+
+    document.getElementById('addBtn').onclick = () => {
+      const item = readForm();
+      if (!item.title) {
+        alert('Escreve um título para o sinal.');
+        return;
+      }
+      signals.push(item);
+      document.getElementById('title').value = '';
+      render();
+    };
+
+    document.getElementById('demoBtn').onclick = loadDemo;
+    document.getElementById('clearBtn').onclick = () => { signals = []; render(); };
+
+    loadDemo();
+  </script>
+</body>
+</html>

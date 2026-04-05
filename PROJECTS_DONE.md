@@ -119,3 +119,4 @@ Ver `/root/clawd/data/STYLE_LIBRARY.md` para detalhes completos.
 | 2026-04-02 | The Subscription Graveyard 💀 | Finanças/Consumer Utility | **Neo Brutalist** 🔲 |
 | 2026-04-03 | The Pricing Psychology Lab 🧠 | Business/Pricing Strategy | **Editorial Clean** ☀️ |
 | 2026-04-04 | The Pre-Mortem Machine 💀 | Business/Risk Assessment | **Retro Tech** ⚡ |
+| 2026-04-05 | Signal Scout 🗞️ | Research/Founder Tools | **Newspaper** 📰 |
