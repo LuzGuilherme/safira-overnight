@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Launch Feedback Triage</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #131a2e;
+      --panel-2: #1a233d;
+      --line: #2f3c63;
+      --text: #e6ecff;
+      --muted: #9aa9d6;
+      --green: #1bd760;
+      --yellow: #f6c945;
+      --red: #ff5f6d;
+      --blue: #6da8ff;
+      --purple: #a58bff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(180deg, #070b17, #0b1020);
+      color: var(--text);
+    }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 18px; }
+    h1 { font-size: clamp(1.4rem, 3vw, 2rem); margin: 0; }
+    .sub { margin-top: 6px; color: var(--muted); }
+
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+    @media (max-width: 960px) { .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .form-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; }
+    @media (max-width: 760px) { .form-grid { grid-template-columns: 1fr; } }
+
+    label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 4px; }
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font: inherit;
+    }
+    textarea { min-height: 66px; resize: vertical; }
+
+    .actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+    button {
+      border: 1px solid var(--line);
+      background: #1f2a47;
+      color: var(--text);
+      border-radius: 8px;
+      padding: 8px 11px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button.primary { background: #35589c; border-color: #4069b8; }
+
+    .kpis { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin-top: 10px; }
+    @media (max-width: 760px) { .kpis { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    .kpi { background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 10px; }
+    .kpi .v { font-size: 1.3rem; font-weight: 700; }
+    .kpi .l { font-size: 12px; color: var(--muted); }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+    th, td { border-bottom: 1px solid var(--line); padding: 9px 6px; text-align: left; vertical-align: top; }
+    th { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+
+    .badge { font-size: 12px; border: 1px solid; border-radius: 999px; padding: 2px 8px; display: inline-block; font-weight: 700; }
+    .high { color: var(--green); border-color: var(--green); }
+    .mid { color: var(--yellow); border-color: var(--yellow); }
+    .low { color: var(--red); border-color: var(--red); }
+
+    .roadmap-item { border-left: 4px solid var(--blue); padding: 8px 10px; background: #121a30; margin-bottom: 8px; }
+    .roadmap-item strong { color: #c9d8ff; }
+    .hint { color: var(--muted); font-size: 13px; }
+    code { background: #0e1426; padding: 2px 6px; border-radius: 5px; border: 1px solid #2a355a; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>🧪 Launch Feedback Triage</h1>
+    <p class="sub">Cola feedback do lançamento e transforma em backlog priorizado com score de impacto × frequência × esforço.</p>
+
+    <div class="grid">
+      <section class="card">
+        <h2 style="margin-top:0">➕ Adicionar feedback</h2>
+        <div class="form-grid">
+          <div>
+            <label for="source">Fonte</label>
+            <select id="source">
+              <option>Product Hunt</option><option>Reddit</option><option>Hacker News</option><option>Email</option><option>Outro</option>
+            </select>
+          </div>
+          <div>
+            <label for="type">Tipo</label>
+            <select id="type">
+              <option>Bug</option><option>UX Friction</option><option>Feature Request</option><option>Pricing/Positioning</option><option>Onboarding</option>
+            </select>
+          </div>
+          <div>
+            <label for="effort">Esforço (1-10)</label>
+            <input id="effort" type="number" min="1" max="10" value="4" />
+          </div>
+          <div>
+            <label for="impact">Impacto no negócio (1-10)</label>
+            <input id="impact" type="number" min="1" max="10" value="8" />
+          </div>
+          <div>
+            <label for="frequency">Frequência reportada (1-10)</label>
+            <input id="frequency" type="number" min="1" max="10" value="6" />
+          </div>
+          <div>
+            <label for="sentiment">Sentimento</label>
+            <select id="sentiment"><option value="negative">Negativo</option><option value="neutral">Neutro</option><option value="positive">Positivo</option></select>
+          </div>
+          <div style="grid-column:1/-1">
+            <label for="note">Resumo do feedback</label>
+            <textarea id="note" placeholder="Ex: Muitos users não encontraram onde importar dados CSV."></textarea>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="primary" id="addBtn">Adicionar</button>
+          <button id="demoBtn">Carregar demo</button>
+          <button id="clearBtn">Limpar</button>
+        </div>
+        <p class="hint">Fórmula: <code>((impact×0.5)+(frequency×0.35)+(sentimentBoost×0.15))*10 - effortPenalty</code></p>
+      </section>
+
+      <section class="card">
+        <h2 style="margin-top:0">📈 Diagnóstico rápido</h2>
+        <div class="kpis">
+          <div class="kpi"><div class="v" id="total">0</div><div class="l">Itens no backlog</div></div>
+          <div class="kpi"><div class="v" id="critical">0</div><div class="l">Prioridade alta</div></div>
+          <div class="kpi"><div class="v" id="avg">0</div><div class="l">Score médio</div></div>
+          <div class="kpi"><div class="v" id="focus">—</div><div class="l">Foco da semana</div></div>
+        </div>
+
+        <h3>Plano de execução sugerido (7 dias)</h3>
+        <div id="roadmap"></div>
+      </section>
+    </div>
+
+    <section class="card" style="margin-top:14px">
+      <h2 style="margin-top:0">📋 Backlog priorizado</h2>
+      <table>
+        <thead>
+          <tr><th>Score</th><th>Tipo</th><th>Resumo</th><th>Fonte</th><th>Sinais</th><th>Ação</th></tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </section>
+  </div>
+
+  <script>
+    const rows = document.getElementById('rows');
+    const roadmap = document.getElementById('roadmap');
+    const kpi = {
+      total: document.getElementById('total'),
+      critical: document.getElementById('critical'),
+      avg: document.getElementById('avg'),
+      focus: document.getElementById('focus')
+    };
+
+    let items = [];
+
+    function boost(sentiment) {
+      if (sentiment === 'negative') return 10;
+      if (sentiment === 'neutral') return 6;
+      return 3;
+    }
+
+    function calc(item) {
+      const core = ((item.impact * 0.5) + (item.frequency * 0.35) + (boost(item.sentiment) * 0.15)) * 10;
+      const effortPenalty = (item.effort - 1) * 3;
+      return Math.max(0, Math.min(100, Math.round(core - effortPenalty)));
+    }
+
+    function classify(score) {
+      if (score >= 75) return ['Alta', 'high'];
+      if (score >= 55) return ['Média', 'mid'];
+      return ['Baixa', 'low'];
+    }
+
+    function rec(type, score) {
+      if (score >= 75) return type === 'Bug' ? 'Corrigir < 48h' : 'Ship em sprint atual';
+      if (score >= 55) return 'Validar com 5 utilizadores';
+      return 'Guardar em backlog';
+    }
+
+    function render() {
+      items.forEach(i => i.score = calc(i));
+      items.sort((a,b) => b.score - a.score);
+
+      rows.innerHTML = items.map((i, idx) => {
+        const [label, cls] = classify(i.score);
+        return `<tr>
+          <td><span class="badge ${cls}">${i.score} · ${label}</span></td>
+          <td>${i.type}</td>
+          <td>${i.note}</td>
+          <td>${i.source}</td>
+          <td>Impacto ${i.impact}/10 · Frequência ${i.frequency}/10 · Esforço ${i.effort}/10</td>
+          <td><button onclick="removeItem(${idx})">X</button></td>
+        </tr>`;
+      }).join('');
+
+      const total = items.length;
+      const critical = items.filter(i => i.score >= 75).length;
+      const avg = total ? Math.round(items.reduce((a,b) => a + b.score, 0) / total) : 0;
+
+      kpi.total.textContent = total;
+      kpi.critical.textContent = critical;
+      kpi.avg.textContent = avg;
+      kpi.focus.textContent = total ? (items[0].type === 'Bug' ? 'Estabilidade' : items[0].type) : '—';
+
+      const top = items.slice(0,3);
+      roadmap.innerHTML = top.length
+        ? top.map((t, i) => `<div class="roadmap-item"><strong>Dia ${i+1}-${i+2}:</strong> ${t.note} <br><span class="hint">${rec(t.type, t.score)} · Score ${t.score}</span></div>`).join('')
+        : '<p class="hint">Adiciona feedback para gerar roadmap.</p>';
+    }
+
+    window.removeItem = function(i) {
+      items.splice(i, 1);
+      render();
+    }
+
+    function readForm() {
+      return {
+        source: document.getElementById('source').value,
+        type: document.getElementById('type').value,
+        effort: Number(document.getElementById('effort').value || 1),
+        impact: Number(document.getElementById('impact').value || 1),
+        frequency: Number(document.getElementById('frequency').value || 1),
+        sentiment: document.getElementById('sentiment').value,
+        note: document.getElementById('note').value.trim()
+      }
+    }
+
+    document.getElementById('addBtn').onclick = () => {
+      const item = readForm();
+      if (!item.note) { alert('Escreve o resumo do feedback.'); return; }
+      items.push(item);
+      document.getElementById('note').value = '';
+      render();
+    };
+
+    document.getElementById('clearBtn').onclick = () => { items = []; render(); };
+    document.getElementById('demoBtn').onclick = () => {
+      items = [
+        { source: 'Product Hunt', type: 'Onboarding', effort: 3, impact: 9, frequency: 8, sentiment: 'negative', note: 'Users não percebem o primeiro passo após login.' },
+        { source: 'Hacker News', type: 'Bug', effort: 4, impact: 9, frequency: 6, sentiment: 'negative', note: 'Import CSV falha silenciosamente em ficheiros grandes.' },
+        { source: 'Reddit', type: 'Feature Request', effort: 6, impact: 7, frequency: 7, sentiment: 'neutral', note: 'Pediram export para Notion / Markdown.' },
+        { source: 'Email', type: 'Pricing/Positioning', effort: 2, impact: 8, frequency: 4, sentiment: 'neutral', note: 'Plano gratuito parece limitado demais para testar valor.' }
+      ];
+      render();
+    }
+
+    document.getElementById('demoBtn').click();
+  </script>
+</body>
+</html>
