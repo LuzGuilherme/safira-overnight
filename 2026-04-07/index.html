@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Incident Triage Board</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a30;
+      --panel-2: #1a2442;
+      --text: #e7ecff;
+      --muted: #9fb0da;
+      --good: #34d399;
+      --warn: #fbbf24;
+      --bad: #f87171;
+      --accent: #60a5fa;
+      --border: #2b3a66;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: linear-gradient(160deg, #0a0f1f, #0f1630 45%, #131f3d);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 24px; }
+    .hero { margin-bottom: 18px; }
+    h1 { margin: 0 0 8px; font-size: clamp(1.5rem, 3vw, 2.2rem); }
+    .sub { color: var(--muted); margin: 0; }
+    .grid { display: grid; gap: 14px; grid-template-columns: 1.2fr .8fr; }
+    .card {
+      background: rgba(18, 26, 48, .85);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      backdrop-filter: blur(2px);
+    }
+    textarea, input, select {
+      width: 100%; background: var(--panel-2); color: var(--text);
+      border: 1px solid var(--border); border-radius: 8px; padding: 10px;
+      font: inherit;
+    }
+    textarea { min-height: 180px; resize: vertical; }
+    label { font-size: .86rem; color: var(--muted); display: block; margin: 10px 0 6px; }
+    .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    button {
+      background: var(--accent); color: #081227; border: none; border-radius: 8px;
+      padding: 10px 14px; font-weight: 700; cursor: pointer;
+    }
+    button.secondary { background: #334a7d; color: #dfe9ff; }
+    .btns { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+
+    .kpis { display: grid; gap: 10px; grid-template-columns: repeat(2, 1fr); margin-bottom: 12px; }
+    .kpi { background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px; padding: 10px; }
+    .kpi .v { font-size: 1.4rem; font-weight: 800; }
+    .kpi .l { font-size: .78rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+
+    .badge {
+      display: inline-block; padding: 5px 8px; border-radius: 999px; font-size: .78rem; font-weight: 700;
+      border: 1px solid transparent;
+    }
+    .sev-high { background: rgba(248,113,113,.15); color: #fecaca; border-color: rgba(248,113,113,.4); }
+    .sev-med { background: rgba(251,191,36,.15); color: #fde68a; border-color: rgba(251,191,36,.4); }
+    .sev-low { background: rgba(52,211,153,.15); color: #a7f3d0; border-color: rgba(52,211,153,.4); }
+
+    .list { margin: 8px 0 0; padding-left: 18px; color: #dce5ff; }
+    .muted { color: var(--muted); }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .small { font-size: .9rem; }
+    .footer { margin-top: 10px; color: var(--muted); font-size: .8rem; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } .row, .kpis, .split { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>🧯 Incident Triage Board</h1>
+      <p class="sub">Paste an error report + context. Get severity, likely root causes, blast radius, and a 30-minute response plan.</p>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <label for="report">Incident report (stack traces, logs, user complaints, support notes)</label>
+        <textarea id="report" placeholder="Example: Stripe webhook retries failing with 500. Users report missing invoice emails...\nError: TypeError: Cannot read properties of undefined (reading 'customer_email') at /api/webhooks/stripe"></textarea>
+
+        <div class="row">
+          <div>
+            <label for="surface">Affected surface</label>
+            <select id="surface">
+              <option>Billing</option>
+              <option>Authentication</option>
+              <option>Onboarding</option>
+              <option>Core Product</option>
+              <option>API / Integrations</option>
+              <option>Notifications</option>
+            </select>
+          </div>
+          <div>
+            <label for="users">Estimated affected users</label>
+            <input id="users" type="number" min="0" value="120" />
+          </div>
+          <div>
+            <label for="duration">Minutes since first alert</label>
+            <input id="duration" type="number" min="0" value="35" />
+          </div>
+        </div>
+
+        <div class="btns">
+          <button id="analyzeBtn">Analyze Incident</button>
+          <button id="demoBtn" class="secondary">Load Demo Incident</button>
+          <button id="clearBtn" class="secondary">Clear</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="kpis">
+          <div class="kpi"><div class="l">Severity</div><div id="sevValue" class="v">—</div></div>
+          <div class="kpi"><div class="l">Confidence</div><div id="confValue" class="v">—</div></div>
+          <div class="kpi"><div class="l">Blast Radius</div><div id="blastValue" class="v">—</div></div>
+          <div class="kpi"><div class="l">Triage Score</div><div id="scoreValue" class="v">—</div></div>
+        </div>
+
+        <div id="severityBadge"></div>
+        <p id="summary" class="small muted">No analysis yet.</p>
+      </article>
+    </section>
+
+    <section class="grid" style="margin-top:14px;">
+      <article class="card">
+        <h3>Likely Root Causes</h3>
+        <ul id="causes" class="list"></ul>
+
+        <h3 style="margin-top:14px;">Immediate Actions (0-30 min)</h3>
+        <ul id="actions" class="list"></ul>
+      </article>
+
+      <article class="card">
+        <div class="split">
+          <div>
+            <h3>Customer Update Draft</h3>
+            <p id="customerMsg" class="small muted"></p>
+          </div>
+          <div>
+            <h3>Internal Hand-off</h3>
+            <p id="internalMsg" class="small muted"></p>
+          </div>
+        </div>
+
+        <h3 style="margin-top:14px;">Signals Detected</h3>
+        <ul id="signals" class="list"></ul>
+      </article>
+    </section>
+
+    <p class="footer">Built for overnight validation — inspired by Show HN + Product Hunt trend in debugging/incident tooling.</p>
+  </div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+
+const keywords = {
+  critical: ['payment failed','billing','auth down','data loss','security','breach','500','timeout','cannot login','webhook failed','outage'],
+  medium: ['delay','slow','retry','partial','missing email','sync failed','404','error'],
+  low: ['ui bug','typo','minor','cosmetic','alignment','copy issue']
+};
+
+function detectSignals(text){
+  const t = text.toLowerCase();
+  const s = [];
+  if(/500|timeout|connection refused|database|deadlock/.test(t)) s.push('Server instability / backend errors');
+  if(/stripe|paypal|invoice|payment/.test(t)) s.push('Revenue-impacting billing path');
+  if(/login|auth|token|session/.test(t)) s.push('Authentication/session risk');
+  if(/webhook|integration|api/.test(t)) s.push('Third-party integration dependency');
+  if(/data loss|deleted|corrupt/.test(t)) s.push('Possible data integrity issue');
+  if(/email|notification|sms/.test(t)) s.push('Comms pipeline interruption');
+  if(/mobile|ios|android/.test(t)) s.push('Client-specific (mobile) symptoms');
+  return s.length ? s : ['No strong deterministic signals, manual triage needed'];
+}
+
+function scoreSeverity(text, users, duration){
+  const t = text.toLowerCase();
+  let score = 0;
+  keywords.critical.forEach(k => { if(t.includes(k)) score += 14; });
+  keywords.medium.forEach(k => { if(t.includes(k)) score += 7; });
+  keywords.low.forEach(k => { if(t.includes(k)) score += 2; });
+  if(users > 1000) score += 20; else if(users > 200) score += 12; else if(users > 50) score += 6;
+  if(duration > 120) score += 12; else if(duration > 30) score += 6;
+  score = Math.min(100, score);
+
+  let severity = 'Low';
+  if(score >= 65) severity = 'High';
+  else if(score >= 35) severity = 'Medium';
+
+  const confidence = Math.min(96, 45 + Math.floor((text.length / 22)));
+  const blast = users > 1000 ? 'Widespread' : users > 200 ? 'Significant' : users > 30 ? 'Contained' : 'Limited';
+  return { score, severity, confidence, blast };
+}
+
+function buildCauses(signals, surface){
+  const causes = [];
+  if(signals.some(s=>s.includes('Server instability'))) causes.push('Recent deploy likely introduced runtime regression in API path.');
+  if(signals.some(s=>s.includes('billing'))) causes.push('Schema mismatch or missing null-check in payment webhook payload parsing.');
+  if(signals.some(s=>s.includes('Authentication'))) causes.push('Session/token expiry handling drifted between frontend and backend.');
+  if(signals.some(s=>s.includes('integration'))) causes.push('Third-party API retry policy too aggressive, causing queue buildup.');
+  if(surface === 'Notifications') causes.push('Background job worker may be stalled or dead-letter queue filling up.');
+  if(!causes.length) causes.push('Insufficient signal from logs; verify by reproducing with trace ID and last successful request.');
+  return causes.slice(0,4);
+}
+
+function buildActions(severity, surface){
+  const base = [
+    'Acknowledge incident in internal channel with owner + ETA for next update (10 min cadence).',
+    'Freeze non-essential deploys until root cause is isolated.',
+    'Capture 3 failing request examples with timestamps and correlation IDs.'
+  ];
+  if(severity === 'High') {
+    base.push('Activate incident mode: assign Incident Commander + Comms Lead.');
+    base.push('Rollback last deploy or toggle kill switch for ' + surface + ' flow if available.');
+  } else {
+    base.push('Hotfix in branch with one guarded change and staged rollout (10%, 50%, 100%).');
+  }
+  base.push('Write postmortem stub now: impact, timeline, root-cause hypothesis, next checkpoint.');
+  return base;
+}
+
+function renderList(id, items){
+  const el = $(id); el.innerHTML = '';
+  items.forEach(item => {
+    const li = document.createElement('li'); li.textContent = item; el.appendChild(li);
+  });
+}
+
+function analyze(){
+  const report = $('report').value.trim();
+  const surface = $('surface').value;
+  const users = Number($('users').value || 0);
+  const duration = Number($('duration').value || 0);
+
+  if(!report){ alert('Add an incident report first.'); return; }
+
+  const signals = detectSignals(report);
+  const { score, severity, confidence, blast } = scoreSeverity(report, users, duration);
+  const causes = buildCauses(signals, surface);
+  const actions = buildActions(severity, surface);
+
+  $('sevValue').textContent = severity;
+  $('confValue').textContent = confidence + '%';
+  $('blastValue').textContent = blast;
+  $('scoreValue').textContent = score + '/100';
+
+  const cls = severity === 'High' ? 'sev-high' : severity === 'Medium' ? 'sev-med' : 'sev-low';
+  $('severityBadge').innerHTML = `<span class="badge ${cls}">${severity} Priority Incident</span>`;
+  $('summary').textContent = `${surface} appears impacted. Estimated ${users} users affected over ${duration} minutes. Focus on containment first, then fix.`;
+
+  renderList('signals', signals);
+  renderList('causes', causes);
+  renderList('actions', actions);
+
+  $('customerMsg').textContent = `We're currently investigating an issue affecting ${surface.toLowerCase()}. Some users may experience disruptions. We have a mitigation in progress and will share the next update in 30 minutes.`;
+  $('internalMsg').textContent = `Owner: ${surface} pod. Severity: ${severity}. Current hypothesis: ${causes[0]} Next checkpoint: +15 min with rollback/hotfix decision.`;
+}
+
+$('analyzeBtn').addEventListener('click', analyze);
+$('demoBtn').addEventListener('click', () => {
+  $('report').value = `Since 00:48 UTC, Stripe webhook events are returning HTTP 500. New customers are charged but invoice email is missing. Logs show: TypeError: Cannot read properties of undefined (reading 'customer_email') at /api/webhooks/stripe line 214. Queue retries increased 8x and support reported 27 tickets in 40 min.`;
+  $('surface').value = 'Billing';
+  $('users').value = 340;
+  $('duration').value = 52;
+  analyze();
+});
+$('clearBtn').addEventListener('click', () => location.reload());
+</script>
+</body>
+</html>

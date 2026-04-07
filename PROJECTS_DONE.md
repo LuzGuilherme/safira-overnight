@@ -9,6 +9,7 @@
 
 | Data | Projecto | Categoria | Estilo |
 |------|----------|-----------|--------|
+| 2026-04-07 | Incident Triage Board 🧯 | DevTools/Incident Response | **Data Dense** 📊 |
 | 2026-01-28 | Idea Tracker | Ideias/Gestão | ? |
 | 2026-01-29 | Keyword Expander | Marketing/SEO | ? |
 | 2026-01-31 | BigIdeasDB Portugal | Research/Mercado | ? |
