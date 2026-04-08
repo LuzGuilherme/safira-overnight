@@ -9,6 +9,7 @@
 
 | Data | Projecto | Categoria | Estilo |
 |------|----------|-----------|--------|
+| 2026-04-08 | Storage Exit Calculator 🗄️ | Business/FinOps | **Swiss Minimal** 🏛️ |
 | 2026-04-07 | Incident Triage Board 🧯 | DevTools/Incident Response | **Data Dense** 📊 |
 | 2026-01-28 | Idea Tracker | Ideias/Gestão | ? |
 | 2026-01-29 | Keyword Expander | Marketing/SEO | ? |

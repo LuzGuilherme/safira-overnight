@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Storage Exit Calculator</title>
+  <style>
+    :root {
+      --bg: #f8f8f6;
+      --card: #ffffff;
+      --text: #111111;
+      --muted: #616161;
+      --line: #dddddd;
+      --accent: #111111;
+      --good: #1b7f3a;
+      --warn: #b54708;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    .wrap { max-width: 1060px; margin: 0 auto; padding: 2rem 1rem 3rem; }
+    h1, h2, h3, p { margin: 0; }
+
+    .hero {
+      display: grid;
+      gap: .75rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--text);
+    }
+    .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); }
+    h1 { font-size: clamp(1.8rem, 4.2vw, 3rem); font-weight: 700; }
+    .subtitle { color: var(--muted); max-width: 75ch; }
+
+    .grid { display: grid; grid-template-columns: 360px 1fr; gap: 1rem; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 1rem;
+    }
+
+    .section-title { font-size: .95rem; font-weight: 700; margin-bottom: .8rem; text-transform: uppercase; letter-spacing: .08em; }
+
+    .field { margin-bottom: .85rem; }
+    label { display: block; font-size: .86rem; color: var(--muted); margin-bottom: .3rem; }
+    input, select {
+      width: 100%;
+      border: 1px solid #c9c9c9;
+      background: #fff;
+      padding: .62rem .68rem;
+      font-size: .96rem;
+      outline: none;
+    }
+    input:focus, select:focus { border-color: #111; }
+
+    .providers {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .92rem;
+    }
+    .providers th, .providers td {
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      padding: .55rem .4rem;
+    }
+    .providers th { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+
+    .pill {
+      display: inline-block;
+      padding: .2rem .45rem;
+      border: 1px solid #bbb;
+      font-size: .72rem;
+      color: var(--muted);
+    }
+
+    .winner {
+      border: 2px solid var(--good);
+      background: #f3fbf5;
+      padding: .75rem;
+      margin-top: .8rem;
+      font-size: .9rem;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .8rem;
+      margin-bottom: .9rem;
+    }
+    @media (max-width: 720px) { .results-grid { grid-template-columns: 1fr; } }
+
+    .metric {
+      border: 1px solid var(--line);
+      padding: .8rem;
+      background: #fff;
+    }
+    .metric .label { color: var(--muted); font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; margin-bottom: .35rem; }
+    .metric .value { font-size: 1.34rem; font-weight: 700; }
+
+    .small { font-size: .84rem; color: var(--muted); }
+    .foot {
+      margin-top: 1rem;
+      border-top: 1px solid var(--line);
+      padding-top: .8rem;
+      color: var(--muted);
+      font-size: .8rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <span class="kicker">Swiss Minimal · FinOps</span>
+      <h1>Storage Exit Calculator</h1>
+      <p class="subtitle">Inspirado na tendência “sai do Dropbox/Drive e usa object storage”. Compara custo mensal e anual entre Dropbox/Google Drive e alternativas S3, Cloudflare R2 e Backblaze B2 — incluindo egress e pedidos API.</p>
+    </header>
+
+    <div class="grid">
+      <section class="card">
+        <h2 class="section-title">1) Inputs</h2>
+
+        <div class="field">
+          <label for="storage">Storage total (TB)</label>
+          <input id="storage" type="number" min="0" step="0.1" value="5" />
+        </div>
+
+        <div class="field">
+          <label for="download">Download mensal (TB egress)</label>
+          <input id="download" type="number" min="0" step="0.1" value="1" />
+        </div>
+
+        <div class="field">
+          <label for="requests">Pedidos API/mês (em milhões)</label>
+          <input id="requests" type="number" min="0" step="0.1" value="2" />
+        </div>
+
+        <div class="field">
+          <label for="team">Licenças de equipa</label>
+          <input id="team" type="number" min="1" step="1" value="3" />
+        </div>
+
+        <div class="field">
+          <label for="current">Stack actual</label>
+          <select id="current">
+            <option value="dropbox">Dropbox Business</option>
+            <option value="gdrive">Google Drive Workspace</option>
+          </select>
+        </div>
+
+        <div class="small">Assunções usadas: Dropbox Business ~€18/licença/mês, Google Workspace Business Standard ~€11.50/licença/mês.</div>
+      </section>
+
+      <section class="card">
+        <h2 class="section-title">2) Comparação</h2>
+
+        <div class="results-grid">
+          <div class="metric">
+            <div class="label">Custo actual (mês)</div>
+            <div class="value" id="currentMonthly">€0</div>
+          </div>
+          <div class="metric">
+            <div class="label">Alternativa mais barata (mês)</div>
+            <div class="value" id="bestMonthly">€0</div>
+          </div>
+          <div class="metric">
+            <div class="label">Poupança potencial (mês)</div>
+            <div class="value" id="savingsMonthly">€0</div>
+          </div>
+          <div class="metric">
+            <div class="label">Poupança potencial (ano)</div>
+            <div class="value" id="savingsYearly">€0</div>
+          </div>
+        </div>
+
+        <table class="providers" id="table">
+          <thead>
+            <tr><th>Provider</th><th>Total mês</th><th>Breakdown</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
+        <div class="winner" id="winnerBox"></div>
+
+        <div class="foot">Estimativas simplificadas para decisão inicial. Não inclui custos de migração, suporte premium, retenção legal, ou pricing enterprise negociado.</div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const prices = {
+      dropbox: { label: 'Dropbox Business', perSeat: 18.0 },
+      gdrive: { label: 'Google Drive Workspace', perSeat: 11.5 },
+      s3: { label: 'AWS S3 Standard', storageTB: 23.55, egressTB: 92.0, reqPerMillion: 4.2 },
+      r2: { label: 'Cloudflare R2', storageTB: 15.0, egressTB: 0.0, reqPerMillion: 0.36 },
+      b2: { label: 'Backblaze B2', storageTB: 6.0, egressTB: 10.0, reqPerMillion: 4.0 }
+    };
+
+    const € = n => `€${n.toLocaleString('pt-PT', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+    const els = {
+      storage: document.getElementById('storage'),
+      download: document.getElementById('download'),
+      requests: document.getElementById('requests'),
+      team: document.getElementById('team'),
+      current: document.getElementById('current'),
+      tableBody: document.querySelector('#table tbody'),
+      currentMonthly: document.getElementById('currentMonthly'),
+      bestMonthly: document.getElementById('bestMonthly'),
+      savingsMonthly: document.getElementById('savingsMonthly'),
+      savingsYearly: document.getElementById('savingsYearly'),
+      winnerBox: document.getElementById('winnerBox')
+    };
+
+    function calcObjectStorage(provider, storageTB, downloadTB, reqM) {
+      const p = prices[provider];
+      const storage = storageTB * p.storageTB;
+      const egress = downloadTB * p.egressTB;
+      const requests = reqM * p.reqPerMillion;
+      return {
+        provider: p.label,
+        total: storage + egress + requests,
+        breakdown: `Storage ${€(storage)} · Egress ${€(egress)} · API ${€(requests)}`
+      };
+    }
+
+    function calc() {
+      const storageTB = Math.max(0, Number(els.storage.value) || 0);
+      const downloadTB = Math.max(0, Number(els.download.value) || 0);
+      const reqM = Math.max(0, Number(els.requests.value) || 0);
+      const team = Math.max(1, Number(els.team.value) || 1);
+      const currentKey = els.current.value;
+
+      const currentMonthly = prices[currentKey].perSeat * team;
+
+      const options = [
+        calcObjectStorage('s3', storageTB, downloadTB, reqM),
+        calcObjectStorage('r2', storageTB, downloadTB, reqM),
+        calcObjectStorage('b2', storageTB, downloadTB, reqM),
+      ].sort((a,b) => a.total - b.total);
+
+      const best = options[0];
+      const savingsM = Math.max(0, currentMonthly - best.total);
+      const savingsY = savingsM * 12;
+
+      els.currentMonthly.textContent = €(currentMonthly);
+      els.bestMonthly.textContent = `${€(best.total)} (${best.provider})`;
+      els.savingsMonthly.textContent = €(savingsM);
+      els.savingsYearly.textContent = €(savingsY);
+
+      els.tableBody.innerHTML = options.map((o, idx) => `
+        <tr>
+          <td>${o.provider} ${idx===0?'<span class="pill">mais barato</span>':''}</td>
+          <td><strong>${€(o.total)}</strong></td>
+          <td>${o.breakdown}</td>
+        </tr>
+      `).join('');
+
+      const currentLabel = prices[currentKey].label;
+      if (savingsM > 0) {
+        els.winnerBox.innerHTML = `<strong>Recomendação:</strong> Se o teu uso for próximo destes números, migrar de <strong>${currentLabel}</strong> para <strong>${best.provider}</strong> pode poupar <strong>${€(savingsY)}/ano</strong>.`;
+      } else {
+        els.winnerBox.innerHTML = `<strong>Recomendação:</strong> Para este perfil, ficar em <strong>${currentLabel}</strong> não é mais caro do que as opções analisadas.`;
+      }
+    }
+
+    [els.storage, els.download, els.requests, els.team, els.current].forEach(el => {
+      el.addEventListener('input', calc);
+      el.addEventListener('change', calc);
+    });
+
+    calc();
+  </script>
+</body>
+</html>
