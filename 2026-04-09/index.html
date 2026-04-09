@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LadderRank — Feature Priority Arena</title>
+  <style>
+    :root {
+      --bg: #fff8df;
+      --ink: #111111;
+      --paper: #ffffff;
+      --line: #111111;
+      --yellow: #ffe55c;
+      --blue: #71b7ff;
+      --pink: #ff82c9;
+      --green: #7dff9a;
+      --muted: #444;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--ink);
+      background: repeating-linear-gradient(45deg, #fff8df, #fff8df 24px, #fff4cf 24px, #fff4cf 48px);
+      padding: 1rem;
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; }
+    .hero {
+      border: 4px solid var(--line);
+      background: var(--yellow);
+      padding: 1rem;
+      box-shadow: 8px 8px 0 #111;
+      margin-bottom: 1rem;
+    }
+    h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.6rem); text-transform: uppercase; }
+    .sub { margin-top: .4rem; font-weight: 600; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      border: 4px solid var(--line);
+      background: var(--paper);
+      padding: .9rem;
+      box-shadow: 6px 6px 0 #111;
+    }
+    .title { margin: 0 0 .7rem; font-size: 1rem; text-transform: uppercase; }
+
+    textarea, input, button {
+      width: 100%;
+      font: inherit;
+      border: 3px solid var(--line);
+      border-radius: 0;
+      padding: .65rem;
+      background: #fff;
+    }
+    textarea { min-height: 140px; resize: vertical; }
+    button { cursor: pointer; font-weight: 800; text-transform: uppercase; }
+    .btn-main { background: var(--blue); }
+    .btn-secondary { background: #fff; }
+
+    .row { display: grid; gap: .55rem; margin-top: .55rem; }
+
+    .arena { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin-bottom: .8rem; }
+    @media (max-width: 760px) { .arena { grid-template-columns: 1fr; } }
+
+    .choice {
+      border: 4px solid var(--line);
+      background: var(--paper);
+      padding: .9rem;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 5px 5px 0 #111;
+    }
+    .choice h3 { margin: 0 0 .5rem; font-size: 1.15rem; }
+    .meta { font-size: .86rem; color: var(--muted); font-weight: 600; margin-bottom: .7rem; }
+
+    .vs {
+      display: inline-block;
+      background: var(--pink);
+      border: 3px solid var(--line);
+      padding: .2rem .55rem;
+      font-weight: 800;
+      margin-bottom: .7rem;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 2px solid var(--line); padding: .5rem; text-align: left; font-size: .92rem; }
+    th { background: var(--green); text-transform: uppercase; font-size: .75rem; }
+
+    .pill {
+      display: inline-block;
+      border: 2px solid var(--line);
+      padding: .18rem .4rem;
+      font-size: .72rem;
+      font-weight: 700;
+      background: #fff;
+    }
+    .footer { margin-top: .8rem; font-size: .82rem; color: #333; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <h1>🪜 LadderRank — Feature Priority Arena</h1>
+      <p class="sub">Inspirado no Show HN “LadderRank: Rank anything with ELO”. Faz comparações 1-vs-1 e obtém um ranking de features mais robusto que simples votação.</p>
+    </header>
+
+    <section class="grid">
+      <aside class="card">
+        <h2 class="title">1) Candidatos</h2>
+        <textarea id="items">Onboarding checklist
+Slack alerts
+Weekly PDF report
+Segment-level insights
+One-click data export
+Budget pacing warnings</textarea>
+        <div class="row">
+          <button class="btn-main" id="startBtn">Gerar Ladder</button>
+          <button class="btn-secondary" id="resetBtn">Reset ratings</button>
+          <button class="btn-secondary" id="exportBtn">Export CSV</button>
+        </div>
+        <div class="footer">Tip: um item por linha. Ideal entre 5 e 20 itens para obter sinais úteis.</div>
+      </aside>
+
+      <main>
+        <div class="card" style="margin-bottom: .9rem; background:#fffef8;">
+          <h2 class="title">2) Batalha 1-vs-1</h2>
+          <span class="vs" id="roundTag">ROUND #1</span>
+          <div class="arena">
+            <article class="choice">
+              <div>
+                <h3 id="nameA">—</h3>
+                <div class="meta" id="metaA">ELO 1000 · 0 vitórias</div>
+              </div>
+              <button class="btn-main" id="pickA">A ganha</button>
+            </article>
+            <article class="choice">
+              <div>
+                <h3 id="nameB">—</h3>
+                <div class="meta" id="metaB">ELO 1000 · 0 vitórias</div>
+              </div>
+              <button class="btn-main" id="pickB">B ganha</button>
+            </article>
+          </div>
+          <button class="btn-secondary" id="skipBtn">Empate / Skip</button>
+        </div>
+
+        <div class="card">
+          <h2 class="title">3) Ranking actual</h2>
+          <table>
+            <thead>
+              <tr><th>#</th><th>Feature</th><th>ELO</th><th>Record</th><th>Confiança</th></tr>
+            </thead>
+            <tbody id="leaderboard"></tbody>
+          </table>
+        </div>
+      </main>
+    </section>
+  </div>
+
+  <script>
+    const K = 24;
+    let pool = [];
+    let a = 0, b = 1, round = 1;
+
+    const $ = (id) => document.getElementById(id);
+    const els = {
+      items: $("items"), start: $("startBtn"), reset: $("resetBtn"), exp: $("exportBtn"),
+      nameA: $("nameA"), nameB: $("nameB"), metaA: $("metaA"), metaB: $("metaB"),
+      pickA: $("pickA"), pickB: $("pickB"), skip: $("skipBtn"),
+      board: $("leaderboard"), round: $("roundTag")
+    };
+
+    function makePool() {
+      const lines = els.items.value.split("\n").map(v => v.trim()).filter(Boolean);
+      const unique = [...new Set(lines)];
+      pool = unique.map(name => ({ name, elo: 1000, w: 0, l: 0, d: 0, matches: 0 }));
+      round = 1;
+      if (pool.length < 2) {
+        alert("Precisas de pelo menos 2 itens.");
+        return;
+      }
+      nextPair();
+      render();
+    }
+
+    function expected(r1, r2) {
+      return 1 / (1 + Math.pow(10, (r2 - r1) / 400));
+    }
+
+    function updateElo(scoreA, scoreB) {
+      const A = pool[a], B = pool[b];
+      const eA = expected(A.elo, B.elo), eB = expected(B.elo, A.elo);
+      A.elo = A.elo + K * (scoreA - eA);
+      B.elo = B.elo + K * (scoreB - eB);
+      A.matches++; B.matches++;
+      if (scoreA === 1) { A.w++; B.l++; }
+      else if (scoreB === 1) { B.w++; A.l++; }
+      else { A.d++; B.d++; }
+    }
+
+    function nextPair() {
+      if (pool.length < 2) return;
+      a = Math.floor(Math.random() * pool.length);
+      do { b = Math.floor(Math.random() * pool.length); } while (b === a);
+      els.round.textContent = `ROUND #${round++}`;
+      renderPair();
+    }
+
+    function confidence(matches) {
+      if (matches >= 12) return "Alta";
+      if (matches >= 6) return "Média";
+      return "Baixa";
+    }
+
+    function renderPair() {
+      const A = pool[a], B = pool[b];
+      els.nameA.textContent = A?.name ?? "—";
+      els.nameB.textContent = B?.name ?? "—";
+      els.metaA.textContent = `ELO ${Math.round(A?.elo ?? 1000)} · ${A?.w ?? 0}W/${A?.l ?? 0}L/${A?.d ?? 0}D`;
+      els.metaB.textContent = `ELO ${Math.round(B?.elo ?? 1000)} · ${B?.w ?? 0}W/${B?.l ?? 0}L/${B?.d ?? 0}D`;
+    }
+
+    function render() {
+      const sorted = [...pool].sort((x, y) => y.elo - x.elo);
+      els.board.innerHTML = sorted.map((it, i) => `
+        <tr>
+          <td>${i + 1}</td>
+          <td>${it.name} ${i < 3 ? '<span class="pill">TOP</span>' : ''}</td>
+          <td>${Math.round(it.elo)}</td>
+          <td>${it.w}-${it.l}-${it.d}</td>
+          <td>${confidence(it.matches)}</td>
+        </tr>
+      `).join("");
+      renderPair();
+    }
+
+    function clickResult(sa, sb) {
+      if (pool.length < 2) return;
+      updateElo(sa, sb);
+      nextPair();
+      render();
+    }
+
+    function resetRatings() {
+      pool.forEach(p => { p.elo = 1000; p.w = p.l = p.d = p.matches = 0; });
+      round = 1;
+      nextPair();
+      render();
+    }
+
+    function exportCSV() {
+      if (!pool.length) return;
+      const sorted = [...pool].sort((x, y) => y.elo - x.elo);
+      const csv = ["rank,feature,elo,wins,losses,draws,matches,confidence"]
+        .concat(sorted.map((it, i) => `${i+1},"${it.name.replaceAll('"','""')}",${Math.round(it.elo)},${it.w},${it.l},${it.d},${it.matches},${confidence(it.matches)}`))
+        .join("\n");
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "ladderrank-priorities.csv";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    els.start.addEventListener("click", makePool);
+    els.reset.addEventListener("click", resetRatings);
+    els.exp.addEventListener("click", exportCSV);
+    els.pickA.addEventListener("click", () => clickResult(1, 0));
+    els.pickB.addEventListener("click", () => clickResult(0, 1));
+    els.skip.addEventListener("click", () => clickResult(0.5, 0.5));
+
+    makePool();
+  </script>
+</body>
+</html>
