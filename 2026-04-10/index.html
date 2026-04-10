@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trust Gap Scanner — SaaS Security Readiness</title>
+  <style>
+    :root {
+      --paper: #f8f6f1;
+      --ink: #101010;
+      --muted: #4c4c4c;
+      --line: #1a1a1a;
+      --accent: #9b111e;
+      --ok: #1b5e20;
+      --warn: #b26a00;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.4;
+    }
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    header {
+      border-top: 6px double var(--line);
+      border-bottom: 3px solid var(--line);
+      padding: 1rem 0 .75rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .kicker { text-transform: uppercase; letter-spacing: .09em; font-size: .8rem; color: var(--accent); font-weight: 700; }
+    h1 { margin: .35rem 0; font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1.1; }
+    .dek { max-width: 760px; margin: 0 auto; color: #222; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 1rem;
+    }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+    .panel {
+      background: #fff;
+      border: 1px solid var(--line);
+      padding: .9rem;
+    }
+    .section-title {
+      margin: 0 0 .7rem;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: .45rem;
+      text-transform: uppercase;
+      font-size: .95rem;
+      letter-spacing: .06em;
+    }
+
+    .checklist { display: grid; gap: .45rem; }
+    .row {
+      display: grid;
+      grid-template-columns: 1.2rem 1fr;
+      gap: .55rem;
+      align-items: start;
+      padding: .35rem;
+      border-bottom: 1px dotted #aaa;
+    }
+    .row small { color: var(--muted); display: block; font-size: .78rem; }
+
+    .controls {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      margin-top: .8rem;
+    }
+    button {
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: .5rem .75rem;
+      font: inherit;
+      cursor: pointer;
+    }
+    button.primary { background: #111; color: #fff; }
+
+    .scorebox {
+      border: 1px solid var(--line);
+      padding: .8rem;
+      margin-bottom: .8rem;
+      background: #fff;
+    }
+    .grade {
+      font-size: 2.3rem;
+      font-weight: 700;
+      margin: 0;
+      color: var(--accent);
+    }
+    .meter { height: 10px; background: #e8e8e8; margin: .4rem 0 .2rem; }
+    .bar { height: 100%; width: 0%; background: var(--ok); transition: width .25s ease; }
+
+    .risk-table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+    .risk-table th, .risk-table td { border: 1px solid #222; padding: .4rem; vertical-align: top; }
+    .risk-table th { background: #efefef; text-align: left; }
+
+    .badge { display: inline-block; border: 1px solid #333; padding: .1rem .4rem; font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; }
+    .high { background: #ffe8e8; }
+    .med { background: #fff5df; }
+    .low { background: #ecf7ed; }
+
+    #summary {
+      white-space: pre-wrap;
+      border: 1px solid #222;
+      background: #fcfcfc;
+      padding: .7rem;
+      min-height: 140px;
+      font-size: .92rem;
+    }
+
+    footer {
+      margin-top: 1rem;
+      border-top: 1px solid #444;
+      padding-top: .6rem;
+      color: #4f4f4f;
+      font-size: .82rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="kicker">Founder Risk Desk · Edição Nocturna</div>
+      <h1>🛡️ Trust Gap Scanner</h1>
+      <p class="dek">Checklist rápido para founders de SaaS avaliarem prontidão de segurança/compliance antes de vender a SMBs e mid-market. Score, grade (A-F), e plano de remediação em 30 dias.</p>
+    </header>
+
+    <section class="grid">
+      <article class="panel">
+        <h2 class="section-title">1) Segurança Base — 12 Sinais</h2>
+        <div id="checks" class="checklist"></div>
+        <div class="controls">
+          <button class="primary" id="calcBtn">Calcular score</button>
+          <button id="presetEarly">Preset: MVP cedo</button>
+          <button id="presetMature">Preset: SaaS maduro</button>
+          <button id="resetBtn">Reset</button>
+        </div>
+      </article>
+
+      <aside>
+        <div class="scorebox">
+          <h2 class="section-title">2) Resultado</h2>
+          <p class="grade" id="grade">—</p>
+          <div><strong id="score">0/100</strong> · <span id="label">Sem avaliação</span></div>
+          <div class="meter"><div class="bar" id="bar"></div></div>
+          <small id="nextStep">Marca os itens e calcula para ver recomendações.</small>
+        </div>
+
+        <div class="panel">
+          <h2 class="section-title">3) Riscos detectados</h2>
+          <table class="risk-table">
+            <thead><tr><th>Área</th><th>Nível</th><th>Impacto</th></tr></thead>
+            <tbody id="riskBody"></tbody>
+          </table>
+        </div>
+      </aside>
+    </section>
+
+    <section class="panel" style="margin-top:1rem;">
+      <h2 class="section-title">4) Plano de 30 dias (gerado)</h2>
+      <div id="summary"></div>
+      <div class="controls" style="margin-top:.6rem;">
+        <button id="copyBtn">Copiar resumo</button>
+        <button id="downloadBtn">Export TXT</button>
+      </div>
+    </section>
+
+    <footer>
+      Inspirado em sinais desta noite (HN Show HN: auditoria SOC2; Product Hunt: governance + AI ops). Estilo Newspaper / Editorial Classic 📰
+    </footer>
+  </div>
+
+  <script>
+    const ITEMS = [
+      { key:"mfa", label:"MFA obrigatório para admin/team", weight:9, risk:"Access Control", impact:"Account takeover com acesso a dados clientes.", fix:"Activar MFA obrigatório para todos os utilizadores com permissões sensíveis." },
+      { key:"encrypt", label:"Encriptação em trânsito (TLS) e em repouso", weight:10, risk:"Data Protection", impact:"Exposição de dados em trânsito/storage.", fix:"Validar TLS end-to-end e garantir encryption-at-rest na base e backups." },
+      { key:"backup", label:"Backups automáticos testados mensalmente", weight:9, risk:"Resilience", impact:"Perda de dados e downtime prolongado.", fix:"Automatizar restore drill mensal com evidência de RTO/RPO." },
+      { key:"logs", label:"Audit logs de acções críticas", weight:8, risk:"Forensics", impact:"Sem rastreabilidade em incidentes ou fraude.", fix:"Registar eventos admin, auth, billing e exportação de dados." },
+      { key:"secrets", label:"Gestão de secrets sem hardcode em repo", weight:8, risk:"Secrets Hygiene", impact:"Chaves expostas e abuso de APIs/infra.", fix:"Migrar para secret manager e rotacionar credenciais antigas." },
+      { key:"least", label:"Permissões mínimas (least privilege)", weight:7, risk:"IAM", impact:"Blast radius elevado após comprometimento.", fix:"Rever roles e remover permissões excessivas por função." },
+      { key:"vendors", label:"Inventário de terceiros + DPA assinado", weight:8, risk:"Third-Party", impact:"Risco legal/compliance em vendors.", fix:"Documentar sub-processadores e contratos DPA actualizados." },
+      { key:"response", label:"Runbook de incident response (0-24h)", weight:10, risk:"Incident Response", impact:"Resposta lenta e comunicação confusa.", fix:"Criar runbook com owner, SLA interno e template de status page." },
+      { key:"retention", label:"Política de retenção/eliminação de dados", weight:7, risk:"Privacy", impact:"Acumulação de dados desnecessários (GDPR).", fix:"Definir retenção por tipo de dado e automatizar purge." },
+      { key:"sast", label:"Scan de vulnerabilidades em CI (SAST/deps)", weight:8, risk:"AppSec", impact:"Falhas conhecidas chegam a produção.", fix:"Integrar scanner em pull request + bloquear severidade crítica." },
+      { key:"status", label:"Status page + canal de comunicação incidente", weight:6, risk:"Customer Trust", impact:"Perda de confiança por silêncio durante falhas.", fix:"Publicar status page e playbook de comunicação para clientes." },
+      { key:"soc", label:"Questionário de segurança pronto (SOC2-lite)", weight:10, risk:"Sales Enablement", impact:"Deals enterprise travados por due diligence.", fix:"Criar security one-pager + FAQ de controlos existentes." }
+    ];
+
+    const checksEl = document.getElementById('checks');
+    const riskBody = document.getElementById('riskBody');
+    const summary = document.getElementById('summary');
+
+    function renderChecks() {
+      checksEl.innerHTML = '';
+      ITEMS.forEach((item, i) => {
+        const row = document.createElement('label');
+        row.className = 'row';
+        row.innerHTML = `
+          <input type="checkbox" id="${item.key}">
+          <div>
+            <strong>${i + 1}. ${item.label}</strong>
+            <small>Peso ${item.weight}/10 · ${item.risk}</small>
+          </div>
+        `;
+        checksEl.appendChild(row);
+      });
+    }
+
+    function evaluate() {
+      const max = ITEMS.reduce((a, b) => a + b.weight, 0);
+      let got = 0;
+      const missing = [];
+
+      ITEMS.forEach(item => {
+        const ok = document.getElementById(item.key).checked;
+        if (ok) got += item.weight;
+        else missing.push(item);
+      });
+
+      const pct = Math.round((got / max) * 100);
+      const grade = pct >= 90 ? 'A' : pct >= 80 ? 'B' : pct >= 70 ? 'C' : pct >= 55 ? 'D' : 'F';
+      const label = pct >= 80 ? 'Pronto para vender com confiança' : pct >= 60 ? 'Vender com cautela e plano activo' : 'Risco alto: fechar gaps antes de escalar';
+
+      document.getElementById('grade').textContent = grade;
+      document.getElementById('score').textContent = `${pct}/100`;
+      document.getElementById('label').textContent = label;
+      document.getElementById('bar').style.width = pct + '%';
+      document.getElementById('bar').style.background = pct >= 80 ? '#1b5e20' : pct >= 60 ? '#b26a00' : '#9b111e';
+      document.getElementById('nextStep').textContent = pct >= 80 ? 'Próximo passo: formalizar evidências para due diligence.' : 'Próximo passo: executar plano de 30 dias e repetir avaliação semanalmente.';
+
+      renderRisks(missing);
+      renderPlan(pct, grade, missing);
+    }
+
+    function riskLevel(weight) {
+      if (weight >= 9) return { txt: 'Alto', cls: 'high' };
+      if (weight >= 7) return { txt: 'Médio', cls: 'med' };
+      return { txt: 'Baixo', cls: 'low' };
+    }
+
+    function renderRisks(missing) {
+      riskBody.innerHTML = '';
+      if (!missing.length) {
+        riskBody.innerHTML = '<tr><td colspan="3">Sem gaps críticos detectados. Excelente baseline.</td></tr>';
+        return;
+      }
+      missing.sort((a,b) => b.weight - a.weight).slice(0, 7).forEach(item => {
+        const lvl = riskLevel(item.weight);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${item.risk}</td><td><span class="badge ${lvl.cls}">${lvl.txt}</span></td><td>${item.impact}</td>`;
+        riskBody.appendChild(tr);
+      });
+    }
+
+    function renderPlan(pct, grade, missing) {
+      const top = missing.sort((a,b) => b.weight - a.weight).slice(0, 5);
+      const lines = [];
+      lines.push(`TRUST GAP SCANNER — RELATÓRIO`);
+      lines.push(`Score: ${pct}/100 · Grade: ${grade}`);
+      lines.push('');
+      lines.push('Plano de 30 dias:');
+      lines.push('Semana 1:');
+      lines.push('- Corrigir controlos de acesso e secrets (MFA + rotação de credenciais).');
+      lines.push('Semana 2:');
+      lines.push('- Formalizar backups/restore drills e logs de auditoria.');
+      lines.push('Semana 3:');
+      lines.push('- Runbook de incident response + status page + templates de comunicação.');
+      lines.push('Semana 4:');
+      lines.push('- Preparar security one-pager (SOC2-lite), inventário de vendors e retenção de dados.');
+      lines.push('');
+      if (top.length) {
+        lines.push('Top gaps prioritários:');
+        top.forEach((x, i) => lines.push(`${i+1}. ${x.label} — ${x.fix}`));
+      } else {
+        lines.push('Sem gaps prioritários. Foco em evidências e cadência de revisão mensal.');
+      }
+      lines.push('');
+      lines.push('Nota: isto é um quick assessment, não substitui auditoria formal.');
+      summary.textContent = lines.join('\n');
+    }
+
+    function preset(checkedKeys) {
+      ITEMS.forEach(item => {
+        document.getElementById(item.key).checked = checkedKeys.includes(item.key);
+      });
+      evaluate();
+    }
+
+    document.getElementById('calcBtn').addEventListener('click', evaluate);
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      ITEMS.forEach(item => document.getElementById(item.key).checked = false);
+      evaluate();
+    });
+    document.getElementById('presetEarly').addEventListener('click', () => preset(['encrypt','backup','logs','secrets','response']));
+    document.getElementById('presetMature').addEventListener('click', () => preset(['mfa','encrypt','backup','logs','secrets','least','vendors','response','retention','sast','status','soc']));
+
+    document.getElementById('copyBtn').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(summary.textContent);
+        alert('Resumo copiado.');
+      } catch {
+        alert('Não foi possível copiar automaticamente.');
+      }
+    });
+
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+      const blob = new Blob([summary.textContent], { type: 'text/plain;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'trust-gap-scanner-report.txt';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+
+    renderChecks();
+    evaluate();
+  </script>
+</body>
+</html>
