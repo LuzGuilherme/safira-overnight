@@ -9,6 +9,7 @@
 
 | Data | Projecto | Categoria | Estilo |
 |------|----------|-----------|--------|
+| 2026-04-11 | Complexity Guard 🧪 | DevTools/Code Quality | **Industrial Dark** 🌙 |
 | 2026-04-10 | Trust Gap Scanner 🛡️ | Security/Founder Tools | **Newspaper** 📰 |
 | 2026-04-09 | LadderRank: Feature Priority Arena 🪜 | Product/Decision Tools | **Neo Brutalist** 🔲 |
 | 2026-04-08 | Storage Exit Calculator 🗄️ | Business/FinOps | **Swiss Minimal** 🏛️ |

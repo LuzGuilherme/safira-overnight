@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Complexity Guard — Technical Debt Radar</title>
+  <style>
+    :root {
+      --bg:#0b1020; --card:#111831; --muted:#8ea0c8; --text:#e8eeff; --ok:#34d399; --warn:#f59e0b; --bad:#ef4444; --accent:#60a5fa;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,sans-serif;background:radial-gradient(circle at 20% 10%,#1a2454 0%,var(--bg) 50%);color:var(--text);padding:24px}
+    .wrap{max-width:1100px;margin:0 auto}
+    .hero{margin-bottom:20px}
+    h1{margin:0 0 8px;font-size:2rem}
+    p{margin:0;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .card{background:linear-gradient(180deg,#111831,#0e1530);border:1px solid #233159;border-radius:14px;padding:16px}
+    label{display:block;font-size:.9rem;color:#b8c6e8;margin:10px 0 6px}
+    input,select,textarea{width:100%;background:#0b132b;border:1px solid #2b3a66;color:var(--text);padding:10px;border-radius:10px}
+    textarea{min-height:92px;resize:vertical}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    button{margin-top:14px;background:var(--accent);color:#081022;border:0;padding:12px 14px;font-weight:700;border-radius:10px;cursor:pointer}
+    .score{font-size:3rem;font-weight:800;line-height:1}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;font-size:.8rem;font-weight:700}
+    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+    .kpi{background:#0b132b;border:1px solid #273762;border-radius:10px;padding:10px}
+    .kpi small{display:block;color:var(--muted)}
+    .kpi b{font-size:1.1rem}
+    ul{padding-left:18px}
+    .foot{margin-top:16px;color:#94a3b8;font-size:.85rem}
+    @media(max-width:860px){.grid{grid-template-columns:1fr}.kpis{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>🧪 Complexity Guard</h1>
+      <p>Radar rápido de dívida técnica inspirado em sinais de mercado (Product Hunt + Show HN). Introduz métricas de código e recebe score, nível de risco e plano de sprint.</p>
+    </div>
+
+    <div class="grid">
+      <section class="card">
+        <h2>Input do Repositório</h2>
+        <div class="row">
+          <div>
+            <label>Linhas alteradas/semana (churn)</label>
+            <input id="churn" type="number" value="1200" />
+          </div>
+          <div>
+            <label>Cyclomatic complexity média</label>
+            <input id="cyclo" type="number" value="14" />
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>% ficheiros sem testes</label>
+            <input id="untested" type="number" value="32" />
+          </div>
+          <div>
+            <label>% código duplicado</label>
+            <input id="dup" type="number" value="11" />
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>Lead time para mudanças (dias)</label>
+            <input id="lead" type="number" value="5" />
+          </div>
+          <div>
+            <label>Incidentes/mês ligados a regressões</label>
+            <input id="inc" type="number" value="3" />
+          </div>
+        </div>
+        <label>Top hotspots (um por linha)</label>
+        <textarea id="hotspots">/api/billing.ts
+/components/checkout.tsx
+/jobs/syncInvoices.ts</textarea>
+        <button onclick="analyze()">Calcular Health Score</button>
+      </section>
+
+      <section class="card">
+        <h2>Resultado</h2>
+        <div id="result">
+          <div class="score">--</div>
+          <span class="pill">Aguardando análise</span>
+        </div>
+
+        <div class="kpis">
+          <div class="kpi"><small>Complexity Pressure</small><b id="pressure">--</b></div>
+          <div class="kpi"><small>Shipping Risk</small><b id="risk">--</b></div>
+          <div class="kpi"><small>Refactor Priority</small><b id="prio">--</b></div>
+        </div>
+
+        <h3>Plano da próxima sprint</h3>
+        <ul id="plan"><li>Preenche os dados para gerar plano.</li></ul>
+
+        <h3>Hotspots sugeridos</h3>
+        <ul id="hotspotOut"><li>—</li></ul>
+      </section>
+    </div>
+
+    <div class="foot">Estilo: Industrial Dark 🌙 · foco em equipas técnicas/power users · totalmente local (sem API).</div>
+  </div>
+
+  <script>
+    function clamp(v,min,max){return Math.max(min,Math.min(max,v));}
+    function fmt(n){return Number(n).toFixed(1)}
+    function analyze(){
+      const churn=+document.getElementById('churn').value||0;
+      const cyclo=+document.getElementById('cyclo').value||0;
+      const untested=+document.getElementById('untested').value||0;
+      const dup=+document.getElementById('dup').value||0;
+      const lead=+document.getElementById('lead').value||0;
+      const inc=+document.getElementById('inc').value||0;
+
+      const nChurn=clamp(churn/2500,0,1);
+      const nCyclo=clamp(cyclo/25,0,1);
+      const nUntested=clamp(untested/100,0,1);
+      const nDup=clamp(dup/35,0,1);
+      const nLead=clamp(lead/14,0,1);
+      const nInc=clamp(inc/8,0,1);
+
+      const debt = (nCyclo*0.26 + nUntested*0.24 + nDup*0.18 + nChurn*0.14 + nLead*0.1 + nInc*0.08);
+      const score = Math.round((1-debt)*100);
+      const pressure = debt*100;
+      const shippingRisk = clamp((nLead*45 + nInc*55),0,100);
+      const refactorPriority = clamp((nCyclo*40 + nDup*30 + nUntested*30),0,100);
+
+      let label='Healthy'; let color='var(--ok)';
+      if(score<80){label='Attention'; color='var(--warn)';}
+      if(score<60){label='High Risk'; color='var(--bad)';}
+
+      document.getElementById('result').innerHTML = `<div class="score" style="color:${color}">${score}</div><span class="pill" style="background:${color}22;border:1px solid ${color};color:${color}">${label}</span>`;
+      document.getElementById('pressure').textContent = fmt(pressure)+'%';
+      document.getElementById('risk').textContent = fmt(shippingRisk)+'%';
+      document.getElementById('prio').textContent = fmt(refactorPriority)+'%';
+
+      const plan=[];
+      if(cyclo>12) plan.push('Aplicar complexity budget por PR (ex.: máx +2 pontos/ficheiro).');
+      if(untested>25) plan.push('Priorizar testes de caracterização nos 3 hotspots críticos.');
+      if(dup>8) plan.push('Extrair utilitários comuns e remover duplicação > 15 linhas.');
+      if(lead>4) plan.push('Reduzir WIP e quebrar histórias em lotes menores para baixar lead time.');
+      if(inc>2) plan.push('Criar checklist de regressão para releases e feature flags por módulo.');
+      if(plan.length===0) plan.push('Manter baseline e monitorizar semanalmente para evitar regressão de qualidade.');
+      document.getElementById('plan').innerHTML = plan.map(x=>`<li>${x}</li>`).join('');
+
+      const hs = document.getElementById('hotspots').value.split('\n').map(x=>x.trim()).filter(Boolean);
+      const ranked = hs.slice(0,5).map((h,i)=>`<li><b>${h}</b> — prioridade ${i+1} (${Math.max(10,Math.round(refactorPriority-(i*12)))} pts)</li>`).join('') || '<li>Sem hotspots listados.</li>';
+      document.getElementById('hotspotOut').innerHTML = ranked;
+    }
+
+    analyze();
+  </script>
+</body>
+</html>
