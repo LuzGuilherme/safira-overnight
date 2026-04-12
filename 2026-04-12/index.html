@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inbox Heatmap — Message Triage Planner</title>
+  <style>
+    :root{
+      --bg:#f7f8ff;--card:#ffffff;--ink:#1d2440;--muted:#66708f;--blue:#5b6cff;--green:#10b981;--amber:#f59e0b;--red:#ef4444;--line:#e7eaf8;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,sans-serif;background:linear-gradient(180deg,#eef1ff 0%,var(--bg) 28%,#fbfcff 100%);color:var(--ink);padding:22px}
+    .app{max-width:1100px;margin:0 auto}
+    .hero{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;box-shadow:0 12px 26px rgba(68,87,170,.08)}
+    h1{margin:0;font-size:2rem}
+    .sub{margin:.4rem 0 0;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:16px;margin-top:16px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+    h2{margin:0 0 10px;font-size:1.2rem}
+    .muted{color:var(--muted);font-size:.93rem}
+    textarea,input,select{width:100%;padding:10px 12px;border:1px solid #dbe1f8;border-radius:10px;background:#fff;color:var(--ink)}
+    textarea{min-height:180px;resize:vertical;font-family:ui-monospace,Menlo,monospace;font-size:.92rem}
+    label{display:block;margin:10px 0 6px;font-weight:600;font-size:.9rem}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    button{margin-top:12px;background:linear-gradient(135deg,var(--blue),#7f8dff);color:#fff;border:0;padding:11px 14px;border-radius:10px;font-weight:700;cursor:pointer}
+    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px}
+    .kpi{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fbfcff}
+    .kpi b{font-size:1.25rem;display:block}
+    .badge{display:inline-block;padding:4px 9px;border-radius:999px;font-size:.8rem;font-weight:700}
+    .urgent{background:#ffe5e7;color:#b91c1c}
+    .soon{background:#fff1d7;color:#92400e}
+    .later{background:#e9f7ff;color:#1e40af}
+    .list li{margin:.45rem 0}
+    table{width:100%;border-collapse:collapse;margin-top:8px}
+    th,td{border-bottom:1px solid var(--line);padding:8px;text-align:left;font-size:.9rem}
+    th{font-size:.78rem;text-transform:uppercase;color:var(--muted)}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}.kpis{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <section class="hero">
+      <h1>📥 Inbox Heatmap</h1>
+      <p class="sub">Inspirado por tendências de Product Hunt + Show HN: cola mensagens, recebe triagem por urgência, tempo de resposta recomendado e plano de batching para evitar contexto fragmentado.</p>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <h2>Input de mensagens</h2>
+        <p class="muted">Formato por linha: <code>canal | pessoa | mensagem</code></p>
+        <textarea id="messages">Email | Cliente VIP | Preciso da proposta final hoje até às 16h.
+Telegram | João | Tens 5 min para ver o novo pricing?
+WhatsApp | Mãe | Liga-me quando puderes ❤️
+Slack | Equipa Produto | Bug no checkout em produção
+LinkedIn | Lead frio | Gostei do teu post, podemos falar?
+Email | Newsletter | 40% off software de edição</textarea>
+
+        <div class="row">
+          <div>
+            <label>Modo de dia</label>
+            <select id="mode">
+              <option value="focus">Focus build day</option>
+              <option value="normal">Normal</option>
+              <option value="meeting">Meeting-heavy</option>
+            </select>
+          </div>
+          <div>
+            <label>Minutos disponíveis nas próximas 2h</label>
+            <input id="minutes" type="number" value="45" />
+          </div>
+        </div>
+
+        <button onclick="triage()">Gerar plano de triagem</button>
+      </section>
+
+      <section class="card">
+        <h2>Resultado</h2>
+        <div id="badges"></div>
+
+        <div class="kpis">
+          <div class="kpi"><small>🔥 Urgentes</small><b id="kUrgent">0</b></div>
+          <div class="kpi"><small>⏱ Tempo mínimo</small><b id="kTime">0 min</b></div>
+          <div class="kpi"><small>🧠 Context switches</small><b id="kSwitch">0</b></div>
+        </div>
+
+        <h3>Batching recomendado</h3>
+        <ul id="batch" class="list"><li>A gerar…</li></ul>
+
+        <h3>Prioridade por mensagem</h3>
+        <table>
+          <thead><tr><th>Canal</th><th>Pessoa</th><th>Nível</th><th>ETA resposta</th></tr></thead>
+          <tbody id="table"></tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+
+<script>
+const rules={
+  urgent:[/hoje/i,/urgente/i,/produção|producao|checkout|bug/i,/vip/i,/asap/i],
+  soon:[/quando puderes/i,/5 min/i,/pricing/i,/podemos falar/i],
+  spam:[/off|desconto|newsletter|promo/i]
+};
+
+function score(msg){
+  let s=25;
+  if(rules.urgent.some(r=>r.test(msg))) s+=60;
+  if(rules.soon.some(r=>r.test(msg))) s+=22;
+  if(rules.spam.some(r=>r.test(msg))) s-=28;
+  return Math.max(0,Math.min(100,s));
+}
+
+function level(s){
+  if(s>=75) return ['URGENTE','urgent','15-30 min'];
+  if(s>=45) return ['EM BREVE','soon','até 2h'];
+  return ['PODE ESPERAR','later','hoje/fim do dia'];
+}
+
+function triage(){
+  const mode=document.getElementById('mode').value;
+  const mins=+document.getElementById('minutes').value||0;
+  const lines=document.getElementById('messages').value.split('\n').map(l=>l.trim()).filter(Boolean);
+
+  const rows=lines.map(line=>{
+    const [channel='?',person='?',...rest]=line.split('|').map(x=>x.trim());
+    const text=rest.join(' | ');
+    let s=score(text);
+    if(mode==='focus') s-=6;
+    if(mode==='meeting') s+=8;
+    const [lab,cls,eta]=level(s);
+    return {channel,person,text,score:s,lab,cls,eta,time: lab==='URGENTE'?18:lab==='EM BREVE'?9:3};
+  }).sort((a,b)=>b.score-a.score);
+
+  const urgent=rows.filter(r=>r.lab==='URGENTE').length;
+  const minTime=rows.reduce((acc,r)=>acc+r.time,0);
+  const switches=Math.max(0,new Set(rows.map(r=>r.channel)).size-1);
+
+  document.getElementById('kUrgent').textContent=urgent;
+  document.getElementById('kTime').textContent=minTime+' min';
+  document.getElementById('kSwitch').textContent=switches;
+
+  const cap=minTime>mins?`⚠️ Capacidade curta: tens ${mins} min para ${minTime} min estimados.`:`✅ Cabe no bloco actual (${mins} min disponíveis).`;
+  document.getElementById('badges').innerHTML=`<span class="badge ${urgent? 'urgent':'later'}">${cap}</span>`;
+
+  const batches=[];
+  const byChannel={};
+  rows.forEach(r=>{(byChannel[r.channel]||(byChannel[r.channel]=[])).push(r)});
+  Object.entries(byChannel).sort((a,b)=>b[1].length-a[1].length).forEach(([ch,msgs])=>{
+    const top=msgs[0];
+    batches.push(`<li><b>${ch}</b>: ${msgs.length} msg(s), começa por <i>${top.person}</i> (${top.lab.toLowerCase()}).</li>`);
+  });
+  if(urgent) batches.unshift(`<li><b>Primeiros 20 min:</b> responder apenas às ${urgent} mensagens urgentes.</li>`);
+  document.getElementById('batch').innerHTML=batches.join('');
+
+  document.getElementById('table').innerHTML=rows.map(r=>`<tr><td>${r.channel}</td><td>${r.person}</td><td><span class="badge ${r.cls}">${r.lab}</span></td><td>${r.eta}</td></tr>`).join('');
+}
+triage();
+</script>
+</body>
+</html>
