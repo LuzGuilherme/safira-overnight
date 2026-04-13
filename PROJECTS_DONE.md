@@ -9,6 +9,7 @@
 
 | Data | Projecto | Categoria | Estilo |
 |------|----------|-----------|--------|
+| 2026-04-13 | Portfolio Pruner ✂️ | Founder Tools/Portfolio Management | **Data Dense** 📊 |
 | 2026-04-12 | Inbox Heatmap 📥 | Produtividade/Comunicação | **Playful** 🎭 |
 | 2026-04-11 | Complexity Guard 🧪 | DevTools/Code Quality | **Industrial Dark** 🌙 |
 | 2026-04-10 | Trust Gap Scanner 🛡️ | Security/Founder Tools | **Newspaper** 📰 |

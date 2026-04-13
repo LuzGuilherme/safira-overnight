@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Pruner — Side Project Triage</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #131a2e;
+      --muted: #8fa1c7;
+      --text: #e8eeff;
+      --accent: #58a6ff;
+      --good: #22c55e;
+      --warn: #f59e0b;
+      --bad: #ef4444;
+      --line: #24304f;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(circle at top right, #16213d, var(--bg) 45%);
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    h1 { margin: 0; font-size: 2rem; }
+    .sub { color: var(--muted); margin-top: 8px; }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 20px; }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+    th, td { padding: 8px; border-bottom: 1px solid var(--line); text-align: left; }
+    th { color: #bcd0ff; font-size: 0.84rem; text-transform: uppercase; letter-spacing: .04em; }
+    input[type="text"], input[type="number"] {
+      width: 100%; background: #0d1529; color: var(--text); border: 1px solid #2a3860;
+      border-radius: 8px; padding: 8px;
+    }
+    .btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    button {
+      background: #1b2b52; border: 1px solid #3a4f86; color: #dbe6ff;
+      border-radius: 10px; padding: 10px 14px; cursor: pointer; font-weight: 600;
+    }
+    button:hover { filter: brightness(1.1); }
+    .primary { background: #1d3e77; border-color: #4f7ec9; }
+    .kpis { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+    .kpi { background: #0f1730; border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
+    .kpi .v { font-size: 1.4rem; font-weight: 700; }
+    .kpi .l { color: var(--muted); font-size: .83rem; }
+    .tag { padding: 4px 8px; border-radius: 999px; font-size: .75rem; font-weight: 700; display:inline-block; }
+    .grow { background: rgba(34,197,94,.16); color: #86efac; }
+    .keep { background: rgba(88,166,255,.18); color: #93c5fd; }
+    .pause { background: rgba(245,158,11,.18); color: #fcd34d; }
+    .kill { background: rgba(239,68,68,.18); color: #fca5a5; }
+    .small { color: var(--muted); font-size: .85rem; }
+    @media (max-width: 900px){ .kpis{grid-template-columns:repeat(2,1fr)} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>✂️ Portfolio Pruner</h1>
+    <p class="sub">Para founders com vários side projects: decide objetivamente o que escalar, manter, pausar ou matar.</p>
+
+    <div class="grid">
+      <section class="card">
+        <h2>1) Introduz os projectos</h2>
+        <p class="small">Escalas: crescimento semanal (%), entusiasmo (0-10), horas suporte/semana. 
+        A pontuação combina tração + eficiência + motivação.</p>
+        <table id="inputTable">
+          <thead>
+            <tr>
+              <th>Projecto</th><th>Utilizadores</th><th>MRR €</th><th>Crescimento %</th><th>Suporte h/sem</th><th>Entusiasmo 0-10</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="btns">
+          <button onclick="addRow()">+ Adicionar linha</button>
+          <button onclick="loadDemo()">Carregar exemplo</button>
+          <button class="primary" onclick="analyze()">Analisar portefólio</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>2) Resultado</h2>
+        <div class="kpis" id="kpis">
+          <div class="kpi"><div class="v" id="top1">—</div><div class="l">Top aposta</div></div>
+          <div class="kpi"><div class="v" id="growN">0</div><div class="l">Grow</div></div>
+          <div class="kpi"><div class="v" id="keepN">0</div><div class="l">Keep</div></div>
+          <div class="kpi"><div class="v" id="killN">0</div><div class="l">Kill/Pause</div></div>
+        </div>
+        <div style="margin-top:12px; overflow:auto;">
+          <table id="resultTable">
+            <thead>
+              <tr><th>Projecto</th><th>Score</th><th>Classificação</th><th>Ação sugerida</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+
+<script>
+const tbody = document.querySelector('#inputTable tbody');
+
+function row(name='', users='', mrr='', growth='', support='', joy='') {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><input type="text" value="${name}" placeholder="Nome"></td>
+    <td><input type="number" min="0" value="${users}"></td>
+    <td><input type="number" min="0" value="${mrr}"></td>
+    <td><input type="number" value="${growth}"></td>
+    <td><input type="number" min="0" value="${support}"></td>
+    <td><input type="number" min="0" max="10" value="${joy}"></td>`;
+  tbody.appendChild(tr);
+}
+
+function addRow(){ row(); }
+
+function loadDemo(){
+  tbody.innerHTML='';
+  row('MicroCRM', 110, 620, 7, 2, 8);
+  row('InvoiceKit', 340, 120, 1, 5, 4);
+  row('UGC Finder', 45, 780, 12, 1, 9);
+  row('SEO Snippet Tool', 560, 0, -2, 6, 3);
+  row('Cold Email GPT', 220, 190, 3, 4, 6);
+}
+
+function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
+
+function analyze(){
+  const rows = [...tbody.querySelectorAll('tr')];
+  const items = rows.map(r=>{
+    const i = r.querySelectorAll('input');
+    return {
+      name: i[0].value.trim() || 'Sem nome',
+      users: +i[1].value || 0,
+      mrr: +i[2].value || 0,
+      growth: +i[3].value || 0,
+      support: +i[4].value || 0,
+      joy: +i[5].value || 0,
+    }
+  }).filter(x=>x.name);
+
+  const maxUsers = Math.max(1, ...items.map(i=>i.users));
+  const maxMrr = Math.max(1, ...items.map(i=>i.mrr));
+
+  const ranked = items.map(it=>{
+    const usersN = (it.users/maxUsers)*100;
+    const mrrN = (it.mrr/maxMrr)*100;
+    const growthN = clamp((it.growth+10)*5,0,100); // -10..+10 => 0..100 (clamped)
+    const supportPenalty = clamp(it.support*8,0,100);
+    const joyN = clamp(it.joy*10,0,100);
+
+    const score = Math.round(
+      0.28*usersN +
+      0.30*mrrN +
+      0.20*growthN +
+      0.17*joyN -
+      0.15*supportPenalty
+    );
+
+    let label='Pause', action='Congelar features e reduzir manutenção';
+    if (score >= 70) { label='Grow'; action='Dobrar esforço: distribuição + retenção + pricing'; }
+    else if (score >= 55) { label='Keep'; action='Manter estável, melhorar onboarding e medir 30 dias'; }
+    else if (score >= 40) { label='Pause'; action='Sem novas features; monitorizar sinais por 4 semanas'; }
+    else { label='Kill'; action='Arquivar ou open-source; libertar foco para top 1'; }
+
+    return { ...it, score, label, action };
+  }).sort((a,b)=>b.score-a.score);
+
+  renderResults(ranked);
+}
+
+function renderResults(ranked){
+  const out = document.querySelector('#resultTable tbody');
+  out.innerHTML = '';
+  let grow=0, keep=0, killPause=0;
+
+  ranked.forEach(r=>{
+    const tr=document.createElement('tr');
+    const c = r.label.toLowerCase();
+    tr.innerHTML = `<td>${r.name}</td><td><strong>${r.score}</strong></td><td><span class="tag ${c==='grow'?'grow':c==='keep'?'keep':c==='pause'?'pause':'kill'}">${r.label}</span></td><td>${r.action}</td>`;
+    out.appendChild(tr);
+    if(r.label==='Grow') grow++;
+    else if(r.label==='Keep') keep++;
+    else killPause++;
+  });
+
+  document.getElementById('top1').textContent = ranked[0] ? ranked[0].name : '—';
+  document.getElementById('growN').textContent = grow;
+  document.getElementById('keepN').textContent = keep;
+  document.getElementById('killN').textContent = killPause;
+}
+
+// init
+for(let i=0;i<4;i++) addRow();
+</script>
+</body>
+</html>
