@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PR Stack Architect</title>
+  <style>
+    :root {
+      --bg: #f6f6f4;
+      --card: #ffffff;
+      --text: #111111;
+      --muted: #666;
+      --line: #d8d8d3;
+      --accent: #0f172a;
+      --good: #166534;
+      --warn: #92400e;
+      --bad: #991b1b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 28px 18px 50px;
+    }
+    h1 {
+      font-size: 2.2rem;
+      letter-spacing: -0.03em;
+      margin: 0 0 8px;
+    }
+    .subtitle { color: var(--muted); margin-bottom: 22px; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 16px;
+    }
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 16px;
+    }
+    label { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 6px; }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    button {
+      border: 1px solid #111;
+      background: #111;
+      color: #fff;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button.secondary { background: #fff; color: #111; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 0.93rem;
+    }
+    th, td {
+      border-top: 1px solid var(--line);
+      padding: 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { color: var(--muted); font-weight: 500; font-size: .82rem; text-transform: uppercase; }
+    .badge { font-size: .75rem; border: 1px solid var(--line); padding: 2px 6px; display: inline-block; }
+    .kpi { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 10px 0 14px; }
+    .k { border: 1px solid var(--line); padding: 10px; background: #fff; }
+    .k strong { display: block; font-size: 1.3rem; }
+    .stack { border: 1px solid var(--line); padding: 12px; margin-bottom: 10px; background: #fff; }
+    .ok { color: var(--good); }
+    .warn { color: var(--warn); }
+    .bad { color: var(--bad); }
+    .footer-note { margin-top: 16px; font-size: .84rem; color: var(--muted); }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      .kpi { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>PR Stack Architect</h1>
+    <p class="subtitle">Transforma uma feature grande em PRs menores, com ordem de execução e risco controlado.</p>
+
+    <div class="grid">
+      <section class="panel">
+        <h2 style="margin-top:0">Adicionar item</h2>
+        <label>Título</label>
+        <input id="title" placeholder="ex: API endpoint para notificações" />
+
+        <div class="row">
+          <div>
+            <label>Impacto (1-10)</label>
+            <input id="impact" type="number" min="1" max="10" value="7" />
+          </div>
+          <div>
+            <label>Esforço (1-8 pontos)</label>
+            <input id="effort" type="number" min="1" max="8" value="3" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Risco</label>
+            <select id="risk">
+              <option value="low">Baixo</option>
+              <option value="medium" selected>Médio</option>
+              <option value="high">Alto</option>
+            </select>
+          </div>
+          <div>
+            <label>Depende de (ID)</label>
+            <input id="depends" placeholder="ex: 2 (opcional)" />
+          </div>
+        </div>
+
+        <button id="addBtn">+ Adicionar</button>
+        <button id="demoBtn" class="secondary" style="margin-left:6px">Carregar demo</button>
+
+        <table id="itemsTable">
+          <thead>
+            <tr>
+              <th>ID</th><th>Item</th><th>Impacto</th><th>Esforço</th><th>Risco</th><th>Dep.</th><th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section class="panel">
+        <h2 style="margin-top:0">Plano de stacks</h2>
+        <div class="kpi">
+          <div class="k"><span>PRs sugeridos</span><strong id="kStacks">0</strong></div>
+          <div class="k"><span>Lead time estimado</span><strong id="kLead">0d</strong></div>
+          <div class="k"><span>Risco total</span><strong id="kRisk">—</strong></div>
+        </div>
+
+        <button id="buildBtn">Gerar plano</button>
+        <div id="result" style="margin-top:12px"></div>
+
+        <p class="footer-note">Regras: cada PR tenta ficar até 8 pontos de esforço; PR com risco alto fica isolado quando possível; dependências são respeitadas.</p>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const items = [];
+    let nextId = 1;
+
+    const tbody = document.querySelector('#itemsTable tbody');
+    const result = document.getElementById('result');
+    const riskWeight = { low: 1, medium: 2, high: 3 };
+
+    function renderTable() {
+      tbody.innerHTML = '';
+      for (const it of items) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${it.id}</td>
+          <td>${it.title}</td>
+          <td>${it.impact}</td>
+          <td>${it.effort}</td>
+          <td><span class="badge">${it.risk}</span></td>
+          <td>${it.dependsOn ?? '—'}</td>
+          <td><button data-id="${it.id}" class="secondary" style="padding:4px 7px">x</button></td>
+        `;
+        tbody.appendChild(tr);
+      }
+      tbody.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = Number(btn.dataset.id);
+          const idx = items.findIndex(i => i.id === id);
+          if (idx >= 0) items.splice(idx, 1);
+          renderTable();
+        });
+      });
+    }
+
+    function addItem(title, impact, effort, risk, dependsOn) {
+      items.push({ id: nextId++, title, impact, effort, risk, dependsOn: dependsOn || null });
+      renderTable();
+    }
+
+    function topoSort(list) {
+      const map = new Map(list.map(i => [i.id, i]));
+      const indeg = new Map(list.map(i => [i.id, 0]));
+      const adj = new Map(list.map(i => [i.id, []]));
+
+      for (const it of list) {
+        if (it.dependsOn && map.has(it.dependsOn)) {
+          indeg.set(it.id, indeg.get(it.id) + 1);
+          adj.get(it.dependsOn).push(it.id);
+        }
+      }
+
+      const queue = list.filter(i => indeg.get(i.id) === 0)
+        .sort((a,b) => (b.impact / b.effort) - (a.impact / a.effort));
+
+      const ordered = [];
+      while (queue.length) {
+        const cur = queue.shift();
+        ordered.push(cur);
+        for (const nb of adj.get(cur.id)) {
+          indeg.set(nb, indeg.get(nb)-1);
+          if (indeg.get(nb) === 0) {
+            queue.push(map.get(nb));
+            queue.sort((a,b) => (b.impact / b.effort) - (a.impact / a.effort));
+          }
+        }
+      }
+
+      if (ordered.length !== list.length) return null;
+      return ordered;
+    }
+
+    function buildStacks() {
+      if (!items.length) {
+        result.innerHTML = '<p class="warn">Adiciona pelo menos 1 item.</p>';
+        return;
+      }
+      const ordered = topoSort(items);
+      if (!ordered) {
+        result.innerHTML = '<p class="bad">Dependências com ciclo detectadas. Ajusta os IDs de dependência.</p>';
+        return;
+      }
+
+      const stacks = [];
+      let current = [];
+      let effortSum = 0;
+      let hasHigh = false;
+
+      for (const it of ordered) {
+        const shouldSplit =
+          effortSum + it.effort > 8 ||
+          (hasHigh && it.risk === 'high') ||
+          (it.risk === 'high' && current.length > 0 && effortSum >= 5);
+
+        if (shouldSplit) {
+          stacks.push(current);
+          current = [];
+          effortSum = 0;
+          hasHigh = false;
+        }
+
+        current.push(it);
+        effortSum += it.effort;
+        if (it.risk === 'high') hasHigh = true;
+      }
+      if (current.length) stacks.push(current);
+
+      const totalRisk = ordered.reduce((s, i) => s + riskWeight[i.risk], 0);
+      const leadDays = Math.max(1, Math.ceil(ordered.reduce((s, i) => s + i.effort, 0) / 6));
+
+      document.getElementById('kStacks').textContent = stacks.length;
+      document.getElementById('kLead').textContent = `${leadDays}d`;
+      document.getElementById('kRisk').textContent = totalRisk <= 8 ? 'Baixo' : totalRisk <= 15 ? 'Médio' : 'Alto';
+
+      result.innerHTML = stacks.map((stack, idx) => {
+        const effort = stack.reduce((s,i)=>s+i.effort,0);
+        const risk = stack.reduce((s,i)=>s+riskWeight[i.risk],0);
+        const cls = risk <= 4 ? 'ok' : risk <= 7 ? 'warn' : 'bad';
+        return `
+          <div class="stack">
+            <strong>PR ${idx + 1}</strong> · ${effort} pts · <span class="${cls}">risco ${risk}</span>
+            <ul>
+              ${stack.map(i => `<li>#${i.id} ${i.title} <small>(${i.effort} pts, ${i.risk})</small></li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }).join('');
+    }
+
+    document.getElementById('addBtn').addEventListener('click', () => {
+      const title = document.getElementById('title').value.trim();
+      const impact = Number(document.getElementById('impact').value);
+      const effort = Number(document.getElementById('effort').value);
+      const risk = document.getElementById('risk').value;
+      const dependsRaw = document.getElementById('depends').value.trim();
+      const dependsOn = dependsRaw ? Number(dependsRaw) : null;
+
+      if (!title) return alert('Título é obrigatório.');
+      if (impact < 1 || impact > 10 || effort < 1 || effort > 8) return alert('Impacto (1-10) e esforço (1-8).');
+      if (dependsOn && !items.some(i => i.id === dependsOn)) return alert('Dependência inválida: ID não existe.');
+
+      addItem(title, impact, effort, risk, dependsOn);
+      document.getElementById('title').value = '';
+      document.getElementById('depends').value = '';
+    });
+
+    document.getElementById('demoBtn').addEventListener('click', () => {
+      items.length = 0;
+      nextId = 1;
+      addItem('Schema + migration base', 7, 2, 'low', null);
+      addItem('New API endpoint + validation', 9, 3, 'medium', 1);
+      addItem('Worker assíncrono para processamento', 8, 4, 'high', 2);
+      addItem('Feature flag + rollout config', 6, 2, 'low', 2);
+      addItem('Telemetry + dashboards', 6, 2, 'medium', 3);
+      addItem('QA smoke e docs de release', 5, 2, 'low', 4);
+      buildStacks();
+    });
+
+    document.getElementById('buildBtn').addEventListener('click', buildStacks);
+  </script>
+</body>
+</html>

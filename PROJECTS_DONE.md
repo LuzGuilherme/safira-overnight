@@ -9,6 +9,7 @@
 
 | Data | Projecto | Categoria | Estilo |
 |------|----------|-----------|--------|
+| 2026-04-14 | PR Stack Architect 🧱 | DevTools/Engineering Productivity | **Swiss Minimal** 🏛️ |
 | 2026-04-13 | Portfolio Pruner ✂️ | Founder Tools/Portfolio Management | **Data Dense** 📊 |
 | 2026-04-12 | Inbox Heatmap 📥 | Produtividade/Comunicação | **Playful** 🎭 |
 | 2026-04-11 | Complexity Guard 🧪 | DevTools/Code Quality | **Industrial Dark** 🌙 |
