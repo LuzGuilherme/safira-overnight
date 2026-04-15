@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Name Stress Test — Startup Name Checker</title>
+  <style>
+    :root {
+      --bg: #fff7f0;
+      --ink: #171717;
+      --card: #ffffff;
+      --line: #1f1f1f;
+      --accent: #ff5c35;
+      --accent-2: #246bff;
+      --ok: #0f9d58;
+      --warn: #ff9800;
+      --bad: #e53935;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--ink);
+      background: radial-gradient(circle at 15% 10%, #ffe6d9 0%, var(--bg) 40%), var(--bg);
+      padding: 24px;
+    }
+    .wrap { max-width: 1080px; margin: 0 auto; }
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      line-height: 0.95;
+      margin: 0;
+      letter-spacing: -0.04em;
+    }
+    .sub { margin: 10px 0 0; font-size: 1.05rem; max-width: 780px; }
+    .badge {
+      display: inline-block;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-weight: 700;
+      font-size: 12px;
+      margin-bottom: 12px;
+      background: #fff;
+    }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 22px; }
+    @media (min-width: 900px) { .grid { grid-template-columns: 1.1fr 0.9fr; } }
+    .card {
+      background: var(--card);
+      border: 3px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 8px 8px 0 #11111114;
+    }
+    label { display: block; font-weight: 700; margin-bottom: 6px; }
+    textarea, input, select {
+      width: 100%;
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      padding: 10px;
+      font: inherit;
+      background: #fff;
+    }
+    .row { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
+    @media (min-width: 700px) { .row { grid-template-columns: 1fr 1fr; } }
+    .btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    button {
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      background: #fff;
+    }
+    .primary { background: var(--accent); color: white; }
+    .secondary { background: var(--accent-2); color: white; }
+    .result-row {
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 10px;
+      background: #fff;
+    }
+    .name-line { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .score {
+      min-width: 64px;
+      text-align: center;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      font-weight: 900;
+      padding: 4px 10px;
+      background: #fff;
+    }
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    .chip { border: 2px solid var(--line); border-radius: 999px; padding: 3px 8px; font-size: 12px; font-weight: 700; }
+    .good { background: #d7f6e5; }
+    .warn { background: #fff1cf; }
+    .bad { background: #ffdedd; }
+    .muted { opacity: 0.8; font-size: 0.95rem; }
+    .mini { font-size: 0.9rem; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.92rem; }
+    th, td { border: 2px solid var(--line); padding: 8px; text-align: left; }
+    th { background: #fff2ea; }
+    .winner { background: #d7f6e5; }
+    .footer-note { margin-top: 14px; font-size: 0.85rem; opacity: 0.75; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <span class="badge">BOLD MAXIMALIST 🎨 · Founder Tool</span>
+    <h1>Name Stress Test</h1>
+    <p class="sub">Inspirado por posts de indie hackers sobre validação de nomes. Cola 3-10 opções de nome e recebe um score de clareza, memorabilidade, risco de confusão e brandability — com alternativas geradas automaticamente.</p>
+
+    <div class="grid">
+      <section class="card">
+        <label for="names">Nomes candidatos (1 por linha)</label>
+        <textarea id="names" rows="9" placeholder="Ex:
+FlowPilot
+TaskMango
+Nexalytix
+QuickOps"></textarea>
+
+        <div class="row">
+          <div>
+            <label for="market">Mercado</label>
+            <select id="market">
+              <option>SaaS B2B</option>
+              <option>Consumer App</option>
+              <option>AI Tool</option>
+              <option>E-commerce</option>
+              <option>Health & Fitness</option>
+              <option>Fintech</option>
+            </select>
+          </div>
+          <div>
+            <label for="tone">Tom desejado</label>
+            <select id="tone">
+              <option>Professional</option>
+              <option>Friendly</option>
+              <option>Premium</option>
+              <option>Bold</option>
+              <option>Playful</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="btns">
+          <button class="primary" id="analyzeBtn">Analisar nomes</button>
+          <button id="sampleBtn">Usar exemplo</button>
+          <button class="secondary" id="altBtn">Gerar variações</button>
+        </div>
+
+        <p class="footer-note">Nota: score heurístico (não consulta trademark/domain em tempo real).</p>
+      </section>
+
+      <aside class="card">
+        <h3 style="margin:0 0 8px;">Resultado</h3>
+        <div id="topPick" class="muted">Sem análise ainda.</div>
+        <div id="results"></div>
+      </aside>
+    </div>
+
+    <section class="card" style="margin-top:16px;">
+      <h3 style="margin-top:0;">Comparação por critério</h3>
+      <div class="mini muted">Score final = Clareza (30) + Memorabilidade (25) + Pronunciabilidade (20) + Diferenciação (15) + Risco de Confusão (10 invertido)</div>
+      <div id="tableWrap" class="mini muted" style="margin-top:8px;">Preenche os nomes para ver a tabela.</div>
+    </section>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    const riskyTerms = ["openai", "uber", "google", "apple", "meta", "notion", "figma", "airbnb", "stripe", "chatgpt"];
+    const vagueTerms = ["nexa", "lytics", "gen", "flow", "sync", "hub", "labs", "ai", "io", "app"];
+
+    function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+
+    function scoreName(raw) {
+      const name = raw.trim();
+      const lc = name.toLowerCase();
+      if (!name) return null;
+
+      const lettersOnly = lc.replace(/[^a-z]/g, "");
+      const len = lettersOnly.length;
+      const vowels = (lettersOnly.match(/[aeiou]/g) || []).length;
+      const vowelRatio = len ? vowels / len : 0;
+
+      let clarity = 20;
+      if (len >= 6 && len <= 10) clarity += 8;
+      if (len === 11 || len === 5) clarity += 4;
+      if (len < 5) clarity -= 8;
+      if (len > 12) clarity -= 10;
+      if (/\d/.test(name)) clarity -= 5;
+      if (/[^a-zA-Z0-9]/.test(name)) clarity -= 4;
+
+      let memorability = 12;
+      if (len >= 5 && len <= 9) memorability += 7;
+      if (/(.)\1\1/.test(lc)) memorability -= 6;
+      if (new Set(lettersOnly).size >= Math.floor(len * 0.7)) memorability += 4;
+      if (new Set(lettersOnly).size < Math.max(3, Math.floor(len * 0.5))) memorability -= 4;
+
+      let pronounceability = 12;
+      if (vowelRatio >= 0.30 && vowelRatio <= 0.52) pronounceability += 7;
+      if (vowelRatio < 0.22 || vowelRatio > 0.62) pronounceability -= 6;
+      if (/[bcdfghjklmnpqrstvwxyz]{4,}/.test(lettersOnly)) pronounceability -= 8;
+      if (/[aeiou]{4,}/.test(lettersOnly)) pronounceability -= 6;
+
+      let differentiation = 8;
+      const vagueHits = vagueTerms.filter(t => lc.includes(t)).length;
+      differentiation += Math.max(0, Math.min(5, Math.floor(len / 3) - vagueHits));
+      differentiation -= vagueHits * 2;
+      if (len <= 4) differentiation -= 2;
+
+      let confusionRisk = 0;
+      if (riskyTerms.some(t => lc.includes(t))) confusionRisk += 7;
+      if (lc.endsWith("ly") || lc.endsWith("ify") || lc.endsWith("ster")) confusionRisk += 2;
+      if (lc.includes("ai") && lc.length <= 7) confusionRisk += 2;
+      confusionRisk = clamp(confusionRisk, 0, 10);
+
+      const total = clamp(
+        clarity + memorability + pronounceability + differentiation + (10 - confusionRisk),
+        0,
+        100
+      );
+
+      const notes = [];
+      if (len > 12) notes.push("Muito longo para memorizar");
+      if (len < 5) notes.push("Curto demais pode ser genérico");
+      if (vowelRatio < 0.22) notes.push("Poucas vogais: pronúncia difícil");
+      if (/[bcdfghjklmnpqrstvwxyz]{4,}/.test(lettersOnly)) notes.push("Cluster de consoantes confuso");
+      if (vagueHits >= 2) notes.push("Parece nome genérico de startup");
+      if (confusionRisk >= 6) notes.push("Risco alto de conflito de marca");
+      if (!notes.length) notes.push("Bom equilíbrio geral");
+
+      return {
+        name,
+        total,
+        clarity: clamp(clarity, 0, 30),
+        memorability: clamp(memorability, 0, 25),
+        pronounceability: clamp(pronounceability, 0, 20),
+        differentiation: clamp(differentiation, 0, 15),
+        confusionRisk,
+        notes
+      };
+    }
+
+    function chip(text, type) {
+      return `<span class="chip ${type}">${text}</span>`;
+    }
+
+    function render(results) {
+      const box = $("results");
+      const top = $("topPick");
+      const table = $("tableWrap");
+      box.innerHTML = "";
+
+      if (!results.length) {
+        top.textContent = "Sem nomes válidos.";
+        table.textContent = "Preenche os nomes para ver a tabela.";
+        return;
+      }
+
+      results.sort((a, b) => b.total - a.total);
+      const winner = results[0];
+      top.innerHTML = `<strong>🏆 Melhor opção: ${winner.name}</strong><br><span class="muted">Score ${winner.total}/100 · ${winner.notes[0]}</span>`;
+
+      for (const r of results) {
+        const riskType = r.confusionRisk >= 6 ? "bad" : r.confusionRisk >= 3 ? "warn" : "good";
+        const scoreType = r.total >= 75 ? "good" : r.total >= 55 ? "warn" : "bad";
+
+        const el = document.createElement("div");
+        el.className = "result-row";
+        el.innerHTML = `
+          <div class="name-line">
+            <strong>${r.name}</strong>
+            <span class="score ${scoreType}">${r.total}</span>
+          </div>
+          <div class="chips">
+            ${chip(`Clareza ${r.clarity}/30`, r.clarity >= 22 ? 'good' : 'warn')}
+            ${chip(`Memória ${r.memorability}/25`, r.memorability >= 18 ? 'good' : 'warn')}
+            ${chip(`Pronúncia ${r.pronounceability}/20`, r.pronounceability >= 14 ? 'good' : 'warn')}
+            ${chip(`Diferença ${r.differentiation}/15`, r.differentiation >= 10 ? 'good' : 'warn')}
+            ${chip(`Risco ${r.confusionRisk}/10`, riskType)}
+          </div>
+          <p class="mini" style="margin:8px 0 0;">${r.notes.join(" · ")}</p>
+        `;
+        box.appendChild(el);
+      }
+
+      table.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th><th>Total</th><th>Clareza</th><th>Memória</th><th>Pronúncia</th><th>Diferenciação</th><th>Risco</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${results.map((r, i) => `
+              <tr class="${i === 0 ? 'winner' : ''}">
+                <td>${r.name}</td>
+                <td><strong>${r.total}</strong></td>
+                <td>${r.clarity}</td>
+                <td>${r.memorability}</td>
+                <td>${r.pronounceability}</td>
+                <td>${r.differentiation}</td>
+                <td>${r.confusionRisk}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+    }
+
+    function analyze() {
+      const names = $("names").value
+        .split("\n")
+        .map(s => s.trim())
+        .filter(Boolean)
+        .slice(0, 12);
+
+      const results = names.map(scoreName).filter(Boolean);
+      render(results);
+      localStorage.setItem("nameStressTestInput", $("names").value);
+    }
+
+    function variations() {
+      const base = $("names").value
+        .split("\n")
+        .map(s => s.trim())
+        .filter(Boolean)[0];
+
+      if (!base) {
+        alert("Escreve pelo menos 1 nome para gerar variações.");
+        return;
+      }
+
+      const clean = base.replace(/[^a-zA-Z]/g, "");
+      const starts = ["Try", "Get", "Go", "Use", "Team"];
+      const ends = ["HQ", "Flow", "Pilot", "Desk", "Forge", "Studio"];
+      const out = new Set([clean]);
+      starts.forEach(s => out.add(s + clean));
+      ends.forEach(e => out.add(clean + e));
+      out.add(clean + "ly");
+      out.add(clean + "Now");
+
+      const list = Array.from(out).slice(0, 10);
+      $("names").value = list.join("\n");
+      analyze();
+    }
+
+    $("analyzeBtn").addEventListener("click", analyze);
+    $("altBtn").addEventListener("click", variations);
+    $("sampleBtn").addEventListener("click", () => {
+      $("names").value = "FlowPilot\nNexalytix\nTaskMango\nOpenAIFlow\nSprintForge";
+      analyze();
+    });
+
+    const saved = localStorage.getItem("nameStressTestInput");
+    if (saved) {
+      $("names").value = saved;
+      analyze();
+    }
+  </script>
+</body>
+</html>
