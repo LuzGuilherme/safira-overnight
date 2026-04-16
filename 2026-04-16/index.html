@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Focus Runway Planner</title>
+  <style>
+    :root{
+      --bg:#f5f5f0;--card:#fffdf8;--text:#243124;--muted:#617361;--green:#5e8b63;--mint:#dcead9;--sand:#efe3d4;--danger:#c2604d;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(145deg,#f5f5f0,#ecf1e8);font-family:Inter,system-ui,-apple-system,sans-serif;color:var(--text)}
+    .wrap{max-width:980px;margin:0 auto;padding:24px}
+    .hero{background:var(--card);border-radius:24px;padding:28px;border:1px solid #e7ebde;box-shadow:0 10px 30px rgba(51,75,51,.08)}
+    h1{margin:0 0 8px;font-size:clamp(1.6rem,4vw,2.5rem)}
+    p{margin:0;color:var(--muted);line-height:1.5}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:18px}
+    .card{background:var(--card);border:1px solid #e7ebde;border-radius:20px;padding:18px}
+    label{display:block;font-weight:600;font-size:.95rem;margin:10px 0 6px}
+    input,select{width:100%;padding:10px;border:1px solid #d5ddcf;border-radius:12px;background:#fff;color:#223}
+    .btns{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+    button{border:0;border-radius:12px;padding:11px 14px;font-weight:600;cursor:pointer}
+    .primary{background:var(--green);color:#fff}
+    .ghost{background:var(--mint);color:#1e4022}
+    .kpi{font-size:2rem;font-weight:800}
+    .ok{color:var(--green)}.warn{color:#9a7a27}.bad{color:var(--danger)}
+    ul{padding-left:18px;margin:10px 0 0}
+    .pill{display:inline-block;background:var(--sand);padding:4px 9px;border-radius:999px;font-size:.8rem;color:#6d5847;margin-top:10px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>🌿 Focus Runway Planner</h1>
+      <p>Inspirado por discussões recentes em HN/indie circles sobre founders que queimam energia antes de encontrar PMF. Esta ferramenta calcula o teu <strong>runway financeiro + runway cognitivo</strong>.</p>
+      <span class="pill">Style: Organic Soft</span>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h3>Inputs</h3>
+        <label>Poupanças disponíveis (€)</label>
+        <input id="savings" type="number" value="12000" min="0">
+
+        <label>Burn mensal total (€)</label>
+        <input id="burn" type="number" value="1400" min="1">
+
+        <label>Horas de foco por semana</label>
+        <input id="focus" type="number" value="22" min="1" max="100">
+
+        <label>Nível de stress (1-10)</label>
+        <input id="stress" type="number" value="6" min="1" max="10">
+
+        <label>Context switching diário (nº de mudanças)</label>
+        <input id="switches" type="number" value="8" min="0" max="40">
+
+        <label>Projecto fase</label>
+        <select id="phase">
+          <option value="idea">Idea Validation</option>
+          <option value="mvp" selected>MVP Build</option>
+          <option value="growth">Early Growth</option>
+        </select>
+        <div class="btns">
+          <button class="primary" onclick="calc()">Calcular</button>
+          <button class="ghost" onclick="preset()">Preset Conservador</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Resultado</h3>
+        <div id="financial" class="kpi">—</div>
+        <p>Runway financeiro</p>
+        <div id="cognitive" class="kpi" style="margin-top:10px">—</div>
+        <p>Runway cognitivo (semanas até saturação)</p>
+        <div id="verdict" class="pill" style="margin-top:12px">Preenche os dados para ver diagnóstico</div>
+      </div>
+
+      <div class="card">
+        <h3>Plano recomendado</h3>
+        <ul id="actions">
+          <li>Define os inputs e carrega em calcular.</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+
+<script>
+function clamp(v,min,max){return Math.min(Math.max(v,min),max)}
+function calc(){
+  const savings=+document.getElementById('savings').value||0
+  const burn=+document.getElementById('burn').value||1
+  const focus=+document.getElementById('focus').value||1
+  const stress=clamp(+document.getElementById('stress').value||1,1,10)
+  const switches=+document.getElementById('switches').value||0
+  const phase=document.getElementById('phase').value
+
+  const financialMonths = savings / burn
+  const phasePenalty = phase==='idea'?0.9:phase==='mvp'?1:1.15
+  const cognitiveWeeks = (focus*phasePenalty) / (0.55*stress + 0.35*(switches/2) + 0.8)
+
+  const fm = Math.max(financialMonths,0)
+  const cw = Math.max(cognitiveWeeks,0)
+
+  document.getElementById('financial').textContent = fm.toFixed(1)+' meses'
+  document.getElementById('cognitive').textContent = cw.toFixed(1)+' semanas'
+
+  const verdict = document.getElementById('verdict')
+  const actions = document.getElementById('actions')
+  let cls='ok', msg='Zona estável'
+  if(fm<5 || cw<7){cls='bad'; msg='Risco alto: cortar burn e reduzir switching já'}
+  else if(fm<8 || cw<12){cls='warn'; msg='Atenção: proteger energia e margem'}
+  verdict.className = 'pill '+cls
+  verdict.textContent = msg
+
+  const rec=[]
+  if(fm<6) rec.push('Reduzir burn em 15-25% nas próximas 2 semanas para ganhar runway.')
+  if(cw<10) rec.push('Introduzir 2 blocos deep-work por dia (90 min) sem notificações.')
+  if(stress>=7) rec.push('Agendar 1 dia/semana sem reuniões e com recuperação activa.')
+  if(switches>10) rec.push('Aplicar batching: máximo 3 contextos por dia.')
+  if(phase==='idea') rec.push('Focar em entrevistas/problema antes de adicionar features.')
+  if(phase==='growth') rec.push('Delegar suporte repetitivo para preservar foco estratégico.')
+  if(rec.length===0) rec.push('Continua o ritmo. Revê este plano semanalmente para não derivares.')
+
+  actions.innerHTML = rec.map(r=>`<li>${r}</li>`).join('')
+}
+function preset(){
+  savings.value=9000; burn.value=1250; focus.value=18; stress.value=5; switches.value=6; phase.value='idea'; calc()
+}
+calc()
+</script>
+</body>
+</html>

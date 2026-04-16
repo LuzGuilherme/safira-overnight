@@ -9,6 +9,7 @@
 
 | Data | Projecto | Categoria | Estilo |
 |------|----------|-----------|--------|
+| 2026-04-16 | Focus Runway Planner 🌿 | Founder Tools/Execution Sustainability | **Organic Soft** 🌿 |
 | 2026-04-15 | Name Stress Test 🏷️ | Founder Tools/Branding | **Bold Maximalist** 🎨 |
 | 2026-04-14 | PR Stack Architect 🧱 | DevTools/Engineering Productivity | **Swiss Minimal** 🏛️ |
 | 2026-04-13 | Portfolio Pruner ✂️ | Founder Tools/Portfolio Management | **Data Dense** 📊 |
